@@ -1,3 +1,5 @@
+# Lista bibliotek wymaganych do uruchomienia projektu
+
 Flask
 Flask-WTF
 Flask-Login
