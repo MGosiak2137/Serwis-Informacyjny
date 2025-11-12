@@ -1,0 +1,54 @@
+{% extends "nav_foot_eco.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='journey.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main journey-page">
+  <section class="journey-section">
+    <h2>Planuj podróż</h2>
+    <p class="lead">Wpisz destynację i zakres dat, aby zobaczyć podsumowanie.</p>
+
+    <form class="journey-form" method="get" action="/journey" aria-label="Formularz podróży">
+      <label>
+        Destynacja
+        <input type="text" name="destination" placeholder="np. Kraków, Paryż" value="{{ destination or '' }}">
+      </label>
+
+      <label>
+        Data od
+        <input type="date" name="date_from" value="{{ date_from or '' }}">
+      </label>
+
+      <label>
+        Data do
+        <input type="date" name="date_to" value="{{ date_to or '' }}">
+      </label>
+
+      <label class="full-width">
+        Ilość osób
+        <input type="number" name="people" min="1" value="{{ people or 1 }}">
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Szukaj</button>
+        <a href="/journey" class="btn-secondary">Wyczyść</a>
+      </div>
+    </form>
+
+    {% if destination or date_from or date_to %}
+    <aside class="journey-result" aria-live="polite">
+      <h3>Podsumowanie wyszukiwania</h3>
+      <ul>
+        <li><strong>Destynacja:</strong> {{ destination or '(nie podano)' }}</li>
+        <li><strong>Data od:</strong> {{ date_from or '(nie podano)' }}</li>
+        <li><strong>Data do:</strong> {{ date_to or '(nie podano)' }}</li>
+        <li><strong>Ilość osób:</strong> {{ people or 1 }}</li>
+      </ul>
+      <p class="muted">To tylko podsumowanie. Możesz rozbudować logikę, by wyszukiwać oferty.</p>
+    </aside>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

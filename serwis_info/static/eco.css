@@ -1,0 +1,127 @@
+/* Kolory i reset */
+:root{
+  --bg: #fff7f4;        /* bardzo jasny, lekko pomarańczowy */
+  --card: #ffffff;      /* biały */
+  --primary: #ff6a00;   /* żywy pomarańcz */
+  --accent: #ff3b30;    /* intensywny czerwony */
+  --text: #1f2937;      /* ciemny szary (czytelny) */
+  --muted: #7b7f86;     /* przygaszony szary */
+  --footer-bg: #2f2f33; /* ciemne szare tło stopki */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+
+  /* nowy: flex layout aby footer był na dole */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main demo area */
+.page-main{
+  flex: 1 1 auto;
+  max-width:1100px;
+  margin:2rem auto;
+  padding:0 1rem;
+}
+.hero{background:var(--card);padding:1.5rem;border-radius:10px;box-shadow:0 6px 20px rgba(15,17,36,0.04)}
+.hero h1{margin:0 0 0.5rem 0}
+.hero p{margin:0;color:var(--muted)}
+
+/* Header / Navbar (bez logo) */
+.site-header{
+  /* ustawione na kolor stopki */
+  background: var(--footer-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0.75rem 1rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  justify-content:center; /* centeruje kontener nav */
+}
+/* Nav links: 3 przyciski równomiernie rozłożone */
+.nav-links{
+  flex:1 1 auto;
+  width:80%;
+  max-width:900px;
+  display:flex;
+  justify-content:space-between; /* większe rozstawienie przycisków */
+  align-items:center;
+  gap:1rem;
+}
+/* Nav buttons - pomarańczowe tło, biały tekst */
+.nav-btn{
+  background: var(--primary);
+  color: #fff;
+  text-decoration:none;
+  padding:0.6rem 0.9rem;
+  font-weight:700;
+  border-radius:10px;
+  border: none;
+  box-shadow: 0 8px 18px rgba(255,106,0,0.12);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.nav-btn:hover{
+  background: linear-gradient(90deg, rgba(255,106,0,1), rgba(255,59,48,0.95));
+  color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255,59,48,0.14);
+}
+
+/* Footer: lewa połowa spacer, prawa połowa przycisk; usuń margines górny, by trzymał dół */
+.site-footer{background:var(--footer-bg);color:#fff;padding:1rem 0;margin-top:0}
+.footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 1rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+/* lewa połowa jako pusty spacer */
+.footer-left{flex:1 1 50%}
+/* prawa połowa z przyciskiem */
+.footer-right{flex:1 1 50%;display:flex;justify-content:center}
+
+/* Przycisek w stopce: gradient z pomarańczu do czerwieni, mocniejszy cień */
+.footer-btn{
+  display:inline-block;
+  width:50%;
+  max-width:480px;
+  text-align:center;
+  padding:0.65rem 1rem;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  color:white;
+  font-weight:700;
+  text-decoration:none;
+  border-radius:8px;
+  box-shadow:0 12px 30px rgba(255,106,0,0.18); /* cień dopasowany do pomarańczy */
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.footer-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 44px rgba(255,59,48,0.22); /* mocniejszy czerwony cień na hover */
+}
+
+/* Responsive: zachowaj logiczne zachowanie na mobile */
+@media (max-width:720px){
+  .nav-inner{padding:0.5rem 0.75rem;flex-direction:column;align-items:center;gap:0.5rem}
+  .nav-links{width:100%;justify-content:space-around;gap:0.5rem}
+  .footer-inner{flex-direction:column;gap:0.5rem}
+  .footer-left{width:100%;height:0} /* spacer nie zajmuje miejsca na mobile */
+  .footer-right{width:100%}
+  .footer-btn{width:100%;max-width:640px}
+  .nav-btn{padding:0.5rem 0.75rem; font-size:0.95rem}
+}

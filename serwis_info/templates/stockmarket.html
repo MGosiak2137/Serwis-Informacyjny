@@ -1,0 +1,92 @@
+{% extends "nav_foot_eco.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stockmarket.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section id="home" class="stockmarket-section">
+    <header class="sm-hero">
+      <h2>{{ title or "Giełda — przegląd rynku" }}</h2>
+      <p class="lead">Szybki przegląd indeksów, wykres i najważniejsze wiadomości.</p>
+    </header>
+
+    <div class="sm-grid">
+      <!-- Duży wykres / panel -->
+      <article class="sm-chart-card">
+        <div class="chart-header">
+          <h3>Wykres główny</h3>
+          <div class="chart-meta">Dzienny / interwał: 1h</div>
+        </div>
+
+        <!-- prosty SVG jako placeholder wykresu -->
+        <div class="chart-wrap" aria-hidden="true">
+          <svg viewBox="0 0 800 240" class="sparkline" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="rgba(255,106,0,0.9)"/>
+                <stop offset="100%" stop-color="rgba(255,59,48,0.9)"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,180 L80,150 L160,120 L240,130 L320,90 L400,110 L480,60 L560,80 L640,50 L720,70 L800,40"
+                  fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <g fill="rgba(255,59,48,0.9)">
+              <circle cx="800" cy="40" r="4"></circle>
+            </g>
+          </svg>
+        </div>
+
+        <div class="chart-footer">
+          <div class="metric">
+            <span class="m-label">Zmiana</span>
+            <span class="m-value positive">+1.28%</span>
+          </div>
+          <div class="metric">
+            <span class="m-label">Wolumen</span>
+            <span class="m-value">2.3M</span>
+          </div>
+          <div class="metric">
+            <span class="m-label">Lider</span>
+            <span class="m-value">ABC ↑</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Karty indeksów po prawej -->
+      <aside class="sm-cards">
+        {% set sample = rates or [
+             {"name":"WIG20","code":"W20","rate":"+0.54%"},
+             {"name":"S&P 500","code":"SPX","rate":"+0.73%"},
+             {"name":"DAX","code":"DAX","rate":"-0.12%"}
+           ] %}
+        {% for r in sample %}
+        <div class="index-card">
+          <div class="index-left">
+            <div class="index-code">{{ r.code }}</div>
+            <div class="index-name">{{ r.name }}</div>
+          </div>
+          <div class="index-right">
+            <div class="index-rate {% if r.rate.startswith('+') %}positive{% elif r.rate.startswith('-') %}negative{% endif %}">{{ r.rate }}</div>
+            <div class="mini-spark">
+
+              <span style="--val: {{ loop.index * 12 + 30 }}%"></span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </aside>
+    </div>
+
+    <!-- Ticker (pasek wiadomości) -->
+    <div class="sm-ticker" aria-live="polite">
+      <div class="ticker-track">
+        <div class="ticker-item">AKCJA XYZ +4.2% • Komunikat: wynik kwartalny powyżej oczekiwań</div>
+        <div class="ticker-item">EUR/PLN 4.60 • USD/PLN 4.21 • Bitcoin 48.3k</div>
+        <div class="ticker-item">Indeks WIG20 rośnie — napływ kapitału zagranicznego</div>
+      </div>
+    </div>
+
+  </section>
+</main>
+{% endblock %}

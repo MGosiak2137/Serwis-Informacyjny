@@ -1,0 +1,20 @@
+.currency-main{max-width:1100px;margin:1.5rem auto;padding:0 1rem}
+.currency-section h2{margin:0 0 1rem 0;color:var(--text)}
+.currency-container{background:transparent;border-radius:8px;padding:0}
+
+/* zapewnia przewijanie tabeli na małych ekranach */
+.currency-container{overflow:auto}
+
+/* tabela */
+.currency-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(15,17,36,0.06)}
+.currency-table thead th{padding:0.8rem 1rem;text-align:left;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;font-weight:700}
+.currency-table th, .currency-table td{padding:0.75rem 1rem;border-bottom:1px solid rgba(15,17,36,0.04)}
+.currency-table tbody tr:hover{background:rgba(255,106,0,0.04)}
+
+.muted{color:var(--muted);margin:0 0 0.75rem 0}
+
+/* responsywne dopasowanie */
+@media (max-width:720px){
+  .currency-table thead th{font-size:0.95rem}
+  .currency-table th, .currency-table td{padding:0.6rem 0.8rem}
+}
