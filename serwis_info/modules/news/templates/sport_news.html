@@ -1,0 +1,68 @@
+{% extends "nav_foot_news.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('news.static', filename='sport.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section class="news-section news-sport">
+    <h2>{{ title or "Wiadomości sportowe — Polska" }}</h2>
+    <p class="lead">Najważniejsze informacje sportowe z całej Polski.</p>
+
+    <div class="news-list">
+      {% if articles %}
+        {% for n in articles %}
+        <article class="news-card">
+          <header>
+            <h3>
+              <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+            </h3>
+            <p class="news-meta">
+              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              • {{ n.source_name or "Źródło" }}
+            </p>
+          </header>
+
+          {% if n.summary %}
+          <p class="news-summary">{{ n.summary }}</p>
+          {% endif %}
+
+          <footer class="news-footer">
+            {% if n.league or n.category %}
+            <span class="tag">
+              {{ n.league or n.category }}
+            </span>
+            {% endif %}
+            {% if n.source_url %}
+            <a href="{{ n.source_url }}" target="_blank" rel="noopener" class="btn-link">Czytaj w źródle</a>
+            {% endif %}
+            <a href="{{ url_for('news.detail', news_id=n.id) }}" class="btn-secondary">Szczegóły</a>
+          </footer>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="muted">
+          Brak danych z bazy. Poniżej przykładowe wiadomości:
+        </p>
+
+        <article class="news-card">
+          <h3>Ekstraklasa: remis w meczu na szczycie</h3>
+          <p class="news-meta">2025-01-01 20:30 • Ekstraklasa</p>
+          <p class="news-summary">
+            Spotkanie lidera z wiceliderem zakończyło się remisem 2:2 po emocjonującym widowisku.
+          </p>
+        </article>
+
+        <article class="news-card">
+          <h3>Polscy siatkarze wygrywają turniej towarzyski</h3>
+          <p class="news-meta">2025-01-02 18:00 • PZPS</p>
+          <p class="news-summary">
+            Reprezentacja Polski pokonała w finale drużynę Francji i wygrała turniej w Katowicach.
+          </p>
+        </article>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}

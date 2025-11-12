@@ -1,0 +1,103 @@
+{% extends "nav_foot_news.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('news.static', filename='search.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main search-page">
+  <section class="search-section">
+    <h2>Wyszukiwarka wiadomości</h2>
+    <p class="lead">
+      Szukaj wśród zeskrapowanych artykułów kryminalnych z Krakowa i sportowych z Polski.
+    </p>
+
+    <form class="news-search-form" method="get"
+          action="{{ url_for('news.search_results') }}"
+          aria-label="Formularz wyszukiwania wiadomości">
+      <label class="full-width">
+        Słowa kluczowe
+        <input type="text" name="q" placeholder="np. napad, Wisła Kraków" value="{{ q or '' }}" required>
+      </label>
+
+      <div class="search-row">
+        <label>
+          Kategoria
+          <select name="scope">
+            <option value="all" {{ 'selected' if scope == 'all' }}>Wszystkie</option>
+            <option value="crime" {{ 'selected' if scope == 'crime' }}>Kryminalne – Kraków</option>
+            <option value="sport" {{ 'selected' if scope == 'sport' }}>Sport – Polska</option>
+          </select>
+        </label>
+
+        <label>
+          Od daty
+          <input type="date" name="from_date" value="{{ from_date or '' }}">
+        </label>
+
+        <label>
+          Do daty
+          <input type="date" name="to_date" value="{{ to_date or '' }}">
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Szukaj</button>
+          <a href="{{ url_for('news.search') }}" class="btn-secondary">Wyczyść</a>
+        </div>
+      </div>
+    </form>
+
+    {% if results is not none %}
+    <section class="search-results" aria-live="polite">
+      <h3>Wyniki wyszukiwania</h3>
+      <p class="muted">
+        Zapytanie: <strong>{{ q }}</strong>
+        {% if scope == 'crime' %} • Tylko kryminalne z Krakowa
+        {% elif scope == 'sport' %} • Tylko sport z Polski
+        {% endif %}
+      </p>
+
+      <div class="news-list">
+        {% if results %}
+          {% for n in results %}
+          <article class="news-card">
+            <h4>
+              <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+            </h4>
+            <p class="news-meta">
+              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              • {{ n.category_label or '' }}
+            </p>
+            {% if n.summary %}
+            <p class="news-summary">{{ n.summary }}</p>
+            {% endif %}
+          </article>
+          {% endfor %}
+        {% else %}
+          <p>Brak wyników spełniających kryteria.</p>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    <aside class="search-history">
+      <h3>Historia wyszukiwania</h3>
+      <ul>
+        {% if history %}
+          {% for h in history %}
+          <li>
+            <span class="hist-query">{{ h.query }}</span>
+            <span class="hist-meta">{{ h.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+          </li>
+          {% endfor %}
+        {% else %}
+          <li class="muted">Brak zapisanej historii.</li>
+        {% endif %}
+      </ul>
+      <p class="muted">
+        Logika usuwania/edycji historii może być później dopisana (zgodnie z UML).
+      </p>
+    </aside>
+  </section>
+</main>
+{% endblock %}

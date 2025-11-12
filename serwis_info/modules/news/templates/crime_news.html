@@ -1,0 +1,63 @@
+{% extends "nav_foot_news.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('news.static', filename='crime.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section class="news-section news-crime">
+    <h2>{{ title or "Wiadomości kryminalne — Kraków" }}</h2>
+    <p class="lead">Zestawienie najnowszych informacji kryminalnych z Krakowa.</p>
+
+    <div class="news-list">
+      {% if articles %}
+        {% for n in articles %}
+        <article class="news-card">
+          <header>
+            <h3>
+              <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+            </h3>
+            <p class="news-meta">
+              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              • {{ n.source_name or "Źródło" }}
+            </p>
+          </header>
+
+          {% if n.summary %}
+          <p class="news-summary">{{ n.summary }}</p>
+          {% endif %}
+
+          <footer class="news-footer">
+            {% if n.source_url %}
+            <a href="{{ n.source_url }}" target="_blank" rel="noopener" class="btn-link">Czytaj w źródle</a>
+            {% endif %}
+            <a href="{{ url_for('news.detail', news_id=n.id) }}" class="btn-secondary">Szczegóły</a>
+          </footer>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="muted">
+          Brak danych z bazy. Poniżej przykładowe wiadomości:
+        </p>
+
+        <article class="news-card">
+          <h3>Napad na sklep w centrum Krakowa</h3>
+          <p class="news-meta">2025-01-01 12:00 • Policja Małopolska</p>
+          <p class="news-summary">
+            Policja zatrzymała podejrzanego o napad na sklep przy ul. Długiej. Trwa ustalanie szczegółów zdarzenia.
+          </p>
+        </article>
+
+        <article class="news-card">
+          <h3>Zatrzymanie grupy włamywaczy</h3>
+          <p class="news-meta">2025-01-02 08:30 • Komenda Miejska</p>
+          <p class="news-summary">
+            Funkcjonariusze CBŚP rozbili grupę odpowiedzialną za serię włamań do mieszkań na terenie Krakowa.
+          </p>
+        </article>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}
