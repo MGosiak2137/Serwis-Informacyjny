@@ -13,6 +13,51 @@
 
 .muted{color:var(--muted);margin:0 0 0.75rem 0}
 
+.currency-converter {
+  margin-top: 2rem;
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15,17,36,0.06);
+}
+
+.converter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.converter-row input,
+.converter-row select {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid rgba(15,17,36,0.1);
+  border-radius: 6px;
+  min-width: 100px;
+}
+
+.converter-row button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.converter-row button:hover {
+  background: var(--accent);
+}
+
+.converter-result {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
 /* responsywne dopasowanie */
 @media (max-width:720px){
   .currency-table thead th{font-size:0.95rem}
