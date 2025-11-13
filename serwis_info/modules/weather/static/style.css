@@ -1,0 +1,121 @@
+/* Podstawowe ustawienia */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* MAPA */
+#map {
+    height: 500px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Kontrolki */
+#controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+#controls input[type="text"] {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    flex: 1;
+}
+
+#controls button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#controls button:hover {
+    background-color: #0056b3;
+}
+
+/* Informacje pogodowe */
+#weatherInfo {
+    margin-top: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Wybór warstw */
+#layerSelector {
+    margin-left: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* LEGENDY */
+.legend-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.legend-bar {
+    height: 20px;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.legend-temp-bar { background: linear-gradient(to right, blue, yellow, red); }
+.legend-clouds-bar { background: linear-gradient(to right, #ffffff, #888888, #000000); }
+.legend-rain-bar { background: linear-gradient(to right, #e0f7fa, #00bcd4, #006064); }
+.legend-wind-bar { background: linear-gradient(to right, #fff, #0f0, #00f); }
+
+#legendContainer {
+    margin-top: 10px;
+    max-width: 400px;
+}
+
+/* PANEL UŻYTKOWNIKA */
+.panel {
+    margin-bottom: 10px;
+}
+
+.panel button {
+    margin: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    transition: background 0.2s;
+}
+
+.panel button:hover {
+    background-color: #e0e0e0;
+}
+
+.panel .hidden {
+    display: none;
+}
+
+/* Dodatkowe klasy */
+button.danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+.history-section {
+    margin-top: 10px;
+}
+
