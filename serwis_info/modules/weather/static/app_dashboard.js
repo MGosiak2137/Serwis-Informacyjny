@@ -38,10 +38,40 @@ function switchLayer(name) {
   }
 }
 
-document.querySelectorAll('input[name="weatherLayer"]').forEach(radio => {
-  radio.addEventListener('change', e => switchLayer(e.target.value));
+
+// Funkcja aktualizująca warstwy na mapie
+function updateLayers() {
+  // Usuń wszystkie aktualne warstwy pogodowe
+  Object.values(layers).forEach(layer => map.removeLayer(layer));
+
+  // Dodaj zaznaczone
+  const checked = Array.from(document.querySelectorAll('input[name="weatherLayer"]:checked'));
+  checked.forEach(chk => {
+    const layer = layers[chk.value];
+    if (layer) map.addLayer(layer);
+  });
+
+  // Zaktualizuj legendy
+  const legendContainer = document.getElementById("legendContainer");
+  legendContainer.innerHTML = "";
+  checked.forEach(chk => {
+    legendContainer.innerHTML += legends[chk.value] + "<br/>";
+  });
+}
+
+// Zmieniamy radio → checkbox
+document.getElementById("layerSelector").innerHTML = `
+  <label><input type="checkbox" name="weatherLayer" value="temp"> Temperatura</label>
+  <label><input type="checkbox" name="weatherLayer" value="rain"> Opady</label>
+  <label><input type="checkbox" name="weatherLayer" value="clouds"> Zachmurzenie</label>
+  <label><input type="checkbox" name="weatherLayer" value="wind"> Wiatr</label>
+`;
+
+document.querySelectorAll('input[name="weatherLayer"]').forEach(chk => {
+  chk.addEventListener('change', updateLayers);
 });
-switchLayer("none");
+
+updateLayers(); // start bez warstw
 
 // ---------------- HISTORIA ----------------
 async function loadHistory() {
