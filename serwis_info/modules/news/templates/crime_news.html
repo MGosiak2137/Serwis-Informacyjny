@@ -1,4 +1,4 @@
-{% extends "nav_foot_news.html" %}
+{% extends "nav_footnews.html" %}
 
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('news.static', filename='crime.css') }}">
@@ -37,25 +37,7 @@
         </article>
         {% endfor %}
       {% else %}
-        <p class="muted">
-          Brak danych z bazy. Poniżej przykładowe wiadomości:
-        </p>
-
-        <article class="news-card">
-          <h3>Napad na sklep w centrum Krakowa</h3>
-          <p class="news-meta">2025-01-01 12:00 • Policja Małopolska</p>
-          <p class="news-summary">
-            Policja zatrzymała podejrzanego o napad na sklep przy ul. Długiej. Trwa ustalanie szczegółów zdarzenia.
-          </p>
-        </article>
-
-        <article class="news-card">
-          <h3>Zatrzymanie grupy włamywaczy</h3>
-          <p class="news-meta">2025-01-02 08:30 • Komenda Miejska</p>
-          <p class="news-summary">
-            Funkcjonariusze CBŚP rozbili grupę odpowiedzialną za serię włamań do mieszkań na terenie Krakowa.
-          </p>
-        </article>
+        <p class="muted">Brak artykułów.</p>
       {% endif %}
     </div>
   </section>

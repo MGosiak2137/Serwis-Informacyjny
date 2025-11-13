@@ -1,0 +1,48 @@
+{% extends "nav_footnews.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('news.static', filename='sport_scraped.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section class="news-section news-sport-scraped">
+    <h2>{{ title or "Wiadomości sportowe — Przegląd Sportowy" }}</h2>
+    <p class="lead">Najnowsze wiadomości sportowe zebrane z Przeglądu Sportowego.</p>
+
+    <div class="news-list">
+      {% if articles %}
+        {% for n in articles %}
+        <article class="news-card">
+          <header>
+            <h3>
+              <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+            </h3>
+            <p class="news-meta">
+              {{ n.published_at.strftime("%d.%m.%Y o %H:%M") if n.published_at else "Brak daty" }}
+              • {{ n.source_name or "Sport" }}
+            </p>
+          </header>
+
+          {% if n.summary %}
+          <p class="news-summary">{{ n.summary }}</p>
+          {% endif %}
+
+          <footer class="news-footer">
+            {% if n.league %}
+            <span class="tag sport-tag">{{ n.league }}</span>
+            {% endif %}
+            {% if n.source_url %}
+            <a href="{{ n.source_url }}" target="_blank" rel="noopener noreferrer" class="btn-link">Czytaj w źródle</a>
+            {% endif %}
+            <a href="{{ url_for('news.detail', news_id=n.id) }}" class="btn-secondary">Szczegóły</a>
+          </footer>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Brak artykułów.</p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}

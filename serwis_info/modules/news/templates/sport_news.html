@@ -1,4 +1,4 @@
-{% extends "nav_foot_news.html" %}
+{% extends "nav_footnews.html" %}
 
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('news.static', filename='sport.css') }}">
@@ -42,25 +42,7 @@
         </article>
         {% endfor %}
       {% else %}
-        <p class="muted">
-          Brak danych z bazy. Poniżej przykładowe wiadomości:
-        </p>
-
-        <article class="news-card">
-          <h3>Ekstraklasa: remis w meczu na szczycie</h3>
-          <p class="news-meta">2025-01-01 20:30 • Ekstraklasa</p>
-          <p class="news-summary">
-            Spotkanie lidera z wiceliderem zakończyło się remisem 2:2 po emocjonującym widowisku.
-          </p>
-        </article>
-
-        <article class="news-card">
-          <h3>Polscy siatkarze wygrywają turniej towarzyski</h3>
-          <p class="news-meta">2025-01-02 18:00 • PZPS</p>
-          <p class="news-summary">
-            Reprezentacja Polski pokonała w finale drużynę Francji i wygrała turniej w Katowicach.
-          </p>
-        </article>
+        <p class="muted">Brak artykułów.</p>
       {% endif %}
     </div>
   </section>

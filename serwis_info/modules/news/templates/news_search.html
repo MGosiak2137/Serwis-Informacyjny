@@ -1,4 +1,4 @@
-{% extends "nav_foot_news.html" %}
+{% extends "nav_footnews.html" %}
 
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('news.static', filename='search.css') }}">
@@ -74,7 +74,7 @@
           </article>
           {% endfor %}
         {% else %}
-          <p>Brak wyników spełniających kryteria.</p>
+          <p>Brak wyników.</p>
         {% endif %}
       </div>
     </section>
