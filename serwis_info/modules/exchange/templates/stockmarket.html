@@ -2,6 +2,7 @@
 
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='stockmarket.css') }}">
+<script src="{{ url_for('currencies.static', filename='script.js') }}"></script>
 {% endblock %}
 
 {% block main %}
@@ -10,80 +11,183 @@
     <header class="sm-hero">
       <h2>{{ title or "Giełda — przegląd rynku" }}</h2>
       <p class="lead">Szybki przegląd indeksów, wykres i najważniejsze wiadomości.</p>
+      <p style="font-size: 0.9em; color: #666;">Ostatnia aktualizacja: {{ update_time or 'n/d' }} (odświeżanie co 60 sekund)</p>
     </header>
 
     <div class="sm-grid">
-      <!-- Duży wykres / panel -->
-      <article class="sm-chart-card">
-        <div class="chart-header">
-          <h3>Wykres główny</h3>
-          <div class="chart-meta">Dzienny / interwał: 1h</div>
-        </div>
-
-        <!-- prosty SVG jako placeholder wykresu -->
-        <div class="chart-wrap" aria-hidden="true">
-          <svg viewBox="0 0 800 240" class="sparkline" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0%" stop-color="rgba(255,106,0,0.9)"/>
-                <stop offset="100%" stop-color="rgba(255,59,48,0.9)"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,180 L80,150 L160,120 L240,130 L320,90 L400,110 L480,60 L560,80 L640,50 L720,70 L800,40"
-                  fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <g fill="rgba(255,59,48,0.9)">
-              <circle cx="800" cy="40" r="4"></circle>
-            </g>
-          </svg>
-        </div>
-
-        <div class="chart-footer">
-          <div class="metric">
-            <span class="m-label">Zmiana</span>
-            <span class="m-value positive">+1.28%</span>
-          </div>
-          <div class="metric">
-            <span class="m-label">Wolumen</span>
-            <span class="m-value">2.3M</span>
-          </div>
-          <div class="metric">
-            <span class="m-label">Lider</span>
-            <span class="m-value">ABC ↑</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Karty indeksów po prawej -->
+      <!-- Karty indeksów (klikalne) - pogrupowane po kategorii -->
       <aside class="sm-cards">
-        {% set sample = rates or [
-             {"name":"WIG20","code":"W20","rate":"+0.54%"},
-             {"name":"S&P 500","code":"SPX","rate":"+0.73%"},
-             {"name":"DAX","code":"DAX","rate":"-0.12%"}
-           ] %}
-        {% for r in sample %}
-        <div class="index-card">
-          <div class="index-left">
-            <div class="index-code">{{ r.code }}</div>
-            <div class="index-name">{{ r.name }}</div>
-          </div>
-          <div class="index-right">
-            <div class="index-rate {% if r.rate.startswith('+') %}positive{% elif r.rate.startswith('-') %}negative{% endif %}">{{ r.rate }}</div>
-            <div class="mini-spark">
-
-              <span style="--val: {{ loop.index * 12 + 30 }}%"></span>
+        {% set current_category = "" %}
+        {% for r in rates %}
+          {% if r.category != current_category %}
+            {% if current_category != "" %}</div>{% endif %}
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #ddd;">
+              <h4 style="margin: 0 0 0.75rem 0; font-size: 0.95rem; color: #666;">{{ r.category }}</h4>
+            </div>
+            {% set current_category = r.category %}
+          {% endif %}
+          
+          <div class="index-card" onclick="toggleChart('{{ r.symbol }}')" role="button" tabindex="0">
+            <div class="index-left">
+              <div class="index-code">{{ r.code }}</div>
+              <div class="index-name">{{ r.name }}</div>
+            </div>
+            <div class="index-right">
+              <div class="index-rate {% if r.rate.startswith('+') %}positive{% elif r.rate.startswith('-') %}negative{% endif %}">{{ r.rate }}</div>
+              <div class="market-badge {% if r.is_open %}open{% else %}closed{% endif %}">
+                {{ "OTWARTA" if r.is_open else "ZAMKNIĘTA" }}
+              </div>
             </div>
           </div>
-        </div>
         {% endfor %}
+        </div>
       </aside>
     </div>
+
+    <!-- Wykresy historyczne (ukryte domyślnie) -->
+    {% if historical_data %}
+    <div class="charts-section" style="margin-top: 2rem;">
+      <!-- Przyciski wyboru zakresu czasowego -->
+      <div class="range-buttons">
+        <a href="/stockmarket?range=1d" class="range-btn {% if current_range == '1d' %}active{% endif %}">Ostatni dzień</a>
+        <a href="/stockmarket?range=5d" class="range-btn {% if current_range == '5d' %}active{% endif %}">Ostatni tydzień</a>
+        <a href="/stockmarket?range=1mo" class="range-btn {% if current_range == '1mo' %}active{% endif %}">Ostatni miesiąc</a>
+        <a href="/stockmarket?range=1y" class="range-btn {% if current_range == '1y' %}active{% endif %}">Ostatni rok</a>
+      </div>
+
+      {% for symbol, chart_info in historical_data.items() %}
+      {% if chart_info.data %}
+      <div class="chart-container" id="chart-{{ symbol }}" style="display: none;">
+        {% set currency = "" %}
+        {% for r in rates %}
+          {% if r.symbol == symbol %}
+            {% set currency = r.currency %}
+          {% endif %}
+        {% endfor %}
+        
+        <h4>{{ symbol }} — Wykres historyczny</h4>
+        <div style="position: relative; margin-top: 1rem;">
+          <svg viewBox="0 0 1100 400" preserveAspectRatio="none" style="width: 100%; height: 350px; border: 1px solid #eee;">
+            <defs>
+              <linearGradient id="grad-{{ symbol }}" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="rgba(0,123,255,0.3)"/>
+                <stop offset="100%" stop-color="rgba(0,123,255,0.05)"/>
+              </linearGradient>
+            </defs>
+            
+            <!-- Tło siatki -->
+            <g stroke="#e0e0e0" stroke-width="0.5">
+              {% for i in range(0, 11) %}
+              <line x1="80" y1="{{ i * 35 }}" x2="1100" y2="{{ i * 35 }}" />
+              {% endfor %}
+              {% for i in range(0, 11) %}
+              <line x1="{{ 80 + (i * 102) }}" y1="0" x2="{{ 80 + (i * 102) }}" y2="350" />
+              {% endfor %}
+            </g>
+            
+            <!-- Osie -->
+            <line x1="80" y1="350" x2="1100" y2="350" stroke="#333" stroke-width="2" />
+            <line x1="80" y1="0" x2="80" y2="350" stroke="#333" stroke-width="2" />
+            
+            <!-- Etykiety osi Y (cena z walutą) -->
+            <g font-size="11" fill="#666" text-anchor="end">
+              {% set price_range = chart_info.max - chart_info.min %}
+              {% for i in range(0, 11) %}
+              {% set price = chart_info.min + (price_range * (10 - i) / 10) %}
+              <text x="75" y="{{ i * 35 + 5 }}">{{ "%.2f" % price }} {{ currency }}</text>
+              {% endfor %}
+            </g>
+            
+            <!-- Etykiety osi X (daty) -->
+            <g font-size="10" fill="#666" text-anchor="middle">
+              {% if chart_info.data|length > 0 %}
+                {% set step = (chart_info.data|length / 10) | int %}
+                {% if step < 1 %}{% set step = 1 %}{% endif %}
+                {% for i in range(0, chart_info.data|length, step) %}
+                  {% set x_pos = 80 + ((i / (chart_info.data|length - 1)) * 1020) if chart_info.data|length > 1 else 590 %}
+                  <text x="{{ x_pos }}" y="370">{{ chart_info.data[i].date[-5:] }}</text>
+                {% endfor %}
+              {% endif %}
+            </g>
+            
+            <!-- Linia wykresu -->
+            {% if chart_info.min != chart_info.max %}
+            {% set price_range = chart_info.max - chart_info.min %}
+            <polyline points="
+              {%- for row in chart_info.data -%}
+              {{ 80 + (loop.index0 / (chart_info.data|length - 1)) * 1020 if chart_info.data|length > 1 else 590 }},{{ 350 - ((row.close - chart_info.min) / price_range * 350) }}{{ " " if not loop.last else "" }}
+              {%- endfor -%}
+            " fill="none" stroke="#007bff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            {% endif %}
+            
+            <!-- Punkty na wykresie (co N-ty punkt) -->
+            {% if chart_info.data|length > 0 %}
+              {% set point_step = ((chart_info.data|length / 15) | int) %}
+              {% if point_step < 1 %}{% set point_step = 1 %}{% endif %}
+              {% for i in range(0, chart_info.data|length, point_step) %}
+                {% set row = chart_info.data[i] %}
+                {% if chart_info.min != chart_info.max %}
+                  {% set price_range = chart_info.max - chart_info.min %}
+                  {% set x = 80 + (i / (chart_info.data|length - 1)) * 1020 if chart_info.data|length > 1 else 590 %}
+                  {% set y = 350 - ((row.close - chart_info.min) / price_range * 350) %}
+                  <circle cx="{{ x }}" cy="{{ y }}" r="3" fill="#007bff" opacity="0.7" />
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </svg>
+        </div>
+        <div style="font-size: 0.85em; color: #666; margin-top: 0.5rem;">
+          Min: {{ "%.2f" % chart_info.min }} {{ currency }} | Max: {{ "%.2f" % chart_info.max }} {{ currency }} | Punktów danych: {{ chart_info.data|length }}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Dane intraday (ukryte domyślnie) -->
+    {% if intraday_data %}
+    <div class="intraday-section" style="margin-top: 2rem;" id="intraday-section">
+      {% for symbol, data_list in intraday_data.items() %}
+      <article style="margin-bottom: 1.5rem; border: 1px solid #ddd; padding: 1rem; border-radius: 4px; display: none;" id="intraday-{{ symbol }}">
+        <h4>{{ symbol }} — Dane intraday (ostatnie 5 interwałów, 5 min)</h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+          <thead>
+            <tr style="background: #f5f5f5;">
+              <th style="padding: 0.5rem; text-align: left;">Godzina</th>
+              <th style="padding: 0.5rem; text-align: right;">Open</th>
+              <th style="padding: 0.5rem; text-align: right;">High</th>
+              <th style="padding: 0.5rem; text-align: right;">Low</th>
+              <th style="padding: 0.5rem; text-align: right;">Close</th>
+              <th style="padding: 0.5rem; text-align: right;">Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data_list %}
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 0.5rem;">{{ row.time }}</td>
+              <td style="padding: 0.5rem; text-align: right;">{{ row.open }}</td>
+              <td style="padding: 0.5rem; text-align: right;">{{ row.high }}</td>
+              <td style="padding: 0.5rem; text-align: right;">{{ row.low }}</td>
+              <td style="padding: 0.5rem; text-align: right; font-weight: bold;">{{ row.close }}</td>
+              <td style="padding: 0.5rem; text-align: right;">{{ row.volume }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Ticker (pasek wiadomości) -->
     <div class="sm-ticker" aria-live="polite">
       <div class="ticker-track">
-        <div class="ticker-item">AKCJA XYZ +4.2% • Komunikat: wynik kwartalny powyżej oczekiwań</div>
-        <div class="ticker-item">EUR/PLN 4.60 • USD/PLN 4.21 • Bitcoin 48.3k</div>
-        <div class="ticker-item">Indeks WIG20 rośnie — napływ kapitału zagranicznego</div>
+        <div class="ticker-item">Bitcoin rośnie • Ethereum w trendzie • Złoto stabilne</div>
+        <div class="ticker-item">Indeksy giełdowe rosną • S&P 500 powyżej oczekiwań</div>
+        <div class="ticker-item">Ropa WTI wyżej • Inwestorzy optymistyczni • Surowce na fali</div>
+        <div class="ticker-item">Kryptowaluty dostępne 24/7 • Zarabiaj non-stop • Brak przerw</div>
+        <div class="ticker-item">Gaz naturalny wzrasta • Srebro w trendzie wzrostowym • Pamiętaj o ryzyku</div>
       </div>
     </div>
 

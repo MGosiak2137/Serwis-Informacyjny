@@ -55,6 +55,7 @@
   box-shadow: 0 8px 18px rgba(15,17,36,0.12);
   transition:transform .12s ease, box-shadow .12s ease;
   border: 1px solid rgba(255,255,255,0.03);
+  cursor: pointer;
 }
 .index-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(15,17,36,0.16)}
 .index-left{display:flex;flex-direction:column}
@@ -71,11 +72,78 @@
 
 /* Ticker */
 .sm-ticker{background:linear-gradient(90deg, rgba(31,40,50,1), rgba(47,47,51,1));color:#fff;padding:0.5rem 0;border-radius:8px;overflow:hidden;margin-top:0.5rem}
-.ticker-track{display:flex;gap:2rem;padding-left:100%;animation:scroll 18s linear infinite}
-.ticker-item{white-space:nowrap;color:rgba(255,255,255,0.9);padding-right:2rem;font-weight:600;font-size:0.95rem}
+.ticker-track{display:flex;gap:2rem;animation:scroll 30s linear infinite;white-space:nowrap}
+.ticker-item{color:rgba(255,255,255,0.9);padding-right:2rem;font-weight:600;font-size:0.95rem;flex-shrink:0}
 @keyframes scroll{
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
+}
+
+/* Market status badge */
+.market-status {
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+.market-status.open {
+  background: #d4edda;
+  color: #155724;
+}
+.market-status.closed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Range selection buttons */
+.range-buttons {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.range-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f9f9f9;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.range-btn:hover {
+  background: #f0f0f0;
+}
+.range-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Chart container */
+.chart-container {
+  margin-top: 1.5rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* Market badge w karcie */
+.market-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.market-badge.open {
+  background: #90EE90;
+  color: #1a5a1a;
+}
+.market-badge.closed {
+  background: #FFB6C6;
+  color: #661a1a;
 }
 
 /* Mobile: single column */
