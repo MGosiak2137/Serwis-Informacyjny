@@ -57,7 +57,22 @@ def crime_list():
 
 @news_bp.get("/sport")
 def sport_list():
-    articles = [a for a in _sample_articles() if a.get("category") == "sport"]
+    # 1. Spróbuj wczytać zeskrapowane newsy sportowe z pliku JSON
+    scraped = _load_scraped_sports()
+
+    # 2. Fallback – jeśli nie ma pliku albo jest pusty, dorzuć przykładowe
+    if scraped:
+        articles = scraped
+    else:
+        articles = [a for a in _sample_articles() if a.get("category") == "sport"]
+
+    # 3. (opcjonalnie) posortuj po dacie malejąco, jeśli chcesz nowsze na górze
+    articles = sorted(
+        articles,
+        key=lambda a: a.get("published_at") or datetime.min,
+        reverse=True,
+    )
+
     return render_template("sport_news.html", articles=articles)
 
 
@@ -74,7 +89,7 @@ def search_results():
     to_date = request.args.get("to_date")
 
 
-    
+
 
     # very small in-memory filter over sample articles
     articles = _sample_articles()
