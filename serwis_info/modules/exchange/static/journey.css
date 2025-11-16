@@ -40,6 +40,22 @@
 .journey-result{margin-top:1rem;background:rgba(255,255,255,0.98);padding:0.9rem;border-radius:8px;border:1px solid rgba(15,17,36,0.04)}
 .journey-result ul{margin:0;padding-left:1rem}
 .journey-result .muted{color:var(--muted);font-size:0.95rem}
+.flights-list {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.flights-list li {
+  background: white;
+  border-radius: 8px;
+  padding: 0.6rem;
+  border: 1px solid rgba(15,17,36,0.06);
+  box-shadow: 0 4px 14px rgba(15,17,36,0.04);
+  font-size: 0.95rem;
+}
 
 /* responsive */
 @media (max-width:720px){
