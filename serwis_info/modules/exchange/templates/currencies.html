@@ -1,0 +1,74 @@
+{% extends "nav_foot_eco.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('currencies.static', filename='currencies.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section id="home" class="currency-section">
+    <h2>{{ title or "Kursy walut" }}</h2>
+
+    <div class="currency-container">
+      {% if rates %}
+      <table class="currency-table" aria-label="Kursy walut">
+        <thead>
+          <tr><th>Waluta</th><th>Kod</th><th>Kurs</th></tr>
+        </thead>
+        <tbody>
+          {% for r in rates %}
+          <tr>
+            <td>{{ r.name }}</td>
+            <td>{{ r.code }}</td>
+            <td>{{ r.rate }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="muted">Brak dostępnych danych. Poniżej przykładowe kursy:</p>
+      <table class="currency-table" aria-hidden="true">
+        <thead><tr><th>Waluta</th><th>Kod</th><th>Kurs</th></tr></thead>
+        <tbody>
+          <tr><td>Dolar</td><td>USD</td><td>4.21</td></tr>
+          <tr><td>Euro</td><td>EUR</td><td>4.60</td></tr>
+          <tr><td>Funt</td><td>GBP</td><td>5.31</td></tr>
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+
+    <!-- 🔽 Formularz konwersji -->
+    <div class="currency-converter">
+      <h3>Przelicz walutę</h3>
+      <form method="post" action="{{ url_for('currencies.convert') }}">
+        <div class="converter-row">
+          <input type="number" name="amount" step="0.01" placeholder="Kwota" required>
+          <select name="from_currency" required>
+            <option value="PLN">PLN</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CHF">CHF</option>
+          </select>
+          <span>➡️</span>
+          <select name="to_currency" required>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="PLN">PLN</option>
+            <option value="CHF">CHF</option>
+          </select>
+          <button type="submit">Konwertuj</button>
+        </div>
+      </form>
+
+      {% if converted %}
+      <p class="converter-result">
+        💱 {{ amount }} {{ from_currency }} = <strong>{{ converted }} {{ to_currency }}</strong>
+      </p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}
