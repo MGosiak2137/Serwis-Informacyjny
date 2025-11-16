@@ -1,8 +1,6 @@
 {% extends "nav_footnews.html" %}
 
-{% block header %}
-<link rel="stylesheet" href="{{ url_for('news.static', filename='crime.css') }}">
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block main %}
 <main class="page-main">
@@ -29,9 +27,6 @@
           {% endif %}
 
           <footer class="news-footer">
-            {% if n.source_url %}
-            <a href="{{ n.source_url }}" target="_blank" rel="noopener" class="btn-link">Czytaj w źródle</a>
-            {% endif %}
             <a href="{{ url_for('news.detail', news_id=n.id) }}" class="btn-secondary">Szczegóły</a>
           </footer>
         </article>

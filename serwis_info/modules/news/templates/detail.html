@@ -1,8 +1,6 @@
 {% extends "nav_footnews.html" %}
 
-{% block header %}
-<link rel="stylesheet" href="{{ url_for('news.static', filename='detail.css') }}">
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block main %}
 <main class="page-main detail-page">
@@ -33,11 +31,6 @@
     </div>
 
     <footer class="detail-footer">
-      {% if article.source_url %}
-      <a href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        Czytaj w źródle
-      </a>
-      {% endif %}
       <a href="{{ request.referrer or url_for('news.search') }}" class="btn-secondary">Wróć</a>
     </footer>
     {% else %}
