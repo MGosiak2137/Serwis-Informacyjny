@@ -1,50 +1,57 @@
-<!DOCTYPE html>
-<html lang="pl">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Moduł newsowy — demo</title>
-
-  
-  <link rel="stylesheet" href="{{ url_for('news.static', filename='news.css') }}">
-  {% block header %}{% endblock %}
-</head>
-
-<body>
-
-  <header class="site-header">
-    <div class="nav-inner">
-      <nav class="nav-links" aria-label="Nawigacja newsów">
-       
-        <a href="{{ url_for('news.crime_list') }}" class="nav-btn">Kryminalne – Kraków</a>
-        <a href="{{ url_for('news.sport_list') }}" class="nav-btn">Sport – Polska</a>
-        <a href="{{ url_for('news.search') }}" class="nav-btn">Wyszukiwarka</a>
-      </nav>
-    </div>
-  </header>
-
   {% block main %}
   <main class="page-main">
     <section class="hero">
       <h1>Moduł newsowy</h1>
-      <p>Wybierz kategorię lub przejdź do wyszukiwarki, aby przeglądać wiadomości.</p>
+      <p>Wybierz kategorię wiadomości lub przejdź do wyszukiwarki.</p>
+
+      <!-- Kafelki wyboru typu newsów -->
+      <div class="home-tiles">
+        <a href="{{ url_for('news.crime_list') }}" class="home-tile home-tile-crime">
+          <div class="home-tile-header">
+            <h2>Kryminalne – Kraków</h2>
+            <p>Napady, zatrzymania, komunikaty policji i służb.</p>
+          </div>
+
+          <!-- miejsce na przyszłe scrapowane newsy -->
+          <div class="home-tile-news-slot">
+            <!-- PRZYSZŁOŚĆ:
+            <ul>
+              {% for n in crime_preview %}
+                <li>{{ n.title }}</li>
+              {% endfor %}
+            </ul>
+            -->
+            <p class="home-tile-placeholder">
+              Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
+            </p>
+          </div>
+
+          <span class="home-tile-cta">Przejdź do listy artykułów</span>
+        </a>
+
+        <a href="{{ url_for('news.sport_list') }}" class="home-tile home-tile-sport">
+          <div class="home-tile-header">
+            <h2>Sport – Polska</h2>
+            <p>Ekstraklasa, kadra, żużel i inne wydarzenia sportowe.</p>
+          </div>
+
+          <!-- miejsce na przyszłe scrapowane newsy -->
+          <div class="home-tile-news-slot">
+            <!-- PRZYSZŁOŚĆ:
+            <ul>
+              {% for n in sport_preview %}
+                <li>{{ n.title }}</li>
+              {% endfor %}
+            </ul>
+            -->
+            <p class="home-tile-placeholder">
+              Wkrótce: ostatnie zeskrapowane wiadomości sportowe.
+            </p>
+          </div>
+
+          <span class="home-tile-cta">Przejdź do listy artykułów</span>
+        </a>
+      </div>
     </section>
   </main>
   {% endblock %}
-
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <div class="footer-left"></div>
-      <div class="footer-right">
-        <a href="/" target="_blank" rel="noopener noreferrer"
-           class="footer-btn">
-          {{ footer_text or 'Przejdź do portalu' }}
-        </a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>

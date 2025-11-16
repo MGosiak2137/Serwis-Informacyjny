@@ -45,6 +45,9 @@ def _sample_history():
         {"query": "Wisła", "created_at": datetime.utcnow()},
     ]
 
+@news_bp.get("/")
+def news_home():
+    return render_template("nav_footnews.html")
 
 @news_bp.get("/crime")
 def crime_list():
@@ -70,6 +73,9 @@ def search_results():
     scope = request.args.get("scope", "all")
     from_date = request.args.get("from_date")
     to_date = request.args.get("to_date")
+
+
+    
 
     # very small in-memory filter over sample articles
     articles = _sample_articles()
