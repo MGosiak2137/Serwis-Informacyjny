@@ -8,10 +8,12 @@
     <h2>{{ title or "Wiadomości sportowe — Przegląd Sportowy" }}</h2>
     <p class="lead">Najnowsze wiadomości sportowe zebrane z Przeglądu Sportowego.</p>
 
-    <div class="news-list">
-      {% if articles %}
+    {% if articles %}
+    <!-- JEDEN DUŻY PROSTOKĄT: jedna karta, w środku wiele wierszy -->
+    <div class="news-list news-list-scraped">
+      <div class="news-card news-card-scraped">
         {% for n in articles %}
-        <article class="news-card">
+        <article class="scraped-row">
           <header>
             <h3>
               <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
@@ -34,10 +36,11 @@
           </footer>
         </article>
         {% endfor %}
-      {% else %}
-        <p class="muted">Brak artykułów.</p>
-      {% endif %}
+      </div>
     </div>
+    {% else %}
+      <p class="muted">Brak artykułów.</p>
+    {% endif %}
   </section>
 </main>
 {% endblock %}

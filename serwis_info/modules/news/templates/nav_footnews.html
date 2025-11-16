@@ -15,10 +15,23 @@
   <header class="site-header">
     <div class="nav-inner">
       <nav class="nav-links" aria-label="Nawigacja newsów">
-        <a href="{{ url_for('news.crime_list') }}" class="nav-btn">Kryminalne – Kraków</a>
-        <a href="{{ url_for('news.sport_list') }}" class="nav-btn">Sport – Polska</a>
-        <a href="{{ url_for('news.search') }}" class="nav-btn">Wyszukiwarka</a>
-      </nav>
+
+  <!-- NOWOŚĆ: powrót do strony głównej newsów -->
+  <a href="{{ url_for('news.news_home') }}" class="nav-btn nav-btn-home">
+    Strona główna
+  </a>
+
+  <a href="{{ url_for('news.crime_list') }}" class="nav-btn">Kryminalne – Kraków</a>
+  <a href="{{ url_for('news.sport_list') }}" class="nav-btn">Sport – Polska</a>
+  <a href="{{ url_for('news.search') }}" class="nav-btn">Wyszukiwarka</a>
+
+  <!-- NOWOŚĆ: przycisk logowania -->
+  <a href="/login" class="nav-btn nav-btn-login">
+    Logowanie
+  </a>
+
+</nav>
+
     </div>
   </header>
 

@@ -64,8 +64,7 @@ def sport_list():
 @news_bp.get("/search")
 def search():
     history = _sample_history()
-    return render_template("news_search.html", results=None, history=history)
-
+    return render_template( "news_search.html", results=None, history=history,q="",scope="all",from_date="",to_date="", )
 
 @news_bp.get("/search/results")
 def search_results():
