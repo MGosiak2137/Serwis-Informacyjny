@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: var(--bs-link-color); /* kolor zgodny z Bootstrap */
+  color: var(--bs-link-color); 
   text-decoration: none;
   font-size: 1.4rem;
 }
@@ -51,7 +51,6 @@
 /*  WIDOK MOBILNY — navbar na dole ekranu */
 @media (max-width: 768px) {
 
-  /* Ukrywamy brand (globus + tekst) na mobile */
   nav.main-navbar .navbar-brand {
     display: none !important;
   }
