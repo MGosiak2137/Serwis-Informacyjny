@@ -19,3 +19,10 @@ def register_user_routes(bp):
         user_id = get_user_id(username)
         city = get_default_city(user_id)
         return jsonify({"default_city": city})
+    
+        # -------- DELETE: usuń domyślne miasto ----------
+    @bp.route('/api/default_city/<username>', methods=['DELETE'])
+    def delete_default(username):
+        user_id = get_user_id(username)
+        clear_default_city(user_id)
+        return jsonify({"message": "Domyślne miasto usunięte"})
