@@ -6,3 +6,4 @@ Flask-Login
 python-dotenv
 requests
 holidays
+yfinance
