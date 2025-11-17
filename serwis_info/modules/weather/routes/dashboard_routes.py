@@ -1,14 +1,8 @@
-from flask import render_template, Blueprint
+from flask import render_template
 
-dashboards_bp = Blueprint(
-    "dashboards",
-    __name__,
-    url_prefix="/dashboards",
-    template_folder="../templates",
-    static_folder="../static"
-)
+def register_dashboard_routes(bp):
 
-
-@dashboards_bp.route('/dashboard')
-def dashboard_page():
-    return render_template('dashboard.html')
+    @bp.route('/')
+    @bp.route('/dashboard')
+    def dashboard_page():
+        return render_template('dashboard.html')
