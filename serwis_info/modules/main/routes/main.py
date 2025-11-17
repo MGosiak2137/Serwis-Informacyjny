@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
+
 
 main_bp = Blueprint(
     "main",
@@ -9,6 +10,13 @@ main_bp = Blueprint(
 )
 
 
-@main_bp.route("/",  methods=["GET"])
+@main_bp.route("/")
 def index():
     return render_template("index.html", body_class="home-page")
+
+@main_bp.route("/api/calendar")
+def get_calendar():
+    from serwis_info.modules.main.routes import calendar_service
+    data = calendar_service.get_calendar_data()
+    return jsonify(data)
+    

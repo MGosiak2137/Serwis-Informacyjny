@@ -11,7 +11,7 @@ def create_app():
     from serwis_info.modules.exchange.routes.stockmarket import stockmarket_bp
     from serwis_info.modules.exchange.routes.journey import journey_bp    
 
-    from serwis_info.modules.calendar.routes.calendar_routes import calendar_bp
+    from serwis_info.modules.calendar.routes.horoscope_routes import horoscope_bp
 
     app.secret_key = "moja"
     app.register_blueprint(main_bp)
@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(currencies_bp)
     app.register_blueprint(stockmarket_bp)
     app.register_blueprint(journey_bp)
-    app.register_blueprint(calendar_bp)   
+    app.register_blueprint(horoscope_bp)   
 
     
     @app.route("/")
