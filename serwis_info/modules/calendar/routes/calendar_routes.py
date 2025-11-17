@@ -10,8 +10,8 @@ calendar_bp = Blueprint(
     "calendar",
     __name__,
     url_prefix="/calendar",
-    template_folder=calendar_templates_dir,  # ← Ścieżka do templates kalendarza
-    static_folder=calendar_static_dir        # ← Ścieżka do static kalendarza
+    template_folder=calendar_templates_dir,  
+    static_folder=calendar_static_dir        
 )
 
 @calendar_bp.route("/")

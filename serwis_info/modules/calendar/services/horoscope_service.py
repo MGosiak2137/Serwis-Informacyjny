@@ -1,15 +1,4 @@
-from flask import Blueprint, render_template, request
 import requests
-
-horoscope_bp = Blueprint(
-    "horoscope",
-    __name__,
-    url_prefix="/horoscope",
-    template_folder="../templates",
-    static_folder="../static"
-)
-
-
 
 zodiac_mapping = {
     "baran": "aries",
@@ -62,7 +51,6 @@ def translate_to_polish(text: str) -> str:
         print(f"Błąd tłumaczenia API: {e}")
         return text
 
-@horoscope_bp.route("/horoscope", methods=["GET"])
 def get_horoscope(zodiac_sign: str):
     """Pobiera horoskop dla danego znaku zodiaku"""
     zodiac_english = zodiac_mapping.get(zodiac_sign.lower())

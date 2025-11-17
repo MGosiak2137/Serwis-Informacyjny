@@ -1,16 +1,7 @@
-from flask import Blueprint, render_template, request
 from datetime import date
 import holidays
 import json
 import os
-
-calendar_bp = Blueprint(
-    "calendar",
-    __name__,
-    url_prefix="/calendar",
-    template_folder="../templates",
-    static_folder="../static"
-)
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +14,6 @@ except FileNotFoundError:
     print(f"⚠️  Plik {namedays_path} nie został znaleziony!")
     namedays_data = {}
 
-@calendar_bp.route("/calendar", methods=["GET"])
 def get_calendar_data():
     """Pobiera dane kalendarza na dzisiejszy dzień"""
     today = date.today()
