@@ -20,7 +20,12 @@
 <div id="userPanel" class="panel">
   <button id="togglePanelBtn">☰ Panel użytkownika</button>
   <div id="panelContent" class="hidden">
-    <button id="setDefaultBtn">🏠 Ustaw domyślne miasto</button>
+    <div id="defaultCitySection">
+  <p><strong>Domyślne miasto:</strong> <span id="defaultCityValue">brak</span></p>
+
+  <button id="changeDefaultBtn" class="hidden">Zmień domyślne miasto</button>
+  <button id="setDefaultBtn" class="hidden">Ustaw domyślne miasto</button>
+</div>
     <div class="history-section">
       <button id="toggleHistoryBtn">📜 Historia wyszukiwania ▼</button>
       <div id="historyOptions" class="hidden">
@@ -52,7 +57,10 @@
 <ul id="historyList"></ul>
 
 <!-- Skrypt JS -->
-<script src="{{ url_for('weather.static', filename='app_dashboard.js') }}"></script>
+<!-- <script src="{{ url_for('weather.static', filename='app_dashboard.js') }}"></script> -->
+
+<script type="module" src="{{ url_for('weather.static', filename='js/app.js') }}"></script>
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from ..db.user_repository import get_user_id, set_default_city
+from ..db.user_repository import get_user_id, set_default_city, get_default_city
 
 def register_user_routes(bp):
 
@@ -13,3 +13,9 @@ def register_user_routes(bp):
 
         set_default_city(user_id, city)
         return jsonify({"message": f"Ustawiono domyślne miasto na {city}"})
+# --- GET: pobierz domyślne miasto ---
+    @bp.route('/api/default_city/<username>', methods=['GET'])
+    def get_default(username):
+        user_id = get_user_id(username)
+        city = get_default_city(user_id)
+        return jsonify({"default_city": city})
