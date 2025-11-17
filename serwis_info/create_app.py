@@ -15,6 +15,11 @@ def create_app():
     app.register_blueprint(currencies_bp)
     app.register_blueprint(stockmarket_bp)
     app.register_blueprint(journey_bp)   
+
+    from serwis_info.modules.weather import create_weather_blueprint
+    weather_bp = create_weather_blueprint()
+    app.register_blueprint(weather_bp, url_prefix='/weather')
+    
     
     @app.route("/")
     def index():
