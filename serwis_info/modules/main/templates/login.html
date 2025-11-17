@@ -1,0 +1,44 @@
+{% extends "base_main.html" %}
+
+{% block title %}Logowanie – Serwis informacyjny{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="h3 mb-3 text-center">Logowanie</h1>
+
+      <p class="text-muted mb-4 text-center">
+        Zaloguj się, aby uzyskać dostęp do swoich zakładek i ustawień.
+      </p>
+
+      <form>
+        <div class="mb-3">
+          <label for="login-username" class="form-label">Nazwa użytkownika lub e-mail</label>
+          <input type="text" class="form-control" id="login-username"
+                 placeholder="Wpisz login">
+        </div>
+
+        <div class="mb-3">
+          <label for="login-password" class="form-label">Hasło</label>
+          <input type="password" class="form-control" id="login-password"
+                 placeholder="••••••••">
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="login-remember">
+          <label class="form-check-label" for="login-remember">Zapamiętaj mnie</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          Zaloguj się
+        </button>
+
+        <div class="login-links-vertical text-center mt-4">
+          <a href="#" class="login-link">Nie pamiętam hasła</a>
+          <div class="login-or">lub</div>
+          <a href="{{ url_for('auth.register') }}" class="login-link">Utwórz konto</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base_main.html" %}
+
+{% block title %}Rejestracja – python -m flask runSerwis informacyjny{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="h3 mb-3 text-center">Utwórz konto</h1>
+      <p class="text-muted mb-4 text-center">
+        Podaj dane, aby założyć nowe konto w serwisie.
+      </p>
+
+      <form>
+        <!-- E-mail -->
+        <div class="mb-3">
+          <label for="register-email" class="form-label">Adres e-mail</label>
+          <input type="email"
+                 class="form-control"
+                 id="register-email"
+                 placeholder="np. mojmail@example.com"
+                 required>
+        </div>
+
+        <!-- nazwa użytkownika -->
+        <div class="mb-3">
+          <label for="register-username" class="form-label">Nazwa użytkownika</label>
+          <input type="text"
+                 class="form-control"
+                 id="register-username"
+                 placeholder="wybierz swój login"
+                 required>
+        </div>
+
+        <!-- Hasło -->
+        <div class="mb-3">
+          <label for="register-password" class="form-label">Hasło</label>
+          <input type="password"
+                 class="form-control"
+                 id="register-password"
+                 placeholder="Wpisz hasło"
+                 required>
+        </div>
+
+        <!-- Powtórz hasło -->
+        <div class="mb-3">
+          <label for="register-password2" class="form-label">Powtórz hasło</label>
+          <input type="password"
+                 class="form-control"
+                 id="register-password2"
+                 placeholder="Powtórz hasło"
+                 required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          Utwórz konto
+        </button>
+      </form>
+
+      <div class="login-links-vertical text-center mt-4">
+        <div class="login-or">Masz już konto?</div>
+        <a href="{{ url_for('auth.login') }}" class="login-link">Przejdź do logowania</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

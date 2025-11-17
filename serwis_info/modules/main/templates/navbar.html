@@ -1,0 +1,30 @@
+<nav class="navbar bg-body-tertiary main-navbar fixed-top">
+  <div class="container-fluid px-4">
+
+    <!-- LEWA STRONA -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('main.index') }}">
+      <i class="bi bi-globe2 nav-icon"></i>
+      <span>Serwis informacyjny</span>
+    </a>
+
+    <!-- PRAWA STRONA -->
+    <div class="navbar-icons d-flex align-items-center ms-auto">
+      <a href="{{ url_for('main.index') }}" class="icon-btn" title="Strona główna">
+        <i class="bi bi-house"></i>
+      </a>
+      <button class="icon-btn" type="button" title="Motyw">
+        <i class="bi bi-moon"></i>
+      </button>
+      <a href="#" class="icon-btn" title="Powiadomienia">
+        <i class="bi bi-bell"></i>
+      </a>
+      <a href="#" class="icon-btn" title="Wiadomości">
+        <i class="bi bi-chat-dots"></i>
+      </a>
+      <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
+        <i class="bi bi-person-circle"></i>
+      </a>
+    </div>
+
+  </div>
+</nav>

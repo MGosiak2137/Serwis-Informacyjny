@@ -1,0 +1,85 @@
+{% extends "nav_foot_eco.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('journey.static', filename='journey.css') }}">
+{% endblock %}
+
+{% block main %}
+<main class="page-main journey-page">
+  <section class="journey-section">
+    <h2>Wyszukiwarka lotów</h2>
+    <p class="lead">Znajdź najlepsze ceny lotów w obie strony.</p>
+
+    <form class="journey-form" method="get" action="/journey">
+      <label>
+        Lotnisko wylotu (IATA)
+        <input type="text" name="origin" placeholder="np. WAW" value="{{ origin or '' }}">
+      </label>
+
+      <label>
+        Lotnisko docelowe (IATA)
+        <input type="text" name="destination" placeholder="np. JFK" value="{{ destination or '' }}">
+      </label>
+
+      <label>
+        Data wylotu
+        <input type="date" name="date_from" value="{{ date_from or '' }}">
+      </label>
+
+      <label>
+        Data powrotu
+        <input type="date" name="date_to" value="{{ date_to or '' }}">
+      </label>
+
+      <label>
+        Klasa podróży
+        <select name="cabin">
+          <option value="ECO" {% if cabin == "ECO" %}selected{% endif %}>Economy</option>
+          <option value="PEC" {% if cabin == "PEC" %}selected{% endif %}>Premium Economy</option>
+          <option value="BUS" {% if cabin == "BUS" %}selected{% endif %}>Business</option>
+          <option value="FST" {% if cabin == "FST" %}selected{% endif %}>First Class</option>
+        </select>
+      </label>
+
+      <label>
+        Liczba pasażerów
+        <input type="number" min="1" name="people" value="{{ people or 1 }}">
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Szukaj lotów</button>
+      </div>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if flights %}
+    <section class="results-section">
+      <h3>Najlepsze oferty</h3>
+
+      <ul class="flights-list">
+        {% for f in flights %}
+        <li>
+          ✈️ <strong>{{ f.airline }}</strong><br>
+          {{ f.dep }} → {{ f.arr }}  
+          • czas: {{ f.duration }} min  
+          • cena: <strong>{{ f.price }} USD</strong>
+        </li>
+        {% endfor %}
+      </ul>
+
+      {% if summary %}
+      <div class="summary-box">
+        <h4>Statystyki cen</h4>
+        <p>💰 Średnia: <strong>{{ summary.avg }} USD</strong></p>
+        <p>📉 Najniższa: <strong>{{ summary.min }} USD</strong></p>
+        <p>📈 Najwyższa: <strong>{{ summary.max }} USD</strong></p>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}
