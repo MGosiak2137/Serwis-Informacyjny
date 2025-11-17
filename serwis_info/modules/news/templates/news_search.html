@@ -11,40 +11,48 @@
         Szukaj wśród zeskrapowanych artykułów kryminalnych z Krakowa i sportowych z Polski.
       </p>
 
-      <form class="news-search-form" method="get"
-            action="{{ url_for('news.search_results') }}"
-            aria-label="Formularz wyszukiwania wiadomości">
-        <label class="full-width">
-          Słowa kluczowe
-          <input type="text" name="q" placeholder="np. napad, Wisła Kraków" value="{{ q or '' }}" required>
-        </label>
+      <form class="news-search-form"
+      method="get"
+      action="{{ url_for('news.search_results') }}"
+      aria-label="Formularz wyszukiwania wiadomości">
 
-        <div class="search-row">
-          <label>
-            Kategoria
-            <select name="scope">
-              <option value="all" {{ 'selected' if scope == 'all' }}>Wszystkie</option>
-              <option value="crime" {{ 'selected' if scope == 'crime' }}>Kryminalne – Kraków</option>
-              <option value="sport" {{ 'selected' if scope == 'sport' }}>Sport – Polska</option>
-            </select>
-          </label>
+  <!-- Słowa kluczowe – pełna szerokość -->
+  <label class="full-width">
+    Słowa kluczowe
+    <input type="text"
+           name="q"
+           placeholder="np. napad, Wisła Kraków"
+           value="{{ q or '' }}">
+  </label>
 
-          <label>
-            Od daty
-            <input type="date" name="from_date" value="{{ from_date or '' }}">
-          </label>
+  <!-- Wiersz z kategorią i datami -->
+  <div class="search-row">
+    <label>
+      Kategoria
+      <select name="scope">
+        <option value="all"   {{ 'selected' if scope == 'all' }}>Wszystkie</option>
+        <option value="crime" {{ 'selected' if scope == 'crime' }}>Kryminalne – Kraków</option>
+        <option value="sport" {{ 'selected' if scope == 'sport' }}>Sport – Polska</option>
+      </select>
+    </label>
 
-          <label>
-            Do daty
-            <input type="date" name="to_date" value="{{ to_date or '' }}">
-          </label>
+    <label>
+      Od daty
+      <input type="date" name="from_date" value="{{ from_date or '' }}">
+    </label>
 
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">Szukaj</button>
-            <a href="{{ url_for('news.search') }}" class="btn-secondary">Wyczyść</a>
-          </div>
-        </div>
-      </form>
+    <label>
+      Do daty
+      <input type="date" name="to_date" value="{{ to_date or '' }}">
+    </label>
+
+    <!-- UWAGA: przyciski są RODZEŃSTWEM labeli, nie w środku żadnego labela -->
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Szukaj</button>
+      <a href="{{ url_for('news.search') }}" class="btn-secondary">Wyczyść</a>
+    </div>
+  </div>
+</form>
 
       {% if results is not none %}
       <section class="search-results" aria-live="polite">
