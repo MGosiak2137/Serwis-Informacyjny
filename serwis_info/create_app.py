@@ -11,3 +11,5 @@ def create_app():
     weather_bp = create_weather_blueprint()
     app.register_blueprint(weather_bp, url_prefix='/weather')
     return app
+
+
