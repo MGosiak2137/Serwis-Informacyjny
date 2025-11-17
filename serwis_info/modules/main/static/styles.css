@@ -8,18 +8,19 @@ body {
   margin: 0;
 }
 
-/* Strona główna – brak scrolla */
+/* Strona główna */
 body.home-page {
   overflow: hidden;
   background: #f7f7f9;
 }
 
-/* Główna przestrzeń pod navbar (u góry) */
+/* Główna przestrzeń pod navbar */
 .main-content {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 110px); /* wysokość okna minus navbar i sópka */
+  margin-top: 60px;
   display: flex;
-  justify-content: flex-start;  /* już nie idealnie w pionie, żeby nic nie znikało */
-  align-items: center;
+  justify-content: center;   
+  align-items: center;        
   padding: 1.5rem 2rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -29,23 +30,20 @@ body.home-page {
 .home-layout {
   width: 100%;
   max-width: 1200px;
-  height: 100%;
+  height: 100%; 
   display: flex;
   flex-direction: column;
 }
 
-/* ===========================
-   GRID KAFELKÓW – DESKTOP
-   =========================== */
-
+/* GRID KAFELKÓW – DESKTOP*/
 .cards-grid {
   flex: 1;
+  height: 100%;                
   display: grid;
   gap: 20px;
 
-  /* 3 kolumny, 2 rzędy: 1 – Calendar, 2 – 3 moduły */
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr 2fr;
   grid-template-areas:
     "calendar calendar calendar"
     "weather  news      economy";
@@ -65,6 +63,9 @@ body.home-page {
   justify-content: center;
   text-decoration: none;
   color: #333;
+
+  height: 100%; 
+  min-height: 0;  
 }
 
 .card-title {
@@ -72,22 +73,40 @@ body.home-page {
   font-size: 1.1rem;
 }
 
-/* ===========================
-   MOBILE
-   =========================== */
+.main-footer { /*stopka*/
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 50px;
+  background: #000000;
+  border-top: 1px solid #eee;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  padding: 0 1.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  z-index: 998;             
+}
+/* widok mobilny */
 @media (max-width: 768px) {
   .main-content {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px);  
     padding: 1rem 1.25rem 1.5rem;
+    margin-top: 0;
   }
 
   .home-layout {
     gap: 12px;
+    margin-top: 0;
   }
 
   .cards-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
     grid-template-areas:
       "calendar"
       "weather"
@@ -97,5 +116,13 @@ body.home-page {
 
   .card-item {
     min-height: 18vh;
+  }
+
+  .card-calendar {
+    min-height: 12vh;
+  }
+
+  .main-footer {
+    display: none;
   }
 }
