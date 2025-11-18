@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ url_for('main.static', filename='styles.css') }}">
   <link rel="stylesheet" href="{{ url_for('main.static', filename='navbar.css') }}">
   <link rel="stylesheet" href="{{ url_for('main.static', filename='login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('main.static', filename='calendar.css') }}">
 
   {% block extra_css %}{% endblock %}
 </head>
@@ -23,9 +24,11 @@
   <main class="main-content">
     {% block content %}{% endblock %}
   </main>
+
 <footer class="main-footer">
   <span>© 2025 Serwis informacyjny</span>
 </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   {% block extra_js %}{% endblock %}
 </body>
