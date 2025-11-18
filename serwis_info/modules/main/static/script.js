@@ -27,3 +27,24 @@
       updateClock();
       setInterval(updateClock, 60000);
     });
+
+
+    document.addEventListener("DOMContentLoaded", loadMiniWeather);
+
+async function loadMiniWeather() {
+    try {
+        const res = await fetch("/weather/api/simple_weather");
+        const data = await res.json();
+
+        document.getElementById("mini-temp").textContent = data.temp + "°C";
+        document.getElementById("mini-desc").textContent = data.desc;
+        
+        const icon = document.getElementById("mini-icon");
+        icon.src = `https://openweathermap.org/img/wn/${data.icon}.png`;
+        icon.style.display = "block";
+
+    } catch (e) {
+        document.getElementById("mini-temp").textContent = "Błąd";
+        document.getElementById("mini-desc").textContent = "";
+    }
+}

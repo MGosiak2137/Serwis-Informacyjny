@@ -91,6 +91,73 @@ body.home-page {
   color: #666;
   z-index: 998;             
 }
+
+/*kafelek pogodowy*/
+.card-weather {
+    display: block; /* aby cały <a> był klikany */
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(0,123,255,0.45), rgba(0,200,255,0.35));
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover na całym kafelku */
+/* Hover na całym kafelku */
+.card-weather:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* --- WEWNĘTRZNY PANEL MINI --- */
+.weather-mini {
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    width: 100%;
+}
+
+/* Miasto */
+.weather-mini p:first-child {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+/* Temperatura */
+#mini-temp {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* Opis pogody */
+#mini-desc {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    opacity: 0.9;
+    text-transform: capitalize;
+}
+
+/* Ikona pogody */
+#mini-icon {
+    width: 100px;  /* większa ikona */
+    height: 100px;
+    margin-top: 10px;
+}
+
+/*koniec kafelka pogodowego*/
+
 /* widok mobilny */
 @media (max-width: 768px) {
   .main-content {
