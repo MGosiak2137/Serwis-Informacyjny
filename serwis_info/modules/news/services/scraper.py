@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time, re, json
+from dateutil import parser
 
 # Ustawienia Chrome
 options = Options()
@@ -72,7 +73,10 @@ for name in subpages:
         date = ""
         meta_date = soup.find("meta", itemprop="datePublished")
         if meta_date and meta_date.get("content"):
-            date = meta_date["content"]
+            date_str = meta_date["content"]
+            # Konwertujemy na datetime z uwzględnieniem strefy czasowej
+            date = parser.isoparse(date_str)
+
 
         # Tresc
         content_tags = article_soup.find_all("p")

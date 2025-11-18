@@ -2,13 +2,14 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time, re
+from dateutil import parser
 
 # Ustawienia przeglądarki (headless = brak okna)
 options = Options()
 options.add_argument("--headless")
 
 driver = webdriver.Chrome(options=options)
-
+'''
 # Strona główna i podstrony
 url = "https://przegladsportowy.onet.pl/"
 subpages = ["pilka-nozna/", "koszykowka/", "tenis/", "zuzel/", "lekkoatletyka/"]
@@ -40,7 +41,7 @@ for name in subpages:
     print("Tytuł strony:", soup.title.string)
 
     # Szukanie linków do artykułów kończących się 7 znakami
-    for tag in soup.find_all("a", href=True):
+    for tag in soup.find_all("meta", href=True):
         href = tag["href"]
 
         # naprawianie linków względnych
@@ -52,3 +53,28 @@ for name in subpages:
 
 # Zamykamy przeglądarkę dopiero po wszystkich podstronach
 driver.quit()
+'''
+
+url = "https://przegladsportowy.onet.pl/pilka-nozna/reprezentacja-polski/piotr-zielinski-stanal-przed-kamerami-tvp-naprawde-to-powiedzial-o-malcie/cr6l7pj"
+
+driver = webdriver.Chrome()
+driver.get(url)
+time.sleep(2)  # czekamy na pełne załadowanie strony
+
+html = driver.page_source
+soup = BeautifulSoup(html, "html.parser")
+
+# Wyciągamy tytuł
+title_tag = soup.find("h1")
+title = title_tag.get_text(strip=True) if title_tag else ""
+print("Tytuł artykułu:", title)
+
+# Wyciągamy dokładnie datę publikacji
+meta_date = soup.find("meta", itemprop="datePublished")
+if meta_date and meta_date.get("content"):
+    date_str = meta_date["content"]
+    # Konwertujemy na datetime z uwzględnieniem strefy czasowej
+    date_published = parser.isoparse(date_str)
+    print("Data publikacji (datetime):", date_published)
+else:
+    print("Nie znaleziono meta itemprop='datePublished'")

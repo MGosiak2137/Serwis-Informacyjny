@@ -47,16 +47,25 @@ def _sample_history():
 
 def _load_sports_articles():
     try:
-        json_path = os.path.join(os.path.dirname(__file__), '../../..', 'articles.json')
+        json_path = os.path.join(os.path.dirname(__file__), '..', 'services', 'articles.json')
         if os.path.exists(json_path):
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                for article in data:
-                    if isinstance(article.get('date'), str):
-                        article['published_at'] = datetime.fromisoformat(article['date'].replace('Z', '+00:00'))
+                print("DEBUG: Wczytano artykuły z JSON:", len(data))  # <-- tu sprawdzenie
+                for idx, article in enumerate(data):
+                    # zapewniamy unikalne ID dla każdego artykułu
+                    article['id'] = idx + 1
+                    # parsowanie daty jeśli istnieje
+                    if article.get('date'):
+                        try:
+                            article['published_at'] = datetime.fromisoformat(article['date'])
+                        except Exception:
+                            article['published_at'] = datetime.utcnow()
                     else:
                         article['published_at'] = datetime.utcnow()
                 return data
+        else:
+            print(f"DEBUG: Plik {json_path} nie istnieje.")
     except Exception as e:
         print(f"Error loading sports articles: {e}")
     return []
@@ -77,28 +86,21 @@ def crime_list():
 @news_bp.get("/sport")
 def sport_list():
     articles = _load_sports_articles()
-    if not articles:
-        # fallback w razie braku danych
-        articles = []
-
-    # posortuj po dacie malejąco
+    # sortowanie po dacie malejąco
     articles = sorted(
         articles,
         key=lambda a: a.get("published_at") or datetime.min,
         reverse=True
     )
-    return render_template("sport_news.html", articles=articles)
+    return render_template("sport_news.html", articles=articles, title="Wiadomości sportowe")
 
 
 @news_bp.get("/detail/<int:news_id>")
 def detail(news_id):
-    # używamy id pozycji w liście jako prostego identyfikatora
     articles = _load_sports_articles()
-    if not articles or news_id < 1 or news_id > len(articles):
-        return render_template("detail.html", article=None)
-
-    # dopasowanie po id (przyjmujemy, że id = index + 1)
-    article = articles[news_id - 1]
+    article = next((a for a in articles if a['id'] == news_id), None)
+    if not article:
+        return "Artykuł nie został znaleziony", 404
     return render_template("detail.html", article=article)
 
 
