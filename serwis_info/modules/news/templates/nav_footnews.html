@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Moduł newsowy — demo</title>
+
+  <link rel="stylesheet" href="{{ url_for('news.static', filename='test_news.css') }}">
+  {% block header %}{% endblock %}
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <nav class="nav-links" aria-label="Nawigacja newsów">
+      
+      <a href="/" class="nav-btn-home-icon" aria-label="Powrót do strony głównej">
+  <svg viewBox="0 0 24 24" class="home-icon">
+    <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1V9.5z"
+          fill="currentColor" />
+  </svg>
+</a>
+
+
+      <a href="{{ url_for('news.news_home') }}"
+         class="nav-btn {% if request.endpoint == 'news.news_home' %}nav-btn--active{% endif %}">
+        Strona główna
+      </a>
+
+      <a href="{{ url_for('news.crime_list') }}"
+         class="nav-btn {% if request.endpoint == 'news.crime_list' %}nav-btn--active{% endif %}">
+        Kryminalne – Kraków
+      </a>
+
+      <a href="{{ url_for('news.sport_list') }}"
+         class="nav-btn {% if request.endpoint == 'news.sport_list' %}nav-btn--active{% endif %}">
+        Sport – Polska
+      </a>
+
+      <a href="{{ url_for('news.search') }}"
+         class="nav-btn {% if request.endpoint == 'news.search' or request.endpoint == 'news.search_results' %}nav-btn--active{% endif %}">
+        Wyszukiwarka
+      </a>
+
+      <!-- Logowanie – zawsze „zwykły” przycisk -->
+      <a href="/login" class="nav-btn nav-btn-login">
+        Logowanie
+      </a>
+
+    </nav>
+  </div>
+</header>
+
+
+  {% block main %}
+  <main class="page-main">
+    <section class="hero">
+      <h1>Moduł newsowy</h1>
+      <p>Wybierz kategorię wiadomości lub przejdź do wyszukiwarki.</p>
+
+      <div class="home-tiles">
+        <!-- Kafelek: kryminalne -->
+        <a href="{{ url_for('news.crime_list') }}" class="home-tile home-tile-crime">
+          <div class="home-tile-header">
+            <h2>Kryminalne – Kraków</h2>
+            <p>Napady, zatrzymania, komunikaty policji i służb.</p>
+          </div>
+
+          <div class="home-tile-news-slot">
+            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy kryminalne -->
+            <p class="home-tile-placeholder">
+              Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
+            </p>
+          </div>
+
+          <span class="home-tile-cta">Przejdź do listy artykułów</span>
+        </a>
+
+        <!-- Kafelek: sport -->
+        <a href="{{ url_for('news.sport_list') }}" class="home-tile home-tile-sport">
+          <div class="home-tile-header">
+            <h2>Sport – Polska</h2>
+            <p>Ekstraklasa, reprezentacja, żużel i inne wydarzenia sportowe.</p>
+          </div>
+
+          <div class="home-tile-news-slot">
+            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy sportowe -->
+            <p class="home-tile-placeholder">
+              Wkrótce: ostatnie zeskrapowane wiadomości sportowe.
+            </p>
+          </div>
+
+          <span class="home-tile-cta">Przejdź do listy artykułów</span>
+        </a>
+      </div>
+    </section>
+  </main>
+  {% endblock %}
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <!-- np. © 2025 Moduł newsowy -->
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

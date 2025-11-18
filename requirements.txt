@@ -4,6 +4,10 @@ Flask
 Flask-WTF
 Flask-Login
 python-dotenv
+bs4
+requests
+selenium
+python-dateutil
 requests
 holidays
 yfinance
