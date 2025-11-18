@@ -1,0 +1,702 @@
+/* style.css - Wspólny styl dla kalendarza i horoskopu */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f7f9;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ===========================
+   WSPÓLNE STYLE
+   =========================== */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #d48fa8;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    width: auto;
+}
+
+.back-btn:hover {
+    background: #f8b7d8;
+    color: #333;
+    text-decoration: none;
+}
+
+.loading {
+    text-align: center;
+    padding: 1.5rem;
+    color: #666;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.error {
+    background: #ffe6e6;
+    color: #d63031;
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 5px solid #d63031;
+    margin: 1rem 0;
+}
+
+/* ===========================
+   STYLE KALENDARZA
+   =========================== */
+.calendar-layout {
+    overflow-x: hidden;
+}
+
+.calendar-layout .main-content {
+    height: calc(100vh - 70px);
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.home-layout {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.cards-grid {
+    flex: 1;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "calendar calendar calendar"
+        "weather  news      economy";
+    width: 100%;
+    height: 100%;
+}
+
+.card-item {
+    background: #e5e5e5;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    min-height: 120px;
+}
+
+.card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    text-align: center;
+}
+
+/* Kalendarz specyficzne style */
+.calendar-card {
+    grid-area: calendar;
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 200px;
+}
+
+.calendar-content {
+    width: 100%;
+}
+
+.calendar-header {
+    border-bottom: 3px solid #f8b7d8;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-header h2 {
+    color: #d48fa8;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.calendar-body {
+    margin-bottom: 1rem;
+}
+
+.calendar-body p {
+    margin: 0.5rem 0;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    line-height: 1.4;
+    color: #333;
+}
+
+.calendar-body strong {
+    color: #d48fa8;
+    font-weight: 600;
+}
+
+.calendar-footer {
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+    color: #666;
+    font-style: italic;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+/* Pozostałe kafelki */
+.card-weather { grid-area: weather; }
+.card-news { grid-area: news; }
+.card-economy { grid-area: economy; }
+
+/* ===========================
+   STYLE HOROSKOPU
+   =========================== */
+.horoscope-layout .main-content {
+    height: calc(100vh - 70px);
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.horoscope-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.horoscope-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+}
+
+.horoscope-header h1 {
+    color: #d48fa8;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.horoscope-header .subtitle {
+    color: #666;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 300;
+}
+
+.zodiac-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.zodiac-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 0;
+}
+
+.zodiac-btn {
+    padding: 1.5rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    background: white;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.zodiac-btn:hover {
+    border-color: #f8b7d8;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(248, 183, 216, 0.3);
+}
+
+.zodiac-btn.active {
+    border-color: #d48fa8;
+    background: linear-gradient(135deg, #f8b7d8 0%, #d48fa8 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 143, 168, 0.4);
+}
+
+.zodiac-btn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.zodiac-symbol {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.zodiac-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.results-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+/* Loading */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: #666;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #f8b7d8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Wynik horoskopu */
+.horoscope-result {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f8b7d8;
+}
+
+.result-header h2 {
+    color: #d48fa8;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 0;
+}
+
+.zodiac-icon {
+    font-size: 3rem;
+    color: #f8b7d8;
+}
+
+.horoscope-content {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.prediction-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 5px solid #d48fa8;
+}
+
+.prediction-card h3 {
+    color: #d48fa8;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.prediction-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+    text-align: justify;
+}
+
+.additional-info {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 10px;
+    border-left: 3px solid #f8b7d8;
+}
+
+.info-item i {
+    color: #d48fa8;
+    font-size: 1.2rem;
+}
+
+.info-item span {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Przyciski akcji */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: #d48fa8;
+    color: white;
+    border: 2px solid #d48fa8;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    min-height: 54px;
+}
+
+.back-btn:hover {
+    background: #f8b7d8;
+    border-color: #f8b7d8;
+    color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(248, 183, 216, 0.3);
+}
+
+/* Błąd */
+.error {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: #ffe6e6;
+    color: #d63031;
+    border-radius: 15px;
+    border-left: 5px solid #d63031;
+    font-weight: 500;
+}
+
+.error i {
+    font-size: 1.5rem;
+}
+
+/* ===========================
+   RESPONSYWNOŚĆ KALENDARZA - MOBILE SIMPLIFIED
+   =========================== */
+
+/* Mobile - uproszczony widok kalendarza */
+@media (max-width: 768px) {
+    .calendar-body p {
+        display: none;
+    }
+    
+    /* Pokazujemy tylko datę, godzinę i imieniny na mobile */
+    .calendar-body p:nth-child(1),
+    .calendar-body p:nth-child(2),
+    .calendar-body p:nth-child(4) {
+        display: block;
+    }
+    
+    .calendar-body p:nth-child(1) strong::after {
+        content: " 📅";
+    }
+    
+    .calendar-body p:nth-child(2) strong::after {
+        content: " ⏰";
+    }
+    
+    .calendar-body p:nth-child(4) strong::after {
+        content: " 🎂";
+    }
+}
+
+/* ===========================
+   RESPONSYWNOŚĆ
+   =========================== */
+
+/* Tablety */
+@media (max-width: 1024px) {
+    .cards-grid {
+        gap: 0.75rem;
+    }
+    
+    .calendar-card {
+        padding: 1rem;
+    }
+    
+    .zodiac-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile - małe tablety i telefony */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0.5rem;
+        height: calc(100vh - 60px) !important;
+    }
+
+    /* Kalendarz - mobile */
+    .calendar-layout .main-content {
+        padding: 0.5rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto repeat(3, 1fr);
+        grid-template-areas:
+            "calendar"
+            "weather"
+            "news"
+            "economy";
+        gap: 0.5rem;
+    }
+
+    .card-item {
+        min-height: 100px;
+        padding: 0.75rem;
+    }
+
+    .calendar-card {
+        padding: 1rem;
+        min-height: 180px;
+    }
+    
+    .calendar-body p {
+        margin: 0.4rem 0;
+    }
+
+    /* Horoskop - mobile */
+    .horoscope-container {
+        padding: 0 0.5rem;
+    }
+    
+    .zodiac-section,
+    .results-section {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .zodiac-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .zodiac-btn {
+        padding: 1rem 0.5rem;
+        min-height: 70px;
+    }
+    
+    .zodiac-symbol {
+        font-size: 1.5rem;
+    }
+    
+    .zodiac-name {
+        font-size: 0.8rem;
+    }
+    
+    .result-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .prediction-card {
+        padding: 1.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .back-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Małe telefony */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.25rem;
+    }
+
+    .container {
+        padding: 0.75rem;
+        margin: 0.25rem;
+        border-radius: 15px;
+    }
+
+    /* Kalendarz - małe telefony */
+    .calendar-card {
+        padding: 0.75rem;
+    }
+    
+    .calendar-header {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .calendar-body p {
+        margin: 0.3rem 0;
+        font-size: 0.85rem;
+    }
+
+    /* Horoskop - małe telefony */
+    .zodiac-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .zodiac-section,
+    .results-section {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .horoscope-header {
+        padding: 1rem 0;
+    }
+    
+    .prediction-card {
+        padding: 1rem;
+    }
+    
+    .prediction-text {
+        font-size: 1rem;
+    }
+    
+    .zodiac-btn {
+        padding: 0.6rem 0.25rem;
+        min-height: 45px;
+        font-size: 0.85rem;
+    }
+    
+    .back-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .horoscope-result {
+        padding: 1rem;
+    }
+}
+
+/* Bardzo małe telefony */
+@media (max-width: 360px) {
+    .calendar-body p {
+        font-size: 0.8rem;
+    }
+    
+    .zodiac-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.25rem;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .zodiac-grid {
+        grid-template-columns: 1fr;
+    }
+}

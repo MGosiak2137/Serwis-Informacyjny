@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Weather Dashboard</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="{{ url_for('weather.static', filename='style.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+<h1>Weather Dashboard</h1>
+<p>Witaj, <span id="usernameDisplay"></span>!</p>
+
+<div id="userPanel" class="panel">
+  <button id="togglePanelBtn">☰ Panel użytkownika</button>
+  <div id="panelContent" class="hidden">
+    <div id="defaultCitySection">
+  <p><strong>Domyślne miasto:</strong> <span id="defaultCityValue">brak</span></p>
+
+  <button id="changeDefaultBtn" class="hidden">Zmień domyślne miasto</button>
+  <button id="setDefaultBtn" class="hidden">Ustaw domyślne miasto</button>
+  
+</div>
+<button id="deleteDefaultBtn" class="hidden">Usuń domyślne miasto</button>
+    <div class="history-section">
+      <button id="toggleHistoryBtn">📜 Historia wyszukiwania ▼</button>
+      <div id="historyOptions" class="hidden">
+        <button id="showHistoryBtn">👁️ Pokaż historię</button>
+        <button id="clearHistoryBtn">🗑️ Usuń historię</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="controls">
+  <input type="text" id="cityInput" placeholder="Wpisz miasto">
+  <button id="searchBtn">Szukaj</button>
+  
+  <div id="layerSelector">
+    <label><input type="radio" name="weatherLayer" value="temp" checked> Temperatura</label>
+    <label><input type="radio" name="weatherLayer" value="rain"> Opady</label>
+    <label><input type="radio" name="weatherLayer" value="clouds"> Zachmurzenie</label>
+    <label><input type="radio" name="weatherLayer" value="wind"> Wiatr</label>
+    <label><input type="radio" name="weatherLayer" value="none"> Brak</label>
+  </div>
+</div>
+
+<div id="weatherInfo"></div>
+<div id="map"></div>
+<div id="legendContainer"></div>
+
+<h3>Historia wyszukiwań:</h3>
+<ul id="historyList"></ul>
+
+<!-- Skrypt JS -->
+<!-- <script src="{{ url_for('weather.static', filename='app_dashboard.js') }}"></script> -->
+
+<script type="module" src="{{ url_for('weather.static', filename='js/app.js') }}"></script>
+
+
+</body>
+</html>

@@ -1,17 +1,34 @@
-from flask import Flask
+from flask import Flask, render_template
+import os
 
 def create_app():
     app = Flask(__name__, template_folder="templates", static_folder="static")
+       
+    from serwis_info.modules.main.routes.main import main_bp
+    from serwis_info.modules.main.routes.auth import auth_bp    
+    
+    from serwis_info.modules.exchange.routes.currencies import currencies_bp
+    from serwis_info.modules.exchange.routes.stockmarket import stockmarket_bp
+    from serwis_info.modules.exchange.routes.journey import journey_bp    
 
-    # importujemy blueprinty (zdefiniowane osobno)
+    from serwis_info.modules.calendar.routes.horoscope_routes import horoscope_bp
+    
     from serwis_info.modules.news.routes.news_page import news_bp
-
-    # rejestrujemy blueprinty
+    
+    from serwis_info.modules.weather import create_weather_blueprint
+    weather_bp = create_weather_blueprint()
+    app.register_blueprint(weather_bp, url_prefix='/weather')
+    
+    app.secret_key = "moja"
+    app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(currencies_bp)
+    app.register_blueprint(stockmarket_bp)
+    app.register_blueprint(journey_bp)
+    app.register_blueprint(horoscope_bp)
     app.register_blueprint(news_bp)
- 
-
     @app.route("/")
     def index():
-        return "<h3>Serwis informacyjny — strona główna</h3>"
+        return render_template("index.html")
 
     return app

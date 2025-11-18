@@ -1,1 +1,0 @@
-# Definicje tras głównych (np. strona startowa i inne tam statyczne strony)
