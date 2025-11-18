@@ -31,7 +31,13 @@
 
       <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
         <span class="card-title">Economy</span>
+          <div class="currency-rates">
+            <p>EUR/PLN: <span id="eur-pln">{{ eur_pln if eur_pln else 'brak danych' }}</span></p>
+            <p>USD/PLN: <span id="usd-pln">{{ usd_pln if usd_pln else 'brak danych' }}</span></p>
+            <p>Złoto: <span id="gold-price">{{ gold_price|round(2) if gold_price else 'brak danych' }}</span> USD/oz</p>
+          </div>
       </a>
+
 
     </div>
   </div>

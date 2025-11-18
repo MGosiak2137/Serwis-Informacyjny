@@ -20,3 +20,9 @@ def get_calendar():
     data = calendar_service.get_calendar_data()
     return jsonify(data)
     
+@main_bp.route("/api/exchange")
+def home():
+    from serwis_info.modules.main.routes import exchange_service
+    eur_pln, usd_pln = exchange_service.get_currency_rates()
+    gold_price = exchange_service.get_gold_price()
+    return jsonify(eur_pln=eur_pln, usd_pln=usd_pln, gold_price=gold_price)
