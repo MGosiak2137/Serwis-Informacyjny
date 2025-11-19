@@ -358,8 +358,6 @@ p {
 
 /* tagi/kategorie */
 .tag {
-  display: inline-flex;
-  align-items: center;
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-size: 0.75rem;
@@ -766,5 +764,22 @@ p {
 .form-actions .btn-secondary {
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.article-image {
+    display: block;
+    margin: 0 auto 1rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+.source-link {
+    display: block;
+    text-align: right;
+    margin-top: 1rem;
+    color: inherit;
+    text-decoration: none;
 }
 

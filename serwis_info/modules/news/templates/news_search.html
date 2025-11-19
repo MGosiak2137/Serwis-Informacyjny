@@ -8,7 +8,7 @@
     <div>
       <h2>Wyszukiwarka wiadomości</h2>
       <p class="lead">
-        Szukaj wśród zeskrapowanych artykułów kryminalnych z Krakowa i sportowych z Polski.
+        Szukaj wśród artykułów kryminalnych z Krakowa i sportowych z Polski.
       </p>
 
       <form class="news-search-form"
@@ -69,7 +69,7 @@
             {% for n in results %}
             <article class="news-card">
               <h4>
-                <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+                <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
               </h4>
               <p class="news-meta">
                 {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
