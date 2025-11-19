@@ -22,6 +22,10 @@
       document.getElementById("calendar-time").textContent = time;
     }
 
+
+
+    //KAFELEK POGODOWY MINI
+
     document.addEventListener("DOMContentLoaded", () => {
       loadCalendar();
       updateClock();
@@ -48,3 +52,40 @@ async function loadMiniWeather() {
         document.getElementById("mini-desc").textContent = "";
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadMiniWeather();
+    loadMiniForecast();
+});
+
+async function loadMiniForecast() {
+    try {
+        const res = await fetch("/weather/api/forecast");
+        const data = await res.json();
+
+        const box = document.getElementById("forecast-mini");
+        box.innerHTML = ""; // czyścimy
+
+        data.forEach(day => {
+            const item = document.createElement("div");
+            item.classList.add("forecast-item");
+
+            item.innerHTML = `
+                <div class="f-date">${day.date}</div>
+                <div class="f-info">
+                    <img src="https://openweathermap.org/img/wn/${day.icon}.png" class="f-icon">
+                    <span class="f-temp">${day.temp}°C</span>
+                </div>
+                <div class="f-desc">${day.desc}</div>
+            `;
+
+            box.appendChild(item);
+        });
+
+    } catch (e) {
+        document.getElementById("forecast-mini").textContent = "Błąd pobierania prognozy";
+    }
+}
+
+//KONIEC KAFELKA POGOODWEGO
+

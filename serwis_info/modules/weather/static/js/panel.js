@@ -9,6 +9,7 @@ export function initPanel() {
         document.getElementById("panelContent").classList.toggle("hidden");
     });
 
+    // ---- Obsługa historii wyszukiwań ----
     document.getElementById("toggleHistoryBtn").addEventListener("click", () => {
         document.getElementById("historyOptions").classList.toggle("hidden");
     });
@@ -25,7 +26,6 @@ export function initPanel() {
         }
     });
 
-    // ---- Obsługa domyślnego miasta ----
     setupDefaultCityPanel();
 }
 
@@ -35,7 +35,7 @@ function getUsername() {
     if (parts.length === 2) return parts.pop().split(";").shift();
     return "user_demo";
 }
-
+// ---- Obsługa domyślnego miasta ----
 async function setupDefaultCityPanel() {
     const username = getUsername();
 

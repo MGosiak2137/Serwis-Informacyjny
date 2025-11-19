@@ -156,6 +156,37 @@ body.home-page {
     margin-top: 10px;
 }
 
+.weather-forecast-mini {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.forecast-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.f-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.f-date {
+    font-weight: bold;
+    width: 90px;
+}
+
+.f-temp {
+    font-weight: bold;
+}
+
+.f-desc {
+    font-size: 12px;
+    color: #555;
+}
+
 /*koniec kafelka pogodowego*/
 
 /* widok mobilny */

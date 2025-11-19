@@ -15,11 +15,14 @@ def create_app():
     
     from serwis_info.modules.news.routes.news_page import news_bp
     
+
+    # Weather blueprint registration
     from serwis_info.modules.weather import create_weather_blueprint
     weather_bp = create_weather_blueprint()
     app.register_blueprint(weather_bp, url_prefix='/weather')
     from serwis_info.modules.weather.routes.weather_routes import weather_api_bp
     app.register_blueprint(weather_api_bp)
+    #koniec rejestracji weather blueprint
 
     
     
