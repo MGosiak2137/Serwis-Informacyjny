@@ -14,25 +14,24 @@
         <article class="news-card">
           <header>
             <h3>
-              <a href="{{ url_for('news.detail', news_id=n.id) }}">{{ n.title }}</a>
+              <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
             </h3>
             <p class="news-meta">
               {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
-              • {{ n.source_name or "Źródło" }}
             </p>
           </header>
 
-          {% if n.summary %}
-          <p class="news-summary">{{ n.summary }}</p>
+          {% if n.content %}
+          <p class="news-summary">{{ n.content[0] }}</p>
           {% endif %}
 
           <footer class="news-footer">
-            {% if n.league or n.category %}
+            {% if n.subcategory %}
             <span class="tag">
-              {{ n.league or n.category }}
+              {{n.subcategory }}
             </span>
             {% endif %}
-            <a href="{{ url_for('news.detail', news_id=n.id) }}" class="btn-secondary">Szczegóły</a>
+            <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">Szczegóły</a>
           </footer>
         </article>
         {% endfor %}

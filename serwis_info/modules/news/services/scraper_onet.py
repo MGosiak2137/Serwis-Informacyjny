@@ -1,9 +1,10 @@
 from bs4 import BeautifulSoup
+from pandas.core.dtypes.common import is_numeric_dtype
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time, re, json
 from dateutil import parser
-from articles_data_builder import articles_builder
+from articles_data_builder import articles_builder, id_generator
 
 
 # Ustawienia Chrome
@@ -13,8 +14,8 @@ driver = webdriver.Chrome(options=options)
 
 # Strona główna i podstrony
 url = "https://przegladsportowy.onet.pl/"
-#subpages = ["pilka-nozna", "koszykowka", "tenis", "zuzel", "lekkoatletyka"]
-subpages = ["pilka-nozna"]
+subpages = ["pilka-nozna", "koszykowka", "zuzel", "lekkoatletyka"]
+#subpages = ["pilka-nozna"]
 
 prefix = "https://przegladsportowy.onet.pl/"
 pattern = re.compile(r".*/[a-zA-Z0-9]{7}$")  # artykuły kończące się 7 znakami
@@ -40,7 +41,10 @@ def remove_prefix(text, prefix):
 
  # lista do zapisania JSON
 def onet_scraper_function():
+    print("Rozpoczynanie scrapowania przegladsportowy.onet.pl")
     articles = []
+    used_id=set()
+    links = set()
     for name in subpages:
         driver.get(url + name)
 
@@ -60,7 +64,6 @@ def onet_scraper_function():
         soup = BeautifulSoup(html, "html.parser")
 
         # Zbieranie linków do artykułów
-        links = set()
         for tag in soup.find_all("a", href=True):
             href = tag["href"]
             if href.startswith("/"):
@@ -135,7 +138,10 @@ def onet_scraper_function():
                 if main_img and main_img.get("src"):
                     images.append(main_img["src"])
 
+            id_number, used_id = id_generator("os", 5, used_id)
+
             articles.append(articles_builder(
+                id_number=id_number,
                 category="sport",
                 subcategory=name,
                 link=link,

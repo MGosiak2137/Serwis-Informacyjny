@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, url_for, redirect
-from datetime import datetime
+from datetime import datetime,timezone
 import json
 import os
 
 from serwis_info.modules.news.services import articles_data_giver
 _sample_articles = articles_data_giver._sample_articles
 _sample_history = articles_data_giver._sample_history
-_load_sports_articles = articles_data_giver._load_sports_articles
+load_articles = articles_data_giver.load_articles
 
 
 news_bp = Blueprint(
@@ -24,28 +24,46 @@ def news_home():
 
 @news_bp.get("/crime")
 def crime_list():
-    articles = [a for a in _sample_articles() if a.get("category") == "crime"]
-    return render_template("crime_news.html", articles=articles)
+    try:
+        articles = load_articles("crime")
+        articles = sorted(
+            articles,
+            key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
+            reverse=True
+        )
+    except Exception as e:
+        print(f"Error loading crime articles: {e}")
+        articles = []
+    return render_template("crime_news.html", articles=articles, title="Wiadomości kryminalne")
 
 
 @news_bp.get("/sport")
 def sport_list():
-    articles = _load_sports_articles()
-    # sortowanie po dacie malejąco
-    articles = sorted(
-        articles,
-        key=lambda a: a.get("published_at") or datetime.min,
-        reverse=True
-    )
+    try:
+        articles = load_articles("sport")
+        articles = sorted(
+            articles,
+            key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
+            reverse=True
+        )
+    except Exception as e:
+        print(f"Error loading sport articles: {e}")
+        articles = []
     return render_template("sport_news.html", articles=articles, title="Wiadomości sportowe")
 
 
-@news_bp.get("/detail/<int:news_id>")
+@news_bp.get("/detail/<news_id>")
 def detail(news_id):
-    articles = _load_sports_articles()
-    article = next((a for a in articles if a.get("id") == news_id), None)
-    if not article:
-        return "Artykuł nie został znaleziony", 404
+    try:
+        articles = load_articles("all")
+        for article in articles:
+            if article.get("id_number") == news_id:
+                break
+        if not article:
+            return "Artykuł nie został znaleziony", 404
+    except Exception as e:
+        print(f"Error loading article detail: {e}")
+        return "Błąd podczas ładowania artykułu", 500
     return render_template("detail.html", article=article)
 
 
@@ -62,17 +80,28 @@ def search_results():
     to_date = request.args.get("to_date")
 
     # very small in-memory filter over sample articles
-    articles = _load_sports_articles()
-    results = []
-    if q:
-        q_l = q.lower()
-        for a in articles:
-            if scope != "all" and a.get("category") != scope:
-                continue
-            if q_l in (a.get("title") or "").lower() or q_l in (a.get("content") or "").lower():
-                results.append(a)
-    else:
-        results = articles
+    try:
+        if scope == "all":
+            articles = load_articles("all")
+        elif scope == "sport":
+            articles = load_articles("sport")
+        elif scope == "crime":
+            articles = load_articles("crime")
+    except:
+        print("Error loading articles for search")
+
+    if articles:
+        results = []
+
+        if q:
+            q_l = q.lower()
+            for a in articles:
+                if scope != "all" and a.get("category") != scope:
+                    continue
+                if q_l in (a.get("title") or "").lower() or q_l in " ".join(a.get("content") or []).lower():
+                    results.append(a)
+        else:
+            results = articles
 
     history = _sample_history()
     return render_template(
