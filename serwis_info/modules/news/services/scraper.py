@@ -17,6 +17,20 @@ subpages = ["pilka-nozna"]
 prefix = "https://przegladsportowy.onet.pl/"
 pattern = re.compile(r".*/[a-zA-Z0-9]{7}$")  # artykuły kończące się 7 znakami
 
+trash = [
+    "cookies", "Polityka prywatności", "newsletter",
+    "wyrażam zgodę", "przetwarzanie danych",
+    "Reklama", "Zobacz także", "Czytaj także",
+    "Ustawienia prywatności", "Zanim klikniesz którykolwiek","przetwarzanych danych",
+    "Pomiar efektywności treści", "RAS Polska","danych osobowych","przetwarzania danych",
+    "Dalszy ciąg materiału pod wideo","Wydarzenie dnia"
+]
+
+def is_trash(text: str) -> bool:
+    t = text.lower()
+    return any(x.lower() in t for x in trash)
+
+
 articles = []  # lista do zapisania JSON
 
 for name in subpages:
@@ -75,15 +89,20 @@ for name in subpages:
         meta_date = article_soup.find("meta", itemprop="datePublished")
         if meta_date and meta_date.get("content"):
             date_str = meta_date["content"]
-            # Konwertujemy na datetime z uwzględnieniem strefy czasowej
             date = parser.isoparse(date_str).isoformat()
 
+        #Tresc
+        content_tags = article_soup.find_all(["p","h2"])
+        content = []
+        content_format = []
+        for block in content_tags:
+            if not is_trash(block.get_text(strip=True)):
+                content.append(block.get_text(strip=True))
+                if block.name == "h2":
+                    content_format.append("header")
+                else:
+                    content_format.append("text")
 
-
-
-        # Tresc
-        content_tags = article_soup.find_all("p")
-        content = "\n".join(p.get_text(strip=True) for p in content_tags)
 
         # Zdjęcia
         images = []
@@ -93,7 +112,7 @@ for name in subpages:
             if main_img and main_img.get("src"):
                 images.append(main_img["src"])
 
-        # Dodajemy do listy
+        #lista
         articles.append({
             "category": name.rstrip("/"),
             "url": link,
@@ -101,6 +120,7 @@ for name in subpages:
             "author": author_name,
             "date": date,
             "content": content,
+            "content_format": content_format,
             "images": images
         })
 

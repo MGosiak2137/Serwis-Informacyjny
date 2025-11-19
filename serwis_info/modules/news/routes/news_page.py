@@ -43,7 +43,7 @@ def sport_list():
 @news_bp.get("/detail/<int:news_id>")
 def detail(news_id):
     articles = _load_sports_articles()
-    article = next((a for a in articles if a['id'] == news_id), None)
+    article = next((a for a in articles if a.get("id") == news_id), None)
     if not article:
         return "Artykuł nie został znaleziony", 404
     return render_template("detail.html", article=article)

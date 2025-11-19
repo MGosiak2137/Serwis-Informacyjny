@@ -3,42 +3,67 @@
 {% block header %}{% endblock %}
 
 {% block main %}
-<main class="page-main detail-page">
-  <article class="news-detail">
-    {% if article %}
-    <header class="detail-header">
-      <h1>{{ article.title }}</h1>
-      <div class="detail-meta">
-        <time datetime="{{ article.published_at.isoformat() if article.published_at else '' }}">
-          {{ article.published_at.strftime("%d.%m.%Y o %H:%M") if article.published_at else "Brak daty" }}
-        </time>
-        {% if article.source_name %}
-        <span class="source">{{ article.source_name }}</span>
+    <main class="page-main detail-page">
+      <article class="news-detail">
+        {% if article %}
+        <header class="detail-header">
+            <h1><strong>{{ article.title }}</strong></h1>
+          <div class="detail-meta">
+            <time datetime="{{ article.published_at.isoformat() if article.published_at else '' }}">
+              {{ article.published_at.strftime("%d.%m.%Y o %H:%M") if article.published_at else "Brak daty" }}
+            </time>
+          </div>
+        </header>
+
+        <div class="detail-content">
+
+          {% if article.content %}
+              <div class="article-text">
+                  {% set first = article.content[0] %}
+                  <p><strong>{{ first }}</strong></p>
+
+                  {% if article.images %}
+
+                      {% set img_url = article.images[0] %}
+                            {% if img_url %}
+                                <img src="{{ img_url }}" alt="Article image" class="article-image"  >
+                            {% endif %}
+                  {% endif %}
+
+                  {% for paragraph in article.content[1:] %}
+                    {% if article.content_format[loop.index] == 'header' %}
+                        <h2><strong>{{ paragraph }}</strong></h2>
+                    {% elif article.content_format[loop.index] == 'text' %}
+                        <p>{{ paragraph }}</p>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if article.author == "" %}
+                        <a class="source-link">Autor: Nieznany</a>
+                  {% elif article.author %}
+                        <a class="source-link">Autor: {{ article.author }}</a>
+                  {% endif %}
+
+                  {% if article.url %}
+                        <a href="{{ article.url }}" class="source-link" target="_blank" rel="noopener">
+                            Oryginalne źródło
+                        </a>
+                  {% endif %}
+              </div>
+          {% endif %}
+        </div>
+
+
+
+        <footer class="detail-footer">
+          <a href="{{ request.referrer or url_for('news.search') }}" class="btn-secondary">Wróć</a>
+        </footer>
+        {% else %}
+        <div class="error-message">
+          <h2>Artykuł nie znaleziony</h2>
+          <p><a href="{{ url_for('news.search') }}">Powróć do wyszukiwarki</a></p>
+        </div>
         {% endif %}
-      </div>
-    </header>
-
-    <div class="detail-content">
-      {% if article.summary %}
-      <p class="summary">{{ article.summary }}</p>
-      {% endif %}
-
-      {% if article.content %}
-      <div class="article-text">
-        {{ article.content }}
-      </div>
-      {% endif %}
-    </div>
-
-    <footer class="detail-footer">
-      <a href="{{ request.referrer or url_for('news.search') }}" class="btn-secondary">Wróć</a>
-    </footer>
-    {% else %}
-    <div class="error-message">
-      <h2>Artykuł nie znaleziony</h2>
-      <p><a href="{{ url_for('news.search') }}">Powróć do wyszukiwarki</a></p>
-    </div>
-    {% endif %}
-  </article>
-</main>
+      </article>
+    </main>
 {% endblock %}
