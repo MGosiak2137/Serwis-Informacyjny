@@ -1,0 +1,61 @@
+
+from flask import (Blueprint, render_template, request, url_for, redirect)
+from datetime import datetime
+import json
+import os
+
+
+def _sample_articles():
+    now = datetime.utcnow()
+    return [
+        {
+            "id": 1,
+            "title": "Napad na sklep w centrum Krakowa",
+            "published_at": now,
+            "source_name": "Policja Małopolska",
+            "summary": "Policja zatrzymała podejrzanego o napad na sklep przy ul. Długiej.",
+            "source_url": None,
+            "category": "crime",
+            "league": None,
+        },
+        {
+            "id": 2,
+            "title": "Ekstraklasa: remis w meczu na szczycie",
+            "published_at": now,
+            "source_name": "Ekstraklasa",
+            "summary": "Spotkanie lidera z wiceliderem zakończyło się remisem 2:2.",
+            "source_url": None,
+            "category": "sport",
+            "league": "Ekstraklasa",
+        },
+    ]
+
+def _sample_history():
+    return [
+        {"query": "napad", "created_at": datetime.utcnow()},
+        {"query": "Wisła", "created_at": datetime.utcnow()},
+    ]
+
+
+def _load_sports_articles():
+    try:
+        json_path = os.path.join(os.path.dirname(__file__), '..', 'services', 'articles.json')
+        if os.path.exists(json_path):
+            with open(json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                print("DEBUG: Wczytano artykuły z JSON:", len(data))  # <-- tu sprawdzenie
+                for idx, article in enumerate(data):
+                    article['id'] = idx + 1
+                    if article.get('date'):
+                        try:
+                            article['published_at'] = datetime.fromisoformat(article['date'])
+                        except Exception:
+                            article['published_at'] = datetime.utcnow()
+                    else:
+                        article['published_at'] = datetime.utcnow()
+                return data
+        else:
+            print(f"DEBUG: Plik {json_path} nie istnieje.")
+    except Exception as e:
+        print(f"Error loading sports articles: {e}")
+    return []

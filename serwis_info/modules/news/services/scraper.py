@@ -11,7 +11,8 @@ driver = webdriver.Chrome(options=options)
 
 # Strona główna i podstrony
 url = "https://przegladsportowy.onet.pl/"
-subpages = ["pilka-nozna/", "koszykowka/", "tenis/", "zuzel/", "lekkoatletyka/"]
+#subpages = ["pilka-nozna", "koszykowka", "tenis", "zuzel", "lekkoatletyka"]
+subpages = ["pilka-nozna"]
 
 prefix = "https://przegladsportowy.onet.pl/"
 pattern = re.compile(r".*/[a-zA-Z0-9]{7}$")  # artykuły kończące się 7 znakami
@@ -71,11 +72,13 @@ for name in subpages:
 
         # Data
         date = ""
-        meta_date = soup.find("meta", itemprop="datePublished")
+        meta_date = article_soup.find("meta", itemprop="datePublished")
         if meta_date and meta_date.get("content"):
             date_str = meta_date["content"]
             # Konwertujemy na datetime z uwzględnieniem strefy czasowej
-            date = parser.isoparse(date_str)
+            date = parser.isoparse(date_str).isoformat()
+
+
 
 
         # Tresc

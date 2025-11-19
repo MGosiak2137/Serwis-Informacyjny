@@ -7,9 +7,9 @@ from dateutil import parser
 # Ustawienia przeglądarki (headless = brak okna)
 options = Options()
 options.add_argument("--headless")
-
-driver = webdriver.Chrome(options=options)
 '''
+driver = webdriver.Chrome(options=options)
+
 # Strona główna i podstrony
 url = "https://przegladsportowy.onet.pl/"
 subpages = ["pilka-nozna/", "koszykowka/", "tenis/", "zuzel/", "lekkoatletyka/"]
@@ -55,9 +55,9 @@ for name in subpages:
 driver.quit()
 '''
 
-url = "https://przegladsportowy.onet.pl/pilka-nozna/reprezentacja-polski/piotr-zielinski-stanal-przed-kamerami-tvp-naprawde-to-powiedzial-o-malcie/cr6l7pj"
+url = "https://przegladsportowy.onet.pl/pilka-nozna/kiedy-losowanie-barazy-ms-2026-gdzie-ogladac/fnd99d7"
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=options)
 driver.get(url)
 time.sleep(2)  # czekamy na pełne załadowanie strony
 
@@ -78,3 +78,6 @@ if meta_date and meta_date.get("content"):
     print("Data publikacji (datetime):", date_published)
 else:
     print("Nie znaleziono meta itemprop='datePublished'")
+
+with open("testy.html", "w", encoding="utf-8") as file:
+    file.write(html)
