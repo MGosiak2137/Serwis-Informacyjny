@@ -128,6 +128,14 @@ function addMarker(lat, lon, name, temp) {
 function fitAllMarkers() {
   if (markers.length === 0) return;
 
+   if (markers.length === 1) {
+    // ⬇️ SZERSZY ZOOM DLA 1 MIASTA
+    const latlng = markers[0].getLatLng();
+    map.setView(latlng, 10); // ← tu zmieniasz wielkość przybliżenia
+    return;
+  }
+
+  // ⬇️ DLA 2–3 MIAST – AUTOMATYCZNY ZOOM
   const group = new L.featureGroup(markers);
   map.fitBounds(group.getBounds(), { padding: [50, 50] });
 }
