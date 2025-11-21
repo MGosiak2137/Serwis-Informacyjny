@@ -2,10 +2,11 @@ import { API_KEY, API_URL } from "./config.js";
 import { map } from "./mapControls.js";
 import { loadHistory } from "./history.js";
 import { username } from "./user.js";
+import { loadForecast } from "./forecast.js";  // <-- NOWY IMPORT
+
 let markers = [];
 let weatherCards = [];
 let maxCities = 3;
-
 
 export function initSearch() {
   document.getElementById("searchBtn").addEventListener("click", firstSearch);
@@ -47,7 +48,6 @@ function showNextButtons() {
   document.getElementById("resetSearchBtn").classList.remove("hidden");
 }
 
-
 async function runSearch() {
   const city = document.getElementById("cityInput").value;
   if (!city) return alert("Wpisz miasto!");
@@ -60,7 +60,7 @@ async function runSearch() {
 
     const { coord, main, weather, wind, name } = data;
 
-   const airRes = await fetch(
+    const airRes = await fetch(
       `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${API_KEY}`
     );
     const airData = await airRes.json();
@@ -85,7 +85,6 @@ async function runSearch() {
 
     fitAllMarkers();
 
-    // --- historia ---
     await fetch(`/weather/api/history/${username}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -102,8 +101,8 @@ async function runSearch() {
 
 function addWeatherCard({ name, weather, main, wind, aqi }) {
   const container = document.getElementById("weatherInfoContainer");
-    const card = document.createElement("div");
-     
+  const card = document.createElement("div");
+
   card.classList.add("weather-card");
   card.innerHTML = `
     <h2>${name}</h2>
@@ -113,13 +112,23 @@ function addWeatherCard({ name, weather, main, wind, aqi }) {
     <p>Ciśnienie: ${main.pressure} hPa</p>
     <p>Wiatr: ${wind.speed} m/s</p>
     <p>🌫️ Jakość powietrza: ${aqi}</p>
+
+    <button class="forecastBtn" data-city="${name}" data-target="forecast_${name}">
+        Prognoza
+    </button>
+
+    <div id="forecast_${name}" class="forecast hidden"></div>
   `;
 
   container.appendChild(card);
-  weatherCards.push(card);}
+  weatherCards.push(card);
 
+  // TERAZ forecast jest importowany
+  card.querySelector(".forecastBtn").addEventListener("click", loadForecast);
+}
 
-    // --- MARKERY ---
+// MARKERY ------------------------
+
 function addMarker(lat, lon, name, temp) {
   const marker = L.marker([lat, lon]).addTo(map).bindPopup(`${name}: ${temp}°C`);
   markers.push(marker);
@@ -128,16 +137,13 @@ function addMarker(lat, lon, name, temp) {
 function fitAllMarkers() {
   if (markers.length === 0) return;
 
-   if (markers.length === 1) {
-    // ⬇️ SZERSZY ZOOM DLA 1 MIASTA
+  if (markers.length === 1) {
     const latlng = markers[0].getLatLng();
-    map.setView(latlng, 10); // ← tu zmieniasz wielkość przybliżenia
+    map.setView(latlng, 10);
     return;
   }
 
-  // ⬇️ DLA 2–3 MIAST – AUTOMATYCZNY ZOOM
   const group = new L.featureGroup(markers);
   map.fitBounds(group.getBounds(), { padding: [50, 50] });
 }
 
-    

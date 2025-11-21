@@ -163,3 +163,18 @@ button.danger {
   background: #f7f7f7;
   border-radius: 6px;
 }
+
+.forecast {
+  margin-top: 10px;
+  background: #eef;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+.forecast-day {
+  margin-bottom: 8px;
+}

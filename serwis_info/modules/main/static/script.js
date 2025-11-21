@@ -64,7 +64,7 @@ async function loadMiniForecast() {
         const data = await res.json();
 
         const box = document.getElementById("forecast-mini");
-        box.innerHTML = ""; // czyścimy
+        box.innerHTML = "";
 
         data.forEach(day => {
             const item = document.createElement("div");
@@ -72,10 +72,17 @@ async function loadMiniForecast() {
 
             item.innerHTML = `
                 <div class="f-date">${day.date}</div>
-                <div class="f-info">
+
+                <div class="f-main">
                     <img src="https://openweathermap.org/img/wn/${day.icon}.png" class="f-icon">
                     <span class="f-temp">${day.temp}°C</span>
                 </div>
+
+                <div class="f-extra">
+                    <div>💨 ${day.wind} m/s</div>
+                    <div>💧 ${day.humidity}%</div>
+                </div>
+
                 <div class="f-desc">${day.desc}</div>
             `;
 
@@ -86,6 +93,8 @@ async function loadMiniForecast() {
         document.getElementById("forecast-mini").textContent = "Błąd pobierania prognozy";
     }
 }
+
+
 
 //KONIEC KAFELKA POGOODWEGO
 

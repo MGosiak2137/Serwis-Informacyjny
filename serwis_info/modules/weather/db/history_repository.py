@@ -17,7 +17,7 @@ def trim_history(user_id: int, limit: int):
             SELECT id FROM history
             WHERE user_id=?
             ORDER BY id DESC
-            LIMIT -1 OFFSET ?
+            LIMIT  ?
         )
     """, (user_id, limit))
     conn.commit()

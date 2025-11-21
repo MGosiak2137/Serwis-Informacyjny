@@ -24,24 +24,49 @@ def weather_forecast():
 
     data = requests.get(url).json()
 
-    # OpenWeather zwraca prognozy co 3h → wybieramy te z godziny 12:00 dla kolejnych 3 dni
-    forecast = []
-    added_days = set()
 
+
+
+    daily = {}
     for item in data["list"]:
-        dt_txt = item["dt_txt"]  # np. 2025-01-12 12:00:00
+        date = item["dt_txt"].split(" ")[0]
 
-        if "12:00:00" in dt_txt:
-            day = dt_txt.split(" ")[0]
-            if day not in added_days:
-                added_days.add(day)
-                forecast.append({
-                    "date": day,
-                    "temp": round(item["main"]["temp"]),
-                    "desc": item["weather"][0]["description"].capitalize(),
-                    "icon": item["weather"][0]["icon"]
-                })
-            if len(forecast) == 3:
-                break
+        desc = item["weather"][0]["description"].capitalize()
+
+        if date not in daily:
+            daily[date] = {
+                "temps":[],
+                "winds":[],
+                "humidity":[],
+                "icons":[],
+                "desc": []
+            }
+        daily[date]["temps"].append(item["main"]["temp"])
+        daily[date]["winds"].append(item["wind"]["speed"])
+        daily[date]["humidity"].append(item["main"]["humidity"])
+        daily[date]["icons"].append(item["weather"][0]["icon"])
+        daily[date]["desc"].append(desc)
+
+    forecast = []
+    from collections import Counter
+
+    for date, values in list(daily.items())[:3]:
+        avg_temp = round(sum(values["temps"]) / len(values["temps"]))
+        avg_wind = round(sum(values["winds"]) / len(values["winds"]), 1)
+        avg_hum = round(sum(values["humidity"]) / len(values["humidity"]))
+
+        # Ikona – najczęściej występująca
+        
+        icon = Counter(values["icons"]).most_common(1)[0][0]
+        desc = Counter(values["desc"]).most_common(1)[0][0]
+        forecast.append({
+            "date": date,
+            "temp": avg_temp,
+            "wind": avg_wind,
+            "humidity": avg_hum,
+            "icon": icon,
+            "desc": desc
+        })
 
     return jsonify(forecast)
+

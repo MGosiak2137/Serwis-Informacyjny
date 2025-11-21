@@ -9,8 +9,7 @@ c = conn.cursor()
 c.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    default_city TEXT
+    username TEXT UNIQUE
 )
 """)
 
