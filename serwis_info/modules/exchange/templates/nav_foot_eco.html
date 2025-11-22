@@ -14,7 +14,11 @@
   <!-- Header / Navbar (bez logo, tylko przyciski) -->
   <header class="site-header">
     <div class="nav-inner">
-      <!-- ...removed logo... -->
+      <!-- dodany hamburger (widoczny na mobilach) -->
+      <button id="nav-toggle" class="nav-toggle" aria-label="Pokaż menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+
       <nav class="nav-links" aria-label="Główna nawigacja">
         <!-- Zmienione: bezpośrednie ścieżki do podstron -->
         <a href="/currencies" class="nav-btn">Waluty</a>
@@ -46,6 +50,29 @@
     </div>
   </footer>
 
+  <!-- prosty JS toggle dla hamburgera -->
+  <script>
+    (function(){
+      var toggle = document.getElementById('nav-toggle');
+      if(!toggle) return;
+      var body = document.body;
+      var nav = document.querySelector('.nav-links');
+      toggle.addEventListener('click', function(){
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        body.classList.toggle('nav-open');
+        if(nav) nav.style.display = body.classList.contains('nav-open') ? 'flex' : '';
+      });
+      // ensure correct initial state on resize
+      window.addEventListener('resize', function(){
+        if(window.innerWidth > 720){
+          document.body.classList.remove('nav-open');
+          if(nav) nav.style.display = '';
+          toggle.setAttribute('aria-expanded','false');
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>
