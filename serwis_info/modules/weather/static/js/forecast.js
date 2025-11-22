@@ -32,7 +32,7 @@ export async function loadForecast(event) {
     });
 
     // Weź najbliższe 3 dni
-    const dates = Object.keys(grouped).slice(0, 3);
+    const dates = Object.keys(grouped).slice(0, 5);
 
     // citySlug - bezpieczny fragment do ID (usuwa spacje/znaki)
     const citySlug = slugify(city);
