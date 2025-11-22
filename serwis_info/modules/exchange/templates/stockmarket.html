@@ -20,7 +20,7 @@
     <div id="tab-content-category" class="tab-panel">
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
         {% for cat in categories %}
-          <a class="category-link" href="/stockmarket?category={{ cat }}&range={{ current_range }}" style="padding:0.5rem 0.75rem;border:1px solid #ddd;border-radius:4px;text-decoration:none;color:#333;">
+          <a class="category-link" href="/stockmarket?category={{ cat }}&range={{ current_range }}">
             {{ cat }}
           </a>
         {% endfor %}
@@ -42,10 +42,11 @@
           {% if options_for_category %}
             <form id="options-form" onsubmit="event.preventDefault(); loadSelected();">
               <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                <label style="font-weight:600;color:#333;">Wybierz symbole (możesz zaznaczyć kilka):</label>
-                <select id="select-symbols" multiple size="10" style="width:100%;padding:0.45rem 0.5rem;border-radius:6px;border:1px solid #ccc;font-size:0.95rem;">
+                <label style="font-weight:600;color:#333;">Wybierz symbol (można wybrać maksymalnie 1):</label>
+                <select id="select-symbols" name="symbol" style="width:100%;padding:0.45rem 0.5rem;border-radius:6px;border:1px solid #ccc;font-size:0.95rem;">
+                  <option value="" disabled selected>— wybierz symbol —</option>
                   {% for opt in options_for_category %}
-                    <option value="{{ opt.symbol }}" {% if opt.symbol in selected_symbols %}selected{% endif %}>{{ opt.name }} ({{ opt.symbol }})</option>
+                    <option value="{{ opt.symbol }}" {% if selected_symbols and opt.symbol == selected_symbols[0] %}selected{% endif %}>{{ opt.name }} ({{ opt.symbol }})</option>
                   {% endfor %}
                 </select>
                 <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
