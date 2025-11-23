@@ -151,3 +151,8 @@ body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4
   .footer-inner{padding:0.5rem;gap:0.4rem}
   .footer-btn{padding:0.55rem 0.8rem}
 }
+
+/* Dodanie marginesu dla header.site-header, aby znajdował się poniżej navbar */
+header.site-header {
+  margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
+}

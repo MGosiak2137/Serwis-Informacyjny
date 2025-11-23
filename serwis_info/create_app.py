@@ -9,7 +9,8 @@ def create_app():
     
     from serwis_info.modules.exchange.routes.currencies import currencies_bp
     from serwis_info.modules.exchange.routes.stockmarket import stockmarket_bp
-    from serwis_info.modules.exchange.routes.journey import journey_bp    
+    from serwis_info.modules.exchange.routes.journey import journey_bp 
+    from serwis_info.modules.exchange.routes.main import main_eco_bp   
 
     from serwis_info.modules.calendar.routes.horoscope_routes import horoscope_bp
     
@@ -25,6 +26,7 @@ def create_app():
     app.register_blueprint(currencies_bp)
     app.register_blueprint(stockmarket_bp)
     app.register_blueprint(journey_bp)
+    app.register_blueprint(main_eco_bp)
     app.register_blueprint(horoscope_bp)
     app.register_blueprint(news_bp)
     @app.route("/")
