@@ -1,52 +1,62 @@
-{% extends "base_main.html" %}
+{% extends "template.html" %}
+
+{% block title %}Strona główna – Serwis informacyjny{% endblock %}
 
 {% block body_class %}home-page{% endblock %}
 
-{% block content %}
-<script src="{{ url_for('main.static', filename='script.js') }}"></script>
+{% block extra_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('main.static', filename='mainpage.css') }}">
+{% endblock %}
 
-  <div class="home-layout">
+{% block extra_js %}
+  {{ super() }}
+  <script src="{{ url_for('main.static', filename='script.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+  <section class="home-layout" aria-label="Nawigacja po modułach serwisu">
     <div class="cards-grid">
 
+      {# KAFEL – KALENDARZ #}
       <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
-        <span class="card-title">            
-          <div class="calendar-body">
-              <p><strong>Data:</strong> <span id="calendar-date">Ładowanie...</span></p>
-              <p><strong>Godzina:</strong> <span id="calendar-time">Ładowanie...</span></p>
-              <p><strong>Dzień roku:</strong> <span id="calendar-daynum">Ładowanie...</span></p>
-              <p><strong>Imieniny:</strong> <span id="calendar-namedays">Ładowanie...</span></p>
-              <p><strong>Święto:</strong> <span id="calendar-holiday">Ładowanie...</span></p>
-              <p><strong>Status dnia:</strong> <span id="calendar-dayoff">Ładowanie...</span></p>
-          </div>
-        </span>
+        <div class="calendar-body">
+          <p><strong>Data:</strong> <span id="calendar-date">Ładowanie...</span></p>
+          <p><strong>Godzina:</strong> <span id="calendar-time">Ładowanie...</span></p>
+          <p><strong>Dzień roku:</strong> <span id="calendar-daynum">Ładowanie...</span></p>
+          <p><strong>Imieniny:</strong> <span id="calendar-namedays">Ładowanie...</span></p>
+          <p><strong>Święto:</strong> <span id="calendar-holiday">Ładowanie...</span></p>
+          <p><strong>Status dnia:</strong> <span id="calendar-dayoff">Ładowanie...</span></p>
+        </div>
       </a>
 
+      {# KAFEL – POGODA #}
       <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
-  <div class="weather-mini">
-      <div class="weather-header">
-          <p class="wm-city">Warszawa</p>
-          <img id="mini-icon" class="wm-icon" style="display:none;">
-      </div>
+        <div class="weather-mini">
+          <div class="weather-header">
+            <p class="wm-city">Warszawa</p>
+            <img id="mini-icon" class="wm-icon" style="display:none;">
+          </div>
 
-      <p id="mini-temp" class="wm-temp">Ładowanie...</p>
-      <p id="mini-desc" class="wm-desc"></p>
-      <div class="weather-forecast-mini" id="forecast-mini">
-    Ładowanie prognozy...
-</div>
+          <p id="mini-temp" class="wm-temp">Ładowanie...</p>
+          <p id="mini-desc" class="wm-desc"></p>
 
-  </div>
-</a>
+          <div class="weather-forecast-mini" id="forecast-mini">
+            Ładowanie prognozy...
+          </div>
+        </div>
+      </a>
 
-
+      {# KAFEL – NEWSY #}
       <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
         <span class="card-title">News</span>
       </a>
 
+      {# KAFEL – ECONOMY #}
       <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
         <span class="card-title">Economy</span>
       </a>
 
     </div>
-  </div>
-
+  </section>
 {% endblock %}
