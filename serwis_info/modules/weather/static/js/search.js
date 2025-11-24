@@ -147,3 +147,22 @@ function fitAllMarkers() {
   map.fitBounds(group.getBounds(), { padding: [50, 50] });
 }
 
+export async function autoLoadLastCities() {
+  try {
+    const res = await fetch(`/weather/api/history_last3/${username}`);
+    const cities = await res.json();
+
+    if (!Array.isArray(cities) || cities.length === 0) return;
+
+    resetSearch(); // usuwa poprzednie markery i karty
+
+    for (const city of cities) {
+      document.getElementById("cityInput").value = city;
+      await runSearch();
+    }
+
+    showNextButtons();
+  } catch (err) {
+    console.error("Błąd w auto ładowaniu historii:", err);
+  }
+}

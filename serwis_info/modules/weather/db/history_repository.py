@@ -16,7 +16,7 @@ def trim_history(user_id: int, limit: int):
         WHERE id IN (
             SELECT id FROM history
             WHERE user_id=?
-            ORDER BY id DESC
+            ORDER BY id ASC
             LIMIT  ?
         )
     """, (user_id, limit))

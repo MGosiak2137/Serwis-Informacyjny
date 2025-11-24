@@ -1,7 +1,8 @@
 import sqlite3
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "users.db")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DB_PATH = os.path.join(BASE_DIR, "users.db")
 
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
@@ -22,3 +23,6 @@ CREATE TABLE IF NOT EXISTS history (
 """)
 
 conn.commit() # Ensure changes are saved to the database
+
+print(">>> USING DATABASE:", DB_PATH)
+

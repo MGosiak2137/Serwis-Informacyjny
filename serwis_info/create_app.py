@@ -22,6 +22,8 @@ def create_app():
     app.register_blueprint(weather_bp, url_prefix='/weather')
     from serwis_info.modules.weather.routes.weather_routes import weather_api_bp
     app.register_blueprint(weather_api_bp)
+    from serwis_info.modules.weather.routes.history_routes import history_bp
+    app.register_blueprint(history_bp)
     #koniec rejestracji weather blueprint
 
     
