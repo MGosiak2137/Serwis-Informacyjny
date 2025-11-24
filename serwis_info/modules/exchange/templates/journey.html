@@ -1,85 +1,144 @@
 {% extends "nav_foot_eco.html" %}
-
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('journey.static', filename='journey.css') }}">
 {% endblock %}
-
 {% block main %}
 <main class="page-main journey-page">
-  <section class="journey-section">
-    <h2>Wyszukiwarka lotów</h2>
-    <p class="lead">Znajdź najlepsze ceny lotów w obie strony.</p>
+<section class="journey-section">
+<h2>Wyszukiwarka lotów</h2>
+<p class="lead">Znajdź najlepsze ceny lotów w obie strony.</p>
+<form class="journey-form" method="get" action="/journey">
+<label> Miasto lub lotnisko wylotu
+<input type="text" name="origin" placeholder="np. Warszawa lub WAW" value="{{ origin or '' }}">
+</label>
+<label> Miasto lub lotnisko docelowe
+<input type="text" name="destination" placeholder="np. Nowy Jork lub JFK" value="{{ destination or '' }}">
+</label>
+<label> Data wylotu
+<input type="date" name="date_from" value="{{ date_from or '' }}">
+</label>
+<label> Data powrotu
+<input type="date" name="date_to" value="{{ date_to or '' }}">
+</label>
+<label> Klasa podróży
+<select name="cabin">
+<option value="ECO" {% if cabin == "ECO" %}selected{% endif %}>Economy</option>
+<option value="PEC" {% if cabin == "PEC" %}selected{% endif %}>Premium Economy</option>
+<option value="BUS" {% if cabin == "BUS" %}selected{% endif %}>Business</option>
+<option value="FST" {% if cabin == "FST" %}selected{% endif %}>First Class</option>
+</select>
+</label>
+<label> Liczba pasażerów
+<input type="number" min="1" name="people" value="{{ people or 1 }}">
+</label>
+<div class="form-actions">
+<button type="submit" class="btn-primary">Szukaj lotów</button>
+</div>
+</form>
+<!-- Spinner Overlay z animowanym tekstem -->
+<div id="spinner" style="display:none;" class="spinner-overlay">
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <div id="spinner-text" class="spinner-text"></div>
+    </div>
+</div>
 
-    <form class="journey-form" method="get" action="/journey">
-      <label>
-        Lotnisko wylotu (IATA)
-        <input type="text" name="origin" placeholder="np. WAW" value="{{ origin or '' }}">
-      </label>
+{% if flights %}
+<section class="results-grid">
 
-      <label>
-        Lotnisko docelowe (IATA)
-        <input type="text" name="destination" placeholder="np. JFK" value="{{ destination or '' }}">
-      </label>
-
-      <label>
-        Data wylotu
-        <input type="date" name="date_from" value="{{ date_from or '' }}">
-      </label>
-
-      <label>
-        Data powrotu
-        <input type="date" name="date_to" value="{{ date_to or '' }}">
-      </label>
-
-      <label>
-        Klasa podróży
-        <select name="cabin">
-          <option value="ECO" {% if cabin == "ECO" %}selected{% endif %}>Economy</option>
-          <option value="PEC" {% if cabin == "PEC" %}selected{% endif %}>Premium Economy</option>
-          <option value="BUS" {% if cabin == "BUS" %}selected{% endif %}>Business</option>
-          <option value="FST" {% if cabin == "FST" %}selected{% endif %}>First Class</option>
-        </select>
-      </label>
-
-      <label>
-        Liczba pasażerów
-        <input type="number" min="1" name="people" value="{{ people or 1 }}">
-      </label>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-primary">Szukaj lotów</button>
-      </div>
-    </form>
-
-    {% if error %}
-      <p class="error">{{ error }}</p>
-    {% endif %}
-
-    {% if flights %}
-    <section class="results-section">
-      <h3>Najlepsze oferty</h3>
-
-      <ul class="flights-list">
+    <!-- LEWA KOLUMNA: LOTY -->
+    <div class="left-column">
+        <h3>✈️ Najlepsze oferty lotów</h3>
+        <ul class="flights-list">
         {% for f in flights %}
-        <li>
-          ✈️ <strong>{{ f.airline }}</strong><br>
-          {{ f.dep }} → {{ f.arr }}  
-          • czas: {{ f.duration }} min  
-          • cena: <strong>{{ f.price }} USD</strong>
+        <li class="flight-card">
+            <strong>✈️ Wylot:</strong> {{ f.airline_out }}<br>
+            {{ f.dep_out }} ({{ f.dep_time_out }}) → {{ f.arr_out }} ({{ f.arr_time_out }}) • czas: {{ f.duration_out }} • przesiadki: {{ f.stops_out }}<br>
+            <small>Cena: {{ f.price_out_usd }} USD (~{{ (f.price_out_usd * usd_rate)|round(2) }} PLN)</small><br><br>
+            
+            <strong>🔙 Powrót:</strong> {{ f.airline_ret }}<br>
+            {{ f.dep_ret }} ({{ f.dep_time_ret }}) → {{ f.arr_ret }} ({{ f.arr_time_ret }}) • czas: {{ f.duration_ret }} • przesiadki: {{ f.stops_ret }}<br>
+            <small>Cena: {{ f.price_ret_usd }} USD (~{{ (f.price_ret_usd * usd_rate)|round(2) }} PLN)</small><br><br>
+
+            <strong>💵 Razem: {{ f.price_usd }} USD (~{{ f.price_pln }} PLN)</strong>
         </li>
         {% endfor %}
-      </ul>
+        </ul>
+    </div>
 
-      {% if summary %}
-      <div class="summary-box">
-        <h4>Statystyki cen</h4>
-        <p>💰 Średnia: <strong>{{ summary.avg }} USD</strong></p>
-        <p>📉 Najniższa: <strong>{{ summary.min }} USD</strong></p>
-        <p>📈 Najwyższa: <strong>{{ summary.max }} USD</strong></p>
-      </div>
-      {% endif %}
-    </section>
+    <!-- PRAWA KOLUMNA: HOTELE -->
+    {% if hotels %}
+    <div class="right-column">
+        <h3>🏨 Najtańsze hotele</h3>
+        <div class="hotels-container">
+            {% for h in hotels %}
+            <div class="hotel-card">
+                {% if h.photo %}
+                <img src="{{ h.photo }}" alt="{{ h.name }}" class="hotel-img">
+                {% endif %}
+                <h3>{{ h.name }}</h3>
+                <p class="hotel-address">{{ h.address }}</p>
+                <p class="hotel-price">
+                    💵 Cena: {{ h.price_usd }} USD (~{{ (h.price_usd * usd_rate)|round(2) }} PLN)
+                </p>
+                {% if h.rating %}
+                <p class="hotel-rating">⭐ Ocena: {{ h.rating }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endif %}
-  </section>
+
+</section>
+
+<!-- PODSUMOWANIE POD DWOMA KOLUMNAMI -->
+{% if total_usd %}
+<div class="summary-box">
+    <h3>Łączny koszt (lot + hotel)</h3>
+
+    <p>🛫 Najtańszy lot:
+        <strong>{{ min_price }} USD</strong>
+        (~{{ (min_price * usd_rate)|round(2) }} PLN)
+    </p>
+
+    <p>🏨 Hotel ({{ nights }} noce):
+        <strong>{{ hotel_usd * nights }} USD</strong>
+        (~{{ hotel_pln * nights }} PLN)
+    </p>
+
+    <p><strong>💵 Razem: {{ total_usd }} USD (~{{ total_pln }} PLN)</strong></p>
+</div>
+{% endif %}
+
+{% endif %}
+
+</section>
 </main>
+<script>
+const messages = [
+    "Wyszukujemy Twoją wymarzoną podróż...",
+    "Znajdujemy najlepsze loty...",
+    "Szukamy idealnych hoteli..."
+];
+
+let messageIndex = 0;
+let spinnerInterval;
+
+document.querySelector('.journey-form').addEventListener('submit', function() {
+    const spinner = document.getElementById('spinner');
+    const spinnerText = document.getElementById('spinner-text');
+
+    spinner.style.display = 'flex';
+    spinnerText.textContent = messages[0];
+    messageIndex = 0;
+
+    // Zmieniamy wiadomość co 2.5 sekundy
+    spinnerInterval = setInterval(() => {
+        messageIndex = (messageIndex + 1) % messages.length;
+        spinnerText.textContent = messages[messageIndex];
+    }, 7500);
+});
+</script>
+
 {% endblock %}

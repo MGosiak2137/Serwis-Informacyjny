@@ -68,6 +68,12 @@ body.home-page {
   min-height: 0;  
 }
 
+/* Prevent card-economy from growing beyond its grid cell */
+.card-economy {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 .card-title {
   font-weight: 600;
   font-size: 1.1rem;
@@ -91,6 +97,108 @@ body.home-page {
   color: #666;
   z-index: 998;             
 }
+.card-economy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  border-radius: 20px;
+  align-items: stretch;
+}
+
+.currency-header {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.currency-header .usd,
+.currency-header .eur {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  flex: 0 1 auto;
+}
+
+.currency-header .eur {
+  /* keep centered by default; on narrow screens it will stack under USD */
+  margin-left: 0;
+  align-items: center;
+  text-align: center;
+}
+
+/* Ensure Y labels are on the left by default (no row-reverse) */
+.currency-header .eur .spark-row {
+  flex-direction: row;
+}
+
+.sparkline {
+  display: block;
+  width: 140px !important;
+  height: 40px !important;
+  background: transparent;
+}
+
+.spark-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center; /* center sparkline + Y labels */
+}
+.spark-y-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 48px;
+  width: 56px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.95);
+}
+.spark-canvas-wrap { display: flex; flex-direction: column; gap: 4px; align-items:center; }
+.spark-x { font-size: 11px; color: rgba(255,255,255,0.95); display:flex; justify-content:space-between; width:100%; }
+.spark-x .x-start { text-align: left; }
+.spark-x .x-end { text-align: right; }
+
+/* Responsive: if space is tight, stack EUR under USD */
+@media (max-width: 720px) {
+  .currency-header { gap: 8px; }
+  .currency-header .eur { margin-left: 0; align-items: flex-start; text-align: left; }
+}
+
+/* If card narrower, force stacking of currency blocks */
+@media (max-width: 520px) {
+  .currency-header { flex-direction: column; align-items: flex-start; }
+  .spark-y-vertical { width: 48px; }
+  .spark-canvas-wrap { width: 100%; }
+}
+
+.gold-section {
+  margin-top: 20px;
+}
+
+.gold-price {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Canvas pełna szerokość i większa wysokość */
+#gold-chart {
+  width: 100% !important;
+  height: 150px !important;
+  display: block;
+  margin: 0;
+}
+
 /* widok mobilny */
 @media (max-width: 768px) {
   .main-content {
@@ -125,4 +233,5 @@ body.home-page {
   .main-footer {
     display: none;
   }
+  
 }

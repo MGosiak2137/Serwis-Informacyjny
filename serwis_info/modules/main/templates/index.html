@@ -3,7 +3,6 @@
 {% block body_class %}home-page{% endblock %}
 
 {% block content %}
-<script src="{{ url_for('main.static', filename='script.js') }}"></script>
 
   <div class="home-layout">
     <div class="cards-grid">
@@ -30,16 +29,53 @@
       </a>
 
       <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
-        <span class="card-title">Economy</span>
-          <div class="currency-rates">
-            <p>EUR/PLN: <span id="eur-pln">{{ eur_pln if eur_pln else 'brak danych' }}</span></p>
-            <p>USD/PLN: <span id="usd-pln">{{ usd_pln if usd_pln else 'brak danych' }}</span></p>
-            <p>Złoto: <span id="gold-price">{{ gold_price|round(2) if gold_price else 'brak danych' }}</span> USD/oz</p>
+        <div class="currency-header">
+          <div class="usd">
+            <div class="currency-line">USD/PLN: <span id="usd-pln">{{ usd_pln if usd_pln else 'brak danych' }}</span></div>
+            <div class="spark-row">
+              <div class="spark-y-vertical">
+                <div class="y-max" id="usd-spark-ymax"></div>
+                <div class="y-min" id="usd-spark-ymin"></div>
+              </div>
+              <div class="spark-canvas-wrap">
+                <canvas id="usd-spark" class="sparkline" width="160" height="48"></canvas>
+                <div class="spark-x">
+                  <span class="x-start" id="usd-spark-xstart"></span>
+                  <span class="x-end" id="usd-spark-xend"></span>
+                </div>
+              </div>
+            </div>
           </div>
+          <div class="eur">
+            <div class="currency-line">EUR/PLN: <span id="eur-pln">{{ eur_pln if eur_pln else 'brak danych' }}</span></div>
+            <div class="spark-row">
+              <div class="spark-y-vertical">
+                <div class="y-max" id="eur-spark-ymax"></div>
+                <div class="y-min" id="eur-spark-ymin"></div>
+              </div>
+              <div class="spark-canvas-wrap">
+                <canvas id="eur-spark" class="sparkline" width="160" height="48"></canvas>
+                <div class="spark-x">
+                  <span class="x-start" id="eur-spark-xstart"></span>
+                  <span class="x-end" id="eur-spark-xend"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gold-section">
+          <div class="gold-price">
+            Złoto: <span id="gold-price">{{ gold_price|round(2) if gold_price else 'brak danych' }}</span> USD/oz
+          </div>
+          <canvas id="gold-chart"></canvas>
+        </div>
       </a>
+
+
 
 
     </div>
   </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('main.static', filename='script.js') }}"></script>
 {% endblock %}
