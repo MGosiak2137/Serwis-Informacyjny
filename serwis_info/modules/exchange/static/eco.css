@@ -80,26 +80,6 @@ body{
   box-shadow: 0 14px 30px rgba(255,59,48,0.14);
 }
 
-/* hamburger: hidden on desktop, visible on small screens */
-.nav-toggle{display:none;background:transparent;border:0;padding:0;cursor:pointer}
-.nav-toggle .hamburger{display:block;width:22px;height:2px;background:#fff;position:relative}
-.nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:#fff;transition:transform .18s ease}
-.nav-toggle .hamburger::before{top:-7px}
-.nav-toggle .hamburger::after{top:7px}
-
-/* mobile: show hamburger and stack nav when nav-open */
-@media (max-width:720px){
-  .nav-toggle{display:block}
-  .nav-links{display:none;flex-direction:column;align-items:center;gap:0.6rem;width:100%}
-  body.nav-open .nav-links{display:flex}
-  .nav-links .nav-btn{width:100%;max-width:320px;text-align:center;padding:0.6rem 0; border-radius:8px}
-}
-
-/* animate hamburger to X when open */
-body.nav-open .nav-toggle .hamburger{background:transparent}
-body.nav-open .nav-toggle .hamburger::before{transform:rotate(45deg) translate(4px,4px)}
-body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4px,-4px)}
-
 /* Footer: lewa połowa spacer, prawa połowa przycisk; usuń margines górny, by trzymał dół */
 .site-footer{background:var(--footer-bg);color:#fff;padding:1rem 0;margin-top:0}
 .footer-inner{
@@ -144,15 +124,4 @@ body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4
   .footer-right{width:100%}
   .footer-btn{width:100%;max-width:640px}
   .nav-btn{padding:0.5rem 0.75rem; font-size:0.95rem}
-}
-
-/* footer adjustments: ensure stacked on tiny screens (existing rules keep it responsive) */
-@media (max-width:420px){
-  .footer-inner{padding:0.5rem;gap:0.4rem}
-  .footer-btn{padding:0.55rem 0.8rem}
-}
-
-/* Dodanie marginesu dla header.site-header, aby znajdował się poniżej navbar */
-header.site-header {
-  margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
 }
