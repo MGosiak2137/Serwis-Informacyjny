@@ -5,32 +5,58 @@
 {% block body_class %}home-page{% endblock %}
 
 {% block extra_css %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('main.static', filename='mainpage.css') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='mainpage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='calendar.css') }}">
 {% endblock %}
 
 {% block extra_js %}
-  {{ super() }}
-  <script src="{{ url_for('main.static', filename='script.js') }}"></script>
+    {{ super() }}
+    <script src="{{ url_for('main.static', filename='script.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-  <section class="home-layout" aria-label="Nawigacja po modułach serwisu">
-    <div class="cards-grid">
 
-      {# LEWA KOLUMNA: KALENDARZ + NEWS #}
-      <div class="col-left">
-        {# KAFEL – KALENDARZ #}
-        <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
-          <div class="calendar-body">
-            <p><strong>Data:</strong> <span id="calendar-date">Ładowanie...</span></p>
-            <p><strong>Godzina:</strong> <span id="calendar-time">Ładowanie...</span></p>
-            <p><strong>Dzień roku:</strong> <span id="calendar-daynum">Ładowanie...</span></p>
-            <p><strong>Imieniny:</strong> <span id="calendar-namedays">Ładowanie...</span></p>
-            <p><strong>Święto:</strong> <span id="calendar-holiday">Ładowanie...</span></p>
-            <p><strong>Status dnia:</strong> <span id="calendar-dayoff">Ładowanie...</span></p>
+<section class="home-layout" aria-label="Nawigacja po modułach serwisu">
+  <div class="cards-grid">
+
+      {# KAFEL – KALENDARZ #}
+      <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
+        <div class="calendar-body">
+
+          <div class="calendar-row">
+            <span class="calendar-label">Godzina</span>
+            <span class="calendar-value" id="calendar-time">Ładowanie...</span>
           </div>
-        </a>
+
+          <div class="calendar-row">
+            <span class="calendar-label">Data</span>
+            <span class="calendar-value" id="calendar-date">Ładowanie...</span>
+          </div>
+
+          <div class="calendar-row">
+            <span class="calendar-label">Dzień roku</span>
+            <span class="calendar-value" id="calendar-daynum">Ładowanie...</span>
+          </div>
+
+          <div class="calendar-row">
+            <span class="calendar-label">Imieniny</span>
+            <span class="calendar-value" id="calendar-namedays">Ładowanie...</span>
+          </div>
+
+          <div class="calendar-row">
+            <span class="calendar-label">Święto</span>
+            <span class="calendar-value" id="calendar-holiday">Ładowanie...</span>
+          </div>
+
+          <div class="calendar-row">
+            <span class="calendar-label">Status dnia</span>
+            <span class="calendar-value" id="calendar-dayoff">Ładowanie...</span>
+          </div>
+
+        </div>
+      </div>
+    </a>
 
         {# KAFEL – NEWSY #}
         <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
@@ -63,7 +89,8 @@
         </a>
       </div>
 
-    </div>
-  </section>
+  </div>
+</section>
+
 {% endblock %}
 
