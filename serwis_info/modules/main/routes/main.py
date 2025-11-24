@@ -6,13 +6,12 @@ main_bp = Blueprint(
     __name__,
     url_prefix="/main",
     template_folder="../templates",
-    static_folder="../static",          
+    static_folder="../static",
 )
-
 
 @main_bp.route("/")
 def index():
-    return render_template("index.html", body_class="home-page")
+    return render_template("index.html")
 
 @main_bp.route("/api/calendar")
 def get_calendar():

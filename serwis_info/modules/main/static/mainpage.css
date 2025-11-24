@@ -1,6 +1,4 @@
-/* Style specyficzne dla strony głównej (kafelki) */
-
-/* Strona główna – tło itp. */
+/* Strona główna */
 body.home-page {
   overflow: hidden;
   background: #f7f7f9;
@@ -9,31 +7,37 @@ body.home-page {
 /* Wrapper na kafelki */
 .home-layout {
   width: 100%;
-  max-width: 1200px;
   height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;   
+}
+
+/* GŁÓWNY UKŁAD – dwie kolumny */
+.cards-grid {
+  display: flex;
+  gap: 2vh;
+  width: 100%;
+  height: 100%;  
+}
+
+/* LEWA i PRAWA KOLUMNA */
+.col-left,
+.col-right {
+  flex: 1;            
   display: flex;
   flex-direction: column;
+  gap: 2vh;
 }
 
-/* GRID KAFELKÓW – DESKTOP */
-.cards-grid {
-  flex: 1;
-  height: 100%;
-  display: grid;
-  gap: 20px;
+/* proporcje wysokości wewnątrz kolumn */
 
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr 2fr;
-  grid-template-areas:
-    "calendar calendar calendar"
-    "weather  news      economy";
-}
+/* KOLUMNA 1: kalendarz : news = 1 : 2 */
+.col-left .card-calendar { flex: 1; }
+.col-left .card-news     { flex: 2; }
 
-/* przypisanie kafelków do pól siatki */
-.card-calendar { grid-area: calendar; }
-.card-weather  { grid-area: weather; }
-.card-news     { grid-area: news; }
-.card-economy  { grid-area: economy; }
+/* KOLUMNA 2: pogoda : ekonomia = 1 : 1 */
+.col-right .card-weather { flex: 1; }
+.col-right .card-economy { flex: 1; }
 
 .card-item {
   background: #e5e5e5;
@@ -44,7 +48,7 @@ body.home-page {
   text-decoration: none;
   color: #333;
 
-  height: 100%;
+  height: 100%;  
   min-height: 0;
 }
 
@@ -148,29 +152,44 @@ body.home-page {
   color: #555;
 }
 
-/* ====== WIDOK MOBILNY – TYLKO MAIN PAGE ====== */
-
 @media (max-width: 768px) {
-  .home-layout {
-    gap: 12px;
-    margin-top: 0;
-  }
 
+  .main-content, .home-layout {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  .main-content {
+    padding: 0.5rem 0.5rem;   
+  }
   .cards-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.5fr 1fr 1fr 1fr;
-    grid-template-areas:
-      "calendar"
-      "weather"
-      "news"
-      "economy";
+    flex-direction: column;
+    height: 92%;
+    width: 100%;
+    padding: 2vh 2vh;
+    gap: 1vh;
   }
 
+  .col-left,
+  .col-right {
+    display: contents;
+  }
+
+  /* KALENDARZ mniejszy */
+  .col-left .card-calendar {
+    flex: 1 !important;
+  }
+
+  /* POGODA, NEWS, ECONOMY – TRZY IDENTYCZNE WYSOKOŚCI */
+  .col-left .card-news,
+  .col-right .card-weather,
+  .col-right .card-economy {
+    flex: 3 !important;
+  }
+
+  /* nie blokujemy flexa wysokościami */
   .card-item {
-    min-height: 18vh;
-  }
-
-  .card-calendar {
-    min-height: 12vh;
+    height: auto;
+    min-height: 0;
   }
 }
