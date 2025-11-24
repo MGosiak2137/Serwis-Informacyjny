@@ -32,7 +32,7 @@ async function searchCity() {
       <p>Wiatr: ${wind.speed} m/s</p>
       <p>🌫️ Jakość powietrza: ${aqiLevels[airData.list[0].main.aqi]}</p>
     `;
-
+    document.getElementById("weatherInfo").style.display = "block";
     map.setView([coord.lat, coord.lon], 10);
     L.marker([coord.lat, coord.lon]).addTo(map).bindPopup(`${name}: ${main.temp}°C`).openPopup();
 

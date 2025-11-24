@@ -1,68 +1,101 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<title>Weather Dashboard</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="{{ url_for('weather.static', filename='style.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8">
+  <title>Weather Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('weather.static', filename='styleweather.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
-
 <body>
 
-<h1>Weather Dashboard</h1>
-<p>Witaj, <span id="usernameDisplay"></span>!</p>
+  <!-- Powrót (domek) -->
+  <a href="/" class="weather-back-btn" title="Powrót do strony głównej">🏠</a>
 
-<div id="userPanel" class="panel">
-  <button id="togglePanelBtn">☰ Panel użytkownika</button>
-  <div id="panelContent" class="hidden">
-    <div id="defaultCitySection">
-  <p><strong>Domyślne miasto:</strong> <span id="defaultCityValue">brak</span></p>
-
-  <button id="changeDefaultBtn" class="hidden">Zmień domyślne miasto</button>
-  <button id="setDefaultBtn" class="hidden">Ustaw domyślne miasto</button>
-  
-</div>
-<button id="deleteDefaultBtn" class="hidden">Usuń domyślne miasto</button>
-    <div class="history-section">
-      <button id="toggleHistoryBtn">📜 Historia wyszukiwania ▼</button>
-      <div id="historyOptions" class="hidden">
-        <button id="showHistoryBtn">👁️ Pokaż historię</button>
-        <button id="clearHistoryBtn">🗑️ Usuń historię</button>
+  <main class="weather-dashboard">
+    
+    <!-- LEWY PANEL -->
+    <aside class="weather-sidebar-left">
+      <div class="weather-hero">
+        <h1>Weather Dashboard</h1>
+        <p>Cześć, <span id="usernameDisplay">User</span>!</p>
       </div>
-    </div>
-  </div>
-</div>
+      
+      <div class="weather-panel">
+        <h3>Panel użytkownika</h3>
+        <button id="togglePanelBtn" class="weather-btn-secondary">Rozwiń panel</button>
+        <div id="panelContent" class="hidden">
+          <div id="defaultCitySection">
+            <p><strong>Domyślne miasto:</strong> <span id="defaultCityValue">brak</span></p>
+            <button id="setDefaultBtn" class="hidden weather-btn-secondary">Ustaw domyślne miasto</button>
+            <button id="changeDefaultBtn" class="hidden weather-btn-secondary">Zmień</button>
+            <button id="deleteDefaultBtn" class="hidden weather-btn-secondary danger">Usuń</button>
+          </div>
+        </div>
+      </div>
 
-<div id="controls">
-  <input type="text" id="cityInput" placeholder="Wpisz miasto">
-  <button id="searchBtn">Szukaj</button>
-  
-  <div id="layerSelector">
-    <label><input type="radio" name="weatherLayer" value="temp" checked> Temperatura</label>
-    <label><input type="radio" name="weatherLayer" value="rain"> Opady</label>
-    <label><input type="radio" name="weatherLayer" value="clouds"> Zachmurzenie</label>
-    <label><input type="radio" name="weatherLayer" value="wind"> Wiatr</label>
-    <label><input type="radio" name="weatherLayer" value="none"> Brak</label>
-  </div>
-</div>
+      <div class="weather-panel weather-alerts">
+        <h3>Ostrzeżenia</h3>
+        <p id="alertsContent">Brak aktywnych ostrzeżeń</p>
+      </div>
+    </aside>
 
-<div id="weatherInfo"></div>
-<div id="map"></div>
-<div id="legendContainer"></div>
+    <!-- GŁÓWNA CZĘŚĆ -->
+    <section class="weather-main">
+      
+      <!-- WYSZUKIWARKA -->
+      <div class="weather-search-box">
+        <input type="text" id="cityInput" placeholder="Szukaj miasta...">
+        <button id="searchBtn" class="weather-btn-primary">Szukaj</button>
+      </div>
 
-<h3>Historia wyszukiwań:</h3>
-<ul id="historyList"></ul>
+      <!-- INFO POGODOWE (ukryte do czasu wyszukania) -->
+      <div id="weatherInfo" class="weather-info-panel" style="display:none;"></div>
 
-<!-- Skrypt JS -->
-<!-- <script src="{{ url_for('weather.static', filename='app_dashboard.js') }}"></script> -->
+      <!-- MAPA (duża i widoczna) -->
+      <div class="weather-map-container">
+        <div id="map"></div>
+        <div id="legendContainer"></div>
+      </div>
 
-<script type="module" src="{{ url_for('weather.static', filename='js/app.js') }}"></script>
+      <!-- NAKŁADKI MAPY -->
+      <div class="weather-layers-box">
+        <h3>Warstwy mapy</h3>
+        <div id="layerSelector" class="weather-layer-selector">
+          <button type="button" class="layer-btn" data-layer="temp">
+            Temperatura
+          </button>
+          <button type="button" class="layer-btn" data-layer="rain">
+            Opady
+          </button>
+          <button type="button" class="layer-btn" data-layer="clouds">
+            Zachmurzenie
+          </button>
+          <button type="button" class="layer-btn" data-layer="wind">
+            Wiatr
+          </button>
+          <button type="button" class="layer-btn" data-layer="none">
+            Brak
+          </button>
+        </div>
+      </div>
 
+      <!-- HISTORIA WYSZUKIWAŃ -->
+      <section class="weather-history-section">
+        <h3>Historia wyszukiwań</h3>
+        <ul id="historyList"></ul>
+        <button id="clearHistoryBtn" class="weather-btn-secondary danger">Usuń historię</button>
+      </section>
 
+    </section>
+
+  </main>
+
+  <footer class="weather-footer">
+    <p>© 2025 Serwis Informacyjny – Pogoda</p>
+  </footer>
+
+  <script type="module" src="{{ url_for('weather.static', filename='js/app.js') }}"></script>
 </body>
 </html>
