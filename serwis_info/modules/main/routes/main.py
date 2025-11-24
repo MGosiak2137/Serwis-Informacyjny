@@ -5,7 +5,7 @@ main_bp = Blueprint(
     "main",
     __name__,
     url_prefix="/main",
-    template_folder="../templates",
+    template_folder="../../templates",
     static_folder="../static",
 )
 
