@@ -11,3 +11,4 @@ python-dateutil
 requests
 holidays
 yfinance
+googletrans
