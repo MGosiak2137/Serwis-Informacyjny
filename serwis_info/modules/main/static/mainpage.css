@@ -157,14 +157,14 @@ body.home-page {
   .main-content, .home-layout {
     height: 100%;
     width: 100%;
-    margin-bottom: 60px;
+    margin-bottom: 65px;
   }
   .main-content {
     padding: 0.5rem 0.5rem;   
   }
   .cards-grid {
     flex-direction: column;
-    height: 92%;
+    height: 90vh;
     width: 100%;
     padding: 2vh 2vh;
     gap: 1vh;
@@ -186,8 +186,6 @@ body.home-page {
   .col-right .card-economy {
     flex: 3 !important;
   }
-
-  /* nie blokujemy flexa wysokościami */
   .card-item {
     height: auto;
     min-height: 0;
