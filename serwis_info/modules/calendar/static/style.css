@@ -23,7 +23,6 @@ body {
     align-items: flex-start;
     padding: 1.5rem 2rem;
     width: 100%;
-    background: #f7f7f9;
 
     height: auto !important;      /* USUWAMY blokowanie wysokości */
     overflow-y: visible !important; /* USUWAMY osobny scroll */

@@ -14,80 +14,80 @@
     {{ super() }}
     <script src="{{ url_for('main.static', filename='script.js') }}"></script>
 {% endblock %}
-
 {% block content %}
-
 <section class="home-layout" aria-label="Nawigacja po modułach serwisu">
   <div class="cards-grid">
 
-      {# KAFEL – KALENDARZ #}
+    {# LEWA KOLUMNA: KALENDARZ + NEWS #}
+    <div class="col-left">
+
       <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
-        <div class="calendar-body">
 
-          <div class="calendar-row">
-            <span class="calendar-label">Godzina</span>
-            <span class="calendar-value" id="calendar-time">Ładowanie...</span>
+        <div class="calendar-horizontal">
+
+          <div class="calendar-left">
+            <div class="calendar-time" id="calendar-time">Ładowanie...</div>
+            <div class="calendar-date" id="calendar-date">Ładowanie...</div>
           </div>
 
-          <div class="calendar-row">
-            <span class="calendar-label">Data</span>
-            <span class="calendar-value" id="calendar-date">Ładowanie...</span>
-          </div>
+          <div class="calendar-right">
 
-          <div class="calendar-row">
-            <span class="calendar-label">Dzień roku</span>
-            <span class="calendar-value" id="calendar-daynum">Ładowanie...</span>
-          </div>
+            <div class="calendar-box">
+              <span class="calendar-label">Imieniny:</span>
+              <span class="calendar-value" id="calendar-namedays">Ładowanie...</span>
+            </div>
 
-          <div class="calendar-row">
-            <span class="calendar-label">Imieniny</span>
-            <span class="calendar-value" id="calendar-namedays">Ładowanie...</span>
-          </div>
+            <div class="calendar-box">
+              <span class="calendar-label">Status dnia:</span>
+              <span class="calendar-value" id="calendar-dayoff">Ładowanie...</span>
+            </div>
 
-          <div class="calendar-row">
-            <span class="calendar-label">Święto</span>
-            <span class="calendar-value" id="calendar-holiday">Ładowanie...</span>
-          </div>
+            <div class="calendar-box">
+              <span class="calendar-label">Święto:</span>
+              <span class="calendar-value" id="calendar-holiday">Ładowanie...</span>
+            </div>
 
-          <div class="calendar-row">
-            <span class="calendar-label">Status dnia</span>
-            <span class="calendar-value" id="calendar-dayoff">Ładowanie...</span>
-          </div>
+            <div class="calendar-box">
+              <span class="calendar-label">Dzień roku:</span>
+              <span class="calendar-value" id="calendar-daynum">Ładowanie...</span>
+            </div>
 
+          </div>
         </div>
-      </div>
-    </a>
 
-        {# KAFEL – NEWSY #}
-        <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
-          <span class="card-title">News</span>
-        </a>
-      </div>
+      </a>
 
-      {# PRAWA KOLUMNA: POGODA + ECONOMY #}
-      <div class="col-right">
-        {# KAFEL – POGODA #}
-        <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
-          <div class="weather-mini">
-            <div class="weather-header">
-              <p class="wm-city">Warszawa</p>
-              <img id="mini-icon" class="wm-icon" style="display:none;">
-            </div>
+      {# KAFEL – NEWSY #}
+      <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
+        <span class="card-title">News</span>
+      </a>
 
-            <p id="mini-temp" class="wm-temp">Ładowanie...</p>
-            <p id="mini-desc" class="wm-desc"></p>
+    </div>  {# koniec .col-left #}
 
-            <div class="weather-forecast-mini" id="forecast-mini">
-              Ładowanie prognozy...
-            </div>
+    {# PRAWA KOLUMNA: POGODA + ECONOMY #}
+    <div class="col-right">
+      {# KAFEL – POGODA #}
+      <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
+        <div class="weather-mini">
+          <div class="weather-header">
+            <p class="wm-city">Warszawa</p>
+            <img id="mini-icon" class="wm-icon" style="display:none;">
           </div>
-        </a>
 
-        {# KAFEL – ECONOMY #}
-        <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
-          <span class="card-title">Economy</span>
-        </a>
-      </div>
+          <p id="mini-temp" class="wm-temp">Ładowanie...</p>
+          <p id="mini-desc" class="wm-desc"></p>
+
+          <div class="weather-forecast-mini" id="forecast-mini">
+            Ładowanie prognozy...
+          </div>
+        </div>
+      </a>
+
+      {# KAFEL – ECONOMY #}
+      <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
+        <span class="card-title">Economy</span>
+      </a>
+    </div>  {# koniec .col-right #}
 
   </div>
 </section>
