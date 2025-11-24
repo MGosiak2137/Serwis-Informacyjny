@@ -1,13 +1,14 @@
 # Lista bibliotek wymaganych do uruchomienia projektu
 
-Flask
 Flask-WTF
 Flask-Login
+Flask-SQLAlchemy
 python-dotenv
-bs4
+
 requests
+beautifulsoup4
 selenium
+
 python-dateutil
-requests
 holidays
 yfinance
