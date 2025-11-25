@@ -150,14 +150,14 @@ function fitAllMarkers() {
 export async function autoLoadLastCities() {
   try {
     const res = await fetch(`/weather/api/history_last3/${username}`);
-    const cities = await res.json();
+    const entries = await res.json();
 
-    if (!Array.isArray(cities) || cities.length === 0) return;
+    if (!Array.isArray(entries) || entries.length === 0) return;
 
     resetSearch(); // usuwa poprzednie markery i karty
 
-    for (const city of cities) {
-      document.getElementById("cityInput").value = city;
+    for (const entry of entries) {
+      document.getElementById("cityInput").value = entry.city;  // <-- poprawka
       await runSearch();
     }
 
