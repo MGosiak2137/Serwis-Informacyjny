@@ -15,7 +15,6 @@ def create_app():
     from serwis_info.modules.calendar.routes.horoscope_routes import horoscope_bp
     
     from serwis_info.modules.news.routes.news_page import news_bp
-    
     from serwis_info.modules.weather import create_weather_blueprint
     weather_bp = create_weather_blueprint()
     app.register_blueprint(weather_bp, url_prefix='/weather')
