@@ -1,101 +1,96 @@
-{% extends "base_main.html" %}
+{% extends "template.html" %}
+
+{% block title %}Strona główna – Serwis informacyjny{% endblock %}
 
 {% block body_class %}home-page{% endblock %}
 
-{% block content %}
-<script src="{{ url_for('main.static', filename='script.js') }}"></script>
-
-<div class="home-layout">
-  <div class="cards-grid">
-
-    <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
-      <span class="card-title">
-        <div class="calendar-body">
-          <p><strong>Data:</strong> <span id="calendar-date">Ładowanie...</span></p>
-          <p><strong>Godzina:</strong> <span id="calendar-time">Ładowanie...</span></p>
-          <p><strong>Dzień roku:</strong> <span id="calendar-daynum">Ładowanie...</span></p>
-          <p><strong>Imieniny:</strong> <span id="calendar-namedays">Ładowanie...</span></p>
-          <p><strong>Święto:</strong> <span id="calendar-holiday">Ładowanie...</span></p>
-          <p><strong>Status dnia:</strong> <span id="calendar-dayoff">Ładowanie...</span></p>
-        </div>
-      </span>
-    </a>
-
-    <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
-      <span class="card-title">Weather</span>
-    </a>
-
-<div class="card-item card-news">
-
-  <div id="newsCarousel" class="carousel slide w-100 h-100" data-bs-ride="carousel">
-    <div class="carousel-inner h-100">
-
-      {% if news_preview %}
-        {% for item in news_preview %}
-        <div class="carousel-item {% if loop.first %}active{% endif %} h-100">
-
-          <a href="{{ url_for('news.news_home') }}" class="news-preview-slide">
-
-            {% if item.image_url %}
-              <img src="{{ item.image_url }}"
-                   class="d-block w-100 news-preview-image"
-                    alt="{{ item.title }}">
-            {% else %}
-              <div class="news-preview-image-placeholder">
-                NEWS
-              </div>
-            {% endif %}
-
-            </div>
-
-            <div class="news-preview-caption">
-              <h3 class="news-preview-title">{{ item.title }}</h3>
-              <p class="news-preview-summary">{{ item.summary or '' }}</p>
-            </div>
-
-          </a>
-        </div>
-        {% endfor %}
-      {% else %}
-        <div class="carousel-item active h-100">
-          <a href="{{ url_for('news.news_home') }}" class="news-preview-slide">
-            <div class="news-preview-image-placeholder">NEWS</div>
-            <div class="news-preview-caption">
-              <h3 class="news-preview-title">Moduł newsowy</h3>
-              <p class="news-preview-summary">
-                Brak danych do wyświetlenia.
-              </p>
-            </div>
-          </a>
-        </div>
-      {% endif %}
-
-    </div>
-
-    {% if news_preview and news_preview|length > 1 %}
-    <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
-    {% endif %}
-  </div>
-
-</div>
-
-
-
-    <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
-      <span class="card-title">Economy</span>
-    </a>
-
-  </div>
-</div>
-
+{% block extra_css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='mainpage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='calendar.css') }}">
 {% endblock %}
 
 {% block extra_js %}
-  {{ super() }}
-  <script src="{{ url_for('main.static', filename='news_carousel.js') }}"></script>
+    {{ super() }}
+    <script src="{{ url_for('main.static', filename='script.js') }}"></script>
 {% endblock %}
+{% block content %}
+<section class="home-layout" aria-label="Nawigacja po modułach serwisu">
+  <div class="cards-grid">
+
+    {# LEWA KOLUMNA: KALENDARZ + NEWS #}
+    <div class="col-left">
+
+      <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
+
+        <div class="calendar-horizontal">
+
+          <div class="calendar-left">
+            <div class="calendar-time" id="calendar-time">Ładowanie...</div>
+            <div class="calendar-date" id="calendar-date">Ładowanie...</div>
+          </div>
+
+          <div class="calendar-right">
+
+            <div class="calendar-box">
+              <span class="calendar-label">Imieniny:</span>
+              <span class="calendar-value" id="calendar-namedays">Ładowanie...</span>
+            </div>
+
+            <div class="calendar-box">
+              <span class="calendar-label">Status dnia:</span>
+              <span class="calendar-value" id="calendar-dayoff">Ładowanie...</span>
+            </div>
+
+            <div class="calendar-box">
+              <span class="calendar-label">Święto:</span>
+              <span class="calendar-value" id="calendar-holiday">Ładowanie...</span>
+            </div>
+
+            <div class="calendar-box">
+              <span class="calendar-label">Dzień roku:</span>
+              <span class="calendar-value" id="calendar-daynum">Ładowanie...</span>
+            </div>
+
+          </div>
+        </div>
+
+      </a>
+
+      {# KAFEL – NEWSY #}
+      <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
+        <span class="card-title">News</span>
+      </a>
+
+    </div>  {# koniec .col-left #}
+
+    {# PRAWA KOLUMNA: POGODA + ECONOMY #}
+    <div class="col-right">
+      {# KAFEL – POGODA #}
+      <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
+        <div class="weather-mini">
+          <div class="weather-header">
+            <p class="wm-city">Warszawa</p>
+            <img id="mini-icon" class="wm-icon" style="display:none;">
+          </div>
+
+          <p id="mini-temp" class="wm-temp">Ładowanie...</p>
+          <p id="mini-desc" class="wm-desc"></p>
+
+          <div class="weather-forecast-mini" id="forecast-mini">
+            Ładowanie prognozy...
+          </div>
+        </div>
+      </a>
+
+      {# KAFEL – ECONOMY #}
+      <a href="{{ url_for('currencies.currencies') }}" class="card-item card-economy">
+        <span class="card-title">Economy</span>
+      </a>
+    </div>  {# koniec .col-right #}
+
+  </div>
+</section>
+
+{% endblock %}
+
