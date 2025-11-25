@@ -154,15 +154,34 @@ export async function autoLoadLastCities() {
 
     if (!Array.isArray(entries) || entries.length === 0) return;
 
-    resetSearch(); // usuwa poprzednie markery i karty
+    resetSearch();
+
+    // ---- FILTROWANIE 3 UNIKALNYCH MIAST ----
+    const uniqueCities = [];
+    const seen = new Set();
 
     for (const entry of entries) {
-      document.getElementById("cityInput").value = entry.city;  // <-- poprawka
+      const city = entry.city.trim();
+
+      if (!seen.has(city)) {
+        seen.add(city);
+        uniqueCities.push(city);
+      }
+
+      if (uniqueCities.length === 3) break;
+    }
+
+    // Jeśli mniej niż 3, to i tak ładujemy ile jest
+    for (const city of uniqueCities) {
+      document.getElementById("cityInput").value = city;
       await runSearch(true);
     }
-   fitAllMarkers();
+
+    fitAllMarkers();
     showNextButtons();
+
   } catch (err) {
     console.error("Błąd w auto ładowaniu historii:", err);
   }
 }
+
