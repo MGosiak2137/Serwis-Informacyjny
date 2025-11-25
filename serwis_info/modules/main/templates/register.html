@@ -1,6 +1,6 @@
-{% extends "base_main.html" %}
+{% extends "template.html" %}
 
-{% block title %}Rejestracja – python -m flask runSerwis informacyjny{% endblock %}
+{% block title %}Rejestracja – Serwis informacyjny{% endblock %}
 
 {% block content %}
   <div class="login-container">
@@ -10,45 +10,39 @@
         Podaj dane, aby założyć nowe konto w serwisie.
       </p>
 
-      <form>
-        <!-- E-mail -->
+      <form method="POST" action="{{ url_for('auth.register') }}">
+        {{ form.hidden_tag() }}
+
         <div class="mb-3">
-          <label for="register-email" class="form-label">Adres e-mail</label>
-          <input type="email"
-                 class="form-control"
-                 id="register-email"
-                 placeholder="np. mojmail@example.com"
-                 required>
+          <label class="form-label">Adres e-mail</label>
+          {{ form.email(class_="form-control", placeholder="np. mojmail@example.com") }}
+          {% for error in form.email.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
-        <!-- nazwa użytkownika -->
         <div class="mb-3">
-          <label for="register-username" class="form-label">Nazwa użytkownika</label>
-          <input type="text"
-                 class="form-control"
-                 id="register-username"
-                 placeholder="wybierz swój login"
-                 required>
+          <label class="form-label">Nazwa użytkownika</label>
+          {{ form.nickname(class_="form-control", placeholder="wybierz swój login") }}
+          {% for error in form.nickname.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
-        <!-- Hasło -->
         <div class="mb-3">
-          <label for="register-password" class="form-label">Hasło</label>
-          <input type="password"
-                 class="form-control"
-                 id="register-password"
-                 placeholder="Wpisz hasło"
-                 required>
+          <label class="form-label">Hasło</label>
+          {{ form.password(class_="form-control", placeholder="Wpisz hasło") }}
+          {% for error in form.password.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
-        <!-- Powtórz hasło -->
         <div class="mb-3">
-          <label for="register-password2" class="form-label">Powtórz hasło</label>
-          <input type="password"
-                 class="form-control"
-                 id="register-password2"
-                 placeholder="Powtórz hasło"
-                 required>
+          <label class="form-label">Powtórz hasło</label>
+          {{ form.password2(class_="form-control", placeholder="Powtórz hasło") }}
+          {% for error in form.password2.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
         <button type="submit" class="btn btn-primary w-100">

@@ -1,11 +1,13 @@
-<nav class="navbar bg-body-tertiary main-navbar fixed-top">
+<nav class="navbar main-navbar fixed-top">
   <div class="container-fluid px-4">
 
     <!-- LEWA STRONA -->
-    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('main.index') }}">
-      <i class="bi bi-globe2 nav-icon"></i>
-      <span>Serwis informacyjny</span>
-    </a>
+<a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('main.index') }}">
+  <img src="{{ url_for('static', filename='img/logo1.png') }}" 
+       alt="Logo" 
+       class="nav-logo">
+  <span class="nav-brand-text">Serwis informacyjny</span>
+</a>
 
     <!-- PRAWA STRONA -->
     <div class="navbar-icons d-flex align-items-center ms-auto">

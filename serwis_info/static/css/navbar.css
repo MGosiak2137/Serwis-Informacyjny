@@ -2,13 +2,21 @@
 .main-navbar {
   --bs-link-color: #333;          /* kolor ikon/linków */
   --bs-link-hover-color: #000;    /* kolor po najechaniu */
+  background: #ffffff; 
   padding: 0.6rem 0;
   border-bottom: 1px solid #eee;
 }
+.nav-brand-text {
+  font-weight: 100;         
+  font-size: 1.4rem;       
+  font-family: Arial, Helvetica;
+  color: #222;            
+}
 
-/* Globus przy tytule */
-.main-navbar .nav-icon {
-  font-size: 1.4rem;
+.nav-logo {
+  height: 30px;      
+  width: auto;      
+  object-fit: contain;
 }
 
 /* Prawa strona — odległości między ikonami (desktop) */
@@ -27,7 +35,7 @@
   align-items: center;
   cursor: pointer;
   color: var(--bs-link-color); 
-  text-decoration: none;
+  text-decoration:solid;
   font-size: 1.4rem;
 }
 
