@@ -48,7 +48,7 @@ function showNextButtons() {
   document.getElementById("resetSearchBtn").classList.remove("hidden");
 }
 
-async function runSearch() {
+async function runSearch(auto=false) {
   const city = document.getElementById("cityInput").value;
   if (!city) return alert("Wpisz miasto!");
 
@@ -83,7 +83,7 @@ async function runSearch() {
 
     addMarker(coord.lat, coord.lon, name, main.temp);
 
-    fitAllMarkers();
+    if (!auto)fitAllMarkers();
 
     await fetch(`/weather/api/history/${username}`, {
       method: "POST",
@@ -158,9 +158,9 @@ export async function autoLoadLastCities() {
 
     for (const entry of entries) {
       document.getElementById("cityInput").value = entry.city;  // <-- poprawka
-      await runSearch();
+      await runSearch(true);
     }
-
+   fitAllMarkers();
     showNextButtons();
   } catch (err) {
     console.error("Błąd w auto ładowaniu historii:", err);
