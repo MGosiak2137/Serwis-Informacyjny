@@ -140,18 +140,12 @@ def _load_news_preview(limit=3):
 
     return result
 
-
-
-
-
-
 @main_bp.get("/")
 def index():
     news_preview = _load_news_preview(limit=3)
     return render_template("index.html",
                            news_preview=news_preview,
                            body_class="home-page")
-
 
 @main_bp.get("/api/calendar")
 def get_calendar():
@@ -161,7 +155,6 @@ def get_calendar():
     from serwis_info.modules.main.routes import calendar_service
     data = calendar_service.get_calendar_data()
     return jsonify(data)
-
 
 @main_bp.get("/api/news-preview")
 def api_news_preview():
