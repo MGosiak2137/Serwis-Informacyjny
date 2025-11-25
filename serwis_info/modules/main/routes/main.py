@@ -155,8 +155,3 @@ def get_calendar():
     from serwis_info.modules.main.routes import calendar_service
     data = calendar_service.get_calendar_data()
     return jsonify(data)
-
-@main_bp.get("/api/news-preview")
-def api_news_preview():
-    data = _load_news_preview(limit=3)
-    return jsonify(data)
