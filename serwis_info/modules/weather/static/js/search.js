@@ -184,4 +184,7 @@ export async function autoLoadLastCities() {
     console.error("Błąd w auto ładowaniu historii:", err);
   }
 }
+// const info = document.getElementById("weatherInfo");
+// if (info) info.style.display = "block";
+
 
