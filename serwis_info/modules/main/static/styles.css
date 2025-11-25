@@ -126,3 +126,83 @@ body.home-page {
     display: none;
   }
 }
+
+
+/* ===========================
+   KAFELKA NEWS – KARUZELA
+   =========================== */
+
+.card-news {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-news .carousel,
+.card-news .carousel-inner,
+.card-news .carousel-item {
+  height: 100%;
+}
+
+.news-preview-slide {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Górna część – obrazek */
+.news-preview-image-wrapper {
+  position: relative;
+  flex: 3;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.news-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder, jeśli brak obrazka */
+.news-preview-image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5e5;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* Dolna część – tytuł + opis */
+.news-preview-caption {
+  flex: 2;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.news-preview-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.news-preview-summary {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Kontrolki karuzeli – niech będą węższe */
+.card-news .carousel-control-prev,
+.card-news .carousel-control-next {
+  width: 15%;
+}
