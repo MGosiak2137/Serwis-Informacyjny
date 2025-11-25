@@ -1,6 +1,6 @@
-{% extends "base_main.html" %}
+{% extends "template.html" %}
 
-{% block title %}Logowanie – Serwis informacyjny{% endblock %}
+{% block title %}Logowanie{% endblock %}
 
 {% block content %}
   <div class="login-container">
@@ -11,23 +11,31 @@
         Zaloguj się, aby uzyskać dostęp do swoich zakładek i ustawień.
       </p>
 
-      <form>
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}
+        
         <div class="mb-3">
-          <label for="login-username" class="form-label">Nazwa użytkownika lub e-mail</label>
-          <input type="text" class="form-control" id="login-username"
-                 placeholder="Wpisz login">
+          <label class="form-label">Adres e-mail</label>
+          {{ form.email(class_="form-control", placeholder="np. mojmail@example.com") }}
+          {% for error in form.email.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
         <div class="mb-3">
-          <label for="login-password" class="form-label">Hasło</label>
-          <input type="password" class="form-control" id="login-password"
-                 placeholder="••••••••">
+          <label class="form-label">Hasło</label>
+          {{ form.password(class_="form-control", placeholder="••••••••") }}
+          {% for error in form.password.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+          {% endfor %}
         </div>
 
+        {% if form.remember_me is defined %}
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="login-remember">
+          {{ form.remember_me(class_="form-check-input") }}
           <label class="form-check-label" for="login-remember">Zapamiętaj mnie</label>
         </div>
+        {% endif %}
 
         <button type="submit" class="btn btn-primary w-100">
           Zaloguj się
@@ -38,6 +46,7 @@
           <div class="login-or">lub</div>
           <a href="{{ url_for('auth.register') }}" class="login-link">Utwórz konto</a>
         </div>
+
       </form>
     </div>
   </div>

@@ -22,4 +22,4 @@ CREATE TABLE IF NOT EXISTS history (
 )
 """)
 
-conn.commit()
+conn.commit() # Ensure changes are saved to the database

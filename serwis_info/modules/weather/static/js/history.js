@@ -21,3 +21,6 @@ export async function clearHistory() {
   await fetch(`/weather/api/history/${username}`, { method: "DELETE" });
   loadHistory();
 }
+
+
+//integracje- uzywane przez panel.js i search.js

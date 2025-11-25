@@ -1,0 +1,106 @@
+/* KAFEL KALENDARZA – PROSTY, BEZ KOLOROWYCH BORDERÓW */
+
+.card-calendar {
+    grid-area: calendar;
+    background: #e5e5e5;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.card-calendar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* UKŁAD DWA SEKTORY: LEWY (GODZINA+DATA) + PRAWY (BOXES) */
+.calendar-horizontal {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 1rem;
+}
+
+/* LEWA STRONA */
+.calendar-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* GODZINA – duża i responsywna */
+.calendar-time {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    color: #111;
+}
+
+/* DATA – mniejsza */
+.calendar-date {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    align-items: center;
+    color: #444;
+    margin-top: 0.3rem;
+}
+
+/* PRAWA STRONA – siatka 2x2 */
+.calendar-right {
+    display: grid;
+    grid-template-columns: 1fr; 
+}
+
+/* POJEDYNCZE POLE */
+.calendar-box {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 0.7rem;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 222, 222, 0.7);
+}
+
+/* TEKSTY W PUDŁACH */
+.calendar-label {
+    font-size: 0.8rem;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.calendar-value {
+    font-size: 1rem;
+    color: #111;
+    font-weight: 600;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 850px) {
+    .calendar-horizontal {
+        grid-template-columns: 1fr;
+        gap: 1.3rem;
+    }
+
+    .calendar-left {
+        text-align: center;
+        align-items: center;
+    }
+
+    .calendar-right {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-right {
+        grid-template-columns: 1fr;
+    }
+
+    .calendar-time {
+        font-size: 3rem;
+    }
+}
