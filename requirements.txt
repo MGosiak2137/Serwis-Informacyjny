@@ -12,3 +12,4 @@ selenium
 python-dateutil
 holidays
 yfinance
+email-validator
