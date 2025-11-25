@@ -1,0 +1,208 @@
+/* ===========================
+   PODSTAWA
+   =========================== */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Strona główna */
+body.home-page {
+  overflow: hidden;
+  background: #f7f7f9;
+}
+
+/* Główna przestrzeń pod navbar */
+.main-content {
+  height: calc(100vh - 110px); /* wysokość okna minus navbar i sópka */
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;   
+  align-items: center;        
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Wrapper na kafelki */
+.home-layout {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* GRID KAFELKÓW – DESKTOP*/
+.cards-grid {
+  flex: 1;
+  height: 100%;                
+  display: grid;
+  gap: 20px;
+
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+    "calendar calendar calendar"
+    "weather  news      economy";
+}
+
+/* przypisanie kafelków do pól siatki */
+.card-calendar { grid-area: calendar; }
+.card-weather  { grid-area: weather; }
+.card-news     { grid-area: news; }
+.card-economy  { grid-area: economy; }
+
+.card-item {
+  background: #e5e5e5;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #333;
+
+  height: 100%; 
+  min-height: 0;  
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.main-footer { /*stopka*/
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 50px;
+  background: #000000;
+  border-top: 1px solid #eee;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  padding: 0 1.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  z-index: 998;             
+}
+/* widok mobilny */
+@media (max-width: 768px) {
+  .main-content {
+    height: calc(100vh - 60px);  
+    padding: 1rem 1.25rem 1.5rem;
+    margin-top: 0;
+  }
+
+  .home-layout {
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "calendar"
+      "weather"
+      "news"
+      "economy";
+  }
+
+  .card-item {
+    min-height: 18vh;
+  }
+
+  .card-calendar {
+    min-height: 12vh;
+  }
+
+  .main-footer {
+    display: none;
+  }
+}
+
+
+/* ===========================
+   KAFELKA NEWS – KARUZELA
+   =========================== */
+
+.card-news {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-news .carousel,
+.card-news .carousel-inner,
+.card-news .carousel-item {
+  height: 100%;
+}
+
+.news-preview-slide {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Górna część – obrazek */
+.news-preview-image-wrapper {
+  position: relative;
+  flex: 3;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.news-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder, jeśli brak obrazka */
+.news-preview-image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5e5;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* Dolna część – tytuł + opis */
+.news-preview-caption {
+  flex: 2;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.news-preview-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.news-preview-summary {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Kontrolki karuzeli – niech będą węższe */
+.card-news .carousel-control-prev,
+.card-news .carousel-control-next {
+  width: 15%;
+}
