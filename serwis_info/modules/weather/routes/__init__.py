@@ -1,8 +1,11 @@
-from .dashboard_routes import register_dashboard_routes
-from .history_routes import register_history_routes
-from .user_routes import register_user_routes
+# zamiast tego:
+# from .history_routes import register_history_routes
+
+# używaj blueprintów bezpośrednio
+from .weather_routes import weather_api_bp
+from .history_routes import history_bp
 
 def register_routes(bp):
-    register_dashboard_routes(bp)
-    register_history_routes(bp)
-    register_user_routes(bp)
+    bp.register_blueprint(weather_api_bp)
+    bp.register_blueprint(history_bp)
+

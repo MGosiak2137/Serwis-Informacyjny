@@ -1,36 +1,27 @@
-from flask import jsonify, request
-from ..services.history_service import add_city_to_history
-from ..db.history_repository import get_history, clear_history, get_top_cities
-from ..db.user_repository import get_user_id
+from flask import Blueprint, request, jsonify
+from ..services.history_service import add_city_to_history, fetch_history, fetch_last3, clear_user_history
 
-def register_history_routes(bp):
+history_bp = Blueprint("history_bp", __name__)
 
-    @bp.route('/api/history/<username>', methods=['GET'])
-    def history(username):
-        user_id = get_user_id(username)
-        data = get_history(user_id)
-        return jsonify([{"city": row[0]} for row in data])
+@history_bp.route("/api/history/<username>", methods=["GET"])
+def history(username):
+    data = fetch_history(username)
+    return jsonify(data)
 
-    @bp.route('/api/history/<username>', methods=['POST'])
-    def history_add(username):
-        user_id = get_user_id(username)
-        city = request.json.get("city")
+@history_bp.route("/api/history_last3/<username>", methods=["GET"])
+def history_last3(username):
+    data = fetch_last3(username)
+    return jsonify(data)
 
-        if not city:
-            return jsonify({"error": "Brak miasta"}), 400
+@history_bp.route("/api/history/<username>", methods=["POST"])
+def history_add(username):
+    city = request.json.get("city")
+    if not city:
+        return jsonify({"error": "city not provided"}), 400
+    add_city_to_history(username, city)
+    return jsonify({"status": "ok"})
 
-        add_city_to_history(user_id, city)
-        return jsonify({"message": "Dodano do historii"})
-
-    @bp.route('/api/history/<username>', methods=['DELETE'])
-    def history_delete(username):
-        user_id = get_user_id(username)
-        clear_history(user_id)
-        return jsonify({"message": "Historia została usunięta"})
-
-    @bp.route('/api/top_cities/<username>')
-    def top_cities(username):
-        limit = int(request.args.get("limit", 5))
-        user_id = get_user_id(username)
-        rows = get_top_cities(user_id, limit)
-        return jsonify([row[0] for row in rows])
+@history_bp.route("/api/history/<username>", methods=["DELETE"])
+def history_delete(username):
+    clear_user_history(username)
+    return jsonify({"status": "ok"})
