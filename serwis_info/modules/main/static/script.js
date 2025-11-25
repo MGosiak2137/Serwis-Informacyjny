@@ -339,8 +339,6 @@ function drawSparkline(canvasId, baseValue, history) {
       // refresh exchange rates every 5 minutes
       setInterval(loadExchange, 300000);
     });
-<<<<<<< HEAD
-=======
 
 
     document.addEventListener("DOMContentLoaded", loadMiniWeather);
@@ -408,4 +406,3 @@ async function loadMiniForecast() {
 
 //KONIEC KAFELKA POGOODWEGO
 
->>>>>>> origin/branchWeather3

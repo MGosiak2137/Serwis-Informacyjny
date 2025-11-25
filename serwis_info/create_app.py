@@ -23,6 +23,8 @@ def create_app():
     from serwis_info.modules.exchange.routes.currencies import currencies_bp
     from serwis_info.modules.exchange.routes.stockmarket import stockmarket_bp
     from serwis_info.modules.exchange.routes.journey import journey_bp
+    from serwis_info.modules.exchange.routes.main import main_eco_bp 
+
     from serwis_info.modules.calendar.routes.horoscope_routes import horoscope_bp
     from serwis_info.modules.news.routes.news_page import news_bp
 
@@ -32,18 +34,16 @@ def create_app():
 
     from serwis_info.modules.weather.routes.weather_routes import weather_api_bp
     app.register_blueprint(weather_api_bp)
-<<<<<<< HEAD
-=======
     # from serwis_info.modules.weather.routes.history_routes import history_bp
     # app.register_blueprint(history_bp)
-    #koniec rejestracji weather blueprint
->>>>>>> origin/branchWeather3
+    # koniec rejestracji weather blueprint
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(currencies_bp)
     app.register_blueprint(stockmarket_bp)
     app.register_blueprint(journey_bp)
+    app.register_blueprint(main_eco_bp)
     app.register_blueprint(horoscope_bp)
     app.register_blueprint(news_bp)
 

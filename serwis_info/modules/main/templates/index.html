@@ -59,7 +59,6 @@
 
       </a>
 
-<<<<<<< HEAD
       {# KAFEL – NEWSY #}
       <div class="card-item card-news">
 
@@ -115,22 +114,14 @@
         <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon"></span>
         </button>
-        {% endif %}
-=======
-      <a href="{{ url_for('weather_api.dashboard_page') }}" class="card-item card-weather">
-  <div class="weather-mini">
-      <div class="weather-header">
-          <p class="wm-city">Warszawa</p>
-          <img id="mini-icon" class="wm-icon" style="display:none;">
->>>>>>> origin/branchWeather3
-      </div>
+        {% endif %}     
 
     </div>  {# koniec .col-left #}
 
     {# PRAWA KOLUMNA: POGODA + ECONOMY #}
     <div class="col-right">
       {# KAFEL – POGODA #}
-      <a href="{{ url_for('weather.dashboard_page') }}" class="card-item card-weather">
+      <a href="{{ url_for('weather_api.dashboard_page') }}" class="card-item card-weather">
         <div class="weather-mini">
           <div class="weather-header">
             <p class="wm-city">Warszawa</p>
