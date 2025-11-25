@@ -2,7 +2,6 @@
 //  KALENDARZ + ZEGAR
 // =====================
 
-<<<<<<< HEAD
 async function loadCalendar() {
   try {
     const response = await fetch("/main/api/calendar");
@@ -105,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadMiniWeather();
   loadMiniForecast();
 });
-=======
     async function loadExchange() {
       try {
         const resp = await fetch('/main/api/exchange');
@@ -341,4 +339,3 @@ function drawSparkline(canvasId, baseValue, history) {
       // refresh exchange rates every 5 minutes
       setInterval(loadExchange, 300000);
     });
->>>>>>> origin/newEconomy2
