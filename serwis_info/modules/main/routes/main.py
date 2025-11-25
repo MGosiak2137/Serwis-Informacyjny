@@ -149,8 +149,15 @@ def index():
 
 @main_bp.get("/api/calendar")
 def get_calendar():
-    """
-    Endpoint używany przez script.js: fetch("/main/api/calendar")
-    """
     from serwis_info.modules.main.routes import calendar_service
     data = calendar_service.get_calendar_data()
+    return jsonify(data)
+
+    
+
+
+
+
+
+
+
