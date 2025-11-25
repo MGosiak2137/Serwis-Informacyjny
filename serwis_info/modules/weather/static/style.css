@@ -456,3 +456,36 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
 }
+
+.legend-container {
+  width: 100%;
+  height: 20px;
+  margin-top: 6px;
+}
+
+.legend-bar {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* KONKRETNE GRADIENTY — OpenWeatherMap */
+.legend-temp-bar {
+  background: linear-gradient(to right,
+    #2c7bb6, #abd9e9, #ffffbf, #fdae61, #d7191c);
+}
+
+.legend-rain-bar {
+  background: linear-gradient(to right,
+    #f7fbff, #c6dbef, #6baed6, #2171b5, #08306b);
+}
+
+.legend-clouds-bar {
+  background: linear-gradient(to right,
+    #ffffff, #cfd8dc, #90a4ae, #607d8b, #37474f);
+}
+
+.legend-wind-bar {
+  background: linear-gradient(to right,
+    #e0f3f8, #abd9e9, #74add1, #4575b4, #313695);
+}
