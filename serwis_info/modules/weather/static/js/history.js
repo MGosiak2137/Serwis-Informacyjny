@@ -1,6 +1,8 @@
 import { username } from "./user.js";
 
 export async function loadHistory() {
+  console.log("USERNAME:", username);
+
   const res = await fetch(`/weather/api/history/${username}`);
   if (!res.ok) return;
 

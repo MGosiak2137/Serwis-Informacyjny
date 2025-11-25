@@ -7,6 +7,7 @@ DB_PATH = os.path.join(BASE_DIR, "users.db")
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
 
+# tabela użytkowników
 c.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,15 +15,15 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 
+# tabela historii
 c.execute("""
 CREATE TABLE IF NOT EXISTS history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    city TEXT
+    username TEXT NOT NULL,
+    query TEXT NOT NULL,
+    timestamp TEXT NOT NULL
 )
 """)
 
-conn.commit() # Ensure changes are saved to the database
-
+conn.commit()
 print(">>> USING DATABASE:", DB_PATH)
-
