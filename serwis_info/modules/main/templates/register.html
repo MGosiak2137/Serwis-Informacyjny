@@ -39,8 +39,8 @@
 
         <div class="mb-3">
           <label class="form-label">Powtórz hasło</label>
-          {{ form.confirm_password(class_="form-control", placeholder="Powtórz hasło") }}
-          {% for error in form.confirm_password.errors %}
+          {{ form.password2(class_="form-control", placeholder="Powtórz hasło") }}
+          {% for error in form.password2.errors %}
             <div class="invalid-feedback d-block">{{ error }}</div>
           {% endfor %}
         </div>
