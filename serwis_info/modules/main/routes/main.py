@@ -154,4 +154,3 @@ def get_calendar():
     """
     from serwis_info.modules.main.routes import calendar_service
     data = calendar_service.get_calendar_data()
-    return jsonify(data)
