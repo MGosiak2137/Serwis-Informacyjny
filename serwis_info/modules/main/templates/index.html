@@ -12,9 +12,8 @@
 
 {% block extra_js %}
     {{ super() }}
-    <script src="{{ url_for('main.static', filename='script.js') }}"></script>
-    <script src="{{ url_for('main.static', filename='news_carousel.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('main.static', filename='script.js') }}"></script>
 {% endblock %}
 {% block content %}
 <section class="home-layout" aria-label="Nawigacja po modułach serwisu">
@@ -60,61 +59,9 @@
       </a>
 
       {# KAFEL – NEWSY #}
-      <div class="card-item card-news">
-
-      <div id="newsCarousel" class="carousel slide w-100 h-100" data-bs-ride="carousel">
-        <div class="carousel-inner h-100">
-
-          {% if news_preview %}
-            {% for item in news_preview %}
-            <div class="carousel-item {% if loop.first %}active{% endif %} h-100">
-
-              <a href="{{ url_for('news.news_home') }}" class="news-preview-slide">
-
-                {% if item.image_url %}
-                  <img src="{{ item.image_url }}"
-                      class="d-block w-100 news-preview-image"
-                        alt="{{ item.title }}">
-                {% else %}
-                  <div class="news-preview-image-placeholder">
-                    NEWS
-                  </div>
-                {% endif %}
-
-                </div>
-
-                <div class="news-preview-caption">
-                  <h3 class="news-preview-title">{{ item.title }}</h3>
-                  <p class="news-preview-summary">{{ item.summary or '' }}</p>
-                </div>
-
-              </a>
-            </div>
-            {% endfor %}
-          {% else %}
-            <div class="carousel-item active h-100">
-              <a href="{{ url_for('news.news_home') }}" class="news-preview-slide">
-                <div class="news-preview-image-placeholder">NEWS</div>
-                <div class="news-preview-caption">
-                  <h3 class="news-preview-title">Moduł newsowy</h3>
-                  <p class="news-preview-summary">
-                    Brak danych do wyświetlenia.
-                  </p>
-                </div>
-              </a>
-            </div>
-          {% endif %}
-
-        </div>
-
-        {% if news_preview and news_preview|length > 1 %}
-        <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
-        {% endif %}     
+      <a href="{{ url_for('news.news_home') }}" class="card-item card-news">
+        <span class="card-title">News</span>
+      </a>
 
     </div>  {# koniec .col-left #}
 
@@ -182,7 +129,8 @@
       </a>
     </div>  {# koniec .col-right #}
 
-
+  </div>
 </section>
 
 {% endblock %}
+
