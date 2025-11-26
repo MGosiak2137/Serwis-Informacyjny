@@ -137,6 +137,11 @@ body {
   color: #475569;
   font-size: 0.9rem;
 }
+.weather-alerts p {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 
 /* ===== GŁÓWNA CZĘŚĆ ===== */
 .weather-main {

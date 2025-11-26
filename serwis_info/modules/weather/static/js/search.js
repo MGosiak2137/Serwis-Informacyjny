@@ -2,7 +2,9 @@ import { API_KEY, API_URL } from "./config.js";
 import { map } from "./mapControls.js";
 import { loadHistory } from "./history.js";
 import { username } from "./user.js";
-import { loadForecast } from "./forecast.js";  // <-- NOWY IMPORT
+import { loadForecast } from "./forecast.js";  
+import { loadAlertsForCities } from "./alerts.js";
+
 
 let markers = [];
 let weatherCards = [];
@@ -179,10 +181,13 @@ export async function autoLoadLastCities() {
 
     fitAllMarkers();
     showNextButtons();
+    await loadAlertsForCities(uniqueCities);
 
   } catch (err) {
     console.error("Błąd w auto ładowaniu historii:", err);
   }
+  
+
 }
 // const info = document.getElementById("weatherInfo");
 // if (info) info.style.display = "block";
