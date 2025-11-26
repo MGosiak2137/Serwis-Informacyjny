@@ -39,7 +39,6 @@ function generateWarnings(city, current, forecastNextHours){
         if (tempF >= 30) alerts.push(`🔥 Za kilka godzin upał w ${city}: ${tempF}°C`);
         if (String(codeF) === "800" && tempF >= 35) alerts.push(`🔥 Za kilka godzin ekstremalny upał i pełne słońce w ${city} – uważaj na udary!`);
         if (String(codeF).startsWith("7")) alerts.push(`🌫️ Za kilka godzin możliwa mgła lub pyły w ${city}`);
-        if (String(codeF).startsWith("3")) alerts.push(`🌦️ Za kilka godzin możliwe mżawki w ${city}`);
          if (tempF - temp >= 8)
             alerts.push(`↗️ Gwałtowny wzrost temperatury w ${city} (o ${tempF - temp}°C) w ciągu paru godzin`);
 
@@ -66,7 +65,7 @@ export async function getCityAlerts(city) {
             `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API_KEY}&units=metric&lang=pl`
         );
         const fcData = await fcRes.json();
-        const nextHours = fcData.list.slice(0, 3);
+        const nextHours = fcData.list.slice(0, 1);
 
         return generateWarnings(city, nowData, nextHours);
 
