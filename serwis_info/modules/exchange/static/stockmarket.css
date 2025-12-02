@@ -1,154 +1,194 @@
-/* Kreatywne centrum: wykres + karty indeksów + ticker */
-
 .sm-hero{margin-bottom:0.75rem}
 .sm-hero h2{margin:0 0 0.25rem 0;font-size:1.35rem}
 .sm-hero .lead{margin:0;color:var(--muted);font-size:0.95rem}
-
-/* Układ: duży panel + kolumna kart */
-.sm-grid{
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  gap:1rem;
-  align-items:start;
-  max-width:1100px;
-  margin:0 auto 1.25rem;
-}
-
-/* Główny wykres card */
-.sm-chart-card{
-  background: linear-gradient(180deg, rgba(255,254,250,0.95), rgba(255,255,255,0.96));
-  border-radius:12px;
-  padding:1rem;
-  box-shadow: 0 10px 30px rgba(31,40,50,0.06);
-  display:flex;
-  flex-direction:column;
-  gap:0.75rem;
-  border:1px solid rgba(15,17,36,0.04);
-}
+.sm-grid{display:grid;grid-template-columns:320px 1fr;gap:1rem;align-items:start;max-width:1200px;margin:0 auto 1.25rem}
+.sm-chart-card{background:linear-gradient(180deg,rgba(255,254,250,0.95),rgba(255,255,255,0.96));border-radius:12px;padding:1rem;box-shadow:0 10px 30px rgba(31,40,50,0.06);display:flex;flex-direction:column;gap:0.75rem;border:1px solid rgba(15,17,36,0.04)}
 .chart-header{display:flex;justify-content:space-between;align-items:center}
 .chart-header h3{margin:0;font-size:1rem}
 .chart-meta{color:var(--muted);font-size:0.85rem}
-
-/* responsive svg wrapper */
-.chart-wrap{flex:1 1 auto; min-height:180px; display:flex; align-items:center}
+.chart-wrap{flex:1 1 auto;min-height:180px;display:flex;align-items:center}
 .sparkline{width:100%;height:240px;display:block}
-
-/* chart footer metrics */
 .chart-footer{display:flex;gap:1rem;justify-content:space-between;align-items:center}
 .metric{display:flex;flex-direction:column}
 .m-label{font-size:0.8rem;color:var(--muted)}
 .m-value{font-weight:700}
 .m-value.positive{color:var(--primary)}
 .m-value.negative{color:#e53935}
-
-/* Karty indeksów */
 .sm-cards{display:flex;flex-direction:column;gap:0.75rem}
-.index-card{
-  background:linear-gradient(90deg, rgba(47,47,51,0.98), rgba(47,47,51,0.98));
-  color:#fff;
-  padding:0.75rem;
-  border-radius:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:0.75rem;
-  box-shadow: 0 8px 18px rgba(15,17,36,0.12);
-  transition:transform .12s ease, box-shadow .12s ease;
-  border: 1px solid rgba(255,255,255,0.03);
-  cursor: pointer;
-}
+.index-card{background:linear-gradient(90deg,rgba(47,47,51,0.98),rgba(47,47,51,0.98));color:#fff;padding:0.75rem;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;box-shadow:0 8px 18px rgba(15,17,36,0.12);transition:transform .12s ease,box-shadow .12s ease;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
 .index-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(15,17,36,0.16)}
+.index-card.disabled-card{cursor:default;opacity:0.92;transform:none;box-shadow:none;pointer-events:none}
 .index-left{display:flex;flex-direction:column}
 .index-code{font-weight:800;font-size:1.05rem;letter-spacing:0.6px}
-.index-name{font-size:0.85rem;color:rgba(255,255,255,0.85)}
+.index-name{font-size:1.02rem;font-weight:800;color:#fff}
+.muted-code{font-size:0.82rem;color:rgba(255,255,255,0.65);margin-top:4px}
 .index-right{text-align:right}
 .index-rate{font-weight:800}
 .index-rate.positive{color:var(--primary)}
 .index-rate.negative{color:#ff6b6b}
-
-/* mini sparkline bars */
+.index-price{font-size:1rem;font-weight:700;margin-bottom:0.25rem;color:#fff}
 .mini-spark{height:8px;width:60px;background:rgba(255,255,255,0.06);border-radius:6px;display:inline-block;overflow:hidden;margin-top:6px}
 .mini-spark span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:var(--val);transition:width 850ms cubic-bezier(.2,.8,.2,1)}
-
-/* Ticker */
-.sm-ticker{background:linear-gradient(90deg, rgba(31,40,50,1), rgba(47,47,51,1));color:#fff;padding:0.5rem 0;border-radius:8px;overflow:hidden;margin-top:0.5rem}
+.sm-ticker{background:linear-gradient(90deg,rgba(31,40,50,1),rgba(47,47,51,1));color:#fff;padding:0.5rem 0;border-radius:8px;overflow:hidden;margin-top:0.5rem}
 .ticker-track{display:flex;gap:2rem;animation:scroll 30s linear infinite;white-space:nowrap}
 .ticker-item{color:rgba(255,255,255,0.9);padding-right:2rem;font-weight:600;font-size:0.95rem;flex-shrink:0}
-@keyframes scroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.market-status{font-weight:bold;padding:0.5rem 1rem;border-radius:4px;display:inline-block}
+.market-status.open{background:#d4edda;color:#155724}
+.market-status.closed{background:#f8d7da;color:#721c24}
+.range-buttons{margin:1rem 0;display:flex;gap:0.5rem;flex-wrap:wrap}
+.range-btn{padding:0.55rem 1rem;border-radius:8px;border:1px solid #d3d6db;background:linear-gradient(180deg,#fff,#f7f9fc);color:#222;box-shadow:0 4px 12px rgba(0,0,0,0.03);transition:all .12s ease;text-decoration:none}
+.range-btn:hover{background:#f0f0f0}
+.range-btn.active{background:linear-gradient(90deg,#007bff,#0056d6);color:#fff;border-color:#0056d6;box-shadow:0 8px 24px rgba(0,86,214,0.12)}
+.chart-container{margin-top:1.5rem;border:1px solid #ddd;padding:1rem;border-radius:4px}
+.market-badge{display:inline-block;padding:0.25rem 0.5rem;border-radius:3px;font-size:0.7rem;font-weight:bold;margin-top:0.5rem}
+.market-badge.open{background:#90EE90;color:#1a5a1a}
+.market-badge.closed{background:#FFB6C6;color:#661a1a}
+.tab-btn{padding:0.45rem 0.8rem;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;font-weight:600;transition:all .15s ease}
+.tab-btn.active{background:linear-gradient(90deg,#007bff,#0056d6);color:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+.btn-primary{padding:0.5rem 0.85rem;border-radius:6px;background:linear-gradient(90deg,#007bff,#0056d6);color:white;border:none;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-secondary{padding:0.45rem 0.75rem;border-radius:6px;background:#fff;border:1px solid #ddd;color:#333;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn-secondary:hover{background:#f5f7fa}
+select#select-symbols{background:#fff;border:1px solid #dcdcdc;border-radius:6px;outline:none}
+
+/* --- DODANE: zmienne kolorów (pomarańcz) i nadpisania styli przycisków --- */
+:root{
+  --orange: #ff7a00;
+  --orange-dark: #ff5a00;
+  --orange-ghost: rgba(255,122,0,0.08);
+  --orange-border: rgba(255,122,0,0.18);
 }
 
-/* Market status badge */
-.market-status {
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  display: inline-block;
-}
-.market-status.open {
-  background: #d4edda;
-  color: #155724;
-}
-.market-status.closed {
-  background: #f8d7da;
-  color: #721c24;
-}
-
-/* Range selection buttons */
-.range-buttons {
-  margin: 1rem 0;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.range-btn {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #f9f9f9;
+/* Główne pomarańczowe przyciski (primary) */
+.btn-primary{
+  padding:0.5rem 0.85rem;
+  border-radius:6px;
+  background: linear-gradient(90deg,var(--orange),var(--orange-dark));
+  color: #fff;
+  border: none;
   cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
+  font-weight:700;
+  box-shadow:0 6px 18px rgba(255,122,0,0.12);
+  transition: transform .12s ease, filter .12s ease;
 }
-.range-btn:hover {
-  background: #f0f0f0;
+.btn-primary:hover{ transform: translateY(-2px); filter: brightness(1.03); }
+
+/* Sekundarne przyciski - akcent pomarańczowy */
+.btn-secondary{
+  padding:0.45rem 0.75rem;
+  border-radius:6px;
+  background:#fff;
+  border:1px solid var(--orange-border);
+  color:var(--orange);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
-.range-btn.active {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+.btn-secondary:hover{ background:#fff7f1; }
+
+/* Zakładki / taby - pomarańczowe w aktywnym stanie */
+.tab-btn{
+  padding:0.45rem 0.8rem;
+  border-radius:6px;
+  border:1px solid #ddd;
+  background:#fff;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--orange);
+  transition:all .15s ease;
+}
+.tab-btn.active{
+  background: linear-gradient(90deg,var(--orange),var(--orange-dark));
+  color:#fff;
+  border-color: transparent;
+  box-shadow:0 6px 18px rgba(255,122,0,0.12);
 }
 
-/* Chart container */
-.chart-container {
-  margin-top: 1.5rem;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 4px;
+/* Range buttons - aktywny stan pomarańczowy */
+.range-btn{
+  padding:0.55rem 1rem;
+  border-radius:8px;
+  border:1px solid #d3d6db;
+  background:linear-gradient(180deg,#fff,#f7f9fc);
+  color:#222;
+  box-shadow:0 4px 12px rgba(0,0,0,0.03);
+  text-decoration:none;
+}
+.range-btn:hover{ background:#fff3e8; }
+.range-btn.active{
+  background: linear-gradient(90deg,var(--orange),var(--orange-dark));
+  color:#fff;
+  border-color:var(--orange-dark);
+  box-shadow:0 8px 24px rgba(255,122,0,0.12);
 }
 
-/* Market badge w karcie */
-.market-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  margin-top: 0.5rem;
+/* --- DODANE: przyciski w karcie indeksu (jeśli gdzieś używane) --- */
+.tab-btn, .range-btn, .btn-primary, .btn-secondary { touch-action: manipulation; }
+
+/* --- DODANE: styl dla przycisków kategorii (nadpisuje inline color) --- */
+.category-link{
+  display:inline-block;
+  padding:0.5rem 0.75rem;
+  border-radius:4px;
+  /* silniejsze pomarańczowe tło zamiast ghost */
+  background: linear-gradient(90deg, var(--orange), var(--orange-dark)) !important;
+  border:1px solid rgba(0,0,0,0.04) !important;
+  color: #ffffff !important; /* zmienione: biała czcionka */
+  text-decoration: none !important;
+  font-weight:600;
+  transition: background .12s ease, transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 4px 14px rgba(255,122,0,0.10);
 }
-.market-badge.open {
-  background: #90EE90;
-  color: #1a5a1a;
-}
-.market-badge.closed {
-  background: #FFB6C6;
-  color: #661a1a;
+.category-link:hover{
+  background: linear-gradient(90deg, var(--orange-dark), #ff4500) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(255,90,0,0.14);
 }
 
-/* Mobile: single column */
+/* --- DODANE: ukrycie dolnego paska (ticker) na mobile --- */
 @media (max-width:900px){
-  .sm-grid{grid-template-columns:1fr; padding:0 1rem}
-  .mini-spark{display:none}
-  .ticker-track{animation-duration:14s}
+  .sm-grid { grid-template-columns: 1fr; padding:0 1rem; gap:0.75rem; }
+  .sm-left, .sm-right { width:100%; }
+  .sm-left { order: 0; }
+  .sm-right { order: 1; }
+  .index-card { flex-direction: row; align-items:flex-start; gap:0.5rem; padding:0.6rem; }
+  .index-left { flex: 1 1 auto; }
+  .index-right { text-align: left; min-width: 0; }
+  .index-code, .muted-code { font-size:0.78rem; }
+  .index-name { font-size: 0.98rem; }
+  .index-price { font-size:0.95rem; }
+  .range-buttons { justify-content: flex-start; flex-wrap:wrap; gap:0.4rem; }
+  .range-btn { padding:0.45rem 0.6rem; font-size:0.88rem; }
+  .chart-container { padding:0.6rem; }
+  /* override inline height on svg to be responsive */
+  .chart-container svg { width:100% !important; height:auto !important; max-height:520px; min-height:260px; display:block; }
+  /* ticker: wrap / stop animation on mobile for readability */
+  .ticker-track { animation: none; flex-wrap: wrap; gap:1rem; }
+  .ticker-item { white-space:nowrap; padding:0.45rem 0.6rem; border-radius:6px; background: rgba(255,255,255,0.03); margin-right:0.5rem; }
+  /* intraday compact */
+  .intraday-section article { padding:0.6rem; font-size:0.9rem; }
+  select#select-symbols { font-size:0.92rem; padding:0.35rem 0.4rem; }
+  .sm-ticker{
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    overflow:hidden !important;
+  }
 }
+
+/* Larger screens: make left column sticky so charts shift left visually */
+@media (min-width:1100px){
+  .sm-left { position: sticky; top: 84px; align-self:start; max-height: calc(100vh - 100px); overflow:auto; padding-right:0.5rem; }
+  .sm-right { min-width: 0; }
+  .chart-container svg { max-height: 520px; }
+}
+
+/* Fluid text scaling for key UI */
+.index-name { font-size: clamp(0.95rem, 1.3vw, 1.05rem); }
+.index-price { font-size: clamp(0.9rem, 1.1vw, 1rem); }
+
+/* ensure buttons & selects stay usable on small touch screens */
+button, .range-btn, select { touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0); }

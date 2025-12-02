@@ -1,40 +1,19 @@
 from .connection import c, conn
+from datetime import datetime
 
-def get_history(user_id: int):
-    c.execute("SELECT city FROM history WHERE user_id=? ORDER BY id DESC", (user_id,))
-    return c.fetchall()
-
-
-def add_history_entry(user_id: int, city: str):
-    c.execute("INSERT INTO history (user_id, city) VALUES (?, ?)", (user_id, city))
+def add_history_entry(username, query):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    c.execute("INSERT INTO history (username, query, timestamp) VALUES (?, ?, ?)", (username, query, timestamp))
     conn.commit()
 
+def get_history(username):
+    c.execute("SELECT query, timestamp FROM history WHERE username=? ORDER BY id DESC", (username,))
+    return [{"city": row[0], "timestamp": row[1]} for row in c.fetchall()]
 
-def trim_history(user_id: int, limit: int):
-    c.execute("""
-        DELETE FROM history 
-        WHERE id IN (
-            SELECT id FROM history
-            WHERE user_id=?
-            ORDER BY id DESC
-            LIMIT -1 OFFSET ?
-        )
-    """, (user_id, limit))
+def get_history_last3(username):
+    c.execute("SELECT query, timestamp FROM history WHERE username=? ORDER BY id DESC LIMIT 3", (username,))
+    return [{"city": row[0], "timestamp": row[1]} for row in c.fetchall()]
+
+def clear_history(username):
+    c.execute("DELETE FROM history WHERE username=?", (username,))
     conn.commit()
-
-
-def clear_history(user_id: int):
-    c.execute("DELETE FROM history WHERE user_id=?", (user_id,))
-    conn.commit()
-
-
-def get_top_cities(user_id: int, limit: int):
-    c.execute("""
-        SELECT city, COUNT(*) as count 
-        FROM history 
-        WHERE user_id=? 
-        GROUP BY city 
-        ORDER BY count DESC 
-        LIMIT ?
-    """, (user_id, limit))
-    return c.fetchall()

@@ -13,3 +13,4 @@ python-dateutil
 holidays
 yfinance
 email-validator
+googletrans

@@ -1,25 +1,29 @@
 import sqlite3
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "users.db")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DB_PATH = os.path.join(BASE_DIR, "users.db")
 
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
 
+# tabela użytkowników
 c.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    default_city TEXT
+    username TEXT UNIQUE
 )
 """)
 
+# tabela historii
 c.execute("""
 CREATE TABLE IF NOT EXISTS history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    city TEXT
+    username TEXT NOT NULL,
+    query TEXT NOT NULL,
+    timestamp TEXT NOT NULL
 )
 """)
 
-conn.commit() # Ensure changes are saved to the database
+conn.commit()
+print(">>> USING DATABASE:", DB_PATH)

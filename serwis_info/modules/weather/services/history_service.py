@@ -1,9 +1,13 @@
-from ..db.history_repository import (
-    add_history_entry, trim_history, get_history, clear_history, get_top_cities
-)
+from ..db.history_repository import add_history_entry, get_history, get_history_last3, clear_history
 
-HISTORY_LIMIT = 200
+def add_city_to_history(username, city):
+    add_history_entry(username, city)
 
-def add_city_to_history(user_id, city):
-    add_history_entry(user_id, city)
-    trim_history(user_id, HISTORY_LIMIT)
+def fetch_history(username):
+    return get_history(username)
+
+def fetch_last3(username):
+    return get_history_last3(username)
+
+def clear_user_history(username):
+    clear_history(username)

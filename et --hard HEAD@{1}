@@ -1,0 +1,38 @@
+[33mdc92920[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbranchNews2[m[33m, [m[1;31morigin/branchNews2[m[33m)[m HEAD@{0}: reset: moving to origin/branchNews2
+[33mdc92920[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbranchNews2[m[33m, [m[1;31morigin/branchNews2[m[33m)[m HEAD@{1}: reset: moving to origin/branchNews2
+[33m57b6057[m HEAD@{2}: checkout: moving from branchNews to branchNews2
+[33md3f161d[m[33m ([m[1;32mbranchNews[m[33m)[m HEAD@{3}: commit: nnaprawiony_wyglad_wyszukiwarki
+[33ma39f0dd[m HEAD@{4}: commit: lista_newsow_sport
+[33m2cc584a[m HEAD@{5}: commit: nowa_paleta_barw
+[33m39fa058[m HEAD@{6}: commit: naprawione_css
+[33m517d234[m HEAD@{7}: commit: git
+[33mafbee40[m HEAD@{8}: commit: branch_news_css
+[33me7df376[m HEAD@{9}: commit (merge): news_css
+[33m55d6f38[m HEAD@{10}: commit: branch_newsy_css
+[33m9b8e29f[m HEAD@{11}: pull --tags origin branchNews: Fast-forward
+[33m6010ddc[m HEAD@{12}: commit: test2
+[33m578b695[m HEAD@{13}: checkout: moving from branchWeather to branchNews
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{14}: checkout: moving from branchEconomy to branchWeather
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{15}: checkout: moving from branchNews to branchEconomy
+[33m578b695[m HEAD@{16}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{17}: checkout: moving from branchNews to branchEconomy
+[33m578b695[m HEAD@{18}: pull --tags origin branchNews: Fast-forward
+[33mf1f9552[m HEAD@{19}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{20}: checkout: moving from branchNews to branchEconomy
+[33mf1f9552[m HEAD@{21}: pull --tags origin branchNews: Fast-forward
+[33mede9b10[m HEAD@{22}: pull --tags origin branchNews: Fast-forward
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{23}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{24}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{25}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{26}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{27}: checkout: moving from branchNews to branchNews
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{28}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{29}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{30}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{31}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{32}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{33}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{34}: checkout: moving from branchEconomy to branchNews
+[33mf3d7444[m[33m ([m[1;32mbranchEconomy[m[33m)[m HEAD@{35}: checkout: moving from branchNews to branchEconomy
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{36}: checkout: moving from main to branchNews
+[33m8a4f38f[m[33m ([m[1;32mmain[m[33m, [m[1;32mbranchWeather[m[33m)[m HEAD@{37}: clone: from https://github.com/MGosiak2137/Serwis-Informacyjny.git

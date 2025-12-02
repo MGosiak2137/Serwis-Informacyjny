@@ -154,3 +154,27 @@ button.danger {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+.weather-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 220px;
+  background: #f7f7f7;
+  border-radius: 6px;
+}
+
+.forecast {
+  margin-top: 10px;
+  background: #eef;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+.forecast-day {
+  margin-bottom: 8px;
+}

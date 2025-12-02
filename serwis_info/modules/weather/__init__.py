@@ -1,5 +1,6 @@
 from flask import Blueprint
-from .routes import register_routes
+from .routes.weather_routes import weather_api_bp
+from .routes.history_routes import history_bp
 
 def create_weather_blueprint():
     bp = Blueprint(
@@ -7,6 +8,6 @@ def create_weather_blueprint():
         template_folder='templates',
         static_folder='static'
     )
-
-    register_routes(bp)
+    bp.register_blueprint(weather_api_bp)
+    bp.register_blueprint(history_bp)
     return bp
