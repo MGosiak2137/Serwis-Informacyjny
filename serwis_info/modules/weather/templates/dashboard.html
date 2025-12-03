@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Weather Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- CSS -->
 <link rel="stylesheet" href="{{ url_for('weather.static', filename='style.css') }}">
@@ -14,30 +15,55 @@
 
 <body>
 
-<h1>Weather Dashboard</h1>
-<p>Witaj, <span id="usernameDisplay"></span>!</p>
+<!-- Powrót (domek) -->
+  <a href="/" class="weather-back-btn" title="Powrót do strony głównej">🏠</a>
+
+  <main class="weather-dashboard">
+    
+    <!-- LEWY PANEL -->
+    <aside class="weather-sidebar-left">
+      <div class="weather-hero">
+        <h1>Panel pogodowy</h1>
+        <p>Cześć, <span id="usernameDisplay"></span>!</p>
+      </div>
 
 <div id="userPanel" class="panel">
-  <button id="togglePanelBtn">☰ Panel użytkownika</button>
+  <button id="togglePanelBtn" class="weather-btn-secondary">☰ Rozwiń panel</button>
   <div id="panelContent" class="hidden">
    
     <div class="history-section">
-      <button id="toggleHistoryBtn">📜 Historia wyszukiwania ▼</button>
+      <button id="toggleHistoryBtn" class="weather-btn-secondary blue">📜 Historia wyszukiwania ▼</button>
       <div id="historyOptions" class="hidden">
-        <button id="showHistoryBtn">👁️ Pokaż historię</button>
-        <button id="clearHistoryBtn">🗑️ Usuń historię</button>
+        <button id="showHistoryBtn" class="weather-btn-secondary blue-strong">👁️ Pokaż historię</button>
+        <button id="clearHistoryBtn" class="weather-btn-secondary danger">🗑️ Usuń historię</button>
       </div>
     </div>
   </div>
 </div>
 
-<div id="controls">
-  <input type="text" id="cityInput" placeholder="Wpisz miasto">
-  <button id="searchBtn">Szukaj</button>
-    <button id="nextSearchBtn" class="hidden">Wyszukaj następne</button>
-  <button id="resetSearchBtn" class="hidden">Szukaj od nowa</button>
+<div class="weather-panel weather-alerts">
+        <h3>Ostrzeżenia</h3>
+        <p id="alertsContent">Brak aktywnych ostrzeżeń</p>
+      </div>
+    </aside>
+
+     <!-- GŁÓWNA CZĘŚĆ -->
+    <section class="weather-main">
+ <!-- WYSZUKIWARKA -->
+<div id="controls" class="weather-search-box">
+  <input type="text" id="cityInput" placeholder="Szukaj miasta...">
+  <button id="searchBtn" class="weather-btn-primary">Szukaj</button>
+
+
+    <button id="nextSearchBtn"  class="weather-btn-primary" class="hidden">Wyszukaj następne</button>
+  <button id="resetSearchBtn"  class="weather-btn-primary" class="hidden">Szukaj od nowa</button>
+</div>
   
-  <div id="layerSelector">
+
+<!-- NAKŁADKI MAPY -->
+    <div class="weather-layers-box">
+        <h3>Warstwy mapy</h3>
+    <div id="layerSelector" class="weather-layer-selector">
     <label><input type="radio" name="weatherLayer" value="temp" checked> Temperatura</label>
     <label><input type="radio" name="weatherLayer" value="rain"> Opady</label>
     <label><input type="radio" name="weatherLayer" value="clouds"> Zachmurzenie</label>
@@ -50,8 +76,18 @@
 <div id="map"></div>
 <div id="legendContainer"></div>
 
-<h3>Historia wyszukiwań:</h3>
+<!-- HISTORIA WYSZUKIWAŃ -->
+      <section class="weather-history-section">
+        <h3>Historia wyszukiwań</h3>
 <ul id="historyList"></ul>
+</section>
+
+    </section>
+
+  </main>
+ <footer class="weather-footer">
+    <p>© 2025 Serwis Informacyjny – Pogoda</p>
+  </footer>
 
 <!-- Skrypt JS -->
 <!-- <script src="{{ url_for('weather.static', filename='app_dashboard.js') }}"></script> -->
