@@ -1,5 +1,7 @@
 {% extends "template.html" %}
 
+{% block title %}Strona główna – Serwis informacyjny{% endblock %}
+
 {% block body_class %}home-page{% endblock %}
 
 {% block extra_css %}
@@ -22,14 +24,12 @@
     <div class="col-left">
 
       <a href="{{ url_for('horoscope.horoscope_page') }}" class="card-item card-calendar">
-        <span class="card-title">            
-          <div class="calendar-body">
-              <p><strong>Data:</strong> <span id="calendar-date">Ładowanie...</span></p>
-              <p><strong>Godzina:</strong> <span id="calendar-time">Ładowanie...</span></p>
-              <p><strong>Dzień roku:</strong> <span id="calendar-daynum">Ładowanie...</span></p>
-              <p><strong>Imieniny:</strong> <span id="calendar-namedays">Ładowanie...</span></p>
-              <p><strong>Święto:</strong> <span id="calendar-holiday">Ładowanie...</span></p>
-              <p><strong>Status dnia:</strong> <span id="calendar-dayoff">Ładowanie...</span></p>
+
+        <div class="calendar-horizontal">
+
+          <div class="calendar-left">
+            <div class="calendar-time" id="calendar-time">Ładowanie...</div>
+            <div class="calendar-date" id="calendar-date">Ładowanie...</div>
           </div>
 
           <div class="calendar-right">
@@ -186,6 +186,7 @@
           <canvas id="gold-chart"></canvas>
         </div>
       </a>
+    </div>  {# koniec .col-right #}
 
   </div>
 </section>
