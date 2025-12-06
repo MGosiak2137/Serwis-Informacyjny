@@ -1,21 +1,26 @@
-/* KAFEL KALENDARZA – PROSTY, BEZ KOLOROWYCH BORDERÓW */
+/* ===========================
+   CALENDAR - STANDARDIZED TO HOROSCOPE DESIGN
+   =========================== */
 
 .card-calendar {
     grid-area: calendar;
-    background: #e5e5e5;
+    background: white;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: #333;
-    padding: 1rem;
+    padding: 1.5rem;
     transition: all 0.3s ease;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card-calendar:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(212, 143, 168, 0.2);
+    border-color: #f8b7d8;
 }
 
 /* UKŁAD DWA SEKTORY: LEWY (GODZINA+DATA) + PRAWY (BOXES) */
@@ -58,10 +63,11 @@
 /* POJEDYNCZE POLE */
 .calendar-box {
     background: rgba(255, 255, 255, 0.7);
-    padding: 0.5rem 0.7rem;
-    border-radius: 14px;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 222, 222, 0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 /* TEKSTY W PUDŁACH */

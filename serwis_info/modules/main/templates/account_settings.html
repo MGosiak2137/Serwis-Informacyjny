@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+{% block title %}Ustawienia konta{% endblock %}
+
+{% block body_class %}account-settings-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('main.static', filename='account_settings.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <div class="account-settings-card">
+      <h1>Ustawienia konta</h1>
+      <p class="text-muted">
+        Zarządzaj swoim kontem i preferencjami.
+      </p>
+
+      <div class="account-info">
+        <div class="account-info-item">
+          <span class="account-info-label">Nazwa użytkownika:</span>
+          <span class="account-info-value">{{ current_user.nickname }}</span>
+        </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Adres e-mail:</span>
+          <span class="account-info-value">{{ current_user.email }}</span>
+        </div>
+      </div>
+
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+        Wyloguj się
+      </a>
+    </div>
+  </div>
+{% endblock %}
+

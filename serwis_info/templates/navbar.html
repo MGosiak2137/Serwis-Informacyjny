@@ -7,6 +7,9 @@
        alt="Logo" 
        class="nav-logo">
   <span class="nav-brand-text">Serwis informacyjny</span>
+  {% if current_user.is_authenticated %}
+    <span class="nav-welcome-text ms-2">Witaj, {{ current_user.nickname }}</span>
+  {% endif %}
 </a>
 
     <!-- PRAWA STRONA -->
@@ -23,9 +26,15 @@
       <a href="#" class="icon-btn" title="Wiadomości">
         <i class="bi bi-chat-dots"></i>
       </a>
-      <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
-        <i class="bi bi-person-circle"></i>
-      </a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.account_settings') }}" class="icon-btn" title="Ustawienia konta">
+          <i class="bi bi-gear"></i>
+        </a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
+          <i class="bi bi-person-circle"></i>
+        </a>
+      {% endif %}
     </div>
 
   </div>

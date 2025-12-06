@@ -2,11 +2,17 @@
 
 {% block title %}Rejestracja – Serwis informacyjny{% endblock %}
 
+{% block body_class %}login-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('main.static', filename='login.css') }}">
+{% endblock %}
+
 {% block content %}
   <div class="login-container">
     <div class="login-card">
-      <h1 class="h3 mb-3 text-center">Utwórz konto</h1>
-      <p class="text-muted mb-4 text-center">
+      <h1>Utwórz konto</h1>
+      <p class="text-muted">
         Podaj dane, aby założyć nowe konto w serwisie.
       </p>
 
@@ -17,7 +23,7 @@
           <label class="form-label">Adres e-mail</label>
           {{ form.email(class_="form-control", placeholder="np. mojmail@example.com") }}
           {% for error in form.email.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
@@ -25,7 +31,7 @@
           <label class="form-label">Nazwa użytkownika</label>
           {{ form.nickname(class_="form-control", placeholder="wybierz swój login") }}
           {% for error in form.nickname.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
@@ -33,7 +39,7 @@
           <label class="form-label">Hasło</label>
           {{ form.password(class_="form-control", placeholder="Wpisz hasło") }}
           {% for error in form.password.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
@@ -41,16 +47,16 @@
           <label class="form-label">Powtórz hasło</label>
           {{ form.password2(class_="form-control", placeholder="Powtórz hasło") }}
           {% for error in form.password2.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">
+        <button type="submit" class="btn btn-primary">
           Utwórz konto
         </button>
       </form>
 
-      <div class="login-links-vertical text-center mt-4">
+      <div class="login-links-vertical">
         <div class="login-or">Masz już konto?</div>
         <a href="{{ url_for('auth.login') }}" class="login-link">Przejdź do logowania</a>
       </div>

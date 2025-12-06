@@ -2,7 +2,7 @@
 .sm-hero h2{margin:0 0 0.25rem 0;font-size:1.35rem}
 .sm-hero .lead{margin:0;color:var(--muted);font-size:0.95rem}
 .sm-grid{display:grid;grid-template-columns:320px 1fr;gap:1rem;align-items:start;max-width:1200px;margin:0 auto 1.25rem}
-.sm-chart-card{background:linear-gradient(180deg,rgba(255,254,250,0.95),rgba(255,255,255,0.96));border-radius:12px;padding:1rem;box-shadow:0 10px 30px rgba(31,40,50,0.06);display:flex;flex-direction:column;gap:0.75rem;border:1px solid rgba(15,17,36,0.04)}
+.sm-chart-card{background:linear-gradient(180deg,rgba(255,254,250,0.95),rgba(255,255,255,0.96));border-radius:20px;padding:2rem;box-shadow:0 4px 12px rgba(0,0,0,0.1);display:flex;flex-direction:column;gap:1rem;border:1px solid rgba(0,0,0,0.06)}
 .chart-header{display:flex;justify-content:space-between;align-items:center}
 .chart-header h3{margin:0;font-size:1rem}
 .chart-meta{color:var(--muted);font-size:0.85rem}
@@ -15,8 +15,8 @@
 .m-value.positive{color:var(--primary)}
 .m-value.negative{color:#e53935}
 .sm-cards{display:flex;flex-direction:column;gap:0.75rem}
-.index-card{background:linear-gradient(90deg,rgba(47,47,51,0.98),rgba(47,47,51,0.98));color:#fff;padding:0.75rem;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;box-shadow:0 8px 18px rgba(15,17,36,0.12);transition:transform .12s ease,box-shadow .12s ease;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-.index-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(15,17,36,0.16)}
+.index-card{background:linear-gradient(90deg,rgba(47,47,51,0.98),rgba(47,47,51,0.98));color:#fff;padding:1rem 1.25rem;border-radius:15px;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:transform .3s ease,box-shadow .3s ease;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+.index-card:hover{transform:translateY(-4px);box-shadow:0 6px 20px rgba(0,0,0,0.15)}
 .index-card.disabled-card{cursor:default;opacity:0.92;transform:none;box-shadow:none;pointer-events:none}
 .index-left{display:flex;flex-direction:column}
 .index-code{font-weight:800;font-size:1.05rem;letter-spacing:0.6px}
@@ -24,11 +24,11 @@
 .muted-code{font-size:0.82rem;color:rgba(255,255,255,0.65);margin-top:4px}
 .index-right{text-align:right}
 .index-rate{font-weight:800}
-.index-rate.positive{color:var(--primary)}
+.index-rate.positive{color:var(--orange)}
 .index-rate.negative{color:#ff6b6b}
 .index-price{font-size:1rem;font-weight:700;margin-bottom:0.25rem;color:#fff}
 .mini-spark{height:8px;width:60px;background:rgba(255,255,255,0.06);border-radius:6px;display:inline-block;overflow:hidden;margin-top:6px}
-.mini-spark span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:var(--val);transition:width 850ms cubic-bezier(.2,.8,.2,1)}
+.mini-spark span{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-dark));width:var(--val);transition:width 850ms cubic-bezier(.2,.8,.2,1)}
 .sm-ticker{background:linear-gradient(90deg,rgba(31,40,50,1),rgba(47,47,51,1));color:#fff;padding:0.5rem 0;border-radius:8px;overflow:hidden;margin-top:0.5rem}
 .ticker-track{display:flex;gap:2rem;animation:scroll 30s linear infinite;white-space:nowrap}
 .ticker-item{color:rgba(255,255,255,0.9);padding-right:2rem;font-weight:600;font-size:0.95rem;flex-shrink:0}
@@ -60,90 +60,93 @@ select#select-symbols{background:#fff;border:1px solid #dcdcdc;border-radius:6px
   --orange-border: rgba(255,122,0,0.18);
 }
 
-/* Główne pomarańczowe przyciski (primary) */
+/* Główne pomarańczowe przyciski (primary) - zachowane ulepszone kształty */
 .btn-primary{
-  padding:0.5rem 0.85rem;
-  border-radius:6px;
+  padding:0.75rem 1.5rem;
+  border-radius:12px;
   background: linear-gradient(90deg,var(--orange),var(--orange-dark));
   color: #fff;
   border: none;
   cursor: pointer;
   font-weight:700;
-  box-shadow:0 6px 18px rgba(255,122,0,0.12);
-  transition: transform .12s ease, filter .12s ease;
+  box-shadow:0 4px 12px rgba(255,122,0,0.2);
+  transition: transform .3s ease, filter .3s ease;
 }
 .btn-primary:hover{ transform: translateY(-2px); filter: brightness(1.03); }
 
 /* Sekundarne przyciski - akcent pomarańczowy */
 .btn-secondary{
-  padding:0.45rem 0.75rem;
-  border-radius:6px;
+  padding:0.75rem 1.5rem;
+  border-radius:12px;
   background:#fff;
-  border:1px solid var(--orange-border);
+  border:2px solid var(--orange-border);
   color:var(--orange);
   display:inline-flex;
   align-items:center;
   justify-content:center;
+  font-weight:600;
+  transition: all .3s ease;
 }
-.btn-secondary:hover{ background:#fff7f1; }
+.btn-secondary:hover{ background:#fff7f1; transform: translateY(-2px); }
 
 /* Zakładki / taby - pomarańczowe w aktywnym stanie */
 .tab-btn{
-  padding:0.45rem 0.8rem;
-  border-radius:6px;
-  border:1px solid #ddd;
+  padding:0.6rem 1rem;
+  border-radius:12px;
+  border:2px solid #e5e5e5;
   background:#fff;
   cursor:pointer;
   font-weight:600;
   color:var(--orange);
-  transition:all .15s ease;
+  transition:all .3s ease;
 }
 .tab-btn.active{
   background: linear-gradient(90deg,var(--orange),var(--orange-dark));
   color:#fff;
   border-color: transparent;
-  box-shadow:0 6px 18px rgba(255,122,0,0.12);
+  box-shadow:0 4px 12px rgba(255,122,0,0.2);
 }
 
 /* Range buttons - aktywny stan pomarańczowy */
 .range-btn{
-  padding:0.55rem 1rem;
-  border-radius:8px;
-  border:1px solid #d3d6db;
-  background:linear-gradient(180deg,#fff,#f7f9fc);
-  color:#222;
-  box-shadow:0 4px 12px rgba(0,0,0,0.03);
+  padding:0.6rem 1rem;
+  border-radius:12px;
+  border:2px solid #e5e5e5;
+  background:#fff;
+  color:#333;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
   text-decoration:none;
+  font-weight:600;
+  transition:all .3s ease;
 }
 .range-btn:hover{ background:#fff3e8; }
 .range-btn.active{
   background: linear-gradient(90deg,var(--orange),var(--orange-dark));
   color:#fff;
   border-color:var(--orange-dark);
-  box-shadow:0 8px 24px rgba(255,122,0,0.12);
+  box-shadow:0 6px 20px rgba(255,122,0,0.25);
 }
 
 /* --- DODANE: przyciski w karcie indeksu (jeśli gdzieś używane) --- */
 .tab-btn, .range-btn, .btn-primary, .btn-secondary { touch-action: manipulation; }
 
-/* --- DODANE: styl dla przycisków kategorii (nadpisuje inline color) --- */
+/* --- Styl dla przycisków kategorii --- */
 .category-link{
   display:inline-block;
-  padding:0.5rem 0.75rem;
-  border-radius:4px;
-  /* silniejsze pomarańczowe tło zamiast ghost */
+  padding:0.6rem 1rem;
+  border-radius:12px;
   background: linear-gradient(90deg, var(--orange), var(--orange-dark)) !important;
   border:1px solid rgba(0,0,0,0.04) !important;
-  color: #ffffff !important; /* zmienione: biała czcionka */
+  color: #ffffff !important;
   text-decoration: none !important;
   font-weight:600;
-  transition: background .12s ease, transform .12s ease, box-shadow .12s ease;
-  box-shadow: 0 4px 14px rgba(255,122,0,0.10);
+  transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+  box-shadow: 0 4px 12px rgba(255,122,0,0.2);
 }
 .category-link:hover{
   background: linear-gradient(90deg, var(--orange-dark), #ff4500) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 26px rgba(255,90,0,0.14);
+  box-shadow: 0 6px 20px rgba(255,90,0,0.25);
 }
 
 /* --- DODANE: ukrycie dolnego paska (ticker) na mobile --- */

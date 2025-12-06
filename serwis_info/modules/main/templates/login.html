@@ -2,12 +2,17 @@
 
 {% block title %}Logowanie{% endblock %}
 
+{% block body_class %}login-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('main.static', filename='login.css') }}">
+{% endblock %}
+
 {% block content %}
   <div class="login-container">
     <div class="login-card">
-      <h1 class="h3 mb-3 text-center">Logowanie</h1>
-
-      <p class="text-muted mb-4 text-center">
+      <h1>Logowanie</h1>
+      <p class="text-muted">
         Zaloguj się, aby uzyskać dostęp do swoich zakładek i ustawień.
       </p>
 
@@ -18,7 +23,7 @@
           <label class="form-label">Adres e-mail</label>
           {{ form.email(class_="form-control", placeholder="np. mojmail@example.com") }}
           {% for error in form.email.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
@@ -26,22 +31,22 @@
           <label class="form-label">Hasło</label>
           {{ form.password(class_="form-control", placeholder="••••••••") }}
           {% for error in form.password.errors %}
-            <div class="invalid-feedback d-block">{{ error }}</div>
+            <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
         </div>
 
         {% if form.remember_me is defined %}
-        <div class="mb-3 form-check">
-          {{ form.remember_me(class_="form-check-input") }}
+        <div class="form-check">
+          {{ form.remember_me(class_="form-check-input", id="login-remember") }}
           <label class="form-check-label" for="login-remember">Zapamiętaj mnie</label>
         </div>
         {% endif %}
 
-        <button type="submit" class="btn btn-primary w-100">
+        <button type="submit" class="btn btn-primary">
           Zaloguj się
         </button>
 
-        <div class="login-links-vertical text-center mt-4">
+        <div class="login-links-vertical">
           <a href="#" class="login-link">Nie pamiętam hasła</a>
           <div class="login-or">lub</div>
           <a href="{{ url_for('auth.register') }}" class="login-link">Utwórz konto</a>

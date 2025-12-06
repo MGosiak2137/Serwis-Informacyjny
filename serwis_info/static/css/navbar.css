@@ -13,6 +13,14 @@
   color: #222;            
 }
 
+.nav-welcome-text {
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: Arial, Helvetica;
+  color: #666;
+  font-style: italic;
+}
+
 .nav-logo {
   height: 30px;      
   width: auto;      

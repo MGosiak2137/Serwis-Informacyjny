@@ -19,7 +19,6 @@ def login():
         # sprawdzamy hasło metodą z modelu User
         if user and user.check_password(form.password.data):
             login_user(user)
-            flash("Zalogowano pomyślnie!", "success")
             return redirect(url_for("main.index"))
         else:
             flash("Niepoprawny e-mail lub hasło.", "danger")
@@ -53,5 +52,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    flash("Zostałaś/eś wylogowana/y.", "info")
     return redirect(url_for("auth.login"))

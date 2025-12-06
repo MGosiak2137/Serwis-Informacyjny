@@ -1,0 +1,163 @@
+/* ===========================
+   ACCOUNT SETTINGS PAGE
+   =========================== */
+
+/* Override login-page scrolling restrictions for account settings */
+body.account-settings-page {
+  overflow: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  position: relative !important;
+}
+
+body.account-settings-page .main-content,
+body.account-settings-page main.main-content {
+  height: auto !important;
+  min-height: calc(100vh - 110px) !important;
+  overflow: visible !important;
+  overflow-y: auto !important;
+}
+
+body.account-settings-page .main-content .w-100 {
+  overflow: visible !important;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+}
+
+.account-settings-page .login-container {
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 110px);
+  overflow: visible;
+}
+
+.account-settings-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.account-settings-card h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.account-settings-card .text-muted {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.account-info {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f7f7f9;
+  border-radius: 12px;
+}
+
+.account-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.account-info-item:last-child {
+  border-bottom: none;
+}
+
+.account-info-label {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.account-info-value {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #dc3545;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .account-settings-card {
+    padding: 2rem 1.75rem;
+    border-radius: 16px;
+  }
+
+  .account-info {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-settings-page .login-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .account-settings-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .account-info {
+    padding: 1rem;
+  }
+
+  .account-info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .account-settings-card {
+    padding: 1.25rem 1rem;
+    border-radius: 12px;
+  }
+
+  .account-info {
+    padding: 0.875rem;
+  }
+}
+

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, jsonify, current_app
+from flask_login import login_required
 import os
 import json
 
@@ -146,6 +147,11 @@ def index():
     return render_template("index.html",
                            news_preview=news_preview,
                            body_class="home-page")
+
+@main_bp.route("/account")
+@login_required
+def account_settings():
+    return render_template("account_settings.html")
 
 @main_bp.get("/api/calendar")
 def get_calendar():

@@ -31,14 +31,16 @@
   {% include "navbar.html" %}
   <main class="main-content">
     <div class="w-100">
-      {# globalne komunikaty Flaska #}
+      {# globalne komunikaty Flaska - pomijamy success messages #}
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           <div class="mb-3">
             {% for category, message in messages %}
-              <div class="alert alert-{{ category }} mb-2" role="alert">
-                {{ message }}
-              </div>
+              {% if category != 'success' %}
+                <div class="alert alert-{{ category }} mb-2" role="alert">
+                  {{ message }}
+                </div>
+              {% endif %}
             {% endfor %}
           </div>
         {% endif %}

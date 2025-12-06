@@ -51,7 +51,7 @@ p {
 
 /* ========== LAYOUT: HEADER / FOOTER / MAIN ========== */
 
-/* Nagłówek modułu newsów – wizualnie zbliżony do main-navbar */
+/* Nagłówek modułu newsów */
 .site-header {
   background: #ffffff;
   border-bottom: 1px solid #bbf7d0; /* zamiast #eee */
@@ -60,39 +60,41 @@ p {
 .nav-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0.6rem 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .nav-links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
-/* Przyciski w nawigacji – "pill" w stylu appki */
+/* Przyciski w nawigacji - ulepszone kształty i padding */
 .nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid #bbf7d0;       /* zamiast #e5e5e5 */
-  background: #ecfdf5;             /* zamiast #f9fafb */
+  padding: 0.5rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+  background: #ecfdf5;
   font-size: 0.9rem;
-  color: #064e3b;                  /* zamiast #333 */
+  color: #064e3b;
   text-decoration: none;
-  transition: background 0.15s ease, transform 0.1s ease,
-    box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: background 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
+  font-weight: 600;
+  min-width: 90px;
 }
 
 .nav-btn:hover,
 .nav-btn:focus-visible {
-  background: #d1fae5;             /* zamiast #ffffff */
-  border-color: #86efac;           /* zamiast #d4d4d4 */
-  box-shadow: 0 2px 6px rgba(6,95,70,0.18); /* zamiast czarnego cienia */
-  transform: translateY(-1px);
+  background: #d1fae5;
+  border-color: #86efac;
+  box-shadow: 0 4px 12px rgba(6,95,70,0.18);
+  transform: translateY(-2px);
   text-decoration: none;
 }
 
@@ -110,11 +112,11 @@ p {
   border-color: #022c22;
 }
 
-/* przycisk logowania – jaśniejszy */
+/* przycisk logowania */
 .nav-btn-login {
   margin-left: auto;
   background: #ffffff;
-  border-color: #a7f3d0; /* zamiast #e5e5e5 */
+  border-color: #e5e5e5;
   font-weight: 500;
 }
 
@@ -122,27 +124,27 @@ p {
 .nav-btn-login:focus-visible {
   background: #ecfdf5;   /* zamiast #f3f4f6 */
 }
-/* Przyciski – ikonka home */
+/* Przyciski – ikonka home - ulepszone */
 .nav-btn-home-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   background: #ffffff;
-  color: var(--c3); /* mocniejsza zieleń */
+  color: #064e3b;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid #bbf7d0;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(6, 78, 59, 0.18);
 }
 
 .nav-btn-home-icon:hover {
-  background: var(--c3); /* turkusowa zieleń */
-  color: #ecfdf5; /* jasna ikonka na hover */
+  background: #064e3b;
+  color: #ecfdf5;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(6, 78, 59, 0.35);
+  box-shadow: 0 6px 20px rgba(6, 78, 59, 0.35);
 }
 
 .home-icon {
@@ -177,7 +179,7 @@ p {
   flex: 1 0 auto;
 }
 
-/* Hero na stronie głównej modułu newsowego – styl jak duży kafelek */
+/* Hero na stronie głównej modułu newsowego */
 .hero {
   background: #ffffff;
   border-radius: 20px;
@@ -189,6 +191,7 @@ p {
 .hero h1 {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   margin-bottom: 0.5rem;
+  color: #064e3b; /* zamiast #222 */
 }
 
 .hero p {
@@ -216,9 +219,9 @@ p {
   border-radius: 18px;
   text-decoration: none;
   background: #fefce8;                   /* zamiast #ffffff */
-  border: 1px solid #86efac;             /* zamiast #e5e5e5 */
-  box-shadow: 0 6px 16px rgba(6,95,70,0.10); /* zamiast czarnego */
-  color: #064e3b;                        /* zamiast #111827 */
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #333;
   transition: transform 0.15s ease, box-shadow 0.15s ease,
               border-color 0.15s ease, background 0.15s ease;
 }
@@ -239,11 +242,11 @@ p {
   flex: 1 1 auto;
   padding: 0.7rem 0.9rem;
   border-radius: 12px;
-  background: #dcfce7;                   /* zamiast #f9fafb */
+  background: #ecfdf5;   /* zamiast #f3f4f6 */
   border: 1px dashed #86efac;            /* zamiast #d4d4d4 */
   margin-bottom: 1rem;
   font-size: 0.88rem;
-  color: #064e3b;                         /* zamiast #374151 */
+  color: #333;
 }
 
 .home-tile-placeholder {
@@ -256,7 +259,7 @@ p {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #00725e;                         /* zamiast #111827 */
+  color: #064e3b; /* zamiast #222 */
 }
 
 /* hover – lekko podniesione kafelki */
@@ -285,7 +288,7 @@ p {
 .news-section h2 {
   font-size: 1.4rem;
   margin-bottom: 0.35rem;
-  color: #064e3b; /* dodany zielony akcent */
+  color: #064e3b; /* zamiast #222 */
 }
 
 .lead {
@@ -306,8 +309,8 @@ p {
   background: #ffffff;
   border-radius: 16px;
   padding: 1rem 1.25rem;
-  border: 1px solid #86efac;             /* zamiast #e5e5e5 */
-  box-shadow: 0 6px 16px rgba(6,95,70,0.10); /* zamiast czarnego */
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -327,12 +330,12 @@ p {
 }
 
 .news-card h3 a {
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
 }
 
 .news-card h3 a:hover,
 .news-card h3 a:focus-visible {
-  color: #00725e;                             /* zamiast #000 */
+  color: #064e3b; /* zamiast #222 */
   text-decoration: none;
 }
 
@@ -344,7 +347,7 @@ p {
 
 .news-summary {
   font-size: 0.94rem;
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
 }
 
 /* stopka karty */
@@ -361,9 +364,9 @@ p {
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  background: #dcfce7;                        /* zamiast #f3f4f6 */
+  background: #ecfdf5;   /* zamiast #f3f4f6 */
   border: 1px solid #86efac;                  /* zamiast #e5e7eb */
-  color: #064e3b;                             /* zamiast #374151 */
+  color: #333;
 }
 
 /* ========== PRZYCISKI (globalne w newsach) ========== */
@@ -387,32 +390,32 @@ p {
 
 /* główny button akcji */
 .btn-primary {
-  background: #00725e;                        /* zamiast #111827 */
-  color: #ecfdf5;                             /* zamiast #f9fafb */
+  background: var(--c3); /* turkusowa zieleń */
+  color: #333;
   font-weight: 600;
-  border-color: #00725e;                      /* zamiast #111827 */
+  border-color: #d48fa8;
 }
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  background: #009e80;                        /* zamiast #000 */
-  border-color: #009e80;
-  box-shadow: 0 8px 20px rgba(6,95,70,0.25);  /* zamiast czarnego */
+  background: linear-gradient(135deg, #d48fa8 0%, #c47a9a 100%);
+  border-color: #c47a9a;
+  box-shadow: 0 8px 20px rgba(212, 143, 168, 0.25);
   transform: translateY(-1px);
 }
 
 /* przycisk wtórny (np. „Szczegóły”, „Wróć”) */
 .btn-secondary {
   background: #ffffff;
-  color: #064e3b;                             /* zamiast #111827 */
-  border-color: #86efac;                      /* zamiast #e5e5e5 */
+  color: #333;
+  border-color: #e5e5e5;
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus-visible {
-  background: #dcfce7;                        /* zamiast #f3f4f6 */
-  border-color: #22c55e;                      /* zamiast #d4d4d4 */
-  box-shadow: 0 4px 12px rgba(6,95,70,0.20);  /* zamiast czarnego */
+  background: #fce7f3;
+  border-color: #22c55e;                  /* zamiast #d4d4d4 */
+  box-shadow: 0 4px 12px rgba(212, 143, 168, 0.20);
 }
 
 /* link wyglądający jak subtelny przycisk */
@@ -433,7 +436,7 @@ p {
 /* ========== STOPKA ========== */
 
 .site-footer {
-  border-top: 1px solid #bbf7d0;              /* zamiast #eee */
+  border-top: 1px solid #e5e5e5;
   background: #ffffff;
   margin-top: auto;
 }
@@ -450,7 +453,7 @@ p {
 
 .footer-left {
   font-size: 0.8rem;
-  color: #064e3b;                             /* zamiast #6b7280 */
+  color: #666;
 }
 
 /* ========== STRONA SZCZEGÓŁU (detail) ========== */
@@ -465,8 +468,8 @@ p {
   background: #ffffff;
   border-radius: 18px;
   padding: 1.6rem 1.9rem;
-  border: 1px solid #86efac;                  /* zamiast #e5e5e5 */
-  box-shadow: 0 8px 24px rgba(6,95,70,0.16);  /* zamiast czarnego */
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .detail-header h1 {
@@ -487,7 +490,7 @@ p {
   padding: 0.1rem 0.55rem;
   border-radius: 999px;
   background: #dcfce7;                        /* zamiast #f3f4f6 */
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
 }
 
 .detail-content {
@@ -496,13 +499,13 @@ p {
 
 .detail-content .summary {
   font-weight: 500;
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
   margin-bottom: 1rem;
 }
 
 .article-text {
   font-size: 0.97rem;
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
 }
 
 .article-text p {
@@ -522,12 +525,12 @@ p {
   text-align: center;
   padding: 2rem 1.5rem;
   border-radius: 16px;
-  background: #ecfdf5;                        /* zamiast #f9fafb */
-  border: 1px solid #bbf7d0;                  /* zamiast #e5e5e5 */
+  background: #ecfdf5;   /* zamiast #f3f4f6 */
+  border: 1px solid #e5e5e5;
 }
 
 .error-message h2 {
-  color: #064e3b;                             /* zamiast #111827 */
+  color: #333;
   margin-bottom: 0.5rem;
 }
 
@@ -595,9 +598,9 @@ p {
 
 .news-search-form input:focus-visible,
 .news-search-form select:focus-visible {
-  outline: 2px solid #00725e;               /* zamiast #111827 */
+  outline: 2px solid #f8b7d8;
   outline-offset: 1px;
-  border-color: #00725e;
+  border-color: #22c55e;                  /* zamiast #d4d4d4 */
 }
 
 
@@ -619,7 +622,7 @@ p {
 .search-history {
   background: #ffffff;
   border-radius: 16px;
-  border: 1px solid #86efac;                /* zamiast #e5e5e5 */
+  border: 1px solid #e5e5e5;
   padding: 1rem 1.1rem;
   box-shadow: 0 6px 18px rgba(6,95,70,0.10);/* zamiast czarnego */
 }
@@ -640,7 +643,7 @@ p {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.35rem 0.1rem;
-  border-bottom: 1px dashed #bbf7d0;        /* zamiast #e5e7eb */
+  border-bottom: 1px dashed #e5e5e5;
   font-size: 0.8rem;
 }
 
@@ -650,7 +653,7 @@ p {
 
 .hist-query {
   font-weight: 500;
-  color: #064e3b;                            /* zamiast #111827 */
+  color: #333;
 }
 
 .hist-meta {

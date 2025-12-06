@@ -18,16 +18,13 @@
 <body>
 {% include "navbar.html" %}
 <header class="site-header">
-  <div class="nav-inner">
+  <div class="nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
     <nav class="nav-links" aria-label="Nawigacja newsów">
       
-      <a href="/" class="nav-btn-home-icon" aria-label="Powrót do strony głównej">
-  <svg viewBox="0 0 24 24" class="home-icon">
     <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1V9.5z"
           fill="currentColor" />
   </svg>
 </a>
-
 
       <a href="{{ url_for('news.news_home') }}"
          class="nav-btn {% if request.endpoint == 'news.news_home' %}nav-btn--active{% endif %}">
@@ -47,11 +44,6 @@
       <a href="{{ url_for('news.search') }}"
          class="nav-btn {% if request.endpoint == 'news.search' or request.endpoint == 'news.search_results' %}nav-btn--active{% endif %}">
         Wyszukiwarka
-      </a>
-
-      <!-- Logowanie – zawsze „zwykły” przycisk -->
-      <a href="/login" class="nav-btn nav-btn-login">
-        Logowanie
       </a>
 
     </nav>
