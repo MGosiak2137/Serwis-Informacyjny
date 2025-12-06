@@ -783,3 +783,6 @@ p {
     text-decoration: none;
 }
 
+header.site-header {
+  margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
+}
