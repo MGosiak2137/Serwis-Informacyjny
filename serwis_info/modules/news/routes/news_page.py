@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, url_for, redirect
 from datetime import datetime,timezone
 import json
 import os
+from flask_login import login_required
 
 from serwis_info.modules.news.services import articles_data_giver
 _sample_articles = articles_data_giver._sample_articles
@@ -19,6 +20,7 @@ news_bp = Blueprint(
 
 
 @news_bp.get("/")
+@login_required
 def news_home():
     return render_template("nav_footnews.html")
 

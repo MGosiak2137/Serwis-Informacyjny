@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, jsonify
 import os
+from flask_login import login_required
 
 # Oblicz ścieżkę do templates kalendarza
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +16,7 @@ horoscope_bp = Blueprint(
 )
 
 @horoscope_bp.route("/horoscope")
+@login_required
 def horoscope_page():
     return render_template("horoscope.html")
 

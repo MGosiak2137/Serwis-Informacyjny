@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, render_template
+from flask_login import login_required
 import requests
 from collections import Counter
 
@@ -7,6 +8,7 @@ weather_api_bp = Blueprint("weather_api", __name__)
 API_KEY = "25ae8c36b22398f35b25584807571f27"
 
 @weather_api_bp.route("/dashboard")
+@login_required
 def dashboard_page():
     return render_template("dashboard.html")
 
