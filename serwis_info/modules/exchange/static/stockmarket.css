@@ -64,15 +64,22 @@ select#select-symbols{background:#fff;border:1px solid #dcdcdc;border-radius:6px
 .btn-primary{
   padding:0.75rem 1.5rem;
   border-radius:12px;
-  background: linear-gradient(90deg,var(--orange),var(--orange-dark));
+  background: linear-gradient(90deg, #ff7a00, #ff5a00);
   color: #fff;
   border: none;
   cursor: pointer;
   font-weight:700;
-  box-shadow:0 4px 12px rgba(255,122,0,0.2);
+  box-shadow: 0 4px 12px rgba(255,122,0,0.2);
   transition: transform .3s ease, filter .3s ease;
+  display: inline-block;
 }
-.btn-primary:hover{ transform: translateY(-2px); filter: brightness(1.03); }
+.btn-primary:hover { 
+  transform: translateY(-2px); 
+  filter: brightness(1.03); 
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
 
 /* Sekundarne przyciski - akcent pomarańczowy */
 .btn-secondary{
@@ -195,3 +202,30 @@ select#select-symbols{background:#fff;border:1px solid #dcdcdc;border-radius:6px
 
 /* ensure buttons & selects stay usable on small touch screens */
 button, .range-btn, select { touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+/* Add to favorites section */
+#add-to-favorites-section {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#favorite-feedback {
+  animation: fadeInOut 3s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}

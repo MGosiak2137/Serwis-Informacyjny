@@ -159,3 +159,118 @@ body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4
 header.site-header {
   margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
 }
+
+/* Preferences Section */
+.preferences-section {
+  margin-top: 2rem;
+}
+
+.preferences-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.preferences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.preference-box {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.preference-box h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  color: var(--primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preference-box i {
+  font-size: 1.25rem;
+}
+
+.preference-content {
+  min-height: 80px;
+}
+
+.preference-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.preference-list li {
+  padding: 0.6rem 0;
+  padding-left: 1.5rem;
+  color: var(--text);
+  font-weight: 500;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preference-list li:last-child {
+  border-bottom: none;
+}
+
+.preference-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.remove-btn:hover {
+  color: #ff6a00;
+}
+
+.no-data {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+/* Responsive: adjust grid on smaller screens */
+@media (max-width: 720px) {
+  .preferences-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .preference-box {
+    padding: 1rem;
+  }
+
+  .preferences-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+}

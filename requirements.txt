@@ -12,5 +12,6 @@ selenium
 python-dateutil
 holidays
 yfinance
+psycopg2-binary
 email-validator
 googletrans

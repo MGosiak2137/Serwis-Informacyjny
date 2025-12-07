@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -29,15 +28,45 @@
         <a href="/currencies" class="nav-btn">Waluty</a>
         <a href="/stockmarket" class="nav-btn">Giełda</a>
         <a href="/journey" class="nav-btn">Podróże</a>
+        <a href="/main_eco/main_eco" class="nav-btn">Ulubione</a>
       </nav>
     </div>
   </header>
 
   {% block main %}
   <main class="page-main">
-    <section class="hero">
-      <h1>Demo: navbar i stopka</h1>
-      <p>Użyj przycisków w nawigacji i sprawdź przycisk w stopce. Możesz przekazać footer_url i footer_text przy renderowaniu.</p>
+    <!-- Sekcja preferencji użytkownika -->
+    <section class="preferences-section">
+      <h2>Ulubione pozycje w module ekonomicznym</h2>
+      
+      <div class="preferences-grid">
+        <!-- Ulubione akcje -->
+        <div class="preference-box">
+          <h3><i class="bi bi-star-fill"></i> Ulubione akcje</h3>
+          <div class="preference-content">
+            <ul class="preference-list" id="favorite-actions-list"></ul>
+            <p class="no-data" id="no-actions" style="display:none;">Brak ulubionych pozycji</p>
+          </div>
+        </div>
+
+        <!-- Waluty -->
+        <div class="preference-box">
+          <h3><i class="bi bi-currency-exchange"></i> Twoje waluty</h3>
+          <div class="preference-content">
+            <ul class="preference-list" id="currencies-list"></ul>
+            <p class="no-data" id="no-currencies" style="display:none;">Brak wybranych walut</p>
+          </div>
+        </div>
+
+        <!-- Historia wyszukiwań -->
+        <div class="preference-box">
+          <h3><i class="bi bi-search"></i> Historia wyszukiwań</h3>
+          <div class="preference-content">
+            <ul class="preference-list" id="search-history-list"></ul>
+            <p class="no-data" id="no-history" style="display:none;">Brak historii wyszukiwań</p>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
   {% endblock %}
@@ -57,6 +86,75 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    const STORAGE_KEY = 'eco_preferences';
+    
+    function loadPreferences() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      console.log('Stored preferences:', stored);
+      return stored ? JSON.parse(stored) : { favorite_actions: [], currencies: [], search_history: [] };
+    }
+    
+    function savePreferences(prefs) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+      console.log('Saved preferences:', prefs);
+    }
+    
+    function renderList(listId, noDataId, items) {
+      const list = document.getElementById(listId);
+      const noData = document.getElementById(noDataId);
+      
+      if (!list || !noData) {
+        console.error('Elements not found:', listId, noDataId);
+        return;
+      }
+      
+      if (items && items.length > 0) {
+        list.innerHTML = items.map(item => 
+          `<li>${item}<button class="remove-btn" data-type="${listId}" data-value="${item}">✕</button></li>`
+        ).join('');
+        noData.style.display = 'none';
+      } else {
+        list.innerHTML = '';
+        noData.style.display = 'block';
+      }
+    }
+    
+    function renderPreferences() {
+      const prefs = loadPreferences();
+      console.log('Rendering preferences:', prefs);
+      renderList('favorite-actions-list', 'no-actions', prefs.favorite_actions);
+      renderList('currencies-list', 'no-currencies', prefs.currencies);
+      renderList('search-history-list', 'no-history', prefs.search_history);
+    }
+    
+    function removePreference(type, value) {
+      const prefs = loadPreferences();
+      if (type === 'favorite-actions-list') type = 'favorite_actions';
+      else if (type === 'currencies-list') type = 'currencies';
+      else if (type === 'search-history-list') type = 'search_history';
+      
+      prefs[type] = prefs[type].filter(item => item !== value);
+      savePreferences(prefs);
+      renderPreferences();
+    }
+    
+    // Load preferences on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM ready, rendering preferences');
+      renderPreferences();
+      
+      // Remove button click handler
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-btn')) {
+          const type = e.target.dataset.type;
+          const value = e.target.dataset.value;
+          console.log('Removing:', type, value);
+          removePreference(type, value);
+        }
+      });
+    });
+    
+    // Hamburger menu
     (function(){
       var toggle = document.getElementById('nav-toggle');
       if(!toggle) return;
@@ -68,7 +166,6 @@
         body.classList.toggle('nav-open');
         if(nav) nav.style.display = body.classList.contains('nav-open') ? 'flex' : '';
       });
-      // ensure correct initial state on resize
       window.addEventListener('resize', function(){
         if(window.innerWidth > 720){
           document.body.classList.remove('nav-open');
