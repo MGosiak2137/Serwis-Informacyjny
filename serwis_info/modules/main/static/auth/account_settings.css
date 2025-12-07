@@ -117,6 +117,39 @@ body.account-settings-page .main-content .w-100 {
   transform: translateY(0);
 }
 
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.delete-account-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #6c757d;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.delete-account-btn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.delete-account-btn:active {
+  transform: translateY(0);
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .account-settings-card {
@@ -160,4 +193,3 @@ body.account-settings-page .main-content .w-100 {
     padding: 0.875rem;
   }
 }
-

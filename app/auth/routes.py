@@ -42,8 +42,13 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash("Konto zostało utworzone! Możesz się zalogować.", "success")
-        return redirect(url_for("auth.login"))
+        # Automatyczne logowanie po rejestracji
+        login_user(user)
+        flash("Konto zostało utworzone! Witamy w NEWC.", "success")
+        # Przekierowanie do strony głównej z flagą pokazania modala powitalnego
+        from flask import session
+        session['show_welcome_modal'] = True
+        return redirect(url_for("main.index"))
 
     return render_template("register.html", form=form)
 

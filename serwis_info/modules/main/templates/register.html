@@ -5,7 +5,10 @@
 {% block body_class %}login-page{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('main.static', filename='login.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_layout.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_common.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/password_features.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/form_validation.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -37,7 +40,40 @@
 
         <div class="mb-3">
           <label class="form-label">Hasło</label>
-          {{ form.password(class_="form-control", placeholder="Wpisz hasło") }}
+          <div class="password-input-wrapper">
+            {{ form.password(class_="form-control password-input", placeholder="Wpisz hasło", id="register-password") }}
+            <button type="button" class="password-toggle-btn" id="register-password-toggle" aria-label="Pokaż/ukryj hasło">
+              <i class="bi bi-eye" id="register-password-icon"></i>
+            </button>
+          </div>
+          <div class="password-strength-meter" id="password-strength-meter">
+            <div class="password-strength-bar" id="password-strength-bar"></div>
+          </div>
+          <div class="password-requirements" id="password-requirements">
+            <small class="text-muted">Wymagania dotyczące hasła:</small>
+            <ul class="password-requirements-list">
+              <li id="req-length" class="requirement-item">
+                <i class="bi bi-x-circle requirement-icon"></i>
+                <span>Minimum 8 znaków</span>
+              </li>
+              <li id="req-uppercase" class="requirement-item">
+                <i class="bi bi-x-circle requirement-icon"></i>
+                <span>Przynajmniej jedna wielka litera</span>
+              </li>
+              <li id="req-lowercase" class="requirement-item">
+                <i class="bi bi-x-circle requirement-icon"></i>
+                <span>Przynajmniej jedna mała litera</span>
+              </li>
+              <li id="req-number" class="requirement-item">
+                <i class="bi bi-x-circle requirement-icon"></i>
+                <span>Przynajmniej jedna cyfra</span>
+              </li>
+              <li id="req-special" class="requirement-item">
+                <i class="bi bi-x-circle requirement-icon"></i>
+                <span>Przynajmniej jeden znak specjalny (!@#$%^&*)</span>
+              </li>
+            </ul>
+          </div>
           {% for error in form.password.errors %}
             <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
@@ -45,7 +81,15 @@
 
         <div class="mb-3">
           <label class="form-label">Powtórz hasło</label>
-          {{ form.password2(class_="form-control", placeholder="Powtórz hasło") }}
+          <div class="password-input-wrapper">
+            {{ form.password2(class_="form-control password-input", placeholder="Powtórz hasło", id="register-password2") }}
+            <button type="button" class="password-toggle-btn" id="register-password2-toggle" aria-label="Pokaż/ukryj hasło">
+              <i class="bi bi-eye" id="register-password2-icon"></i>
+            </button>
+          </div>
+          <div class="password-match-indicator" id="password-match-indicator">
+            <small id="password-match-text"></small>
+          </div>
           {% for error in form.password2.errors %}
             <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
@@ -62,4 +106,201 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('register-password');
+    const password2Input = document.getElementById('register-password2');
+    const toggleBtn1 = document.getElementById('register-password-toggle');
+    const toggleBtn2 = document.getElementById('register-password2-toggle');
+    const toggleIcon1 = document.getElementById('register-password-icon');
+    const toggleIcon2 = document.getElementById('register-password2-icon');
+    
+    // Password visibility toggles
+    function setupToggle(input, btn, icon) {
+      if (input && btn) {
+        btn.addEventListener('click', function() {
+          const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+          input.setAttribute('type', type);
+          
+          if (type === 'text') {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+          } else {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+          }
+        });
+      }
+    }
+    
+    setupToggle(passwordInput, toggleBtn1, toggleIcon1);
+    setupToggle(password2Input, toggleBtn2, toggleIcon2);
+    
+    // Password validation rules
+    const requirements = {
+      length: { regex: /.{8,}/, element: document.getElementById('req-length') },
+      uppercase: { regex: /[A-Z]/, element: document.getElementById('req-uppercase') },
+      lowercase: { regex: /[a-z]/, element: document.getElementById('req-lowercase') },
+      number: { regex: /[0-9]/, element: document.getElementById('req-number') },
+      special: { regex: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, element: document.getElementById('req-special') }
+    };
+    
+    // Password strength calculation
+    function calculatePasswordStrength(password) {
+      let strength = 0;
+      let metRequirements = 0;
+      
+      Object.keys(requirements).forEach(key => {
+        if (requirements[key].regex.test(password)) {
+          strength += 20;
+          metRequirements++;
+        }
+      });
+      
+      // Bonus for length
+      if (password.length >= 12) strength += 10;
+      if (password.length >= 16) strength += 10;
+      
+      return { strength: Math.min(strength, 100), metRequirements };
+    }
+    
+    // Update requirement indicators
+    function updateRequirements(password) {
+      Object.keys(requirements).forEach(key => {
+        const req = requirements[key];
+        const icon = req.element.querySelector('.requirement-icon');
+        const isMet = req.regex.test(password);
+        
+        if (isMet) {
+          icon.classList.remove('bi-x-circle', 'text-danger');
+          icon.classList.add('bi-check-circle', 'text-success');
+          req.element.classList.add('requirement-met');
+        } else {
+          icon.classList.remove('bi-check-circle', 'text-success');
+          icon.classList.add('bi-x-circle', 'text-danger');
+          req.element.classList.remove('requirement-met');
+        }
+      });
+    }
+    
+    // Update strength meter
+    function updateStrengthMeter(strength) {
+      const strengthBar = document.getElementById('password-strength-bar');
+      const strengthMeter = document.getElementById('password-strength-meter');
+      
+      if (!strengthBar || !strengthMeter) return;
+      
+      strengthBar.style.width = strength + '%';
+      
+      // Update color based on strength
+      strengthBar.classList.remove('strength-weak', 'strength-fair', 'strength-good', 'strength-strong');
+      strengthMeter.classList.remove('strength-weak', 'strength-fair', 'strength-good', 'strength-strong');
+      
+      if (strength < 40) {
+        strengthBar.classList.add('strength-weak');
+        strengthMeter.classList.add('strength-weak');
+      } else if (strength < 60) {
+        strengthBar.classList.add('strength-fair');
+        strengthMeter.classList.add('strength-fair');
+      } else if (strength < 80) {
+        strengthBar.classList.add('strength-good');
+        strengthMeter.classList.add('strength-good');
+      } else {
+        strengthBar.classList.add('strength-strong');
+        strengthMeter.classList.add('strength-strong');
+      }
+    }
+    
+    // Check password match
+    function checkPasswordMatch() {
+      const matchIndicator = document.getElementById('password-match-indicator');
+      const matchText = document.getElementById('password-match-text');
+      
+      if (!passwordInput || !password2Input || !matchIndicator || !matchText) return;
+      
+      const password = passwordInput.value;
+      const password2 = password2Input.value;
+      
+      if (password2.length === 0) {
+        matchIndicator.style.display = 'none';
+        return;
+      }
+      
+      matchIndicator.style.display = 'block';
+      
+      if (password === password2) {
+        matchText.textContent = '✓ Hasła się zgadzają';
+        matchText.className = 'text-success';
+        password2Input.classList.remove('is-invalid');
+        password2Input.classList.add('is-valid');
+      } else {
+        matchText.textContent = '✗ Hasła się nie zgadzają';
+        matchText.className = 'text-danger';
+        password2Input.classList.remove('is-valid');
+        password2Input.classList.add('is-invalid');
+      }
+    }
+    
+    // Real-time password validation
+    if (passwordInput) {
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const { strength, metRequirements } = calculatePasswordStrength(password);
+        
+        updateRequirements(password);
+        updateStrengthMeter(strength);
+        
+        // Update input border color
+        if (metRequirements === 5 && password.length >= 8) {
+          this.classList.remove('is-invalid');
+          this.classList.add('is-valid');
+        } else if (password.length > 0) {
+          this.classList.remove('is-valid');
+          this.classList.add('is-invalid');
+        } else {
+          this.classList.remove('is-valid', 'is-invalid');
+        }
+        
+        // Check match if second password is filled
+        if (password2Input && password2Input.value.length > 0) {
+          checkPasswordMatch();
+        }
+      });
+    }
+    
+    // Real-time password match checking
+    if (password2Input) {
+      password2Input.addEventListener('input', checkPasswordMatch);
+    }
+    
+    // Form submission validation
+    const form = document.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        const password = passwordInput.value;
+        const password2 = password2Input.value;
+        const { metRequirements } = calculatePasswordStrength(password);
+        
+        // Check all requirements are met
+        if (metRequirements < 5 || password.length < 8) {
+          e.preventDefault();
+          alert('Hasło nie spełnia wszystkich wymagań bezpieczeństwa. Sprawdź listę wymagań powyżej.');
+          passwordInput.focus();
+          return false;
+        }
+        
+        // Check passwords match
+        if (password !== password2) {
+          e.preventDefault();
+          alert('Hasła się nie zgadzają. Upewnij się, że oba hasła są identyczne.');
+          password2Input.focus();
+          return false;
+        }
+      });
+    }
+  });
+</script>
 {% endblock %}

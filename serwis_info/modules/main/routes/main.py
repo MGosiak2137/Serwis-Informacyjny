@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, jsonify, current_app
-from flask_login import login_required
+from flask import Blueprint, render_template, jsonify, current_app, redirect, url_for, flash
+from flask_login import login_required, current_user, logout_user
+from app import db
+from app.models import User
 import os
 import json
 
@@ -143,15 +145,41 @@ def _load_news_preview(limit=3):
 
 @main_bp.get("/")
 def index():
+    from flask import session
     news_preview = _load_news_preview(limit=3)
+    show_welcome = session.pop('show_welcome_modal', False)
     return render_template("index.html",
                            news_preview=news_preview,
-                           body_class="home-page")
+                           body_class="home-page",
+                           show_welcome_modal=show_welcome)
 
 @main_bp.route("/account")
 @login_required
 def account_settings():
     return render_template("account_settings.html")
+
+@main_bp.route("/account/delete", methods=["POST"])
+@login_required
+def delete_account():
+    """Delete the current user's account"""
+    try:
+        user = User.query.get(current_user.id)
+        if user:
+            # Logout the user first
+            logout_user()
+            # Delete the user from database
+            db.session.delete(user)
+            db.session.commit()
+            flash("Twoje konto zostało trwale usunięte.", "success")
+            return redirect(url_for("auth.login"))
+        else:
+            flash("Nie znaleziono użytkownika.", "danger")
+            return redirect(url_for("main.account_settings"))
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting account: {e}")
+        flash("Wystąpił błąd podczas usuwania konta. Spróbuj ponownie.", "danger")
+        return redirect(url_for("main.account_settings"))
 
 @main_bp.get("/api/calendar")
 def get_calendar():

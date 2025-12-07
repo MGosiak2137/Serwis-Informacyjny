@@ -5,7 +5,10 @@
 {% block body_class %}login-page{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('main.static', filename='login.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_layout.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_common.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/password_features.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/form_validation.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -29,7 +32,12 @@
 
         <div class="mb-3">
           <label class="form-label">Hasło</label>
-          {{ form.password(class_="form-control", placeholder="••••••••") }}
+          <div class="password-input-wrapper">
+            {{ form.password(class_="form-control password-input", placeholder="••••••••", id="login-password") }}
+            <button type="button" class="password-toggle-btn" id="login-password-toggle" aria-label="Pokaż/ukryj hasło">
+              <i class="bi bi-eye" id="login-password-icon"></i>
+            </button>
+          </div>
           {% for error in form.password.errors %}
             <div class="invalid-feedback">{{ error }}</div>
           {% endfor %}
@@ -55,4 +63,30 @@
       </form>
     </div>
   </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Password visibility toggle for login
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('login-password');
+    const toggleBtn = document.getElementById('login-password-toggle');
+    const toggleIcon = document.getElementById('login-password-icon');
+    
+    if (passwordInput && toggleBtn) {
+      toggleBtn.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        if (type === 'text') {
+          toggleIcon.classList.remove('bi-eye');
+          toggleIcon.classList.add('bi-eye-slash');
+        } else {
+          toggleIcon.classList.remove('bi-eye-slash');
+          toggleIcon.classList.add('bi-eye');
+        }
+      });
+    }
+  });
+</script>
 {% endblock %}

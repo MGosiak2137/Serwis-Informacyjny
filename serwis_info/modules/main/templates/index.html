@@ -8,6 +8,12 @@
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('main.static', filename='mainpage.css') }}">
     <link rel="stylesheet" href="{{ url_for('main.static', filename='calendar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='weather_card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='economy_card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='news_card.css') }}">
+    {% if show_welcome_modal %}
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='welcome_modal.css') }}">
+    {% endif %}
 {% endblock %}
 
 {% block extra_js %}
@@ -15,6 +21,17 @@
     <script src="{{ url_for ('main.static', filename='news_carousel.js' )}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('main.static', filename='script.js') }}"></script>
+    {% if show_welcome_modal %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'), {
+          backdrop: 'static',
+          keyboard: false
+        });
+        welcomeModal.show();
+      });
+    </script>
+    {% endif %}
 {% endblock %}
 {% block content %}
 <section class="home-layout" aria-label="Nawigacja po modułach serwisu">
@@ -190,6 +207,83 @@
 
   </div>
 </section>
+
+<!-- Welcome Modal for New Users -->
+{% if show_welcome_modal %}
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="false" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered welcome-modal-dialog">
+    <div class="modal-content welcome-modal-content">
+      <div class="modal-header welcome-modal-header">
+        <h5 class="modal-title" id="welcomeModalLabel">
+          <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Logo" class="welcome-logo me-2">Witamy w NEWC!
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body welcome-modal-body">
+        <p class="welcome-intro">
+          Cieszymy się, że dołączyłeś! Oto dostępne moduły:
+        </p>
+        
+        <div class="welcome-modules-grid">
+          <div class="welcome-module-item" data-module="horoscope">
+            <div class="welcome-module-icon">
+              <i class="bi bi-calendar-heart"></i>
+            </div>
+            <div class="welcome-module-content">
+              <h6>Kalendarz i Horoskop</h6>
+              <p>Imieniny, święta i horoskop na dziś.</p>
+            </div>
+          </div>
+
+          <div class="welcome-module-item" data-module="news">
+            <div class="welcome-module-icon">
+              <i class="bi bi-card-checklist"></i>
+            </div>
+            <div class="welcome-module-content">
+              <h6>Wiadomości</h6>
+              <p>Najnowsze wiadomości ze sportu i przestępczości.</p>
+            </div>
+          </div>
+
+          <div class="welcome-module-item" data-module="weather">
+            <div class="welcome-module-icon">
+              <i class="bi bi-cloud-sun"></i>
+            </div>
+            <div class="welcome-module-content">
+              <h6>Pogoda</h6>
+              <p>Aktualna pogoda i prognoza z interaktywną mapą.</p>
+            </div>
+          </div>
+
+          <div class="welcome-module-item" data-module="economy">
+            <div class="welcome-module-icon">
+              <i class="bi bi-coin"></i>
+            </div>
+            <div class="welcome-module-content">
+              <h6>Ekonomia</h6>
+              <p>Kursy walut, złoto, giełda i kalkulator walut.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-tip">
+          <div class="welcome-tip-icon">
+            <i class="bi bi-moon-stars"></i>
+          </div>
+          <div class="welcome-tip-content">
+            <strong>Wskazówka:</strong> Przełącz tryb jasny/ciemny przyciskiem <i class="bi bi-moon"></i> w nawigacji.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer welcome-modal-footer">
+        <button type="button" class="btn btn-primary welcome-modal-btn" data-bs-dismiss="modal">
+          Rozpocznij korzystanie
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 {% endblock %}
 

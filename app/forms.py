@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from app.models import User
+import re
 
 class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[
@@ -29,6 +30,33 @@ class RegisterForm(FlaskForm):
     def validate_nickname(self, nickname):
         if User.query.filter_by(nickname=nickname.data).first():
             raise ValidationError("Ta nazwa użytkownika jest zajęta.")
+
+    def validate_password(self, password):
+        """Enhanced password validation with security requirements"""
+        if not password.data:
+            return
+        
+        pwd = password.data
+        
+        # Check minimum length
+        if len(pwd) < 8:
+            raise ValidationError("Hasło musi mieć minimum 8 znaków.")
+        
+        # Check for uppercase letter
+        if not re.search(r'[A-Z]', pwd):
+            raise ValidationError("Hasło musi zawierać przynajmniej jedną wielką literę.")
+        
+        # Check for lowercase letter
+        if not re.search(r'[a-z]', pwd):
+            raise ValidationError("Hasło musi zawierać przynajmniej jedną małą literę.")
+        
+        # Check for digit
+        if not re.search(r'[0-9]', pwd):
+            raise ValidationError("Hasło musi zawierać przynajmniej jedną cyfrę.")
+        
+        # Check for special character
+        if not re.search(r'[!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]', pwd):
+            raise ValidationError("Hasło musi zawierać przynajmniej jeden znak specjalny (!@#$%^&*).")
 
 
 class LoginForm(FlaskForm):
