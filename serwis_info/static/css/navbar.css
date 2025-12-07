@@ -3,12 +3,12 @@
   --bs-link-color: #333;          /* kolor ikon/linków */
   --bs-link-hover-color: #000;    /* kolor po najechaniu */
   background: #ffffff; 
-  padding: 0.6rem 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
 }
 .nav-brand-text {
   font-weight: 100;         
-  font-size: 1.4rem;       
+  font-size: 1.3rem;       
   font-family: Arial, Helvetica;
   color: #222;            
 }
@@ -31,7 +31,7 @@
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* Styl przycisków ikonowych (button lub link) */
