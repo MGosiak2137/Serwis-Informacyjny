@@ -20,9 +20,9 @@ body.login-page .main-content .w-100 > .mb-3:first-child {
 
 body.login-page .main-content,
 body.login-page main.main-content {
-  height: calc(100vh - 60px) !important;
-  min-height: calc(100vh - 60px) !important;
-  max-height: calc(100vh - 60px) !important;
+  height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
+  min-height: calc(100vh - 110px) !important;
+  max-height: calc(100vh - 110px) !important;
   overflow: hidden !important;
   overflow-x: hidden !important;
   overflow-y: hidden !important;
@@ -36,12 +36,16 @@ body.login-page main.main-content {
 }
 
 /* Ensure proper layout on larger screens (laptops and up) */
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
   body.login-page .main-content,
   body.login-page main.main-content {
-    height: calc(100vh - 60px) !important;
-    min-height: calc(100vh - 60px) !important;
-    max-height: calc(100vh - 60px) !important;
+    height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
+    min-height: calc(100vh - 110px) !important;
+    max-height: calc(100vh - 110px) !important;
+  }
+  
+  body.login-page .main-footer {
+    display: flex !important;
   }
 }
 
@@ -61,10 +65,12 @@ body.login-page .main-content .w-100 {
   flex: 1 1 auto !important;
 }
 
-/* Ensure footer doesn't interfere */
+/* Ensure footer is visible and positioned correctly */
 body.login-page .main-footer {
   position: relative !important;
   margin-top: auto !important;
+  display: flex !important;
+  flex-shrink: 0 !important;
 }
 
 /* Responsive layout adjustments */
@@ -89,7 +95,7 @@ body.login-page .main-footer {
   }
 
   body.login-page .main-footer {
-    display: none !important;
+    display: flex !important;
   }
 }
 
@@ -115,7 +121,7 @@ body.login-page .main-footer {
   }
 
   body.login-page .main-footer {
-    display: none !important;
+    display: flex !important;
   }
 }
 

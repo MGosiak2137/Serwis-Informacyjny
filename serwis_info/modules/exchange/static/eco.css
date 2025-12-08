@@ -22,8 +22,6 @@ body{
   color:var(--text);
   line-height:1.4;
   -webkit-font-smoothing:antialiased;
-
-  /* nowy: flex layout aby footer był na dole */
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 60px);
@@ -35,16 +33,6 @@ body{
   max-width:1100px;
   margin:2rem auto;
   padding:0 1rem;
-}
-
-.main-footer {
-  margin-top: 2rem;
-  flex-shrink: 0;
-}
-
-.main-footer {
-  margin-top: auto;
-  flex-shrink: 0;
 }
 .hero{background:var(--card);padding:2rem;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);border:1px solid rgba(0,0,0,0.06)}
 .hero h1{margin:0 0 0.5rem 0}
@@ -117,56 +105,13 @@ body.nav-open .nav-toggle .hamburger{background:transparent}
 body.nav-open .nav-toggle .hamburger::before{transform:rotate(45deg) translate(4px,4px)}
 body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4px,-4px)}
 
-/* Footer: lewa połowa spacer, prawa połowa przycisk; usuń margines górny, by trzymał dół */
-.site-footer{background:var(--footer-bg);color:#fff;padding:1rem 0;margin-top:0}
-.footer-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:0 1rem;
-  display:flex;
-  align-items:center;
-  gap:1rem;
-}
-/* lewa połowa jako pusty spacer */
-.footer-left{flex:1 1 50%}
-/* prawa połowa z przyciskiem */
-.footer-right{flex:1 1 50%;display:flex;justify-content:center}
-
-/* Przycisek w stopce: gradient z pomarańczu do czerwieni */
-.footer-btn{
-  display:inline-block;
-  width:50%;
-  max-width:480px;
-  text-align:center;
-  padding:0.75rem 1.5rem;
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  color:white;
-  font-weight:700;
-  text-decoration:none;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(255,106,0,0.2);
-  transition:transform .3s ease, box-shadow .3s ease;
-}
-.footer-btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 6px 20px rgba(255,59,48,0.25);
-}
+/* Footer styles now handled by global .main-footer in style.css */
 
 /* Responsive: zachowaj logiczne zachowanie na mobile */
 @media (max-width:720px){
   .nav-inner{padding:0.5rem 0.75rem;flex-direction:column;align-items:center;gap:0.5rem}
   .nav-links{width:100%;justify-content:space-around;gap:0.5rem}
-  .footer-inner{flex-direction:column;gap:0.5rem}
-  .footer-left{width:100%;height:0} /* spacer nie zajmuje miejsca na mobile */
-  .footer-right{width:100%}
-  .footer-btn{width:100%;max-width:640px}
   .nav-btn{padding:0.5rem 0.75rem; font-size:0.95rem}
-}
-
-/* footer adjustments: ensure stacked on tiny screens (existing rules keep it responsive) */
-@media (max-width:420px){
-  .footer-inner{padding:0.5rem;gap:0.4rem}
-  .footer-btn{padding:0.55rem 0.8rem}
 }
 
 /* Dodanie marginesu dla header.site-header, aby znajdował się poniżej navbar */

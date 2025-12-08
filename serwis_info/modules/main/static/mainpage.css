@@ -3,8 +3,13 @@ html.home-page,
 body.home-page {
   background: #f7f7f9 !important;
 }
-body.home-page {
-  overflow: hidden;
+
+/* Na dużych urządzeniach - brak przewijania */
+@media (min-width: 769px) {
+  body.home-page {
+    overflow: hidden !important;
+    height: 100vh;
+  }
 }
 
 /* Wrapper na kafelki */
@@ -77,21 +82,29 @@ body.home-page {
 
 
 @media (max-width: 768px) {
+  body.home-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+  }
 
   .main-content, .home-layout {
-    height: 100%;
+    height: auto;
     width: 100%;
     margin-bottom: 65px;
   }
   .main-content {
     padding: 0.5rem 0.5rem;   
+    max-height: none;
+    height: auto;
   }
   .cards-grid {
     flex-direction: column;
-    height: 90vh;
+    height: auto;
     width: 100%;
     padding: 2vh 2vh;
     gap: 1vh;
+    max-height: none;
   }
 
   .col-left,
@@ -113,5 +126,6 @@ body.home-page {
   .card-item {
     height: auto;
     min-height: 0;
+    max-height: none;
   }
 }

@@ -15,7 +15,7 @@ body {
   background: #f7f7f9 !important;  /* tak jak home-page w mainie */
   color: #333;
   line-height: 1.5;
-  display: flex;           
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -376,8 +376,7 @@ p {
 
 .btn-primary,
 .btn-secondary,
-.btn-link,
-.footer-btn {
+.btn-link {
   font-size: 0.85rem;
   border-radius: 999px;
   padding: 0.45rem 0.9rem;
@@ -438,26 +437,7 @@ p {
 
 /* ========== STOPKA ========== */
 
-.site-footer {
-  border-top: 1px solid #e5e5e5;
-  background: #ffffff;
-  margin-top: auto;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.footer-left {
-  font-size: 0.8rem;
-  color: #666;
-}
+/* Footer styles now handled by global .main-footer in style.css */
 
 /* ========== STRONA SZCZEGÓŁU (detail) ========== */
 
@@ -734,13 +714,6 @@ p {
   .form-actions {
     width: 100%;
     justify-content: space-between;
-  }
-}
-
-
-  .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 

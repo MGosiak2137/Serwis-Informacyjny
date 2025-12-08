@@ -9,57 +9,57 @@ body {
   margin: 0;
   padding: 0;
   background: #f7f7f9 !important;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Główna przestrzeń pod navbar – wspólna dla wszystkich stron */
 .main-content {
-  height: calc(100vh - 110px);
-  margin: 60px auto 0;    
-  width: 90%;    
+  flex: 1 0 auto;
+  margin: 60px auto 0;
+  width: 90%;
   max-width: 1300px;
-
   display: flex;
   justify-content: center;
-  align-items: stretch; 
-
+  align-items: stretch;
   padding: 1.5rem 2rem;
   box-sizing: border-box;
   overflow: hidden;
+  min-height: 0;
 }
 
-/* Stopka – wspólna */
+/* Stopka – wspólna dla wszystkich stron */
 .main-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
+  flex-shrink: 0;
+  width: 100%;
   height: 50px;
   background: #000000;
   border-top: 1px solid #eee;
-
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
   font-size: 0.85rem;
   color: #666;
-  z-index: 998;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.main-footer p {
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
   .main-content {
-    height: auto;
+    flex: 1 0 auto;
     min-height: calc(100vh - 60px);
-
+    height: auto;
     width: 90%;
     padding: 0.5rem 0.5rem;
     margin: 0 auto;
-
     overflow: visible;
     align-items: flex-start;
-
-    padding-bottom: 4rem;
   }
 
   .main-footer {
@@ -79,11 +79,29 @@ body.home-page {
   overflow: hidden;
 }
 
+/* Na dużych urządzeniach - brak przewijania */
+@media (min-width: 769px) {
+  body.home-page {
+    overflow: hidden !important;
+    height: 100vh;
+  }
+  
+  body.home-page .main-content {
+    height: calc(100vh - 110px); /* 100vh - navbar(60px) - footer(50px) */
+    max-height: calc(100vh - 110px);
+    overflow: hidden;
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+  }
+}
+
 /* Wrapper na kafelki */
 .home-layout {
   width: 100%;
   max-width: 1200px;
   height: 100%;
+  min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -92,6 +110,8 @@ body.home-page {
 .cards-grid {
   flex: 1;
   height: 100%;
+  max-height: 100%;
+  min-height: 0;
   display: grid;
   gap: 20px;
 
@@ -100,6 +120,12 @@ body.home-page {
   grid-template-areas:
     "calendar calendar calendar"
     "weather  news      economy";
+}
+
+@media (min-width: 769px) {
+  .cards-grid {
+    gap: 1.2rem;
+  }
 }
 
 /* przypisanie kafelków do pól siatki */
@@ -120,6 +146,8 @@ body.home-page {
 
   height: 100%;
   min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .card-title {
@@ -331,9 +359,23 @@ body.home-page {
 
 /* DODATKOWE responsywne reguły dla layoutu kafelków (uzupełnienie) */
 @media (max-width: 768px) {
+  body.home-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+  }
+  
+  body.home-page .main-content {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
   .home-layout {
     gap: 12px;
     margin-top: 0;
+    height: auto;
+    max-height: none;
   }
 
   .cards-grid {
@@ -344,10 +386,13 @@ body.home-page {
       "weather"
       "news"
       "economy";
+    height: auto;
+    max-height: none;
   }
 
   .card-item {
     min-height: 18vh;
+    max-height: none;
   }
 
   .card-calendar {
@@ -356,5 +401,10 @@ body.home-page {
 
   .main-footer {
     display: none;
+  }
+
+  .page-main,
+  .weather-dashboard {
+    padding-bottom: 1rem;
   }
 }

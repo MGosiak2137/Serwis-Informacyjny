@@ -159,21 +159,35 @@ def index():
 def account_settings():
     return render_template("account_settings.html")
 
+@main_bp.route("/account/more-options")
+@login_required
+def account_more_options():
+    # Check if there's an error parameter (from failed password change)
+    # If so, repopulate form with errors from flash messages
+    form = ChangePasswordForm()
+    return render_template("account_more_options.html", form=form)
+
 @main_bp.route("/account/change-password", methods=["GET", "POST"])
 @login_required
 def change_password():
     form = ChangePasswordForm()
+    # Check if request came from more-options page
+    from_more_options = request.args.get("from") == "more-options" or request.form.get("from") == "more-options"
     
     if form.validate_on_submit():
         # Verify current password
         user = User.query.get(current_user.id)
         if not user.check_password(form.current_password.data):
             flash("Obecne hasło jest niepoprawne.", "danger")
+            if from_more_options:
+                return render_template("account_more_options.html", form=form)
             return render_template("change_password.html", form=form)
         
         # Check if new password is different from current password
         if user.check_password(form.new_password.data):
             flash("Nowe hasło musi różnić się od obecnego hasła.", "danger")
+            if from_more_options:
+                return render_template("account_more_options.html", form=form)
             return render_template("change_password.html", form=form)
         
         # Update password
@@ -188,6 +202,13 @@ def change_password():
             db.session.rollback()
             current_app.logger.error(f"Error changing password: {e}")
             flash("Wystąpił błąd podczas zmiany hasła. Spróbuj ponownie.", "danger")
+            if from_more_options:
+                return render_template("account_more_options.html", form=form)
+            return render_template("change_password.html", form=form)
+    
+    # Handle GET requests or validation failures - render appropriate template
+    if from_more_options:
+        return render_template("account_more_options.html", form=form)
     
     return render_template("change_password.html", form=form)
 

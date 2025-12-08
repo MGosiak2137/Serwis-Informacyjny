@@ -20,6 +20,7 @@ body {
   margin-top: 60px; /* Account for navbar */
   display: flex;
   flex-direction: column;
+  margin-bottom: 0;
 }
 
 /* ===== POWRÓT (DOMEK) ===== */
@@ -419,17 +420,7 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
-/* ===== FOOTER ===== */
-.weather-footer {
-  border-top: 1px solid #e0e7ff;
-  background: white;
-  padding: 1.2rem;
-  text-align: center;
-  color: #64748b;
-  font-size: 0.9rem;
-  margin-top: auto;
-  width: 100%;
-}
+/* Footer styles now handled by global .main-footer in style.css */
 
 /* ===== RESPONSYWNOŚĆ ===== */
 @media (max-width: 1024px) {

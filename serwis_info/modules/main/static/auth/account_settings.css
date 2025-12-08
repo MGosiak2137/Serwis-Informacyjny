@@ -14,9 +14,9 @@ body.account-settings-page {
 
 body.account-settings-page .main-content,
 body.account-settings-page main.main-content {
-  height: calc(100vh - 60px) !important;
-  min-height: calc(100vh - 60px) !important;
-  max-height: calc(100vh - 60px) !important;
+  height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
+  min-height: calc(100vh - 110px) !important;
+  max-height: calc(100vh - 110px) !important;
   overflow: hidden !important;
   overflow-x: hidden !important;
   overflow-y: hidden !important;
@@ -30,12 +30,16 @@ body.account-settings-page main.main-content {
 }
 
 /* Ensure proper layout on larger screens (laptops and up) */
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
   body.account-settings-page .main-content,
   body.account-settings-page main.main-content {
-    height: calc(100vh - 60px) !important;
-    min-height: calc(100vh - 60px) !important;
-    max-height: calc(100vh - 60px) !important;
+    height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
+    min-height: calc(100vh - 110px) !important;
+    max-height: calc(100vh - 110px) !important;
+  }
+  
+  body.account-settings-page .main-footer {
+    display: flex !important;
   }
 }
 
@@ -162,9 +166,9 @@ body.account-settings-page .main-content .w-100 {
     gap: 0.75rem;
   }
 
-  .change-password-btn,
-  .logout-btn,
-  .delete-account-btn {
+  .theme-toggle-btn,
+  .more-options-btn,
+  .logout-btn {
     padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
   }
@@ -214,9 +218,9 @@ body.account-settings-page .main-content .w-100 {
     gap: 0.65rem;
   }
 
-  .change-password-btn,
-  .logout-btn,
-  .delete-account-btn {
+  .theme-toggle-btn,
+  .more-options-btn,
+  .logout-btn {
     padding: 0.65rem 1.5rem;
     font-size: 0.875rem;
   }
@@ -305,6 +309,79 @@ body.account-settings-page .main-content .w-100 {
   font-size: 1.125rem;
 }
 
+.theme-toggle-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #6366f1;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+}
+
+.theme-toggle-btn:not(:disabled):hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.theme-toggle-btn:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.theme-toggle-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #6366f1;
+}
+
+.theme-toggle-btn i {
+  font-size: 1.125rem;
+}
+
+.more-options-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #10b981;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+}
+
+.more-options-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.more-options-btn:active {
+  transform: translateY(0);
+}
+
+.more-options-btn i {
+  font-size: 1.125rem;
+}
+
 .delete-account-btn {
   width: 100%;
   padding: 0.875rem 1.5rem;
@@ -360,7 +437,7 @@ body.account-settings-page .main-content .w-100 {
   }
 
   body.account-settings-page .main-footer {
-    display: block !important;
+    display: flex !important;
   }
 
   .account-settings-page .login-container {
@@ -411,9 +488,9 @@ body.account-settings-page .main-content .w-100 {
     gap: 0.65rem;
   }
 
-  .change-password-btn,
-  .logout-btn,
-  .delete-account-btn {
+  .theme-toggle-btn,
+  .more-options-btn,
+  .logout-btn {
     padding: 0.7rem 1.125rem;
     font-size: 0.875rem;
     min-height: 42px;
@@ -468,9 +545,9 @@ body.account-settings-page .main-content .w-100 {
     gap: 0.55rem;
   }
 
-  .change-password-btn,
-  .logout-btn,
-  .delete-account-btn {
+  .theme-toggle-btn,
+  .more-options-btn,
+  .logout-btn {
     padding: 0.65rem 0.9rem;
     font-size: 0.8125rem;
     min-height: 40px;
@@ -522,9 +599,9 @@ body.account-settings-page .main-content .w-100 {
     gap: 0.5rem;
   }
 
-  .change-password-btn,
-  .logout-btn,
-  .delete-account-btn {
+  .theme-toggle-btn,
+  .more-options-btn,
+  .logout-btn {
     padding: 0.6rem 0.85rem;
     font-size: 0.75rem;
     min-height: 38px;
