@@ -28,7 +28,8 @@ def crime_list():
         articles = load_articles("crime")
         articles = sorted(
             articles,
-            key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
+            key=lambda a: (a.get("published_at")
+                           or datetime.min).replace(tzinfo=None),
             reverse=True
         )
     except Exception as e:
