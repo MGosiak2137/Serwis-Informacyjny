@@ -16,6 +16,7 @@ news_bp = Blueprint(
     template_folder="../templates",
     static_folder="../static",
     url_prefix="/news",
+
 )
 
 
