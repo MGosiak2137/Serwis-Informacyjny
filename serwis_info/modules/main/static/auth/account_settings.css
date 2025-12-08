@@ -9,6 +9,7 @@ body.account-settings-page {
   height: 100vh !important;
   position: fixed !important;
   width: 100% !important;
+  background: #f7f7f9 !important;
 }
 
 body.account-settings-page .main-content,

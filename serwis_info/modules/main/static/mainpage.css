@@ -1,7 +1,10 @@
 /* Strona główna */
+html.home-page,
+body.home-page {
+  background: #f7f7f9 !important;
+}
 body.home-page {
   overflow: hidden;
-  background: #f7f7f9;
 }
 
 /* Wrapper na kafelki */

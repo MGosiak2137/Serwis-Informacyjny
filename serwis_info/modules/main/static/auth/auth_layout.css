@@ -10,6 +10,7 @@ body.login-page {
   height: 100vh !important;
   position: fixed !important;
   width: 100% !important;
+  background: #f7f7f9 !important;
 }
 
 /* Hide base template flash messages on login page*/

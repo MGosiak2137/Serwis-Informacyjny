@@ -5,9 +5,12 @@
     box-sizing: border-box;
 }
 
+html, body {
+    background: #f7f7f9;
+}
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f7f9;
+    background: #f7f7f9 !important;
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;

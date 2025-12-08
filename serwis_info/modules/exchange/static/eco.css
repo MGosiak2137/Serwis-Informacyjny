@@ -1,6 +1,6 @@
 /* Kolory i reset */
 :root{
-  --bg: #fff7f4;        /* bardzo jasny, lekko pomarańczowy */
+  --bg: #f7f7f9;        /* match main page background */
   --card: #ffffff;      /* biały */
   --primary: #ff6a00;   /* żywy pomarańcz */
   --accent: #ff3b30;    /* intensywny czerwony */
@@ -10,12 +10,15 @@
 }
 
 *{box-sizing:border-box}
-html,body{min-height:100vh}
+html,body{
+  min-height:100vh;
+  background: #f7f7f9;
+}
 body{
   margin:0;
   margin-top: 60px; /* Account for navbar */
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  background:var(--bg);
+  background: #f7f7f9;
   color:var(--text);
   line-height:1.4;
   -webkit-font-smoothing:antialiased;
