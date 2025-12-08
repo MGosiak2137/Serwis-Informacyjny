@@ -17,6 +17,19 @@
         Zarządzaj swoim kontem i preferencjami.
       </p>
 
+      {# Display flash messages including success messages #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-3">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mb-2" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
       <div class="account-info">
         <div class="account-info-item">
           <span class="account-info-label">Nazwa użytkownika:</span>
@@ -26,9 +39,22 @@
           <span class="account-info-label">Adres e-mail:</span>
           <span class="account-info-value">{{ current_user.email }}</span>
         </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Data utworzenia konta:</span>
+          <span class="account-info-value">
+            {% if current_user.created_at %}
+              {{ current_user.created_at.strftime('%d.%m.%Y o %H:%M') }}
+            {% else %}
+              Nieznana
+            {% endif %}
+          </span>
+        </div>
       </div>
 
       <div class="account-actions">
+        <a href="{{ url_for('main.change_password') }}" class="change-password-btn">
+          <i class="bi bi-key me-2"></i>Zmień hasło
+        </a>
         <a href="{{ url_for('auth.logout') }}" class="logout-btn">
           Wyloguj się
         </a>
@@ -82,55 +108,63 @@
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Delete account modal functionality
     const modal = document.getElementById('deleteAccountModal');
     const confirmationInput = document.getElementById('deleteConfirmationInput');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
     const deleteAccountForm = document.getElementById('deleteAccountForm');
     
     // Reset input when modal is opened
-    modal.addEventListener('show.bs.modal', function() {
-      confirmationInput.value = '';
-      confirmDeleteBtn.disabled = true;
-      confirmDeleteBtn.classList.remove('btn-danger');
-      confirmDeleteBtn.classList.add('btn-secondary');
-    });
-    
-    // Validate input in real-time
-    confirmationInput.addEventListener('input', function() {
-      const inputValue = this.value.trim();
-      if (inputValue === 'DELETE') {
-        confirmDeleteBtn.disabled = false;
-        confirmDeleteBtn.classList.remove('btn-secondary');
-        confirmDeleteBtn.classList.add('btn-danger');
-        confirmationInput.classList.remove('is-invalid');
-        confirmationInput.classList.add('is-valid');
-      } else {
+    if (modal) {
+      modal.addEventListener('show.bs.modal', function() {
+        confirmationInput.value = '';
         confirmDeleteBtn.disabled = true;
         confirmDeleteBtn.classList.remove('btn-danger');
         confirmDeleteBtn.classList.add('btn-secondary');
-        if (inputValue.length > 0) {
-          confirmationInput.classList.remove('is-valid');
-          confirmationInput.classList.add('is-invalid');
+      });
+    }
+    
+    // Validate input in real-time
+    if (confirmationInput) {
+      confirmationInput.addEventListener('input', function() {
+        const inputValue = this.value.trim();
+        if (inputValue === 'DELETE') {
+          confirmDeleteBtn.disabled = false;
+          confirmDeleteBtn.classList.remove('btn-secondary');
+          confirmDeleteBtn.classList.add('btn-danger');
+          confirmationInput.classList.remove('is-invalid');
+          confirmationInput.classList.add('is-valid');
         } else {
-          confirmationInput.classList.remove('is-valid', 'is-invalid');
+          confirmDeleteBtn.disabled = true;
+          confirmDeleteBtn.classList.remove('btn-danger');
+          confirmDeleteBtn.classList.add('btn-secondary');
+          if (inputValue.length > 0) {
+            confirmationInput.classList.remove('is-valid');
+            confirmationInput.classList.add('is-invalid');
+          } else {
+            confirmationInput.classList.remove('is-valid', 'is-invalid');
+          }
         }
-      }
-    });
+      });
+    }
     
     // Prevent form submission if input is invalid
-    deleteAccountForm.addEventListener('submit', function(e) {
-      if (confirmationInput.value.trim() !== 'DELETE') {
-        e.preventDefault();
-        alert('Musisz wpisać "DELETE" aby potwierdzić usunięcie konta.');
-        return false;
-      }
-      
-      // Final confirmation
-      if (!confirm('Ostatnie potwierdzenie: Czy na pewno chcesz trwale usunąć swoje konto? Ta operacja jest nieodwracalna.')) {
-        e.preventDefault();
-        return false;
-      }
-    });
+    if (deleteAccountForm) {
+      deleteAccountForm.addEventListener('submit', function(e) {
+        if (confirmationInput.value.trim() !== 'DELETE') {
+          e.preventDefault();
+          alert('Musisz wpisać "DELETE" aby potwierdzić usunięcie konta.');
+          return false;
+        }
+        
+        // Final confirmation
+        if (!confirm('Ostatnie potwierdzenie: Czy na pewno chcesz trwale usunąć swoje konto? Ta operacja jest nieodwracalna.')) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    }
+
   });
 </script>
 {% endblock %}

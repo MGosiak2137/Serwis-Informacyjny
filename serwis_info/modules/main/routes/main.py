@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, jsonify, current_app, redirect, url_for, flash
+from flask import Blueprint, render_template, jsonify, current_app, redirect, url_for, flash, request
 from flask_login import login_required, current_user, logout_user
 from app import db
 from app.models import User
+from app.forms import ChangePasswordForm
 import os
 import json
 
@@ -157,6 +158,38 @@ def index():
 @login_required
 def account_settings():
     return render_template("account_settings.html")
+
+@main_bp.route("/account/change-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    
+    if form.validate_on_submit():
+        # Verify current password
+        user = User.query.get(current_user.id)
+        if not user.check_password(form.current_password.data):
+            flash("Obecne hasło jest niepoprawne.", "danger")
+            return render_template("change_password.html", form=form)
+        
+        # Check if new password is different from current password
+        if user.check_password(form.new_password.data):
+            flash("Nowe hasło musi różnić się od obecnego hasła.", "danger")
+            return render_template("change_password.html", form=form)
+        
+        # Update password
+        try:
+            user.set_password(form.new_password.data)
+            db.session.commit()
+            # Logout user after successful password change for security
+            logout_user()
+            flash("Hasło zostało pomyślnie zmienione. Zaloguj się ponownie używając nowego hasła.", "success")
+            return redirect(url_for("auth.login"))
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Error changing password: {e}")
+            flash("Wystąpił błąd podczas zmiany hasła. Spróbuj ponownie.", "danger")
+    
+    return render_template("change_password.html", form=form)
 
 @main_bp.route("/account/delete", methods=["POST"])
 @login_required

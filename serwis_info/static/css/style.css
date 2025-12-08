@@ -10,7 +10,6 @@ body {
   padding: 0;
 }
 
-
 /* Główna przestrzeń pod navbar – wspólna dla wszystkich stron */
 .main-content {
   height: calc(100vh - 110px);

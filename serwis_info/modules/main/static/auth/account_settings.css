@@ -4,32 +4,69 @@
 
 /* Override login-page scrolling restrictions for account settings */
 body.account-settings-page {
-  overflow: auto !important;
+  overflow: hidden !important;
   overflow-x: hidden !important;
-  height: auto !important;
-  position: relative !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
 }
 
 body.account-settings-page .main-content,
 body.account-settings-page main.main-content {
-  height: auto !important;
-  min-height: calc(100vh - 110px) !important;
-  overflow: visible !important;
-  overflow-y: auto !important;
+  height: calc(100vh - 60px) !important;
+  min-height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 60px 0 0 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+}
+
+/* Ensure proper layout on larger screens (laptops and up) */
+@media (min-width: 1024px) {
+  body.account-settings-page .main-content,
+  body.account-settings-page main.main-content {
+    height: calc(100vh - 60px) !important;
+    min-height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+  }
 }
 
 body.account-settings-page .main-content .w-100 {
-  overflow: visible !important;
-  overflow-y: auto !important;
-  height: auto !important;
-  min-height: auto !important;
-  max-height: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  flex: 1 1 auto !important;
 }
 
+
 .account-settings-page .login-container {
-  padding: 2rem 1rem;
-  min-height: calc(100vh - 110px);
-  overflow: visible;
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .account-settings-card {
@@ -42,6 +79,9 @@ body.account-settings-page .main-content .w-100 {
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
   margin: 0 auto;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .account-settings-card h1 {
@@ -75,6 +115,112 @@ body.account-settings-page .main-content .w-100 {
   border-bottom: 1px solid #e5e5e5;
 }
 
+/* Optimize for larger screens */
+@media (min-width: 1024px) {
+  .account-settings-page .login-container {
+    padding: 0.5rem 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .account-settings-card {
+    padding: 1.75rem 2rem;
+    max-width: 550px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .account-settings-card h1 {
+    font-size: 1.625rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .account-settings-card .text-muted {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .account-info {
+    margin-bottom: 1.25rem;
+    padding: 1.125rem;
+  }
+
+  .account-info-item {
+    padding: 0.5rem 0;
+  }
+
+  .account-info-label,
+  .account-info-value {
+    font-size: 0.875rem;
+  }
+
+  .account-actions {
+    gap: 0.75rem;
+  }
+
+  .change-password-btn,
+  .logout-btn,
+  .delete-account-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .account-settings-card .alert {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  .account-settings-page .login-container {
+    padding: 0.4rem 1rem;
+  }
+
+  .account-settings-card {
+    padding: 1.5rem 2rem;
+    max-height: calc(100vh - 70px);
+  }
+
+  .account-settings-card h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-settings-card .text-muted {
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+  }
+
+  .account-info {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
+  .account-info-item {
+    padding: 0.45rem 0;
+  }
+
+  .account-info-label,
+  .account-info-value {
+    font-size: 0.8125rem;
+  }
+
+  .account-actions {
+    gap: 0.65rem;
+  }
+
+  .change-password-btn,
+  .logout-btn,
+  .delete-account-btn {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
 .account-info-item:last-child {
   border-bottom: none;
 }
@@ -104,6 +250,7 @@ body.account-settings-page .main-content .w-100 {
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  min-height: 44px;
 }
 
 .logout-btn:hover {
@@ -123,6 +270,40 @@ body.account-settings-page .main-content .w-100 {
   gap: 1rem;
 }
 
+.change-password-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #3b82f6;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+}
+
+.change-password-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.change-password-btn:active {
+  transform: translateY(0);
+}
+
+.change-password-btn i {
+  font-size: 1.125rem;
+}
+
 .delete-account-btn {
   width: 100%;
   padding: 0.875rem 1.5rem;
@@ -137,6 +318,7 @@ body.account-settings-page .main-content .w-100 {
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  min-height: 44px;
 }
 
 .delete-account-btn:hover {
@@ -150,46 +332,206 @@ body.account-settings-page .main-content .w-100 {
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Responsive adjustments - restore scrolling on mobile/tablets */
+@media (max-width: 1023px) {
+  body.account-settings-page {
+    overflow: auto !important;
+    height: auto !important;
+    position: relative !important;
+  }
+
+  body.account-settings-page .main-content,
+  body.account-settings-page main.main-content {
+    height: auto !important;
+    min-height: calc(100vh - 110px) !important;
+    overflow: visible !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.account-settings-page .main-content .w-100 {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  body.account-settings-page .main-footer {
+    display: block !important;
+  }
+
+  .account-settings-page .login-container {
+    padding: 2rem 1rem;
+    min-height: auto;
+    height: auto;
+  }
+
   .account-settings-card {
-    padding: 2rem 1.75rem;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .account-settings-page .login-container {
+    padding: 0.4rem;
+  }
+
+  .account-settings-card {
+    padding: 1.25rem 1.25rem;
     border-radius: 16px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .account-settings-card h1 {
+    font-size: 1.375rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .account-settings-card .text-muted {
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
   }
 
   .account-info {
-    padding: 1.25rem;
+    padding: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .account-info-item {
+    padding: 0.45rem 0;
+  }
+
+  .account-actions {
+    gap: 0.65rem;
+  }
+
+  .change-password-btn,
+  .logout-btn,
+  .delete-account-btn {
+    padding: 0.7rem 1.125rem;
+    font-size: 0.875rem;
+    min-height: 42px;
+  }
+
+  .account-settings-card .alert {
+    padding: 0.625rem 0.8125rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
   .account-settings-page .login-container {
-    padding: 1rem 0.75rem;
+    padding: 0.3rem;
   }
 
   .account-settings-card {
-    padding: 1.5rem 1.25rem;
-    border-radius: 16px;
+    padding: 1rem 0.875rem;
+    border-radius: 14px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .account-settings-card h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-settings-card .text-muted {
+    font-size: 0.75rem;
+    margin-bottom: 0.875rem;
   }
 
   .account-info {
-    padding: 1rem;
+    padding: 0.75rem;
+    margin-bottom: 0.875rem;
   }
 
   .account-info-item {
+    padding: 0.4rem 0;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
+    gap: 0.2rem;
+  }
+
+  .account-info-label,
+  .account-info-value {
+    font-size: 0.75rem;
+  }
+
+  .account-actions {
+    gap: 0.55rem;
+  }
+
+  .change-password-btn,
+  .logout-btn,
+  .delete-account-btn {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.8125rem;
+    min-height: 40px;
+  }
+
+  .account-settings-card .alert {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }
 
 @media (max-width: 360px) {
+  .account-settings-page .login-container {
+    padding: 0.25rem;
+  }
+
   .account-settings-card {
-    padding: 1.25rem 1rem;
+    padding: 0.875rem 0.75rem;
     border-radius: 12px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .account-settings-card h1 {
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-settings-card .text-muted {
+    font-size: 0.7rem;
+    margin-bottom: 0.75rem;
   }
 
   .account-info {
-    padding: 0.875rem;
+    padding: 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .account-info-item {
+    padding: 0.35rem 0;
+  }
+
+  .account-info-label,
+  .account-info-value {
+    font-size: 0.7rem;
+  }
+
+  .account-actions {
+    gap: 0.5rem;
+  }
+
+  .change-password-btn,
+  .logout-btn,
+  .delete-account-btn {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.75rem;
+    min-height: 38px;
+  }
+
+  .account-settings-card .alert {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.65rem;
   }
 }
