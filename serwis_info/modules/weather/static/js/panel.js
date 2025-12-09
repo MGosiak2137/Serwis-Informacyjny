@@ -14,8 +14,18 @@ export function initPanel() {
     });
 
     document.getElementById("showHistoryBtn").addEventListener("click", () => {
-        import("./history.js").then(m => m.loadHistory());
-    });
+    const section = document.getElementById("historySection");
+    const btn = document.getElementById("showHistoryBtn");
+
+    section.classList.toggle("hidden");
+
+    if (section.classList.contains("hidden")) {
+        btn.innerText = "👁️ Pokaż historię";
+    } else {
+        btn.innerText = "🔽 Ukryj historię";
+        import("./history.js").then(m => m.loadHistory());   // załaduj tylko gdy pokazujesz
+    }
+});
 
     document.getElementById("clearHistoryBtn").addEventListener("click", async () => {
        

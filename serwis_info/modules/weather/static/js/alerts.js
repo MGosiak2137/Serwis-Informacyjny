@@ -42,7 +42,7 @@ function generateWarnings(city, current, forecastNextHours){
          if (tempF - temp >= 8)
             alerts.push(`↗️ Gwałtowny wzrost temperatury w ${city} (o ${tempF - temp}°C) w ciągu paru godzin`);
 
-        if (temp - tempF >= 8)
+        if (temp - tempF >= 18)
             alerts.push(`↘️ Gwałtowny spadek temperatury w ${city} (o ${temp - tempF}°C) w ciągu paru godzin`);
     });
 
@@ -65,7 +65,7 @@ export async function getCityAlerts(city) {
             `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API_KEY}&units=metric&lang=pl`
         );
         const fcData = await fcRes.json();
-        const nextHours = fcData.list.slice(0, 1);
+        const nextHours = fcData.list.slice(0, 4); //najbliższe 12 godzin (4x3h)
 
         return generateWarnings(city, nowData, nextHours);
 
