@@ -7,13 +7,25 @@
       <article class="news-detail">
         {% if article %}
         <header class="detail-header">
-            <h1><strong>{{ article.title }}</strong></h1>
+        <div class="detail-header">
+            <div class="detail-header-top">
+                <div class="detail-header-top">
+                    <h1>{{ article.title }}</h1>
+
+                    <button class="bookmark-btn" aria-label="Dodaj do zakładek">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+
           <div class="detail-meta">
-            <time datetime="{{ article.published_at.isoformat() if article.published_at else '' }}">
-              {{ article.published_at.strftime("%d.%m.%Y o %H:%M") if article.published_at else "Brak daty" }}
-            </time>
+            <span>{{ article.published_at.strftime("%d.%m.%Y %H:%M") }}</span>
+            {% if article.source_name %}
+              — <span class="source">{{ article.source_name }}</span>
+            {% endif %}
           </div>
         </header>
+
 
         <div class="detail-content">
 

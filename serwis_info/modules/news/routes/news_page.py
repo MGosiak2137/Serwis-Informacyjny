@@ -49,7 +49,7 @@ def news_home():
     crime_latest = crime_articles[:5]
     sport_latest = sport_articles[:5]
 
-    # renderujemy layout z kafelkami (nav_footnews.html)
+
     return render_template(
         "nav_footnews.html",
         crime_latest=crime_latest,
@@ -193,3 +193,8 @@ def sport_scraped():
     if not articles:
         articles = [a for a in _sample_articles() if a.get("category") == "sport"]
     return render_template("sport_scraped.html", articles=articles)
+
+@news_bp.get("/bookmarks")
+def bookmarks():
+    return render_template("bookmarks.html")
+
