@@ -11,8 +11,8 @@
 {% block content %}
 <div class="horoscope-container">
   <div class="horoscope-header">
-    <h1><i class="bi bi-stars"></i> Horoskop Tygodniowy</h1>
-    <p class="subtitle">Wybierz swój znak zodiaku, aby odkryć horoskop na bieżący tydzień</p>
+    <h1> Horoskop Tygodniowy</h1>
+    <p class="subtitle">Wybierz swój znak zodiaku, aby odkryć horoskop na bieżący tydzień:</p>
   </div>
   
   <div class="zodiac-section">
@@ -97,11 +97,11 @@
         <span class="zodiac-name">${zodiacPolishNames[sign].replace('♈', '').replace('♉', '').replace('♊', '').replace('♋', '').replace('♌', '').replace('♍', '').replace('♎', '').replace('♏', '').replace('♐', '').replace('♑', '').replace('♒', '').replace('♓', '').trim()}</span>
       </div>
     `;
-    button.onclick = () => loadHoroscope(sign);
+    button.onclick = (e) => loadHoroscope(sign, e.currentTarget);
     zodiacGrid.appendChild(button);
   });
   
-  async function loadHoroscope(sign) {
+  async function loadHoroscope(sign, buttonElement) {
     const loading = document.getElementById('loading');
     const result = document.getElementById('horoscopeResult');
     const errorDiv = document.getElementById('error');
@@ -117,7 +117,9 @@
     document.querySelectorAll('.zodiac-btn').forEach(btn => {
       btn.classList.remove('active');
     });
-    event.currentTarget.classList.add('active');
+    if (buttonElement) {
+      buttonElement.classList.add('active');
+    }
     
     try {
       const response = await fetch(`/calendar/api/horoscope/${sign}`);
@@ -144,6 +146,12 @@
       // Pokaż wynik, ukryj loading
       loading.style.display = 'none';
       result.style.display = 'block';
+      
+      // Przewiń do sekcji wyników
+      const resultsSection = document.querySelector('.results-section');
+      if (resultsSection) {
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       
     } catch (error) {
       console.error('Błąd:', error);

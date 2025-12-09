@@ -436,8 +436,49 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Navbar przeniesiony na dół - ustawienia z navbar.css */
+  .main-navbar {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    padding: 0 0.5rem !important;
+    border-top: 1px solid #eee !important;
+    border-bottom: none !important;
+    background: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 999 !important;
+  }
+
+  nav.main-navbar .navbar-brand {
+    display: none !important;
+  }
+
+  .navbar-icons {
+    width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  .icon-btn {
+    flex: 1 !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  body {
+    margin-top: 0 !important;
+    padding-bottom: 60px !important; /* Miejsce na navbar na dole */
+  }
+
   .weather-dashboard {
-    padding: 5rem 0.8rem 0.8rem 0.8rem;
+    padding: 1rem 0.8rem 0.8rem 0.8rem;
     gap: 1rem;
   }
   .weather-sidebar-left {

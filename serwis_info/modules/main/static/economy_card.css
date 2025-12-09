@@ -9,6 +9,34 @@
   color: white;
   border-radius: 20px;
   align-items: stretch;
+  border: 2px solid rgba(249, 115, 22, 0.6);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-economy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.card-item.card-economy:hover,
+.card-economy.card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(249, 115, 22, 0.5) !important;
+  border-color: rgba(249, 115, 22, 0.9) !important;
+}
+
+.card-economy:hover::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
 }
 
 .currency-header {
@@ -19,6 +47,8 @@
   font-size: 1.2rem;
   font-weight: bold;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .currency-header .usd,
@@ -85,6 +115,8 @@
 
 .gold-section {
   margin-top: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .gold-price {
