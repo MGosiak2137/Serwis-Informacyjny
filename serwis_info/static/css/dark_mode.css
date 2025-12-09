@@ -1,0 +1,1531 @@
+/* ===========================
+   DARK MODE / LIGHT MODE STYLES
+   Tryb jasny i ciemny dla całej aplikacji
+   =========================== */
+
+/* ============================================
+    GŁÓWNE MIEJSCE DO ZMIANY KOLORÓW
+   ============================================ */
+
+/* ===== TRYB JASNY (domyślny) ===== */
+:root {
+  /* Tło główne */
+  --bg-primary: #ffffff;        /* Główne tło strony */
+  --bg-secondary: #f8f9fa;      /* Tło kart, navbar, formularzy */
+  --bg-tertiary: #e9ecef;       /* Tło inputów, selectów, checkboxów */
+  
+  /* Tekst - zmień te wartości, aby dostosować kolory tekstu */
+  --text-primary: #212529;       /* Główny kolor tekstu */
+  --text-secondary: #495057;     /* Drugorzędny kolor tekstu */
+  --text-muted: #6c757d;         /* Przyciemniony tekst (np. placeholdery) */
+  
+  /* Obramowania - zmień te wartości, aby dostosować obramowania */
+  --border-color: #dee2e6;      /* Główny kolor obramowań */
+  --border-light: #ced4da;      /* Jaśniejszy kolor obramowań */
+  
+  /* Cienie - zmień te wartości, aby dostosować cienie */
+  --shadow-color: rgba(0, 0, 0, 0.1);    /* Główny kolor cienia */
+  --shadow-light: rgba(0, 0, 0, 0.05);   /* Jaśniejszy kolor cienia */
+}
+
+/* ===== TRYB CIEMNY ===== */
+/* Używamy [data-theme="dark"] i body.dark dla kompatybilności */
+
+[data-theme="dark"],
+body.dark {
+  /* Tło główne - zmień te wartości dla trybu ciemnego */
+  --bg-primary: #1a1a1a;        /* Główne tło strony (ciemne) */
+  --bg-secondary: #2d2d2d;     /* Tło kart, navbar, formularzy (ciemne) */
+  --bg-tertiary: #3a3a3a;      /* Tło inputów, selectów, checkboxów (ciemne) */
+  
+  /* Tekst - zmień te wartości dla trybu ciemnego */
+  --text-primary: #ffffff;      /* Główny kolor tekstu (jasny) */
+  --text-secondary: #e0e0e0;   /* Drugorzędny kolor tekstu (jasny) */
+  --text-muted: #b0b0b0;       /* Przyciemniony tekst (jasny) */
+  
+  /* Obramowania - zmień te wartości dla trybu ciemnego */
+  --border-color: #404040;     /* Główny kolor obramowań (ciemny) */
+  --border-light: #505050;     /* Jaśniejszy kolor obramowań (ciemny) */
+  
+  /* Cienie - zmień te wartości dla trybu ciemnego */
+  --shadow-color: rgba(0, 0, 0, 0.5);    /* Główny kolor cienia (ciemniejszy) */
+  --shadow-light: rgba(0, 0, 0, 0.3);    /* Jaśniejszy kolor cienia (ciemniejszy) */
+}
+
+/* Tło strony */
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+body.dark html,
+body.dark body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Strona główna */
+[data-theme="dark"] body.home-page,
+body.dark body.home-page {
+  background: var(--bg-primary) !important;
+}
+
+/* Navbar - tryb ciemny */
+[data-theme="dark"] .main-navbar,
+body.dark .main-navbar {
+  background: var(--bg-secondary) !important;
+  border-bottom-color: var(--border-color) !important;
+  border-top-color: var(--border-color) !important;
+}
+
+/* Przycisk zmiany trybu w navbarze - styl jak inne ikony */
+.main-navbar .theme-toggle-btn {
+  width: auto !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-height: auto !important;
+  font-weight: normal !important;
+  color: var(--bs-link-color) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  font-size: 1.4rem !important;
+}
+
+.main-navbar .theme-toggle-btn:hover {
+  background: none !important;
+  transform: none !important;
+  color: var(--bs-link-hover-color) !important;
+}
+
+.main-navbar .theme-toggle-btn i {
+  font-size: 1.4rem !important;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.main-navbar .theme-toggle-btn:hover i {
+  opacity: 0.75;
+  transform: translateY(-2px);
+}
+
+.main-navbar .theme-toggle-btn:active i {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Mobile - przycisk w navbarze na dole */
+@media (max-width: 768px) {
+  .main-navbar .theme-toggle-btn {
+    flex: 1 !important;
+    height: 100% !important;
+  }
+}
+
+[data-theme="dark"] .nav-brand-text,
+body.dark .nav-brand-text {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .nav-welcome-text,
+body.dark .nav-welcome-text {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .icon-btn,
+body.dark .icon-btn {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .icon-btn:hover i,
+body.dark .icon-btn:hover i {
+  color: var(--text-secondary) !important;
+}
+
+/* Formularze - tryb ciemny */
+[data-theme="dark"] .login-card,
+[data-theme="dark"] .account-settings-card,
+body.dark .login-card,
+body.dark .account-settings-card {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .login-card h1,
+[data-theme="dark"] .account-settings-card h1,
+body.dark .login-card h1,
+body.dark .account-settings-card h1 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .login-card .text-muted,
+[data-theme="dark"] .account-settings-card .text-muted,
+body.dark .login-card .text-muted,
+body.dark .account-settings-card .text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Pola formularzy */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+body.dark .form-control,
+body.dark input[type="text"],
+body.dark input[type="email"],
+body.dark input[type="password"] {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+body.dark .form-control:focus {
+  background: var(--bg-tertiary) !important;
+  border-color: #6366f1 !important;  /* Zmień kolor obramowania przy focus, np. #3b82f6 */
+  color: var(--text-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;  /* Zmień kolor cienia, np. rgba(59, 130, 246, 0.25) */
+}
+
+[data-theme="dark"] .form-control::placeholder,
+body.dark .form-control::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Etykiety formularzy */
+[data-theme="dark"] label,
+[data-theme="dark"] .form-label,
+body.dark label,
+body.dark .form-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Karty i kontenery */
+[data-theme="dark"] .card-item,
+body.dark .card-item {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Main content */
+[data-theme="dark"] .main-content,
+body.dark .main-content {
+  background: transparent !important;
+}
+
+/* Account info */
+[data-theme="dark"] .account-info,
+body.dark .account-info {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .account-info-label,
+body.dark .account-info-label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .account-info-value,
+body.dark .account-info-value {
+  color: var(--text-muted) !important;
+}
+
+/* Alerty */
+[data-theme="dark"] .alert,
+body.dark .alert {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Stopka */
+[data-theme="dark"] .main-footer,
+body.dark .main-footer {
+  background: var(--bg-primary) !important;
+  border-top-color: var(--border-color) !important;
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .main-footer p,
+body.dark .main-footer p {
+  color: var(--text-muted) !important;
+}
+
+/* ============================================
+   🎨 LINKI - KOLORY LINKÓW
+   ============================================
+   Zmień kolory linków i ich stanu hover.
+   ============================================ */
+
+[data-theme="dark"] a,
+body.dark a {
+  color: #60a5fa !important;  /* Zmień na inny kolor, np. #3b82f6, #8b5cf6 */
+}
+
+[data-theme="dark"] a:hover,
+body.dark a:hover {
+  color: #93c5fd !important;  /* Zmień na inny kolor dla hover, np. #60a5fa, #a78bfa */
+}
+
+/* Karty na stronie głównej */
+[data-theme="dark"] .card-item,
+body.dark .card-item {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card-item:hover,
+body.dark .card-item:hover {
+  box-shadow: 0 12px 32px var(--shadow-color) !important;
+}
+
+/* ============================================
+   🎨 KARTY NA STRONIE GŁÓWNEJ - SPECJALNE KOLORY
+   ============================================
+   Tutaj możesz zmienić kolory/gradienty dla konkretnych kart.
+   ============================================ */
+
+/* Karta kalendarza - zmień gradient i kolor obramowania */
+[data-theme="dark"] .card-calendar,
+body.dark .card-calendar {
+  background: linear-gradient(135deg, #8b5a7a 0%, #a64d79 50%, #8b1a5a 100%) !important;
+  border-color: #7a1a5a !important;
+  /* Przykład innych kolorów:
+     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+     border-color: #5a4fcf !important;
+  */
+}
+
+/* Karta newsów - zmień gradient i kolor obramowania */
+[data-theme="dark"] .card-news,
+body.dark .card-news {
+  background: linear-gradient(135deg, #1e6b3d 0%, #2d7a4a 50%, #3d8a5a 100%) !important;
+  border-color: rgba(34, 197, 94, 0.4) !important;
+  /* Przykład innych kolorów:
+     background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+     border-color: rgba(17, 153, 142, 0.4) !important;
+  */
+}
+
+/* Karta pogody - zmień gradient i kolor obramowania */
+[data-theme="dark"] .card-weather,
+body.dark .card-weather {
+  background: linear-gradient(135deg, rgba(0, 100, 200, 0.6), rgba(0, 150, 220, 0.5)) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  /* Przykład innych kolorów:
+     background: linear-gradient(135deg, rgba(74, 144, 226, 0.7), rgba(80, 201, 195, 0.6)) !important;
+     border-color: rgba(74, 144, 226, 0.3) !important;
+  */
+}
+
+/* Karta ekonomii - zmień gradient i kolor obramowania na zgaszony pomarańczowy */
+[data-theme="dark"] .card-economy,
+body.dark .card-economy {
+  background: linear-gradient(135deg, #8b5a2a 0%, #a64d2a 50%, #7a3a1a 100%) !important;
+  border-color: rgba(166, 77, 42, 0.4) !important;
+  /* Zgaszony pomarańczowy gradient, podobny do innych kart */
+}
+
+/* Tekst w kartach */
+[data-theme="dark"] .news-preview-title,
+[data-theme="dark"] .news-preview-summary,
+body.dark .news-preview-title,
+body.dark .news-preview-summary {
+  color: var(--text-primary) !important;
+}
+
+/* Placeholder obrazków */
+[data-theme="dark"] .news-preview-image-placeholder,
+body.dark .news-preview-image-placeholder {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Inputy i selecty */
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+body.dark select,
+body.dark textarea {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus,
+body.dark select:focus,
+body.dark textarea:focus {
+  background: var(--bg-tertiary) !important;
+  border-color: #6366f1 !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================
+   🎨 PRZYCISKI - KOLORY PRZYCISKÓW
+   ============================================
+   Zmień kolory przycisków primary i secondary.
+   ============================================ */
+
+[data-theme="dark"] .btn-primary,
+body.dark .btn-primary {
+  background: #6366f1 !important;      /* Zmień na inny kolor, np. #3b82f6, #8b5cf6 */
+  border-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+body.dark .btn-primary:hover {
+  background: #4f46e5 !important;      /* Zmień na ciemniejszy odcień dla hover */
+  border-color: #4f46e5 !important;
+}
+
+[data-theme="dark"] .btn-secondary,
+body.dark .btn-secondary {
+  background: var(--bg-tertiary) !important;  /* Używa zmiennej CSS */
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  /* Lub użyj własnego koloru:
+     background: #4a5568 !important;
+     border-color: #718096 !important;
+  */
+}
+
+[data-theme="dark"] .btn-secondary:hover,
+body.dark .btn-secondary:hover {
+  background: var(--border-color) !important;  /* Używa zmiennej CSS */
+  border-color: var(--border-light) !important;
+}
+
+/* Theme toggle button - zmiana ikony w zależności od trybu */
+/* JavaScript zarządza wyświetlaniem ikon, CSS tylko wspiera */
+[data-theme="dark"] .theme-toggle-btn i.bi-moon,
+body.dark .theme-toggle-btn i.bi-moon {
+  display: none !important;
+}
+
+[data-theme="dark"] .theme-toggle-btn i.bi-sun,
+body.dark .theme-toggle-btn i.bi-sun {
+  display: inline-block !important;
+}
+
+[data-theme="light"] .theme-toggle-btn i.bi-sun,
+body:not(.dark):not([data-theme="dark"]) .theme-toggle-btn i.bi-sun {
+  display: none !important;
+}
+
+[data-theme="light"] .theme-toggle-btn i.bi-moon,
+body:not(.dark):not([data-theme="dark"]) .theme-toggle-btn i.bi-moon {
+  display: inline-block !important;
+}
+
+/* Checkboxy i radio buttons */
+[data-theme="dark"] .form-check-input,
+body.dark .form-check-input {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .form-check-input:checked,
+body.dark .form-check-input:checked {
+  background-color: #6366f1 !important;  /* Zmień kolor zaznaczonych checkboxów, np. #3b82f6 */
+  border-color: #6366f1 !important;
+}
+
+[data-theme="dark"] .form-check-label,
+body.dark .form-check-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Invalid feedback */
+[data-theme="dark"] .invalid-feedback,
+body.dark .invalid-feedback {
+  color: #f87171 !important;
+}
+
+[data-theme="dark"] .is-invalid,
+body.dark .is-invalid {
+  border-color: #f87171 !important;
+}
+
+[data-theme="dark"] .is-valid,
+body.dark .is-valid {
+  border-color: #34d399 !important;
+}
+
+/* Password toggle buttons */
+[data-theme="dark"] .password-toggle-btn,
+body.dark .password-toggle-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .password-toggle-btn:hover,
+body.dark .password-toggle-btn:hover {
+  background: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================
+   🎨 MODUŁ WIADOMOŚCI - STYLE DLA TRYBU CIEMNEGO
+   Zachowujemy zielone akcenty!
+   ============================================ */
+
+/* Tło strony wiadomości */
+[data-theme="dark"] body,
+body.dark body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Header modułu newsów */
+[data-theme="dark"] .site-header,
+body.dark .site-header {
+  background: var(--bg-secondary) !important;
+  border-bottom-color: rgba(34, 197, 94, 0.3) !important; /* Zielone obramowanie */
+}
+
+/* Przyciski nawigacji - z zielonymi akcentami */
+[data-theme="dark"] .nav-btn,
+body.dark .nav-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important; /* Zielone obramowanie */
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .nav-btn:hover,
+body.dark .nav-btn:hover {
+  background: rgba(34, 197, 94, 0.15) !important; /* Lekkie zielone tło */
+  border-color: #22c55e !important; /* Zielone obramowanie */
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important; /* Zielony cień */
+}
+
+/* Aktywny przycisk - zielony */
+[data-theme="dark"] .nav-btn--active,
+body.dark .nav-btn--active {
+  background: #22c55e !important; /* Zielony kolor */
+  border-color: #22c55e !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35) !important;
+}
+
+[data-theme="dark"] .nav-btn--active:hover,
+body.dark .nav-btn--active:hover {
+  background: #16a34a !important; /* Ciemniejszy zielony */
+  border-color: #16a34a !important;
+}
+
+/* Przycisk home */
+[data-theme="dark"] .nav-btn-home,
+body.dark .nav-btn-home {
+  background: #22c55e !important; /* Zielony */
+  color: #ffffff !important;
+  border-color: #22c55e !important;
+}
+
+[data-theme="dark"] .nav-btn-home:hover,
+body.dark .nav-btn-home:hover {
+  background: #16a34a !important;
+  border-color: #16a34a !important;
+}
+
+/* Przycisk home icon */
+[data-theme="dark"] .nav-btn-home-icon,
+body.dark .nav-btn-home-icon {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+  color: #22c55e !important; /* Zielona ikona */
+}
+
+[data-theme="dark"] .nav-btn-home-icon:hover,
+body.dark .nav-btn-home-icon:hover {
+  background: #22c55e !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35) !important;
+}
+
+/* Przycisk logowania */
+[data-theme="dark"] .nav-btn-login,
+body.dark .nav-btn-login {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .nav-btn-login:hover,
+body.dark .nav-btn-login:hover {
+  background: rgba(34, 197, 94, 0.15) !important; /* Lekkie zielone tło */
+}
+
+/* Główna zawartość */
+[data-theme="dark"] .page-main,
+body.dark .page-main {
+  background: transparent !important;
+}
+
+/* Hero sekcja */
+[data-theme="dark"] .hero,
+body.dark .hero {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important; /* Zielone obramowanie */
+  box-shadow: 0 8px 24px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .hero h1,
+body.dark .hero h1 {
+  color: #22c55e !important; /* Zielony nagłówek */
+}
+
+[data-theme="dark"] .hero p,
+body.dark .hero p {
+  color: var(--text-secondary) !important;
+}
+
+/* Kafelki na stronie głównej */
+[data-theme="dark"] .home-tile,
+body.dark .home-tile {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .home-tile:hover,
+body.dark .home-tile:hover {
+  background: rgba(34, 197, 94, 0.1) !important; /* Lekkie zielone tło */
+  border-color: #22c55e !important; /* Zielone obramowanie */
+  box-shadow: 0 10px 28px rgba(34, 197, 94, 0.2) !important; /* Zielony cień */
+}
+
+[data-theme="dark"] .home-tile-header h2,
+body.dark .home-tile-header h2 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .home-tile-header p,
+body.dark .home-tile-header p {
+  color: var(--text-secondary) !important;
+}
+
+/* Slot na newsy */
+[data-theme="dark"] .home-tile-news-slot,
+body.dark .home-tile-news-slot {
+  background: rgba(34, 197, 94, 0.1) !important; /* Lekkie zielone tło */
+  border-color: rgba(34, 197, 94, 0.4) !important; /* Zielone obramowanie */
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .home-tile-cta,
+body.dark .home-tile-cta {
+  color: #22c55e !important; /* Zielony CTA */
+}
+
+/* Sekcje newsów */
+[data-theme="dark"] .news-section h2,
+body.dark .news-section h2 {
+  color: #22c55e !important; /* Zielony nagłówek */
+}
+
+[data-theme="dark"] .lead,
+body.dark .lead {
+  color: var(--text-secondary) !important;
+}
+
+/* Karty artykułów */
+[data-theme="dark"] .news-card,
+body.dark .news-card {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .news-card:hover,
+body.dark .news-card:hover {
+  border-color: #22c55e !important; /* Zielone obramowanie */
+  box-shadow: 0 10px 24px rgba(34, 197, 94, 0.2) !important; /* Zielony cień */
+}
+
+[data-theme="dark"] .news-card h3 a,
+body.dark .news-card h3 a {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .news-card h3 a:hover,
+body.dark .news-card h3 a:hover {
+  color: #22c55e !important; /* Zielony kolor przy hover */
+}
+
+[data-theme="dark"] .news-meta,
+body.dark .news-meta {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .news-summary,
+body.dark .news-summary {
+  color: var(--text-secondary) !important;
+}
+
+/* Tagi */
+[data-theme="dark"] .tag,
+body.dark .tag {
+  background: rgba(34, 197, 94, 0.15) !important; /* Lekkie zielone tło */
+  border-color: rgba(34, 197, 94, 0.4) !important; /* Zielone obramowanie */
+  color: #22c55e !important; /* Zielony tekst */
+}
+
+/* Strona szczegółu */
+[data-theme="dark"] .news-detail,
+body.dark .news-detail {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .detail-header h1,
+body.dark .detail-header h1 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .detail-meta,
+body.dark .detail-meta {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .detail-meta .source,
+body.dark .detail-meta .source {
+  background: rgba(34, 197, 94, 0.15) !important; /* Lekkie zielone tło */
+  color: #22c55e !important; /* Zielony tekst */
+}
+
+[data-theme="dark"] .detail-content .summary,
+body.dark .detail-content .summary {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .article-text,
+body.dark .article-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Komunikat o błędzie */
+[data-theme="dark"] .error-message,
+body.dark .error-message {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .error-message h2,
+body.dark .error-message h2 {
+  color: var(--text-primary) !important;
+}
+
+/* Wyszukiwarka */
+[data-theme="dark"] .news-search-form,
+body.dark .news-search-form {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important; /* Zielone obramowanie */
+  box-shadow: 0 6px 18px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .news-search-form label,
+body.dark .news-search-form label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .news-search-form input[type="text"],
+[data-theme="dark"] .news-search-form input[type="date"],
+[data-theme="dark"] .news-search-form select,
+body.dark .news-search-form input[type="text"],
+body.dark .news-search-form input[type="date"],
+body.dark .news-search-form select {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(34, 197, 94, 0.4) !important; /* Zielone obramowanie */
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .news-search-form input:focus-visible,
+[data-theme="dark"] .news-search-form select:focus-visible,
+body.dark .news-search-form input:focus-visible,
+body.dark .news-search-form select:focus-visible {
+  border-color: #22c55e !important; /* Zielone obramowanie przy focus */
+  outline-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+/* Historia wyszukiwania */
+[data-theme="dark"] .search-history,
+body.dark .search-history {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 6px 18px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .search-history h3,
+body.dark .search-history h3 {
+  color: var(--text-primary) !important;
+}
+
+/* Przyciski */
+[data-theme="dark"] .btn-primary,
+body.dark .btn-primary {
+  background: #22c55e !important; /* Zielony */
+  color: #ffffff !important;
+  border-color: #22c55e !important;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+body.dark .btn-primary:hover {
+  background: #16a34a !important; /* Ciemniejszy zielony */
+  border-color: #16a34a !important;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25) !important;
+}
+
+[data-theme="dark"] .btn-secondary,
+body.dark .btn-secondary {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover,
+body.dark .btn-secondary:hover {
+  background: rgba(34, 197, 94, 0.15) !important; /* Lekkie zielone tło */
+  border-color: #22c55e !important; /* Zielone obramowanie */
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important;
+}
+
+[data-theme="dark"] .btn-link,
+body.dark .btn-link {
+  color: #22c55e !important; /* Zielony link */
+}
+
+[data-theme="dark"] .btn-link:hover,
+body.dark .btn-link:hover {
+  color: #16a34a !important; /* Ciemniejszy zielony */
+}
+
+/* Typografia */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4 {
+  color: var(--text-primary) !important;
+}
+
+/* Muted text */
+[data-theme="dark"] .muted,
+body.dark .muted {
+  color: var(--text-muted) !important;
+}
+
+/* Moduły - Ekonomia */
+[data-theme="dark"] .hero,
+body.dark .hero {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================
+   🎨 MODUŁ POGODY - STYLE DLA TRYBU CIEMNEGO
+   ============================================ */
+
+/* Tło strony pogody */
+[data-theme="dark"] body,
+body.dark body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-dashboard,
+body.dark .weather-dashboard {
+  background: transparent !important;
+}
+
+/* Sidebar - Hero i Panel */
+[data-theme="dark"] .weather-hero,
+[data-theme="dark"] .weather-panel,
+body.dark .weather-hero,
+body.dark .weather-panel {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 2px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .weather-hero h1,
+[data-theme="dark"] .weather-panel h3,
+body.dark .weather-hero h1,
+body.dark .weather-panel h3 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-hero p,
+[data-theme="dark"] .weather-panel p,
+body.dark .weather-hero p,
+body.dark .weather-panel p {
+  color: var(--text-secondary) !important;
+}
+
+/* Przyciski w panelu */
+[data-theme="dark"] .weather-panel button,
+body.dark .weather-panel button {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-panel button:hover,
+body.dark .weather-panel button:hover {
+  background: var(--border-color) !important;
+  border-color: var(--border-light) !important;
+}
+
+/* Panel Content */
+[data-theme="dark"] #panelContent,
+body.dark #panelContent {
+  color: var(--text-secondary) !important;
+}
+
+/* Alerty */
+[data-theme="dark"] .weather-alerts,
+body.dark .weather-alerts {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .weather-alerts h3,
+body.dark .weather-alerts h3 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-alerts p,
+body.dark .weather-alerts p {
+  color: var(--text-secondary) !important;
+}
+
+/* Wyszukiwarka */
+[data-theme="dark"] .weather-search-box,
+body.dark .weather-search-box {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 2px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .weather-search-box input,
+body.dark .weather-search-box input {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-search-box input:focus,
+body.dark .weather-search-box input:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
+}
+
+[data-theme="dark"] .weather-search-box input::placeholder,
+body.dark .weather-search-box input::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Panel informacyjny */
+[data-theme="dark"] .weather-info-panel,
+body.dark .weather-info-panel {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0.15) 100%) !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 2px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .weather-info-panel h2,
+body.dark .weather-info-panel h2 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-info-panel p,
+body.dark .weather-info-panel p {
+  color: var(--text-secondary) !important;
+}
+
+/* Kontener mapy */
+[data-theme="dark"] .weather-map-container,
+body.dark .weather-map-container {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 16px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] #map,
+body.dark #map {
+  background: var(--bg-tertiary) !important;
+}
+
+/* Legenda */
+[data-theme="dark"] #legendContainer,
+body.dark #legendContainer {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] #legendContainer p,
+[data-theme="dark"] #legendContainer label,
+body.dark #legendContainer p,
+body.dark #legendContainer label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] #legendContainer span,
+body.dark #legendContainer span {
+  border-color: var(--border-color) !important;
+}
+
+/* Box warstw mapy */
+[data-theme="dark"] .weather-layers-box,
+body.dark .weather-layers-box {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 2px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .weather-layers-box h3,
+body.dark .weather-layers-box h3 {
+  color: var(--text-primary) !important;
+}
+
+/* Przyciski warstw */
+[data-theme="dark"] .layer-btn,
+body.dark .layer-btn {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .layer-btn:hover,
+body.dark .layer-btn:hover {
+  background: var(--border-color) !important;
+  border-color: var(--border-light) !important;
+}
+
+[data-theme="dark"] .layer-btn.active,
+body.dark .layer-btn.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+/* Radio buttons dla warstw */
+[data-theme="dark"] .weather-layer-selector label,
+body.dark .weather-layer-selector label {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-layer-selector input[type="radio"],
+body.dark .weather-layer-selector input[type="radio"] {
+  accent-color: #2563eb !important;
+}
+
+/* Sekcja historii */
+[data-theme="dark"] .weather-history-section,
+body.dark .weather-history-section {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 2px 12px var(--shadow-color) !important;
+}
+
+[data-theme="dark"] .weather-history-section h3,
+body.dark .weather-history-section h3 {
+  color: var(--text-primary) !important;
+}
+
+/* Elementy historii */
+[data-theme="dark"] .history-item,
+body.dark .history-item {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .history-item:hover,
+body.dark .history-item:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Przyciski */
+[data-theme="dark"] .weather-btn-primary,
+body.dark .weather-btn-primary {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+}
+
+[data-theme="dark"] .weather-btn-primary:hover,
+body.dark .weather-btn-primary:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary,
+body.dark .weather-btn-secondary {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary:hover,
+body.dark .weather-btn-secondary:hover {
+  background: var(--border-color) !important;
+  border-color: var(--border-light) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.danger,
+body.dark .weather-btn-secondary.danger {
+  background: rgba(220, 38, 38, 0.2) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(220, 38, 38, 0.4) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.danger:hover,
+body.dark .weather-btn-secondary.danger:hover {
+  background: rgba(220, 38, 38, 0.3) !important;
+  border-color: #dc2626 !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.blue,
+body.dark .weather-btn-secondary.blue {
+  background: rgba(37, 99, 235, 0.2) !important;
+  color: #93c5fd !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.blue:hover,
+body.dark .weather-btn-secondary.blue:hover {
+  background: rgba(37, 99, 235, 0.3) !important;
+  border-color: #60a5fa !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.blue-strong,
+body.dark .weather-btn-secondary.blue-strong {
+  background: rgba(37, 99, 235, 0.3) !important;
+  color: #bfdbfe !important;
+  border-color: rgba(37, 99, 235, 0.5) !important;
+}
+
+[data-theme="dark"] .weather-btn-secondary.blue-strong:hover,
+body.dark .weather-btn-secondary.blue-strong:hover {
+  background: rgba(37, 99, 235, 0.4) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Przycisk powrotu */
+[data-theme="dark"] .weather-back-btn,
+body.dark .weather-back-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+[data-theme="dark"] .weather-back-btn:hover,
+body.dark .weather-back-btn:hover {
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
+}
+
+/* Tabele */
+[data-theme="dark"] table,
+[data-theme="dark"] .table,
+body.dark table,
+body.dark .table {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .table thead th,
+body.dark .table thead th {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .table tbody td,
+body.dark .table tbody td {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Modals */
+[data-theme="dark"] .modal-content,
+body.dark .modal-content {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .modal-header,
+body.dark .modal-header {
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-footer,
+body.dark .modal-footer {
+  border-top-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-title,
+body.dark .modal-title {
+  color: var(--text-primary) !important;
+}
+
+/* Dropdown menus */
+[data-theme="dark"] .dropdown-menu,
+body.dark .dropdown-menu {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .dropdown-item,
+body.dark .dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+body.dark .dropdown-item:hover {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Breadcrumbs */
+[data-theme="dark"] .breadcrumb,
+body.dark .breadcrumb {
+  background: var(--bg-tertiary) !important;
+}
+
+[data-theme="dark"] .breadcrumb-item a,
+body.dark .breadcrumb-item a {
+  color: #60a5fa !important;
+}
+
+/* Pagination */
+[data-theme="dark"] .pagination .page-link,
+body.dark .pagination .page-link {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .pagination .page-link:hover,
+body.dark .pagination .page-link:hover {
+  background: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .pagination .page-item.active .page-link,
+body.dark .pagination .page-item.active .page-link {
+  background: #6366f1 !important;  /* Zmień kolor aktywnej strony paginacji, np. #3b82f6 */
+  border-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+/* Listy i elementy list */
+[data-theme="dark"] ul,
+[data-theme="dark"] ol,
+body.dark ul,
+body.dark ol {
+  color: var(--text-primary) !important;
+}
+
+/* Code blocks */
+[data-theme="dark"] code,
+[data-theme="dark"] pre,
+body.dark code,
+body.dark pre {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Blockquotes */
+[data-theme="dark"] blockquote,
+body.dark blockquote {
+  border-left-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Horizontal rules */
+[data-theme="dark"] hr,
+body.dark hr {
+  border-color: var(--border-color) !important;
+}
+
+/* Badges */
+[data-theme="dark"] .badge,
+body.dark .badge {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Tooltips */
+[data-theme="dark"] .tooltip .tooltip-inner,
+body.dark .tooltip .tooltip-inner {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Popovers */
+[data-theme="dark"] .popover,
+body.dark .popover {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .popover-header,
+body.dark .popover-header {
+  background: var(--bg-tertiary) !important;
+  border-bottom-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Progress bars */
+[data-theme="dark"] .progress,
+body.dark .progress {
+  background: var(--bg-tertiary) !important;
+}
+
+/* Spinners */
+[data-theme="dark"] .spinner-border,
+body.dark .spinner-border {
+  border-color: var(--border-color) !important;
+  border-right-color: var(--text-primary) !important;
+}
+
+/* Cards Bootstrap */
+[data-theme="dark"] .card,
+body.dark .card {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card-header,
+body.dark .card-header {
+  background: var(--bg-tertiary) !important;
+  border-bottom-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card-footer,
+body.dark .card-footer {
+  background: var(--bg-tertiary) !important;
+  border-top-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Mobile navbar adjustments */
+@media (max-width: 768px) {
+  [data-theme="dark"] .main-navbar,
+  body.dark .main-navbar {
+    background: var(--bg-secondary) !important;
+    border-top-color: var(--border-color) !important;
+  }
+}
+
+/* ============================================
+   🎨 HOROSKOP - STYLE DLA TRYBU CIEMNEGO
+   ============================================ */
+
+/* Tło strony horoskopu */
+[data-theme="dark"] body.horoscope-layout,
+[data-theme="dark"] .horoscope-layout,
+body.dark.horoscope-layout,
+body.dark .horoscope-layout {
+  background: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .horoscope-layout .main-content,
+body.dark .horoscope-layout .main-content {
+  background: var(--bg-primary) !important;
+}
+
+/* Kontener główny */
+[data-theme="dark"] .horoscope-container,
+body.dark .horoscope-container {
+  background: transparent !important;
+}
+
+/* Nagłówek horoskopu - zachowaj różowy kolor */
+[data-theme="dark"] .horoscope-header h1,
+body.dark .horoscope-header h1 {
+  color: #d48fa8 !important; /* Różowy kolor jak w trybie jasnym */
+}
+
+[data-theme="dark"] .horoscope-header .subtitle,
+body.dark .horoscope-header .subtitle {
+  color: var(--text-secondary) !important;
+}
+
+/* Sekcja zodiaku - ciemne tło */
+[data-theme="dark"] .zodiac-section,
+body.dark .zodiac-section {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+/* Przyciski zodiaku */
+[data-theme="dark"] .zodiac-btn,
+body.dark .zodiac-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .zodiac-btn:hover,
+body.dark .zodiac-btn:hover {
+  border-color: #f8b7d8 !important; /* Różowe podświetlanie przy hover */
+  background: rgba(248, 183, 216, 0.2) !important; /* Lekkie różowe tło */
+  box-shadow: 0 5px 20px rgba(248, 183, 216, 0.3) !important; /* Różowy cień */
+  transform: translateY(-3px) !important;
+}
+
+[data-theme="dark"] .zodiac-btn.active,
+body.dark .zodiac-btn.active {
+  background: linear-gradient(135deg, #8b5a7a 0%, #a64d79 50%, #7a1a5a 100%) !important;
+  border-color: #7a1a5a !important;
+  box-shadow: 0 8px 25px var(--shadow-color) !important;
+}
+
+/* Symbole i nazwy zodiaku */
+[data-theme="dark"] .zodiac-symbol,
+[data-theme="dark"] .zodiac-name,
+body.dark .zodiac-symbol,
+body.dark .zodiac-name {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .zodiac-btn.active .zodiac-symbol,
+[data-theme="dark"] .zodiac-btn.active .zodiac-name,
+body.dark .zodiac-btn.active .zodiac-symbol,
+body.dark .zodiac-btn.active .zodiac-name {
+  color: #ffffff !important;
+}
+
+/* Sekcja wyników - ciemne tło */
+[data-theme="dark"] .results-section,
+body.dark .results-section {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+/* Kontener główny (container) */
+[data-theme="dark"] .container,
+body.dark .container {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow-color) !important;
+}
+
+/* Nagłówek wyniku */
+[data-theme="dark"] .result-header,
+body.dark .result-header {
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .result-header h2,
+body.dark .result-header h2 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .zodiac-icon,
+body.dark .zodiac-icon {
+  color: var(--text-primary) !important;
+}
+
+/* Karta predykcji - ciemne tło zgaszonego różu */
+[data-theme="dark"] .prediction-card,
+body.dark .prediction-card {
+  background: linear-gradient(135deg, #3a2a2f 0%, #4a2a35 100%) !important;
+  border-left-color: #7a1a5a !important;
+}
+
+[data-theme="dark"] .prediction-card h3,
+body.dark .prediction-card h3 {
+  color: #d48fa8 !important;
+}
+
+/* Tekst horoskopu - jasny kolor */
+[data-theme="dark"] .prediction-text,
+body.dark .prediction-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Dodatkowe informacje */
+[data-theme="dark"] .additional-info,
+body.dark .additional-info {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .info-item,
+body.dark .info-item {
+  background: var(--bg-secondary) !important;
+  border-left-color: var(--border-light) !important;
+}
+
+[data-theme="dark"] .info-item i,
+body.dark .info-item i {
+  color: #d48fa8 !important;
+}
+
+[data-theme="dark"] .info-item span,
+body.dark .info-item span {
+  color: var(--text-secondary) !important;
+}
+
+/* Przycisk powrotu */
+[data-theme="dark"] .back-btn,
+body.dark .back-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .back-btn:hover,
+body.dark .back-btn:hover {
+  background: var(--border-color) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 5px 15px var(--shadow-color) !important;
+}
+
+/* Loading */
+[data-theme="dark"] .loading,
+body.dark .loading {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .spinner,
+body.dark .spinner {
+  border-color: var(--bg-tertiary) !important;
+  border-top-color: #d48fa8 !important;
+}
+
+/* Error */
+[data-theme="dark"] .error,
+body.dark .error {
+  background: rgba(214, 48, 49, 0.2) !important;
+  border-left-color: #d63031 !important;
+  color: #ff6b6b !important;
+}
+

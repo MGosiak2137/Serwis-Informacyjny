@@ -19,6 +19,7 @@
   {# GLOBALNE STYLE (dla całej apki) #}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dark_mode.css') }}">
   {# Dodatkowe rzeczy w <head> dla konkretnych podstron #}
   {% block head_extra %}{% endblock %}
   {% block extra_css %}{% endblock %}
@@ -39,6 +40,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/theme_toggle.js') }}"></script>
 
   {% block extra_js %}{% endblock %}
 </body>

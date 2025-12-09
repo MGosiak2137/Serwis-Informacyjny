@@ -30,10 +30,18 @@
       <a href="#" class="icon-btn" title="Ekonomia">
         <i class="bi bi-coin"></i>
       </a>
+      <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
+        <i class="bi bi-moon"></i>
+        <i class="bi bi-sun" style="display: none;"></i>
+      </button>
         <a href="{{ url_for('main.account_settings') }}" class="icon-btn" title="Ustawienia konta">
           <i class="bi bi-gear"></i>
         </a>
       {% else %}
+        <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
+          <i class="bi bi-moon"></i>
+          <i class="bi bi-sun" style="display: none;"></i>
+        </button>
         <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
           <i class="bi bi-person-circle"></i>
         </a>
