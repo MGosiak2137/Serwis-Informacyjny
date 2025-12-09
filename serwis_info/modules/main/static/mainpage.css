@@ -81,6 +81,20 @@ body.home-page {
   border: 2px solid rgba(34, 197, 94, 0.6);
   box-shadow: 0 4px 12px rgba(6, 95, 70, 0.3);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-item.card-news::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
 }
 
 .card-item.card-news:hover,
@@ -88,6 +102,11 @@ body.home-page {
   transform: translateY(-6px);
   box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5) !important;
   border-color: rgba(34, 197, 94, 0.9) !important;
+}
+
+.card-item.card-news:hover::before,
+.card-news.card-item:hover::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
 }
 
 .card-title {

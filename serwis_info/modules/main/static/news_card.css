@@ -7,7 +7,13 @@
   box-sizing: border-box;
 }
 
-.card-news .carousel,
+.card-news .carousel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
 .card-news .carousel-inner,
 .card-news .carousel-item {
   width: 100%;
