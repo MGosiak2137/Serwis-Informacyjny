@@ -21,7 +21,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             response = redirect(url_for("main.index"))
-            response.set_cookie("username", user.email, max_age=7*24*60*60)  # 7 dni
+            response.set_cookie("username", user.nickname, max_age=7*24*60*60)  # 7 dni
 
             return  response
         else:
@@ -49,7 +49,7 @@ def register():
         # Automatyczne logowanie po rejestracji
         login_user(user)
         response = redirect(url_for("main.index"))
-        response.set_cookie("username", user.email, max_age=7*24*60*60)
+        response.set_cookie("username", user.nicname, max_age=7*24*60*60)
 
         flash("Konto zostało utworzone! Witamy w NEWC.", "success")
         # Przekierowanie do strony głównej z flagą pokazania modala powitalnego
