@@ -234,6 +234,19 @@ header.site-header {
   font-weight: bold;
 }
 
+.action-link {
+  color: var(--text);
+  text-decoration: none;
+  flex: 1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
 .remove-btn {
   background: none;
   border: none;
@@ -244,6 +257,8 @@ header.site-header {
   padding: 0;
   margin: 0;
   transition: color 0.2s ease;
+  flex-shrink: 0;
+  pointer-events: auto;
 }
 
 .remove-btn:hover {
@@ -256,6 +271,33 @@ header.site-header {
   margin: 0;
   padding: 1rem 0;
   text-align: center;
+}
+
+/* Action Links */
+.action-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--text);
+  text-decoration: none;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.preference-list li a {
+  width: 100%;
+}
+
+.preference-list li .remove-btn {
+  flex-shrink: 0;
+  pointer-events: auto;
 }
 
 /* Responsive: adjust grid on smaller screens */
@@ -273,4 +315,20 @@ header.site-header {
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
+}
+
+/* Style dla kolorowania zmiany */
+.change.positive {
+  color: #28a745; /* zielony */
+  font-weight: 600;
+}
+
+.change.negative {
+  color: #dc3545; /* czerwony */
+  font-weight: 600;
+}
+
+.change.neutral {
+  color: #6c757d; /* szary */
+  font-weight: 600;
 }

@@ -1,8 +1,8 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+import sqlite3
 
-# Ustal root projektu niezależnie od miejsca importu
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
 
 DB_PATH = os.path.join(PROJECT_ROOT, "database.db")
@@ -18,3 +18,9 @@ def get_db():
         yield db
     finally:
         db.close()
+
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+c = conn.cursor()
+
+conn.commit()
+print(">>> USING DATABASE:", DB_PATH)

@@ -21,10 +21,30 @@ const STORAGE_KEY = 'eco_preferences';
 
     // Show/hide favorites section based on selection
     if (selectElement && favSection) {
-      selectElement.addEventListener('change', function() {
+      selectElement.addEventListener('change', async function() {
         console.log('Select changed:', this.value);
         if (this.value) {
           favSection.style.display = 'block';
+          
+          // Sprawdź, czy symbol już jest w ulubionych
+          try {
+            const resp = await fetch("/main_eco/get-preferences");
+            const prefs = await resp.json();
+            const selectedSymbol = this.value;
+            const exists = prefs.favorite_actions && prefs.favorite_actions.some(item => item.includes(selectedSymbol));
+            
+            if (exists) {
+              addFavBtn.style.display = 'none';
+              feedback.textContent = "Ta akcja już jest w ulubionych!";
+              feedback.style.color = '#ff9500';
+              feedback.style.display = 'block';
+            } else {
+              addFavBtn.style.display = 'inline-block';
+              feedback.style.display = 'none';
+            }
+          } catch (err) {
+            console.error("Błąd sprawdzania ulubionych:", err);
+          }
         } else {
           favSection.style.display = 'none';
         }
@@ -33,6 +53,27 @@ const STORAGE_KEY = 'eco_preferences';
       // Check if already has selection on load
       if (selectElement.value) {
         favSection.style.display = 'block';
+        // Podobne sprawdzenie na load
+        (async () => {
+          try {
+            const resp = await fetch("/main_eco/get-preferences");
+            const prefs = await resp.json();
+            const selectedSymbol = selectElement.value;
+            const exists = prefs.favorite_actions && prefs.favorite_actions.some(item => item.includes(selectedSymbol));
+            
+            if (exists) {
+              addFavBtn.style.display = 'none';
+              feedback.textContent = "Ta akcja już jest w ulubionych!";
+              feedback.style.color = '#ff9500';
+              feedback.style.display = 'block';
+            } else {
+              addFavBtn.style.display = 'inline-block';
+              feedback.style.display = 'none';
+            }
+          } catch (err) {
+            console.error("Błąd sprawdzania ulubionych na load:", err);
+          }
+        })();
       }
     } else {
       console.warn('Select element or favSection not found');
@@ -61,22 +102,27 @@ const STORAGE_KEY = 'eco_preferences';
 
     console.log('Selected:', { selectedName, selectedSymbol });
 
-    // Load preferences
-    const prefs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { 
-      favorite_actions: [], 
-      currencies: [], 
-      search_history: [] 
-    };
-    
-    // Check if already exists
-    const exists = prefs.favorite_actions.some(item => item.includes(selectedSymbol));
-    
-    if (!exists) {
-      prefs.favorite_actions.push(selectedName);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-      console.log('Added locally:', selectedName);
+    // Pobierz preferencje z backendu
+    let prefs;
+    try {
+      const resp = await fetch("/main_eco/get-preferences");
+      prefs = await resp.json();
+    } catch (err) {
+      console.error("Nie można pobrać preferencji z backendu:", err);
+      feedback.textContent = "Błąd pobierania preferencji!";
+      feedback.style.color = '#ff0000';
+      feedback.style.display = 'block';
+      return;
+    }
 
-      // SEND TO BACKEND 🚀
+    // Check if already exists
+    const exists = prefs.favorite_actions && prefs.favorite_actions.some(item => item.includes(selectedSymbol));
+
+    if (!exists) {
+      prefs.favorite_actions = prefs.favorite_actions || [];
+      prefs.favorite_actions.push(selectedName);
+
+      // Wyślij do backendu
       try {
         const response = await fetch("/main_eco/update-preferences", {
           method: "PUT",
@@ -106,6 +152,25 @@ const STORAGE_KEY = 'eco_preferences';
     setTimeout(() => {
       feedback.style.display = 'none';
     }, 4000);
+
+    let priceInfo = '';
+    try {
+      const priceResp = await fetch(`/main_eco/api/price/${selectedSymbol}`);
+      if (priceResp.ok) {
+        const priceData = await priceResp.json();
+        const currency = priceData.currency || 'USD';
+        priceInfo = ` | ${priceData.price}${currency} | ${priceData.change}%`;
+      }
+    } catch (err) {
+      console.warn("Nie można pobrać ceny:", err);
+    }
+
+    // Update the UI with the fetched price information
+    const priceElement = document.getElementById('symbol-price');
+    if (priceElement) {
+      priceElement.innerHTML = priceInfo;
+    }
+
   });
 } else {
       console.error('Add favorite button not found');
