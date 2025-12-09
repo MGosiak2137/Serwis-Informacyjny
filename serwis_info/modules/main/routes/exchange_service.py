@@ -4,7 +4,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-API_KEY = "fca_live_ETTrbfogzJW4ig6qMwd4i3Co98bLc61r7HnsqMex"
+API_KEY = "fca_live_U9au8QtFvTahZj1e9JAR1Hgg9hL83QoEWDckPdTO"
 API_URL = "https://api.freecurrencyapi.com/v1/latest"
 
 def get_currency_rates():

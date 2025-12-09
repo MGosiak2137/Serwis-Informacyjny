@@ -2,6 +2,7 @@
 
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='currencies.css') }}">
+<script src="{{ url_for('currencies.static', filename='currencies.js') }}"></script>
 {% endblock %}
 
 {% block main %}
@@ -21,6 +22,13 @@
             <td>{{ r.name }}</td>
             <td>{{ r.code }}</td>
             <td>{{ r.rate }}</td>
+            <td class="fav-cell">
+              <span class="currency-star"
+                    data-code="{{ r.code }}"
+                    data-name="{{ r.name }}">
+                ★
+              </span>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
