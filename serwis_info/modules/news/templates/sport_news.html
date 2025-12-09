@@ -19,14 +19,21 @@
                   data-article-id="{{ n.id_number }}">
             <i class="bi bi-bookmark"></i>
           </button>
-          {# ----------------------------------------------- #}
 
           <header>
             <h3>
               <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
             </h3>
             <p class="news-meta">
-              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              <span class="news-date">
+                {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              </span>
+
+              {% if n.subcategory %}
+              <span class="news-subcategory">
+                {{ n.subcategory }}
+              </span>
+              {% endif %}
             </p>
           </header>
 
@@ -34,9 +41,7 @@
           <p class="news-summary">{{ n.content[0] }}</p>
           {% endif %}<footer class="news-footer">
               {% if n.subcategory %}
-              <span class="sport-category">
-                {{ n.subcategory }}
-              </span>
+
               {% endif %}
               <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">Szczegóły</a>
             </footer>
