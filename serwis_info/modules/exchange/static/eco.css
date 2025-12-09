@@ -118,3 +118,53 @@ body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4
 header.site-header {
   margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
 }
+
+/* Upewnij się, że navbar działa poprawnie na mobile */
+@media (max-width: 768px) {
+  /* Navbar przeniesiony na dół - ustawienia z navbar.css */
+  .main-navbar {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    padding: 0 0.5rem !important;
+    border-top: 1px solid #eee !important;
+    border-bottom: none !important;
+    background: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 999 !important;
+  }
+
+  nav.main-navbar .navbar-brand {
+    display: none !important;
+  }
+
+  .navbar-icons {
+    width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  .icon-btn {
+    flex: 1 !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Dostosuj margines dla header */
+  header.site-header {
+    margin-top: 0 !important;
+    margin-bottom: 60px !important; /* Miejsce na navbar na dole */
+  }
+
+  body {
+    padding-bottom: 60px !important; /* Miejsce na navbar na dole */
+    margin-top: 0 !important;
+  }
+}

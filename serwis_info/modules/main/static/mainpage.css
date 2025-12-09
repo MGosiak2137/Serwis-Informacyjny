@@ -17,7 +17,8 @@ body.home-page {
   width: 100%;
   height: 100%;
   max-width: 1200px;
-  margin: 0 auto;   
+  margin: 0 auto; 
+  margin-bottom: 40px;  
 }
 
 /* GŁÓWNY UKŁAD – dwie kolumny */
@@ -120,25 +121,41 @@ body.home-page {
     overflow-x: hidden;
     overflow-y: auto;
     height: auto;
+    min-height: 100vh;
   }
 
-  .main-content, .home-layout {
-    height: auto;
-    width: 100%;
-    margin-bottom: 65px;
-  }
   .main-content {
-    padding: 0.5rem 0.5rem;   
-    max-height: none;
-    height: auto;
+    height: auto !important;
+    min-height: calc(100vh - 60px) !important;
+    max-height: none !important;
+    width: 100% !important;
+    padding: 0.3rem 0.5rem !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
   }
+  
+  .home-layout {
+    height: 100% !important;
+    width: 100% !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
   .cards-grid {
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-    padding: 2vh 2vh;
-    gap: 1vh;
-    max-height: none;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100% !important;
+    width: 100% !important;
+    padding: 0.2vh 0.6vh !important;
+    gap: 0.3vh !important;
+    display: flex !important;
+    box-sizing: border-box !important;
+    flex: 1 1 auto !important;
   }
 
   .col-left,
@@ -146,20 +163,68 @@ body.home-page {
     display: contents;
   }
 
-  /* KALENDARZ mniejszy */
-  .col-left .card-calendar {
-    flex: 1 !important;
+  /* KALENDARZ - na górze, naturalna wysokość, nie rośnie */
+  .card-calendar {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    order: 1 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  /* POGODA, NEWS, ECONOMY – TRZY IDENTYCZNE WYSOKOŚCI */
-  .col-left .card-news,
-  .col-right .card-weather,
-  .col-right .card-economy {
-    flex: 3 !important;
+  /* NEWS, POGODA, EKONOMIA – mniejsze wysokości, zawsze widoczne, z możliwością przewijania */
+  .card-news,
+  .card-weather,
+  .card-economy {
+    flex: 0 0 auto !important;
+    min-height: 25vh !important;
+    max-height: 25vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
+  
+  .card-news {
+    order: 2 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .card-weather {
+    order: 3 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .card-economy {
+    order: 4 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
   .card-item {
-    height: auto;
-    min-height: 0;
-    max-height: none;
+    min-height: 0 !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+  
+  /* Override height for flex items */
+  .card-news.card-item,
+  .card-weather.card-item,
+  .card-economy.card-item {
+    height: 25vh !important;
+    max-height: 100% !important;
+  }
+  
+  .card-calendar.card-item {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
