@@ -72,11 +72,12 @@
 .news-preview-title {
   font-size: 1rem;
   font-weight: 600;
+  color: white;
 }
 
 .news-preview-summary {
   font-size: 0.9rem;
-  color: #555;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Narrower carousel buttons */
