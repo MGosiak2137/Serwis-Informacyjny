@@ -18,18 +18,8 @@
 <body>
 {% include "navbar.html" %}
 <header class="site-header">
-  <div class="nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
+  <div class="nav-inner">
     <nav class="nav-links" aria-label="Nawigacja newsów">
-      
-    <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1V9.5z"
-          fill="currentColor" />
-  </svg>
-</a>
-
-      <a href="{{ url_for('news.news_home') }}"
-         class="nav-btn {% if request.endpoint == 'news.news_home' %}nav-btn--active{% endif %}">
-        Strona główna
-      </a>
 
       <a href="{{ url_for('news.crime_list') }}"
          class="nav-btn {% if request.endpoint == 'news.crime_list' %}nav-btn--active{% endif %}">
@@ -50,59 +40,86 @@
   </div>
 </header>
 
-
-  {% block main %}
+{% block main %}
   <main class="page-main">
     <section class="hero">
-      <h1>Moduł newsowy</h1>
-      <p>Wybierz kategorię wiadomości lub przejdź do wyszukiwarki.</p>
-
       <div class="home-tiles">
         <!-- Kafelek: kryminalne -->
-        <a href="{{ url_for('news.crime_list') }}" class="home-tile home-tile-crime">
+        <section class="home-tile home-tile-crime">
           <div class="home-tile-header">
             <h2>Kryminalne – Kraków</h2>
             <p>Napady, zatrzymania, komunikaty policji i służb.</p>
           </div>
 
           <div class="home-tile-news-slot">
-            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy kryminalne -->
-            <p class="home-tile-placeholder">
-              Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
-            </p>
+            {% if crime_latest %}
+              <ul class="home-tile-list">
+                {% for n in crime_latest %}
+                  <li>
+                    <a class="home-tile-article"
+                       href="{{ url_for('news.detail', news_id=n.id_number) }}">
+                      <span class="home-tile-article-title">
+                        {{ n.title }}
+                      </span>
+                      {% if n.published_at %}
+                        <span class="home-tile-date">
+                          {{ n.published_at.strftime("%d.%m") }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="home-tile-placeholder">
+                Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
+              </p>
+            {% endif %}
           </div>
 
-          <span class="home-tile-cta">Przejdź do listy artykułów</span>
-        </a>
+          <a href="{{ url_for('news.crime_list') }}" class="home-tile-cta-link">
+            PRZEJDŹ DO LISTY ARTYKUŁÓW
+          </a>
+        </section>
 
         <!-- Kafelek: sport -->
-        <a href="{{ url_for('news.sport_list') }}" class="home-tile home-tile-sport">
+        <section class="home-tile home-tile-sport">
           <div class="home-tile-header">
             <h2>Sport – Polska</h2>
             <p>Ekstraklasa, reprezentacja, żużel i inne wydarzenia sportowe.</p>
           </div>
 
           <div class="home-tile-news-slot">
-            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy sportowe -->
-            <p class="home-tile-placeholder">
-              Wkrótce: ostatnie zeskrapowane wiadomości sportowe.
-            </p>
+            {% if sport_latest %}
+              <ul class="home-tile-list">
+                {% for n in sport_latest %}
+                  <li>
+                    <a class="home-tile-article"
+                       href="{{ url_for('news.detail', news_id=n.id_number) }}">
+                      <span class="home-tile-article-title">
+                        {{ n.title }}
+                      </span>
+                      {% if n.published_at %}
+                        <span class="home-tile-date">
+                          {{ n.published_at.strftime("%d.%m") }}
+                        </span>
+                      {% endif %}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="home-tile-placeholder">
+                Wkrótce: ostatnie zeskrapowane wiadomości sportowe.
+              </p>
+            {% endif %}
           </div>
 
-          <span class="home-tile-cta">Przejdź do listy artykułów</span>
-        </a>
+          <a href="{{ url_for('news.sport_list') }}" class="home-tile-cta-link">
+            PRZEJDŹ DO LISTY ARTYKUŁÓW
+          </a>
+        </section>
       </div>
     </section>
   </main>
-  {% endblock %}
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <!-- np. © 2025 Moduł newsowy -->
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+{% endblock %}

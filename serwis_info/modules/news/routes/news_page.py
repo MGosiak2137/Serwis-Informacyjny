@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, url_for, redirect
-from datetime import datetime,timezone
+from datetime import datetime, timezone
 import json
 import os
 from flask_login import login_required
 
 from serwis_info.modules.news.services import articles_data_giver
+
 _sample_articles = articles_data_giver._sample_articles
 _sample_history = articles_data_giver._sample_history
 load_articles = articles_data_giver.load_articles
@@ -16,64 +17,107 @@ news_bp = Blueprint(
     template_folder="../templates",
     static_folder="../static",
     url_prefix="/news",
-
 )
 
 
-@news_bp.get("/")
-@login_required
+def _sort_articles(articles):
+    """Sortuj artykuły malejąco po dacie publikacji (tak jak w listach)."""
+    return sorted(
+        articles,
+        key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
+        reverse=True,
+    )
+
+
+@news_bp.route("/")
 def news_home():
-    return render_template("nav_footnews.html")
+    """Strona główna modułu newsowego – dwa kafelki + 5 ostatnich newsów."""
+    try:
+        crime_articles = load_articles("crime")
+        crime_articles = _sort_articles(crime_articles)
+    except Exception as e:
+        print(f"Error loading crime articles for home: {e}")
+        crime_articles = []
+
+    try:
+        sport_articles = load_articles("sport")
+        sport_articles = _sort_articles(sport_articles)
+    except Exception as e:
+        print(f"Error loading sport articles for home: {e}")
+        sport_articles = []
+
+    crime_latest = crime_articles[:5]
+    sport_latest = sport_articles[:5]
+
+    # renderujemy layout z kafelkami (nav_footnews.html)
+    return render_template(
+        "nav_footnews.html",
+        crime_latest=crime_latest,
+        sport_latest=sport_latest,
+    )
+
 
 @news_bp.get("/crime")
 def crime_list():
     try:
         articles = load_articles("crime")
-        articles = sorted(
-            articles,
-            key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
-            reverse=True
-        )
+        articles = _sort_articles(articles)
     except Exception as e:
         print(f"Error loading crime articles: {e}")
         articles = []
-    return render_template("crime_news.html", articles=articles, title="Wiadomości kryminalne")
+    return render_template(
+        "crime_news.html",
+        articles=articles,
+        title="Wiadomości kryminalne",
+    )
 
 
 @news_bp.get("/sport")
 def sport_list():
     try:
         articles = load_articles("sport")
-        articles = sorted(
-            articles,
-            key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
-            reverse=True
-        )
+        articles = _sort_articles(articles)
     except Exception as e:
         print(f"Error loading sport articles: {e}")
         articles = []
-    return render_template("sport_news.html", articles=articles, title="Wiadomości sportowe")
+    return render_template(
+        "sport_news.html",
+        articles=articles,
+        title="Wiadomości sportowe",
+    )
 
 
 @news_bp.get("/detail/<news_id>")
 def detail(news_id):
     try:
         articles = load_articles("all")
-        for article in articles:
-            if article.get("id_number") == news_id:
-                break
-        if not article:
+        # znajdź artykuł o podanym id_number
+        article = next(
+            (a for a in articles if a.get("id_number") == news_id),
+            None,
+        )
+        if article is None:
             return "Artykuł nie został znaleziony", 404
     except Exception as e:
         print(f"Error loading article detail: {e}")
         return "Błąd podczas ładowania artykułu", 500
+
     return render_template("detail.html", article=article)
 
 
 @news_bp.get("/search")
 def search():
     history = _sample_history()
-    return render_template( "news_search.html", results=None, history=history,q="",scope="all",from_date="",to_date="", )
+    return render_template(
+        "news_search.html",
+        results=None,
+        history=history,
+        q="",
+        scope="all",
+        from_date="",
+        to_date="",
+    )
+
 
 @news_bp.get("/search/results")
 def search_results():
@@ -82,7 +126,9 @@ def search_results():
     from_date = request.args.get("from_date")
     to_date = request.args.get("to_date")
 
-    # very small in-memory filter over sample articles
+    articles = []
+    results = []
+
     try:
         if scope == "all":
             articles = load_articles("all")
@@ -90,18 +136,18 @@ def search_results():
             articles = load_articles("sport")
         elif scope == "crime":
             articles = load_articles("crime")
-    except:
-        print("Error loading articles for search")
+    except Exception as e:
+        print(f"Error loading articles for search: {e}")
+        articles = []
 
     if articles:
-        results = []
-
         if q:
             q_l = q.lower()
             for a in articles:
                 if scope != "all" and a.get("category") != scope:
                     continue
-                if q_l in (a.get("title") or "").lower() or q_l in " ".join(a.get("content") or []).lower():
+                text = (a.get("title") or "") + " " + " ".join(a.get("content") or [])
+                if q_l in text.lower():
                     results.append(a)
         else:
             results = articles
@@ -118,23 +164,23 @@ def search_results():
     )
 
 
-
-
-
-
-
-
-#DO SCRAPOWANIA PRZYŁADOWE
+# ========== SCRAPOWANE SPORTY – przykładowe ==========
 
 def _load_scraped_sports():
     try:
-        json_path = os.path.join(os.path.dirname(__file__), '../../..', 'sport_news_data.json')
+        json_path = os.path.join(
+            os.path.dirname(__file__),
+            "../../..",
+            "sport_news_data.json",
+        )
         if os.path.exists(json_path):
-            with open(json_path, 'r', encoding='utf-8') as f:
+            with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 for article in data:
-                    if isinstance(article.get('published_at'), str):
-                        article['published_at'] = datetime.fromisoformat(article['published_at'].replace('Z', '+00:00'))
+                    if isinstance(article.get("published_at"), str):
+                        article["published_at"] = datetime.fromisoformat(
+                            article["published_at"].replace("Z", "+00:00")
+                        )
                 return data
     except Exception as e:
         print(f"Error loading scraped sports data: {e}")
