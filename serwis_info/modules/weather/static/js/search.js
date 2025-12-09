@@ -102,10 +102,12 @@ async function runSearch(auto=false) {
 }
 
 function saveCurrentState() {
+    if (!username) return; // jeśli niezalogowany, nic nie zapisujemy
+
     const cities = weatherCards.map(card => 
         card.querySelector("h2").innerText.trim()
     );
-    localStorage.setItem("weather_last_state", JSON.stringify(cities));
+    localStorage.setItem(`weather_last_state_${username}`, JSON.stringify(cities));
 }
 
 function addWeatherCard({ name, weather, main, wind, aqi }) {
@@ -157,9 +159,10 @@ function fitAllMarkers() {
 }
 
 export async function autoLoadLastCities() {
-    const saved = JSON.parse(localStorage.getItem("weather_last_state") || "[]");
-    
-    // jeśli brak zapisanych miast → nie rób nic
+    if (!username) return; // jeśli niezalogowany, nic nie ładujemy
+
+    const saved = JSON.parse(localStorage.getItem(`weather_last_state_${username}`) || "[]");
+
     if (saved.length === 0) return;
 
     resetSearch();
@@ -171,6 +174,6 @@ export async function autoLoadLastCities() {
 
     fitAllMarkers();
     showNextButtons();
-
 }
+
 
