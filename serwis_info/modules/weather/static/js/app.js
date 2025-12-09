@@ -4,6 +4,8 @@ import { initSearch } from "./search.js";
 import { initPanel } from "./panel.js";
 import {loadForecast} from "./forecast.js";
 import { autoLoadLastCities } from "./search.js";
+import { loadAlertsForCities } from "./alerts.js";
+
 
 initUserDisplay();
 initLayerSelector();

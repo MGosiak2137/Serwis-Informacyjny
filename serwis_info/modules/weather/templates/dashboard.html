@@ -28,22 +28,24 @@
     <aside class="weather-sidebar-left">
       <div class="weather-hero">
         <h1>Panel pogodowy</h1>
-        <p>Cześć, <span id="usernameDisplay"></span>!</p>
-      </div>
+        {% if current_user.is_authenticated %}
+  <p>Cześć, <span id="usernameDisplay"></span>!</p>
 
-<div id="userPanel" class="panel">
-  <button id="togglePanelBtn" class="weather-btn-secondary">☰ Rozwiń panel</button>
-  <div id="panelContent" class="hidden">
-   
-    <div class="history-section">
-      <button id="toggleHistoryBtn" class="weather-btn-secondary blue">📜 Historia wyszukiwania ▼</button>
-      <div id="historyOptions" class="hidden">
-        <button id="showHistoryBtn" class="weather-btn-secondary blue-strong">👁️ Pokaż historię</button>
-        <button id="clearHistoryBtn" class="weather-btn-secondary danger">🗑️ Usuń historię</button>
+  <div id="userPanel" class="panel">
+    <button id="togglePanelBtn" class="weather-btn-secondary">☰ Rozwiń panel</button>
+    <div id="panelContent" class="hidden">
+      <div class="history-section">
+        <button id="toggleHistoryBtn" class="weather-btn-secondary blue">📜 Historia wyszukiwania ▼</button>
+        <div id="historyOptions" class="hidden">
+          <button id="showHistoryBtn" class="weather-btn-secondary blue-strong">👁️ Pokaż historię</button>
+          <button id="clearHistoryBtn" class="weather-btn-secondary danger">🗑️ Usuń historię</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+{% else %}
+  <p>Musisz się <a href="{{ url_for('auth.login') }}">zalogować</a>, aby korzystać z panelu pogodowego.</p>
+{% endif %}
 
 <div class="weather-panel weather-alerts">
         <h3>Ostrzeżenia</h3>
@@ -81,9 +83,9 @@
 <div id="legendContainer"></div>
 
 <!-- HISTORIA WYSZUKIWAŃ -->
-      <section class="weather-history-section">
-        <h3>Historia wyszukiwań</h3>
-<ul id="historyList"></ul>
+      <section class="weather-history-section hidden" id="historySection">
+  <h3>Historia wyszukiwań</h3>
+  <ul id="historyList"></ul>
 </section>
 
     </section>

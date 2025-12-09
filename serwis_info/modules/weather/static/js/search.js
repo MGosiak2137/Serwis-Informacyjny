@@ -2,8 +2,8 @@ import { API_KEY, API_URL } from "./config.js";
 import { map } from "./mapControls.js";
 import { loadHistory } from "./history.js";
 import { username } from "./user.js";
-import { loadForecast } from "./forecast.js";  // <-- NOWY IMPORT
-
+import { loadForecast } from "./forecast.js";  
+import { loadAlertsForCities } from "./alerts.js"; // 
 let markers = [];
 let weatherCards = [];
 let maxCities = 3;
@@ -40,6 +40,8 @@ function resetSearch() {
   document.getElementById("nextSearchBtn").classList.add("hidden");
   document.getElementById("resetSearchBtn").classList.add("hidden");
   document.getElementById("searchBtn").classList.remove("hidden");
+  localStorage.removeItem("weather_last_state");
+
 }
 
 function showNextButtons() {
@@ -90,13 +92,23 @@ async function runSearch(auto=false) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ city: name })
     });
-
+    saveCurrentState();
     loadHistory();
+    loadAlertsForCities([name]);
 
   } catch (err) {
     console.error(err);
     alert("Błąd pobierania danych pogodowych!");
   }
+}
+
+function saveCurrentState() {
+    if (!username) return; // jeśli niezalogowany, nic nie zapisujemy
+
+    const cities = weatherCards.map(card => 
+        card.querySelector("h2").innerText.trim()
+    );
+    localStorage.setItem(`weather_last_state_${username}`, JSON.stringify(cities));
 }
 
 function addWeatherCard({ name, weather, main, wind, aqi }) {
@@ -148,40 +160,22 @@ function fitAllMarkers() {
 }
 
 export async function autoLoadLastCities() {
-  try {
-    const res = await fetch(`/weather/api/history_last3/${username}`);
-    const entries = await res.json();
+    if (!username) return; // jeśli niezalogowany, nic nie ładujemy
 
-    if (!Array.isArray(entries) || entries.length === 0) return;
+    const saved = JSON.parse(localStorage.getItem(`weather_last_state_${username}`) || "[]");
+
+    if (saved.length === 0) return;
 
     resetSearch();
 
-    // ---- FILTROWANIE 3 UNIKALNYCH MIAST ----
-    const uniqueCities = [];
-    const seen = new Set();
-
-    for (const entry of entries) {
-      const city = entry.city.trim();
-
-      if (!seen.has(city)) {
-        seen.add(city);
-        uniqueCities.push(city);
-      }
-
-      if (uniqueCities.length === 3) break;
-    }
-
-    // Jeśli mniej niż 3, to i tak ładujemy ile jest
-    for (const city of uniqueCities) {
-      document.getElementById("cityInput").value = city;
-      await runSearch(true);
+    for (const city of saved) {
+        document.getElementById("cityInput").value = city;
+        await runSearch(true);
     }
 
     fitAllMarkers();
     showNextButtons();
-
-  } catch (err) {
-    console.error("Błąd w auto ładowaniu historii:", err);
-  }
+    loadAlertsForCities(saved);
 }
+
 
