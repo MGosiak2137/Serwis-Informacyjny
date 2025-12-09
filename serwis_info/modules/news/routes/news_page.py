@@ -4,6 +4,7 @@ import json
 import os
 from flask_login import login_required
 
+
 from serwis_info.modules.news.services import articles_data_giver
 
 _sample_articles = articles_data_giver._sample_articles
@@ -30,6 +31,7 @@ def _sort_articles(articles):
 
 
 @news_bp.route("/")
+@login_required
 def news_home():
     """Strona główna modułu newsowego – dwa kafelki + 5 ostatnich newsów."""
     try:
@@ -58,6 +60,7 @@ def news_home():
 
 
 @news_bp.get("/crime")
+@login_required
 def crime_list():
     try:
         articles = load_articles("crime")
@@ -73,6 +76,7 @@ def crime_list():
 
 
 @news_bp.get("/sport")
+@login_required
 def sport_list():
     try:
         articles = load_articles("sport")
@@ -88,6 +92,7 @@ def sport_list():
 
 
 @news_bp.get("/detail/<news_id>")
+@login_required
 def detail(news_id):
     try:
         articles = load_articles("all")
@@ -106,6 +111,7 @@ def detail(news_id):
 
 
 @news_bp.get("/search")
+@login_required
 def search():
     history = _sample_history()
     return render_template(
@@ -120,6 +126,7 @@ def search():
 
 
 @news_bp.get("/search/results")
+@login_required
 def search_results():
     q = request.args.get("q")
     scope = request.args.get("scope", "all")
