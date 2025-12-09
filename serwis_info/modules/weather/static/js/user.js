@@ -4,8 +4,10 @@ export function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-export const username = getCookie("username") || "user_demo";
+// ZAMIANA user_demo → null
+export const username = getCookie("username"); 
 
 export function initUserDisplay() {
+  if (!username) return; // jeśli nie ma ciasteczka, nie wyświetlaj lub ukryj
   document.getElementById("usernameDisplay").innerText = username;
 }
