@@ -2,6 +2,7 @@
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='stockmarket.css') }}">
 <script src="{{ url_for('currencies.static', filename='script.js') }}" defer></script>
+<script src="{{ url_for('currencies.static', filename='stockmarket.js') }}"></script>
 {% endblock %}
 {% block main %}
 <main class="page-main">
@@ -168,109 +169,5 @@
     <div id="stockmarket-init" data-selected-category="{{ selected_category or '' }}" data-current-range="{{ current_range or '' }}" data-selected-symbols="{{ selected_symbols|join(',') if selected_symbols else '' }}" style="display:none;"></div>
   </section>
 </main>
+
 {% endblock %}
-<script>
-  const STORAGE_KEY = 'eco_preferences';
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching
-    window.showTab = function(tabName) {
-      document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-content-' + tabName).style.display = 'block';
-      document.getElementById('tab-' + tabName).classList.add('active');
-    };
-
-    // Get elements
-    const selectElement = document.getElementById('select-symbols');
-    const addFavBtn = document.getElementById('add-favorite-btn');
-    const feedback = document.getElementById('favorite-feedback');
-    const favSection = document.getElementById('add-to-favorites-section');
-
-    console.log('Elements found:', { selectElement, addFavBtn, feedback, favSection });
-
-    // Show/hide favorites section based on selection
-    if (selectElement && favSection) {
-      selectElement.addEventListener('change', function() {
-        console.log('Select changed:', this.value);
-        if (this.value) {
-          favSection.style.display = 'block';
-        } else {
-          favSection.style.display = 'none';
-        }
-      });
-
-      // Check if already has selection on load
-      if (selectElement.value) {
-        favSection.style.display = 'block';
-      }
-    } else {
-      console.warn('Select element or favSection not found');
-      // Always show if no select element
-      if (favSection) {
-        favSection.style.display = 'block';
-      }
-    }
-
-    // Add to favorites button click
-    if (addFavBtn) {
-      addFavBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        console.log('Add favorite clicked');
-        
-        if (!selectElement || !selectElement.value) {
-          console.warn('No selection made');
-          alert('Wybierz symbol z listy');
-          return;
-        }
-
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        const selectedName = selectedOption.text;
-        const selectedSymbol = selectElement.value;
-
-        console.log('Selected:', { selectedName, selectedSymbol });
-
-        // Load preferences
-        const prefs = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { 
-          favorite_actions: [], 
-          currencies: [], 
-          search_history: [] 
-        };
-        
-        console.log('Current prefs:', prefs);
-        
-        // Check if already exists
-        const exists = prefs.favorite_actions.some(item => item.includes(selectedSymbol));
-        
-        if (!exists) {
-          // Add new favorite
-          prefs.favorite_actions.push(selectedName);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-          console.log('Added to favorites:', selectedName);
-          
-          feedback.textContent = `✓ "${selectedName}" została dodana do ulubionych!`;
-          feedback.style.color = '#2ecc71';
-          feedback.style.display = 'block';
-          
-          setTimeout(() => {
-            feedback.style.display = 'none';
-          }, 4000);
-        } else {
-          // Already exists
-          console.log('Already in favorites');
-          feedback.textContent = `⚠ "${selectedName}" już jest w ulubionych!`;
-          feedback.style.color = '#ff9500';
-          feedback.style.display = 'block';
-          
-          setTimeout(() => {
-            feedback.style.display = 'none';
-          }, 4000);
-        }
-      });
-    } else {
-      console.error('Add favorite button not found');
-    }
-  });
-</script>
