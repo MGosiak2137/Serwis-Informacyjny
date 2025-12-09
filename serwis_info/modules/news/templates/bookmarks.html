@@ -13,13 +13,12 @@
         {% for article in bookmarked_articles %}
         <article class="news-card">
           <!-- PRZYCISK USUWANIA ZAKŁADKI W PRAWYM GÓRNYM ROGU -->
-          <button class="bookmark-btn"
+          <button class="bookmark-remove-btn"
                   type="button"
                   data-article-id="{{ article.article_id }}"
                   aria-label="Usuń zakładkę">
-            <i class="bi bi-bookmark"></i>
+            <i class="bi bi-bookmark-fill"></i>
           </button>
-
 
           <header>
             <h3>
@@ -32,14 +31,14 @@
             </p>
           </header>
 
-          {% if article.summary %}
-          <p class="news-summary">{{ article.summary }}</p>
+          {% if article.article_summary or article.summary %}
+          <p class="news-summary">{{ article.article_summary or article.summary }}</p>
           {% endif %}
 
           <footer class="news-footer">
-            {% if article.category %}
-            <span class="tag" data-category="{{ article.article_category }}">
-              {{ article.article_category }}
+            {% if article.article_category or article.category %}
+            <span class="tag" data-category="{{ article.article_category or article.category }}">
+              {{ article.article_category or article.category }}
             </span>
             {% endif %}
             <a href="{{ url_for('news.detail', news_id=article.article_id) }}" class="btn-secondary">
@@ -58,4 +57,3 @@
 <script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
 
 {% endblock %}
-

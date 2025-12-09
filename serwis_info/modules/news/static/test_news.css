@@ -25,6 +25,7 @@ a:active {
   text-decoration: none;
 }
 
+
 h1,
 h2,
 h3,
@@ -180,6 +181,7 @@ p {
   padding: 3rem 2rem;
 }
 
+
 .hero {
   background: #ffffff;
   border-radius: 20px;
@@ -191,6 +193,8 @@ p {
   flex-direction: column;
   gap: 3rem;
 }
+
+
 
 .hero h1 {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
@@ -240,6 +244,7 @@ p {
   flex-direction: column;
 }
 
+
 .home-tile--link:hover {
   transform: translateY(-0.15rem);
   box-shadow: 0 0.75rem 2rem rgba(6, 95, 70, 0.18);
@@ -251,6 +256,10 @@ p {
     max-width: 100%;
   }
 }
+
+
+
+
 
 .home-tile-list {
   list-style: none;
@@ -396,11 +405,8 @@ p {
 
 
 .news-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #555;
+  font-size: 0.78rem;
+  color: #6b7280;
 }
 
 .news-summary {
@@ -871,7 +877,7 @@ header.site-header {
   padding: 1.6rem 1.8rem;
 }
 
-
+/* Reakcja na mniejsze laptopy */
 @media (max-height: 800px) {
   .news-home-page .hero {
     padding-top: 1.5rem;
@@ -898,7 +904,7 @@ header.site-header {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(6,95,70,0.20);
 }
-
+/* ----- Ikona zakładki — wspólny wygląd ----- */
 .bookmark-btn {
   position: absolute;
   top: 0.75rem;
@@ -930,6 +936,7 @@ header.site-header {
   color: #064e3b;
 }
 
+/* Stan aktywny */
 .bookmark-btn.active i {
   color: #22c55e;
 }
@@ -961,10 +968,33 @@ header.site-header {
 }
 
 .bookmark-btn:hover {
-  background: #ecfdf5;
+    background: #ecfdf5;
 }
 
+.bookmark-remove-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 999px;
+  cursor: pointer;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
+  transition: background 0.2s ease, transform 0.2s ease;
+}
 
-
+.bookmark-remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: #70c613;
+    padding: .25rem;
+    border-radius: .5rem;
+    flex-shrink: 0;
+}

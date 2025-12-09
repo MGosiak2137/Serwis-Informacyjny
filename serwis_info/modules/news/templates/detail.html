@@ -89,9 +89,6 @@
         const bookmarkIcon = document.querySelector('#bookmark-icon');
 
         // Ustaw wstępny stan ikony
-        if (isBookmarked) {
-            bookmarkIcon.classList.add('bookmarked');
-        }
         updateBookmarkIcon(isBookmarked);
 
         bookmarkBtn.addEventListener('click', async function(e) {
@@ -198,26 +195,17 @@
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
-        color: #999;
+        color: #333;
         padding: 5px;
-        transition: color 0.3s ease, transform 0.2s ease;
+        transition: color 0.3s ease;
     }
 
     .bookmark-btn:hover {
         color: #007bff;
     }
 
-    .bookmark-btn #bookmark-icon {
-        transition: color 0.3s ease;
-    }
-
     .bookmark-btn #bookmark-icon.bookmarked {
-        color: #ffc107;
-        font-weight: bold;
-    }
-
-    .bookmark-btn #bookmark-icon.bookmarked:hover {
-        color: #ffb300;
+        color: #70c613;
     }
 
     @keyframes slideIn {

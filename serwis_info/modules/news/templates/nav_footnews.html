@@ -49,18 +49,18 @@
   });
 </script>
 
+
+
+
 <body>
 {% include "navbar.html" %}
-<div id="bookmark-toast" class="bookmark-toast">Zapisano artykuł</div>
 <header class="site-header">
   <div class="nav-inner">
     <nav class="nav-links" aria-label="Nawigacja newsów">
-        {% if request.endpoint != 'news.news_home' %}
         <a href="{{ url_for('news.news_home') }}" class="nav-btn">
           <i class="bi bi-arrow-left"></i>
           <span> Powrót </span>
         </a>
-        {% endif %}
       <a href="{{ url_for('news.crime_list') }}"
          class="nav-btn {% if request.endpoint == 'news.crime_list' %}nav-btn--active{% endif %}">
         Kryminalne – Kraków
