@@ -19,9 +19,9 @@ body.account-more-options-page {
 
 body.account-more-options-page .main-content,
 body.account-more-options-page main.main-content {
-  height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
-  min-height: calc(100vh - 110px) !important;
-  max-height: calc(100vh - 110px) !important;
+  height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
+  min-height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
   overflow: hidden !important;
   overflow-x: hidden !important;
   overflow-y: hidden !important;
@@ -37,13 +37,13 @@ body.account-more-options-page main.main-content {
 @media (min-width: 769px) {
   body.account-more-options-page .main-content,
   body.account-more-options-page main.main-content {
-    height: calc(100vh - 110px) !important; /* Account for navbar (60px) + footer (50px) */
-    min-height: calc(100vh - 110px) !important;
-    max-height: calc(100vh - 110px) !important;
+    height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
+    min-height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
   }
   
   body.account-more-options-page .main-footer {
-    display: flex !important;
+    display: none !important;
   }
 }
 
@@ -481,7 +481,7 @@ body.account-more-options-page .main-content .w-100 {
   body.account-more-options-page .main-content,
   body.account-more-options-page main.main-content {
     height: auto !important;
-    min-height: calc(100vh - 110px) !important;
+    min-height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
     overflow: visible !important;
     overflow-y: auto !important;
     position: relative !important;
@@ -497,7 +497,7 @@ body.account-more-options-page .main-content .w-100 {
   }
 
   body.account-more-options-page .main-footer {
-    display: flex !important;
+    display: none !important;
   }
 
   .account-more-options-page .login-container {

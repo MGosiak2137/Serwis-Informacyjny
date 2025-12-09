@@ -51,7 +51,7 @@ html {
   box-sizing: border-box;
   position: relative;
   margin: 0 auto;
-  max-height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px); /* Account for navbar only - no footer */
   overflow-y: auto;
   overflow-x: hidden;
 }
