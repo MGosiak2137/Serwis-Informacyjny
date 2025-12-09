@@ -1,11 +1,12 @@
-from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, request, url_for, redirect, jsonify
 from datetime import datetime, timezone
 import json
 import os
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 
 from serwis_info.modules.news.services import articles_data_giver
+from serwis_info.modules.news.services import bookmarks_service
 
 _sample_articles = articles_data_giver._sample_articles
 _sample_history = articles_data_giver._sample_history
@@ -202,6 +203,67 @@ def sport_scraped():
     return render_template("sport_scraped.html", articles=articles)
 
 @news_bp.get("/bookmarks")
+@login_required
 def bookmarks():
-    return render_template("bookmarks.html")
+    # Pobierz zakładki zalogowanego użytkownika i przekaż je do szablonu
+    try:
+        user_bookmarks = bookmarks_service.fetch_user_bookmarks(current_user.id) or []
+        # Normalizuj nazwy pól, żeby szablon mógł korzystać z `summary` i `category`
+        for b in user_bookmarks:
+            # repo zwraca article_summary/article_category; wystawimy też krótsze klucze
+            if 'summary' not in b:
+                b['summary'] = b.get('article_summary')
+            if 'category' not in b:
+                b['category'] = b.get('article_category')
+        return render_template("bookmarks.html", bookmarked_articles=user_bookmarks)
+    except Exception as e:
+        print(f"Error loading bookmarks page: {e}")
+        return render_template("bookmarks.html", bookmarked_articles=[])
 
+
+# API endpoints for bookmarks
+@news_bp.post('/api/bookmark/add')
+@login_required
+def api_bookmark_add():
+    """API: Dodaj artykuł do zakładek dla zalogowanego użytkownika."""
+    try:
+        data = request.get_json() or {}
+        article_id = data.get('article_id')
+        title = data.get('article_title') or ''
+        category = data.get('article_category') or None
+        summary = data.get('article_summary') or None
+        source = data.get('article_source') or None
+        url = data.get('article_url') or None
+
+        if not article_id:
+            return jsonify({'success': False, 'error': 'Brak article_id'}), 400
+
+        ok = bookmarks_service.add_article_to_bookmarks(current_user.id, article_id, title, category, summary, source, url)
+        if ok:
+            return jsonify({'success': True}), 200
+        else:
+            return jsonify({'success': False, 'error': 'DB error'}), 500
+
+    except Exception as e:
+        print(f"Error in api_bookmark_add: {e}")
+        return jsonify({'success': False, 'error': 'Internal error'}), 500
+
+
+@news_bp.post('/api/bookmark/remove')
+@login_required
+def api_bookmark_remove():
+    """API: Usuń artykuł z zakładek zalogowanego użytkownika."""
+    try:
+        data = request.get_json() or {}
+        article_id = data.get('article_id')
+        if not article_id:
+            return jsonify({'success': False, 'error': 'Brak article_id'}), 400
+
+        ok = bookmarks_service.remove_article_from_bookmarks(current_user.id, article_id)
+        if ok:
+            return jsonify({'success': True}), 200
+        else:
+            return jsonify({'success': False, 'error': 'DB error'}), 500
+    except Exception as e:
+        print(f"Error in api_bookmark_remove: {e}")
+        return jsonify({'success': False, 'error': 'Internal error'}), 500
