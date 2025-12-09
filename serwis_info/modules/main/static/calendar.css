@@ -4,31 +4,50 @@
 
 .card-calendar {
     grid-area: calendar;
-    background: white;
+    background: linear-gradient(135deg, #ff9ec4 0%, #ff6ba8 50%, #ff4d9e 100%);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: #333;
+    color: #fff;
     padding: 1.5rem;
     transition: all 0.3s ease;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 77, 158, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-calendar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
 }
 
 .card-calendar:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(212, 143, 168, 0.2);
-    border-color: #f8b7d8;
+    box-shadow: 0 8px 24px rgba(255, 77, 158, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-calendar:hover::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
 }
 
 /* UKŁAD DWA SEKTORY: LEWY (GODZINA+DATA) + PRAWY (BOXES) */
 .calendar-horizontal {
     width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1.3fr;
     gap: 1rem;
+    min-height: 0;
 }
 
 /* LEWA STRONA */
@@ -36,6 +55,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    overflow: hidden;
 }
 
 /* GODZINA – duża i responsywna */
@@ -43,70 +67,247 @@
     font-size: clamp(3rem, 6vw, 4.5rem);
     font-weight: 800;
     line-height: 1;
-    color: #111;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
 }
 
 /* DATA – mniejsza */
 .calendar-date {
     font-size: clamp(1rem, 2vw, 1.3rem);
     align-items: center;
-    color: #444;
+    color: rgba(255, 255, 255, 0.95);
     margin-top: 0.3rem;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
-/* PRAWA STRONA – siatka 2x2 */
+/* PRAWA STRONA – wrapper dla scrollowania */
+.calendar-right-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* Ukrycie scrollbara, ale zachowanie funkcjonalności */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+    width: 100%;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar {
+    width: clamp(4px, 0.8vw, 6px);
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* PRAWA STRONA – siatka responsywna */
 .calendar-right {
     display: grid;
-    grid-template-columns: 1fr; 
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: clamp(0.4rem, 1.2vw, 0.6rem);
+    position: relative;
+    z-index: 1;
+    min-height: min-content;
+    width: 100%;
+    align-items: start;
 }
 
 /* POJEDYNCZE POLE */
 .calendar-box {
-    background: rgba(255, 255, 255, 0.7);
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 222, 222, 0.7);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background: rgba(255, 255, 255, 0.95);
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.6rem, 2vw, 1rem);
+    border-radius: clamp(8px, 1.5vw, 12px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    transition: all 0.2s ease;
+    min-width: 0;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.calendar-box:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 /* TEKSTY W PUDŁACH */
 .calendar-label {
-    font-size: 0.8rem;
-    color: #555;
+    font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+    color: #ff4d9e;
     font-weight: 600;
-    margin-bottom: 0.2rem;
+    margin-bottom: clamp(0.15rem, 0.4vw, 0.25rem);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
 }
 
 .calendar-value {
-    font-size: 1rem;
-    color: #111;
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+    color: #2d1b3d;
     font-weight: 600;
+    display: block;
+    line-height: clamp(1.2, 1.5vw, 1.4);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    flex: 1;
+    min-width: 0;
 }
 
 /* RESPONSYWNOŚĆ */
+@media (max-width: 1024px) {
+    .calendar-horizontal {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 0.8rem;
+    }
+    
+    .calendar-time {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+    }
+}
+
 @media (max-width: 850px) {
     .calendar-horizontal {
         grid-template-columns: 1fr;
-        gap: 1.3rem;
+        gap: 1rem;
+        grid-template-rows: auto 1fr;
     }
 
     .calendar-left {
         text-align: center;
         align-items: center;
+        padding: 0.5rem 0;
+    }
+    
+    .calendar-time {
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+    }
+
+    .calendar-right-wrapper {
+        max-height: 300px;
     }
 
     .calendar-right {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+        gap: clamp(0.4rem, 1vw, 0.6rem);
+    }
+}
+
+@media (max-width: 640px) {
+    .card-calendar {
+        padding: 1rem;
+    }
+    
+    .calendar-horizontal {
+        gap: 0.8rem;
+    }
+    
+    .calendar-time {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+    
+    .calendar-date {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
+    
+    .calendar-right-wrapper {
+        max-height: 250px;
+    }
+    
+    .calendar-right {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+        gap: clamp(0.35rem, 0.9vw, 0.5rem);
+    }
+    
+    .calendar-box {
+        padding: clamp(0.5rem, 1.2vw, 0.65rem) clamp(0.6rem, 1.5vw, 0.8rem);
     }
 }
 
 @media (max-width: 480px) {
     .calendar-right {
         grid-template-columns: 1fr;
+        gap: clamp(0.3rem, 0.8vw, 0.45rem);
+    }
+    
+    .calendar-right-wrapper {
+        max-height: 200px;
     }
 
     .calendar-time {
-        font-size: 3rem;
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+    
+    .calendar-date {
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+    }
+    
+    .calendar-box {
+        padding: clamp(0.45rem, 1vw, 0.6rem) clamp(0.55rem, 1.3vw, 0.75rem);
+    }
+    
+    .calendar-label {
+        font-size: clamp(0.6rem, 1.1vw, 0.7rem);
+    }
+    
+    .calendar-value {
+        font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    }
+}
+
+@media (max-width: 360px) {
+    .card-calendar {
+        padding: 0.8rem;
+    }
+    
+    .calendar-time {
+        font-size: 1.8rem;
+    }
+    
+    .calendar-right-wrapper {
+        max-height: 180px;
+    }
+    
+    .calendar-right {
+        gap: clamp(0.25rem, 0.7vw, 0.4rem);
+    }
+    
+    .calendar-box {
+        padding: clamp(0.4rem, 0.9vw, 0.55rem) clamp(0.5rem, 1.2vw, 0.7rem);
+    }
+    
+    .calendar-label {
+        font-size: clamp(0.55rem, 1vw, 0.65rem);
+    }
+    
+    .calendar-value {
+        font-size: clamp(0.65rem, 1.3vw, 0.8rem);
     }
 }

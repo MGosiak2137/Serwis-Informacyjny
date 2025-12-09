@@ -13,11 +13,87 @@ async function loadCalendar() {
     document.getElementById("calendar-holiday").textContent = data.holiday_name || "Brak święta";
     document.getElementById("calendar-dayoff").textContent = data.is_holiday ? "Dzień wolny od pracy" : "Dzień roboczy";
 
+    // Auto-scroll calendar if content overflows
+    setTimeout(() => {
+      autoScrollCalendar();
+      setupCalendarAutoScroll();
+    }, 100);
+
   } catch (err) {
     console.error("Błąd wczytywania kalendarza:", err);
     document.getElementById("calendar-date").textContent = "Błąd ładowania";
   }
 }
+
+// Auto-scroll calendar content if it overflows
+function autoScrollCalendar() {
+  const calendarWrapper = document.querySelector('.calendar-right-wrapper');
+  if (!calendarWrapper) return;
+
+  const calendarRight = document.querySelector('.calendar-right');
+  if (!calendarRight) return;
+
+  // Check if content overflows
+  const hasOverflow = calendarRight.scrollHeight > calendarWrapper.clientHeight;
+  
+  if (hasOverflow) {
+    // Check if last box is visible
+    const boxes = calendarRight.querySelectorAll('.calendar-box');
+    if (boxes.length > 0) {
+      const lastBox = boxes[boxes.length - 1];
+      const lastBoxRect = lastBox.getBoundingClientRect();
+      const wrapperRect = calendarWrapper.getBoundingClientRect();
+      
+      // If last box is not fully visible, scroll to show it
+      if (lastBoxRect.bottom > wrapperRect.bottom || lastBoxRect.top < wrapperRect.top) {
+        lastBox.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'nearest',
+          inline: 'nearest'
+        });
+      }
+    }
+  }
+}
+
+// Setup Intersection Observer for auto-scrolling
+function setupCalendarAutoScroll() {
+  const calendarWrapper = document.querySelector('.calendar-right-wrapper');
+  if (!calendarWrapper) return;
+
+  const boxes = calendarWrapper.querySelectorAll('.calendar-box');
+  if (boxes.length === 0) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        // If a box becomes not visible, scroll to show it
+        setTimeout(() => {
+          entry.target.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+          });
+        }, 100);
+      }
+    });
+  }, {
+    root: calendarWrapper,
+    threshold: 10,
+    rootMargin: '0px'
+  });
+
+  boxes.forEach(box => observer.observe(box));
+}
+
+// Auto-scroll on window resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    autoScrollCalendar();
+    setupCalendarAutoScroll();
+  }, 250);
+});
 
 function updateClock() {
   const now = new Date();
