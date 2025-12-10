@@ -58,7 +58,17 @@ body.dark {
 body.dark html,
 body.dark body {
   background: var(--bg-primary) !important;
+  background-color: var(--bg-primary) !important;
   color: var(--text-primary) !important;
+}
+
+/* Nadpisanie białego tła dla stron ekonomii - wyższa specyficzność */
+html[data-theme="dark"],
+body[data-theme="dark"],
+html.dark,
+body.dark {
+  background: var(--bg-primary) !important;
+  background-color: var(--bg-primary) !important;
 }
 
 /* Strona główna */
@@ -852,16 +862,16 @@ body.dark .weather-dashboard {
 body.dark .weather-hero,
 body.dark .weather-panel {
   background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
   color: var(--text-primary) !important;
-  box-shadow: 0 2px 12px var(--shadow-color) !important;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .weather-hero h1,
 [data-theme="dark"] .weather-panel h3,
 body.dark .weather-hero h1,
 body.dark .weather-panel h3 {
-  color: var(--text-primary) !important;
+  color: #60a5fa !important; /* Niebieski kolor nagłówków */
 }
 
 [data-theme="dark"] .weather-hero p,
@@ -875,14 +885,15 @@ body.dark .weather-panel p {
 [data-theme="dark"] .weather-panel button,
 body.dark .weather-panel button {
   background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
   color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .weather-panel button:hover,
 body.dark .weather-panel button:hover {
-  background: var(--border-color) !important;
-  border-color: var(--border-light) !important;
+  background: rgba(59, 130, 246, 0.15) !important; /* Lekkie niebieskie tło */
+  border-color: #3b82f6 !important; /* Niebieskie obramowanie */
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important; /* Niebieski cień */
 }
 
 /* Panel Content */
@@ -894,13 +905,13 @@ body.dark #panelContent {
 /* Alerty */
 [data-theme="dark"] .weather-alerts,
 body.dark .weather-alerts {
-  background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%) !important; /* Niebieskie tło */
+  border-color: rgba(59, 130, 246, 0.4) !important; /* Niebieskie obramowanie */
 }
 
 [data-theme="dark"] .weather-alerts h3,
 body.dark .weather-alerts h3 {
-  color: var(--text-primary) !important;
+  color: #60a5fa !important; /* Niebieski kolor nagłówka */
 }
 
 [data-theme="dark"] .weather-alerts p,
@@ -912,14 +923,14 @@ body.dark .weather-alerts p {
 [data-theme="dark"] .weather-search-box,
 body.dark .weather-search-box {
   background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  box-shadow: 0 2px 12px var(--shadow-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .weather-search-box input,
 body.dark .weather-search-box input {
   background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
   color: var(--text-primary) !important;
 }
 
@@ -957,8 +968,8 @@ body.dark .weather-info-panel p {
 [data-theme="dark"] .weather-map-container,
 body.dark .weather-map-container {
   background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  box-shadow: 0 4px 16px var(--shadow-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] #map,
@@ -969,8 +980,8 @@ body.dark #map {
 /* Legenda */
 [data-theme="dark"] #legendContainer,
 body.dark #legendContainer {
-  background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%) !important; /* Niebieskie tło */
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
   color: var(--text-primary) !important;
 }
 
@@ -990,13 +1001,13 @@ body.dark #legendContainer span {
 [data-theme="dark"] .weather-layers-box,
 body.dark .weather-layers-box {
   background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  box-shadow: 0 2px 12px var(--shadow-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .weather-layers-box h3,
 body.dark .weather-layers-box h3 {
-  color: var(--text-primary) !important;
+  color: #60a5fa !important; /* Niebieski kolor nagłówka */
 }
 
 /* Przyciski warstw */
@@ -1004,13 +1015,14 @@ body.dark .weather-layers-box h3 {
 body.dark .layer-btn {
   background: var(--bg-tertiary) !important;
   color: var(--text-primary) !important;
-  border: 1px solid var(--border-color) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
 }
 
 [data-theme="dark"] .layer-btn:hover,
 body.dark .layer-btn:hover {
-  background: var(--border-color) !important;
-  border-color: var(--border-light) !important;
+  background: rgba(59, 130, 246, 0.15) !important; /* Lekkie niebieskie tło */
+  border-color: #3b82f6 !important; /* Niebieskie obramowanie */
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .layer-btn.active,
@@ -1035,20 +1047,20 @@ body.dark .weather-layer-selector input[type="radio"] {
 [data-theme="dark"] .weather-history-section,
 body.dark .weather-history-section {
   background: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  box-shadow: 0 2px 12px var(--shadow-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .weather-history-section h3,
 body.dark .weather-history-section h3 {
-  color: var(--text-primary) !important;
+  color: #60a5fa !important; /* Niebieski kolor nagłówka */
 }
 
 /* Elementy historii */
 [data-theme="dark"] .history-item,
 body.dark .history-item {
   background: var(--bg-tertiary) !important;
-  border-color: var(--border-color) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important; /* Niebieskie obramowanie */
   color: var(--text-primary) !important;
 }
 
@@ -1083,8 +1095,9 @@ body.dark .weather-btn-secondary {
 
 [data-theme="dark"] .weather-btn-secondary:hover,
 body.dark .weather-btn-secondary:hover {
-  background: var(--border-color) !important;
-  border-color: var(--border-light) !important;
+  background: rgba(59, 130, 246, 0.15) !important; /* Lekkie niebieskie tło */
+  border-color: #3b82f6 !important; /* Niebieskie obramowanie */
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important; /* Niebieski cień */
 }
 
 [data-theme="dark"] .weather-btn-secondary.danger,
@@ -1527,5 +1540,620 @@ body.dark .error {
   background: rgba(214, 48, 49, 0.2) !important;
   border-left-color: #d63031 !important;
   color: #ff6b6b !important;
+}
+
+/* ============================================
+   🎨 MODUŁ EKONOMII - STYLE DLA TRYBU CIEMNEGO
+   Z pomarańczowymi akcentami
+   ============================================ */
+
+/* Tło strony ekonomii - nadpisanie białego tła z eco.css */
+html[data-theme="dark"],
+body[data-theme="dark"],
+html.dark,
+body.dark {
+  background: var(--bg-primary) !important;
+  background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] body,
+body.dark body {
+  background: var(--bg-primary) !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .page-main,
+body.dark .page-main {
+  background: transparent !important;
+}
+
+/* Hero sekcja - TYLKO dla stron ekonomii (gdy jest .preference-box lub .currency-section) */
+[data-theme="dark"] .preference-box ~ * .hero,
+[data-theme="dark"] .currency-section ~ * .hero,
+[data-theme="dark"] .preferences-section ~ * .hero,
+body.dark .preference-box ~ * .hero,
+body.dark .currency-section ~ * .hero,
+body.dark .preferences-section ~ * .hero {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .preference-box ~ * .hero h1,
+[data-theme="dark"] .preference-box ~ * .hero h2,
+[data-theme="dark"] .currency-section ~ * .hero h1,
+[data-theme="dark"] .currency-section ~ * .hero h2,
+[data-theme="dark"] .preferences-section ~ * .hero h1,
+[data-theme="dark"] .preferences-section ~ * .hero h2,
+body.dark .preference-box ~ * .hero h1,
+body.dark .preference-box ~ * .hero h2,
+body.dark .currency-section ~ * .hero h1,
+body.dark .currency-section ~ * .hero h2,
+body.dark .preferences-section ~ * .hero h1,
+body.dark .preferences-section ~ * .hero h2 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .preference-box ~ * .hero p,
+[data-theme="dark"] .currency-section ~ * .hero p,
+[data-theme="dark"] .preferences-section ~ * .hero p,
+body.dark .preference-box ~ * .hero p,
+body.dark .currency-section ~ * .hero p,
+body.dark .preferences-section ~ * .hero p {
+  color: var(--text-secondary) !important;
+}
+
+/* Header / Navbar - TYLKO dla stron ekonomii (wszystkie strony ekonomii) */
+[data-theme="dark"] body:has(.preference-box) .site-header,
+[data-theme="dark"] body:has(.currency-section) .site-header,
+[data-theme="dark"] body:has(.preferences-section) .site-header,
+[data-theme="dark"] body:has(.stockmarket-section) .site-header,
+[data-theme="dark"] body:has(.journey-section) .site-header,
+[data-theme="dark"] body:has(.journey-page) .site-header,
+body.dark body:has(.preference-box) .site-header,
+body.dark body:has(.currency-section) .site-header,
+body.dark body:has(.preferences-section) .site-header,
+body.dark body:has(.stockmarket-section) .site-header,
+body.dark body:has(.journey-section) .site-header,
+body.dark body:has(.journey-page) .site-header {
+  background: var(--bg-secondary) !important;
+  border-bottom-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Przyciski nawigacji - TYLKO dla stron ekonomii (wszystkie strony ekonomii) */
+[data-theme="dark"] body:has(.preference-box) .site-header .nav-btn,
+[data-theme="dark"] body:has(.currency-section) .site-header .nav-btn,
+[data-theme="dark"] body:has(.preferences-section) .site-header .nav-btn,
+[data-theme="dark"] body:has(.stockmarket-section) .site-header .nav-btn,
+[data-theme="dark"] body:has(.journey-section) .site-header .nav-btn,
+[data-theme="dark"] body:has(.journey-page) .site-header .nav-btn,
+body.dark body:has(.preference-box) .site-header .nav-btn,
+body.dark body:has(.currency-section) .site-header .nav-btn,
+body.dark body:has(.preferences-section) .site-header .nav-btn,
+body.dark body:has(.stockmarket-section) .site-header .nav-btn,
+body.dark body:has(.journey-section) .site-header .nav-btn,
+body.dark body:has(.journey-page) .site-header .nav-btn {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3) !important;
+}
+
+[data-theme="dark"] body:has(.preference-box) .site-header .nav-btn:hover,
+[data-theme="dark"] body:has(.currency-section) .site-header .nav-btn:hover,
+[data-theme="dark"] body:has(.preferences-section) .site-header .nav-btn:hover,
+[data-theme="dark"] body:has(.stockmarket-section) .site-header .nav-btn:hover,
+[data-theme="dark"] body:has(.journey-section) .site-header .nav-btn:hover,
+[data-theme="dark"] body:has(.journey-page) .site-header .nav-btn:hover,
+body.dark body:has(.preference-box) .site-header .nav-btn:hover,
+body.dark body:has(.currency-section) .site-header .nav-btn:hover,
+body.dark body:has(.preferences-section) .site-header .nav-btn:hover,
+body.dark body:has(.stockmarket-section) .site-header .nav-btn:hover,
+body.dark body:has(.journey-section) .site-header .nav-btn:hover,
+body.dark body:has(.journey-page) .site-header .nav-btn:hover {
+  background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%) !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4) !important;
+}
+
+/* Aktywny przycisk nawigacji - TYLKO dla stron ekonomii (pomarańczowy zamiast zielonego) */
+[data-theme="dark"] body:has(.preference-box) .site-header .nav-btn--active,
+[data-theme="dark"] body:has(.currency-section) .site-header .nav-btn--active,
+[data-theme="dark"] body:has(.preferences-section) .site-header .nav-btn--active,
+[data-theme="dark"] body:has(.stockmarket-section) .site-header .nav-btn--active,
+[data-theme="dark"] body:has(.journey-section) .site-header .nav-btn--active,
+[data-theme="dark"] body:has(.journey-page) .site-header .nav-btn--active,
+body.dark body:has(.preference-box) .site-header .nav-btn--active,
+body.dark body:has(.currency-section) .site-header .nav-btn--active,
+body.dark body:has(.preferences-section) .site-header .nav-btn--active,
+body.dark body:has(.stockmarket-section) .site-header .nav-btn--active,
+body.dark body:has(.journey-section) .site-header .nav-btn--active,
+body.dark body:has(.journey-page) .site-header .nav-btn--active {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  border-color: #f97316 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35) !important;
+}
+
+[data-theme="dark"] body:has(.preference-box) .site-header .nav-btn--active:hover,
+[data-theme="dark"] body:has(.currency-section) .site-header .nav-btn--active:hover,
+[data-theme="dark"] body:has(.preferences-section) .site-header .nav-btn--active:hover,
+[data-theme="dark"] body:has(.stockmarket-section) .site-header .nav-btn--active:hover,
+[data-theme="dark"] body:has(.journey-section) .site-header .nav-btn--active:hover,
+[data-theme="dark"] body:has(.journey-page) .site-header .nav-btn--active:hover,
+body.dark body:has(.preference-box) .site-header .nav-btn--active:hover,
+body.dark body:has(.currency-section) .site-header .nav-btn--active:hover,
+body.dark body:has(.preferences-section) .site-header .nav-btn--active:hover,
+body.dark body:has(.stockmarket-section) .site-header .nav-btn--active:hover,
+body.dark body:has(.journey-section) .site-header .nav-btn--active:hover,
+body.dark body:has(.journey-page) .site-header .nav-btn--active:hover {
+  background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%) !important;
+  border-color: #ea580c !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45) !important;
+}
+
+/* Sekcja walut */
+[data-theme="dark"] .currency-section h2,
+body.dark .currency-section h2 {
+  color: #fb923c !important;
+}
+
+/* Tabela walut */
+[data-theme="dark"] .currency-table,
+body.dark .currency-table {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .currency-table thead th,
+body.dark .currency-table thead th {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .currency-table th,
+[data-theme="dark"] .currency-table td,
+body.dark .currency-table th,
+body.dark .currency-table td {
+  border-bottom-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .currency-table tbody tr:hover,
+body.dark .currency-table tbody tr:hover {
+  background: rgba(249, 115, 22, 0.1) !important;
+}
+
+/* Konwerter walut */
+[data-theme="dark"] .currency-converter,
+body.dark .currency-converter {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .currency-converter h3,
+body.dark .currency-converter h3 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .converter-row input,
+[data-theme="dark"] .converter-row select,
+body.dark .converter-row input,
+body.dark .converter-row select {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .converter-row input:focus,
+[data-theme="dark"] .converter-row select:focus,
+body.dark .converter-row input:focus,
+body.dark .converter-row select:focus {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25) !important;
+}
+
+[data-theme="dark"] .converter-row button,
+body.dark .converter-row button {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3) !important;
+}
+
+[data-theme="dark"] .converter-row button:hover,
+body.dark .converter-row button:hover {
+  background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%) !important;
+  box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4) !important;
+}
+
+[data-theme="dark"] .converter-result,
+body.dark .converter-result {
+  color: var(--text-primary) !important;
+}
+
+/* Boxy preferencji */
+[data-theme="dark"] .preferences-section h2,
+body.dark .preferences-section h2 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .preference-box,
+body.dark .preference-box {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .preference-box h3,
+body.dark .preference-box h3 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .preference-list li,
+body.dark .preference-list li {
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .preference-list li::before,
+body.dark .preference-list li::before {
+  color: #f97316 !important;
+}
+
+[data-theme="dark"] .action-link,
+body.dark .action-link {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .action-link:hover,
+body.dark .action-link:hover {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .remove-btn,
+body.dark .remove-btn {
+  color: #fca5a5 !important;
+}
+
+[data-theme="dark"] .remove-btn:hover,
+body.dark .remove-btn:hover {
+  color: #f97316 !important;
+}
+
+[data-theme="dark"] .no-data,
+body.dark .no-data {
+  color: var(--text-muted) !important;
+}
+
+/* Przyciski primary i secondary - TYLKO dla stron ekonomii (wszystkie strony ekonomii) */
+[data-theme="dark"] body:has(.preference-box) .btn-primary,
+[data-theme="dark"] body:has(.currency-section) .btn-primary,
+[data-theme="dark"] body:has(.preferences-section) .btn-primary,
+[data-theme="dark"] body:has(.stockmarket-section) .btn-primary,
+[data-theme="dark"] body:has(.journey-section) .btn-primary,
+[data-theme="dark"] body:has(.journey-page) .btn-primary,
+body.dark body:has(.preference-box) .btn-primary,
+body.dark body:has(.currency-section) .btn-primary,
+body.dark body:has(.preferences-section) .btn-primary,
+body.dark body:has(.stockmarket-section) .btn-primary,
+body.dark body:has(.journey-section) .btn-primary,
+body.dark body:has(.journey-page) .btn-primary {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3) !important;
+  border: none !important;
+}
+
+[data-theme="dark"] body:has(.preference-box) .btn-primary:hover,
+[data-theme="dark"] body:has(.currency-section) .btn-primary:hover,
+[data-theme="dark"] body:has(.preferences-section) .btn-primary:hover,
+[data-theme="dark"] body:has(.stockmarket-section) .btn-primary:hover,
+[data-theme="dark"] body:has(.journey-section) .btn-primary:hover,
+[data-theme="dark"] body:has(.journey-page) .btn-primary:hover,
+body.dark body:has(.preference-box) .btn-primary:hover,
+body.dark body:has(.currency-section) .btn-primary:hover,
+body.dark body:has(.preferences-section) .btn-primary:hover,
+body.dark body:has(.stockmarket-section) .btn-primary:hover,
+body.dark body:has(.journey-section) .btn-primary:hover,
+body.dark body:has(.journey-page) .btn-primary:hover {
+  background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%) !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4) !important;
+}
+
+[data-theme="dark"] body:has(.preference-box) .btn-secondary,
+[data-theme="dark"] body:has(.currency-section) .btn-secondary,
+[data-theme="dark"] body:has(.preferences-section) .btn-secondary,
+[data-theme="dark"] body:has(.stockmarket-section) .btn-secondary,
+[data-theme="dark"] body:has(.journey-section) .btn-secondary,
+[data-theme="dark"] body:has(.journey-page) .btn-secondary,
+body.dark body:has(.preference-box) .btn-secondary,
+body.dark body:has(.currency-section) .btn-secondary,
+body.dark body:has(.preferences-section) .btn-secondary,
+body.dark body:has(.stockmarket-section) .btn-secondary,
+body.dark body:has(.journey-section) .btn-secondary,
+body.dark body:has(.journey-page) .btn-secondary {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] body:has(.preference-box) .btn-secondary:hover,
+[data-theme="dark"] body:has(.currency-section) .btn-secondary:hover,
+[data-theme="dark"] body:has(.preferences-section) .btn-secondary:hover,
+[data-theme="dark"] body:has(.stockmarket-section) .btn-secondary:hover,
+[data-theme="dark"] body:has(.journey-section) .btn-secondary:hover,
+[data-theme="dark"] body:has(.journey-page) .btn-secondary:hover,
+body.dark body:has(.preference-box) .btn-secondary:hover,
+body.dark body:has(.currency-section) .btn-secondary:hover,
+body.dark body:has(.preferences-section) .btn-secondary:hover,
+body.dark body:has(.stockmarket-section) .btn-secondary:hover,
+body.dark body:has(.journey-section) .btn-secondary:hover,
+body.dark body:has(.journey-page) .btn-secondary:hover {
+  background: rgba(249, 115, 22, 0.15) !important;
+  border-color: #f97316 !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Zakładki / taby */
+[data-theme="dark"] .tab-btn,
+body.dark .tab-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .tab-btn:hover,
+body.dark .tab-btn:hover {
+  background: rgba(249, 115, 22, 0.15) !important;
+  border-color: #f97316 !important;
+}
+
+[data-theme="dark"] .tab-btn.active,
+body.dark .tab-btn.active {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Range buttons */
+[data-theme="dark"] .range-btn,
+body.dark .range-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .range-btn:hover,
+body.dark .range-btn:hover {
+  background: rgba(249, 115, 22, 0.15) !important;
+  border-color: #f97316 !important;
+}
+
+[data-theme="dark"] .range-btn.active,
+body.dark .range-btn.active {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  border-color: #ea580c !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.25) !important;
+}
+
+/* Linki kategorii */
+[data-theme="dark"] .category-link,
+body.dark .category-link {
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .category-link:hover,
+body.dark .category-link:hover {
+  background: linear-gradient(90deg, #ea580c 0%, #dc2626 100%) !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.25) !important;
+}
+
+/* Sekcja giełdy - Hero */
+[data-theme="dark"] .sm-hero,
+body.dark .sm-hero {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .sm-hero h2,
+body.dark .sm-hero h2 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .sm-hero .lead,
+body.dark .sm-hero .lead {
+  color: var(--text-secondary) !important;
+}
+
+/* Karty wykresów */
+[data-theme="dark"] .sm-chart-card,
+body.dark .sm-chart-card {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .chart-header h3,
+body.dark .chart-header h3 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .chart-meta,
+body.dark .chart-meta {
+  color: var(--text-muted) !important;
+}
+
+/* Karty indeksów */
+[data-theme="dark"] .index-card,
+body.dark .index-card {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15) !important;
+}
+
+[data-theme="dark"] .index-card:hover,
+body.dark .index-card:hover {
+  border-color: #f97316 !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3) !important;
+}
+
+[data-theme="dark"] .index-code,
+[data-theme="dark"] .index-name,
+body.dark .index-code,
+body.dark .index-name {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .index-rate.positive,
+body.dark .index-rate.positive {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .index-price,
+body.dark .index-price {
+  color: var(--text-primary) !important;
+}
+
+/* Ticker */
+[data-theme="dark"] .sm-ticker,
+body.dark .sm-ticker {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+[data-theme="dark"] .ticker-item,
+body.dark .ticker-item {
+  color: var(--text-secondary) !important;
+}
+
+/* Market status - pomarańczowe dla otwartego, czerwone dla zamkniętego */
+[data-theme="dark"] .market-status.open,
+body.dark .market-status.open {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .market-status.closed,
+body.dark .market-status.closed {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+}
+
+[data-theme="dark"] .market-badge.open,
+body.dark .market-badge.open {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .market-badge.closed,
+body.dark .market-badge.closed {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+}
+
+/* Chart container */
+[data-theme="dark"] .chart-container,
+body.dark .chart-container {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Muted text */
+[data-theme="dark"] .muted,
+body.dark .muted {
+  color: var(--text-muted) !important;
+}
+
+/* Zmiany wartości - pomarańczowe dla pozytywnych */
+[data-theme="dark"] .change.positive,
+body.dark .change.positive {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .change.negative,
+body.dark .change.negative {
+  color: #fca5a5 !important;
+}
+
+[data-theme="dark"] .change.neutral,
+body.dark .change.neutral {
+  color: var(--text-muted) !important;
+}
+
+/* Journey page (loty) */
+[data-theme="dark"] .journey-section,
+body.dark .journey-section {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2) !important;
+}
+
+[data-theme="dark"] .journey-section h2,
+body.dark .journey-section h2 {
+  color: #fb923c !important;
+}
+
+[data-theme="dark"] .journey-form,
+body.dark .journey-form {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+[data-theme="dark"] .journey-form label,
+body.dark .journey-form label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .journey-form input,
+[data-theme="dark"] .journey-form select,
+body.dark .journey-form input,
+body.dark .journey-form select {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .journey-form input:focus,
+[data-theme="dark"] .journey-form select:focus,
+body.dark .journey-form input:focus,
+body.dark .journey-form select:focus {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25) !important;
+}
+
+[data-theme="dark"] .flight-card,
+[data-theme="dark"] .hotel-card,
+body.dark .flight-card,
+body.dark .hotel-card {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15) !important;
+}
+
+[data-theme="dark"] .flight-card:hover,
+[data-theme="dark"] .hotel-card:hover,
+body.dark .flight-card:hover,
+body.dark .hotel-card:hover {
+  border-color: #f97316 !important;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.25) !important;
+}
+
+/* Select */
+[data-theme="dark"] select,
+body.dark select {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] select:focus,
+body.dark select:focus {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25) !important;
 }
 
