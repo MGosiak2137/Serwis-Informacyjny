@@ -88,4 +88,5 @@
     var loadBtn=document.getElementById('load-selected-btn'); if(loadBtn) loadBtn.addEventListener('click', loadSelected);
     refreshTicker();
   });
+  
 })();

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from flask import jsonify
 import requests
 
 currencies_bp = Blueprint(
@@ -9,7 +10,7 @@ currencies_bp = Blueprint(
     static_folder="../static"
 )
 
-API_KEY = "fca_live_ETTrbfogzJW4ig6qMwd4i3Co98bLc61r7HnsqMex"
+API_KEY = "fca_live_U9au8QtFvTahZj1e9JAR1Hgg9hL83QoEWDckPdTO"
 API_URL = "https://api.freecurrencyapi.com/v1/latest"
 
 
@@ -23,6 +24,39 @@ def get_exchange_rates(base_currency="PLN"):
     except Exception as e:
         print("Błąd API:", e)
         return {}
+
+
+@currencies_bp.route("/api/latest", methods=["GET"])
+def api_latest_rates():
+    """Return current rates (PLN base) as JSON — same logic as in the page."""
+    rates_data = get_exchange_rates("PLN")
+
+    def conv(code, decimals=2):
+        v = rates_data.get(code)
+        if not v:
+            return None
+        try:
+            return round(1 / v, decimals)
+        except Exception:
+            return None
+
+    payload = {
+        "USD": conv("USD", 2),
+        "EUR": conv("EUR", 2),
+        "GBP": conv("GBP", 2),
+        "CHF": conv("CHF", 2),
+        "JPY": conv("JPY", 4),
+        "CZK": conv("CZK", 4),
+        "NOK": conv("NOK", 4),
+        "SEK": conv("SEK", 4),
+        "DKK": conv("DKK", 4),
+        "HUF": conv("HUF", 4),
+        "CNY": conv("CNY", 4),
+        "AUD": conv("AUD", 4),
+        "CAD": conv("CAD", 4)
+    }
+
+    return jsonify(payload)
 
 
 @currencies_bp.route("/", methods=["GET"])

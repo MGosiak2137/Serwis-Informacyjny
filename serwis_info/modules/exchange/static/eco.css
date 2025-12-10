@@ -119,52 +119,175 @@ header.site-header {
   margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
 }
 
-/* Upewnij się, że navbar działa poprawnie na mobile */
-@media (max-width: 768px) {
-  /* Navbar przeniesiony na dół - ustawienia z navbar.css */
-  .main-navbar {
-    position: fixed !important;
-    bottom: 0 !important;
-    top: auto !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 60px !important;
-    padding: 0 0.5rem !important;
-    border-top: 1px solid #eee !important;
-    border-bottom: none !important;
-    background: #fff !important;
-    display: flex !important;
-    align-items: center !important;
-    z-index: 999 !important;
+/* Preferences Section */
+.preferences-section {
+  margin-top: 2rem;
+}
+
+.preferences-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.preferences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.preference-box {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.preference-box h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  color: var(--primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preference-box i {
+  font-size: 1.25rem;
+}
+
+.preference-content {
+  min-height: 80px;
+}
+
+.preference-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.preference-list li {
+  padding: 0.6rem 0;
+  padding-left: 1.5rem;
+  color: var(--text);
+  font-weight: 500;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preference-list li:last-child {
+  border-bottom: none;
+}
+
+.preference-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.action-link {
+  color: var(--text);
+  text-decoration: none;
+  flex: 1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.remove-btn:hover {
+  color: #ff6a00;
+}
+
+.no-data {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+/* Action Links */
+.action-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--text);
+  text-decoration: none;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.preference-list li a {
+  width: 100%;
+}
+
+.preference-list li .remove-btn {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+/* Responsive: adjust grid on smaller screens */
+@media (max-width: 720px) {
+  .preferences-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  nav.main-navbar .navbar-brand {
-    display: none !important;
+  .preference-box {
+    padding: 1rem;
   }
 
-  .navbar-icons {
-    width: 100% !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 0 !important;
+  .preferences-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
   }
+}
 
-  .icon-btn {
-    flex: 1 !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
+/* Style dla kolorowania zmiany */
+.change.positive {
+  color: #28a745; /* zielony */
+  font-weight: 600;
+}
 
-  /* Dostosuj margines dla header */
-  header.site-header {
-    margin-top: 0 !important;
-    margin-bottom: 60px !important; /* Miejsce na navbar na dole */
-  }
+.change.negative {
+  color: #dc3545; /* czerwony */
+  font-weight: 600;
+}
 
-  body {
-    padding-bottom: 60px !important; /* Miejsce na navbar na dole */
-    margin-top: 0 !important;
-  }
+.change.neutral {
+  color: #6c757d; /* szary */
+  font-weight: 600;
 }

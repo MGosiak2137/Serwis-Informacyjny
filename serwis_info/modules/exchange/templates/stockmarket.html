@@ -2,6 +2,7 @@
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='stockmarket.css') }}">
 <script src="{{ url_for('currencies.static', filename='script.js') }}" defer></script>
+<script src="{{ url_for('currencies.static', filename='stockmarket.js') }}"></script>
 {% endblock %}
 {% block main %}
 <main class="page-main">
@@ -29,11 +30,18 @@
     </div>
 
     <div id="tab-content-options" class="tab-panel" style="display:none;margin-top:1rem;">
-      <div style="color:#666;">Użyj lewego panelu (Options) aby wybrać symbole — po wyborze nastąpi przekierowanie do Wyników.</div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <div style="color:#666;">Użyj lewego panelu (Options) aby wybrać symbole — po wyborze nastąpi przekierowanie do Wyników.</div>
+      </div>
     </div>
 
     <div id="tab-content-results" class="tab-panel" style="display:none;margin-top:1rem;">
-      <div style="color:#666;margin-bottom:0.5rem;">Po załadowaniu symboli, tutaj pojawią się wyniki.</div>
+      <div style="color:#666;margin-bottom:1rem;"></div>
+      <div id="add-to-favorites-section" style="padding:1rem;background:#fff3e8;border-radius:12px;border:2px solid rgba(255,122,0,0.18);margin-top:1rem;">
+        <p style="margin:0 0 0.75rem 0;font-weight:600;color:#333;">Dodaj wybraną akcję do ulubionych:</p>
+        <button id="add-favorite-btn" type="button" class="btn-primary" style="margin-bottom:0.5rem;">+ Dodaj do ulubionych</button>
+        <p id="favorite-feedback" style="margin:0;font-size:0.95rem;display:none;font-weight:600;"></p>
+      </div>
     </div>
 
     <div class="sm-grid">
@@ -161,4 +169,5 @@
     <div id="stockmarket-init" data-selected-category="{{ selected_category or '' }}" data-current-range="{{ current_range or '' }}" data-selected-symbols="{{ selected_symbols|join(',') if selected_symbols else '' }}" style="display:none;"></div>
   </section>
 </main>
+
 {% endblock %}
