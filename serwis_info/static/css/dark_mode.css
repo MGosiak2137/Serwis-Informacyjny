@@ -2157,3 +2157,175 @@ body.dark select:focus {
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25) !important;
 }
 
+/* ============================================
+   WYMUSZENIE JASNEGO STYLU NA STRONACH AUTH
+   Strony logowania, rejestracji, ustawień konta
+   zawsze mają jasny styl - tryb ciemny nie ingeruje
+   ============================================ */
+
+/* Wymuszenie jasnego tła na stronach auth */
+body.login-page,
+body.account-settings-page,
+body.account-more-options-page,
+body.change-password-page {
+  background: #f7f7f9 !important;
+  background-color: #f7f7f9 !important;
+}
+
+html[data-theme="dark"] body.login-page,
+html[data-theme="dark"] body.account-settings-page,
+html[data-theme="dark"] body.account-more-options-page,
+html[data-theme="dark"] body.change-password-page,
+body.dark.login-page,
+body.dark.account-settings-page,
+body.dark.account-more-options-page,
+body.dark.change-password-page {
+  background: #f7f7f9 !important;
+  background-color: #f7f7f9 !important;
+}
+
+/* Wymuszenie jasnych kolorów tekstu na stronach auth */
+html[data-theme="dark"] body.login-page,
+html[data-theme="dark"] body.account-settings-page,
+html[data-theme="dark"] body.account-more-options-page,
+html[data-theme="dark"] body.change-password-page,
+body.dark.login-page,
+body.dark.account-settings-page,
+body.dark.account-more-options-page,
+body.dark.change-password-page {
+  color: #212529 !important;
+}
+
+/* Wymuszenie jasnych stylów dla kart i kontenerów na stronach auth */
+html[data-theme="dark"] body.login-page .login-card,
+html[data-theme="dark"] body.login-page .login-container,
+html[data-theme="dark"] body.account-settings-page .account-settings-card,
+html[data-theme="dark"] body.account-settings-page .login-container,
+html[data-theme="dark"] body.account-more-options-page .account-more-options-card,
+html[data-theme="dark"] body.account-more-options-page .login-container,
+html[data-theme="dark"] body.change-password-page .change-password-card,
+html[data-theme="dark"] body.change-password-page .login-container,
+body.dark.login-page .login-card,
+body.dark.login-page .login-container,
+body.dark.account-settings-page .account-settings-card,
+body.dark.account-settings-page .login-container,
+body.dark.account-more-options-page .account-more-options-card,
+body.dark.account-more-options-page .login-container,
+body.dark.change-password-page .change-password-card,
+body.dark.change-password-page .login-container {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Wymuszenie jasnych stylów dla tekstu w kartach */
+html[data-theme="dark"] body.login-page h1,
+html[data-theme="dark"] body.login-page h2,
+html[data-theme="dark"] body.login-page p,
+html[data-theme="dark"] body.login-page label,
+html[data-theme="dark"] body.account-settings-page h1,
+html[data-theme="dark"] body.account-settings-page h2,
+html[data-theme="dark"] body.account-settings-page p,
+html[data-theme="dark"] body.account-settings-page label,
+html[data-theme="dark"] body.account-more-options-page h1,
+html[data-theme="dark"] body.account-more-options-page h2,
+html[data-theme="dark"] body.account-more-options-page p,
+html[data-theme="dark"] body.account-more-options-page label,
+html[data-theme="dark"] body.change-password-page h1,
+html[data-theme="dark"] body.change-password-page h2,
+html[data-theme="dark"] body.change-password-page p,
+html[data-theme="dark"] body.change-password-page label,
+body.dark.login-page h1,
+body.dark.login-page h2,
+body.dark.login-page p,
+body.dark.login-page label,
+body.dark.account-settings-page h1,
+body.dark.account-settings-page h2,
+body.dark.account-settings-page p,
+body.dark.account-settings-page label,
+body.dark.account-more-options-page h1,
+body.dark.account-more-options-page h2,
+body.dark.account-more-options-page p,
+body.dark.account-more-options-page label,
+body.dark.change-password-page h1,
+body.dark.change-password-page h2,
+body.dark.change-password-page p,
+body.dark.change-password-page label {
+  color: #212529 !important;
+}
+
+/* Wymuszenie jasnych stylów dla inputów na stronach auth */
+html[data-theme="dark"] body.login-page input,
+html[data-theme="dark"] body.login-page select,
+html[data-theme="dark"] body.login-page textarea,
+html[data-theme="dark"] body.account-settings-page input,
+html[data-theme="dark"] body.account-settings-page select,
+html[data-theme="dark"] body.account-settings-page textarea,
+html[data-theme="dark"] body.account-more-options-page input,
+html[data-theme="dark"] body.account-more-options-page select,
+html[data-theme="dark"] body.account-more-options-page textarea,
+html[data-theme="dark"] body.change-password-page input,
+html[data-theme="dark"] body.change-password-page select,
+html[data-theme="dark"] body.change-password-page textarea,
+body.dark.login-page input,
+body.dark.login-page select,
+body.dark.login-page textarea,
+body.dark.account-settings-page input,
+body.dark.account-settings-page select,
+body.dark.account-settings-page textarea,
+body.dark.account-more-options-page input,
+body.dark.account-more-options-page select,
+body.dark.account-more-options-page textarea,
+body.dark.change-password-page input,
+body.dark.change-password-page select,
+body.dark.change-password-page textarea {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border-color: #ced4da !important;
+}
+
+/* Wymuszenie jasnych stylów dla przycisków na stronach auth */
+html[data-theme="dark"] body.login-page .btn,
+html[data-theme="dark"] body.account-settings-page .btn,
+html[data-theme="dark"] body.account-more-options-page .btn,
+html[data-theme="dark"] body.change-password-page .btn,
+html[data-theme="dark"] body.login-page .more-options-btn,
+html[data-theme="dark"] body.login-page .logout-btn,
+html[data-theme="dark"] body.account-settings-page .more-options-btn,
+html[data-theme="dark"] body.account-settings-page .logout-btn,
+html[data-theme="dark"] body.account-more-options-page .more-options-btn,
+html[data-theme="dark"] body.account-more-options-page .logout-btn,
+html[data-theme="dark"] body.change-password-page .more-options-btn,
+html[data-theme="dark"] body.change-password-page .logout-btn,
+body.dark.login-page .btn,
+body.dark.account-settings-page .btn,
+body.dark.account-more-options-page .btn,
+body.dark.change-password-page .btn,
+body.dark.login-page .more-options-btn,
+body.dark.login-page .logout-btn,
+body.dark.account-settings-page .more-options-btn,
+body.dark.account-settings-page .logout-btn,
+body.dark.account-more-options-page .more-options-btn,
+body.dark.account-more-options-page .logout-btn,
+body.dark.change-password-page .more-options-btn,
+body.dark.change-password-page .logout-btn {
+  background: inherit !important;
+  background-color: inherit !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
+
+/* Ukrycie przycisku zmiany motywu na stronach auth */
+html[data-theme="dark"] body.login-page .theme-toggle-btn,
+html[data-theme="dark"] body.account-settings-page .theme-toggle-btn,
+html[data-theme="dark"] body.account-more-options-page .theme-toggle-btn,
+html[data-theme="dark"] body.change-password-page .theme-toggle-btn,
+body.dark.login-page .theme-toggle-btn,
+body.dark.account-settings-page .theme-toggle-btn,
+body.dark.account-more-options-page .theme-toggle-btn,
+body.dark.change-password-page .theme-toggle-btn {
+  display: none !important;
+}
+

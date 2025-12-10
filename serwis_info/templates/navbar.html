@@ -38,18 +38,22 @@
         <i class="bi bi-coin"></i>
       </a>
       {% endif %}
+      {% if request.endpoint not in ['auth.login', 'auth.register', 'main.account_settings', 'main.account_more_options', 'main.change_password'] %}
       <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
         <i class="bi bi-moon"></i>
         <i class="bi bi-sun" style="display: none;"></i>
       </button>
+      {% endif %}
         <a href="{{ url_for('main.account_settings') }}" class="icon-btn" title="Ustawienia konta">
           <i class="bi bi-gear"></i>
         </a>
       {% else %}
+        {% if request.endpoint not in ['auth.login', 'auth.register'] %}
         <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
           <i class="bi bi-moon"></i>
           <i class="bi bi-sun" style="display: none;"></i>
         </button>
+        {% endif %}
         <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
           <i class="bi bi-person-circle"></i>
         </a>

@@ -57,8 +57,25 @@
     setTheme(newTheme);
   }
 
+  // Sprawdź czy jesteśmy na stronie auth (logowanie, rejestracja, ustawienia)
+  function isAuthPage() {
+    const body = document.body;
+    return body.classList.contains('login-page') ||
+           body.classList.contains('account-settings-page') ||
+           body.classList.contains('account-more-options-page') ||
+           body.classList.contains('change-password-page');
+  }
+
   // Inicjalizacja przy załadowaniu strony
   document.addEventListener('DOMContentLoaded', function() {
+    // Jeśli jesteśmy na stronie auth, wymuś jasny styl i nie inicjalizuj przełącznika
+    if (isAuthPage()) {
+      // Wymuś jasny styl
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.classList.remove('dark');
+      return; // Wyjdź wcześniej, nie inicjalizuj przełącznika
+    }
+    
     console.log('Theme toggle script loaded');
     
     // Ustaw początkowy tryb
@@ -72,6 +89,10 @@
     
     themeButtons.forEach(button => {
       button.addEventListener('click', function() {
+        // Sprawdź ponownie czy nie jesteśmy na stronie auth
+        if (isAuthPage()) {
+          return;
+        }
         console.log('Theme toggle button clicked');
         toggleTheme();
       });
@@ -84,6 +105,10 @@
     if (window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       mediaQuery.addEventListener('change', function(e) {
+        // Nie reaguj na zmiany preferencji systemowych na stronach auth
+        if (isAuthPage()) {
+          return;
+        }
         // Tylko jeśli użytkownik nie ustawił ręcznie preferencji
         if (!localStorage.getItem('theme')) {
           setTheme(e.matches ? 'dark' : 'light');
