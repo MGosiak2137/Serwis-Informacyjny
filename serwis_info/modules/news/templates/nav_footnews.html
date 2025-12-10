@@ -17,22 +17,52 @@
   {% block header %}{% endblock %}
 </head>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.home-tile--clickable').forEach(function (tile) {
+
+      tile.addEventListener('click', function (e) {
+
+        const innerLink = e.target.closest('a');
+        if (innerLink) {
+          e.preventDefault();
+        }
+
+        const target = tile.dataset.target;
+        if (target) {
+          window.location.href = target;
+        }
+      });
+
+
+      tile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const target = tile.dataset.target;
+          if (target) {
+            window.location.href = target;
+          }
+        }
+      });
+
+      tile.setAttribute('tabindex', '0');
+      tile.setAttribute('role', 'link');
+    });
+  });
+</script>
+
+
+
+
 <body>
 {% include "navbar.html" %}
 <header class="site-header">
-  <div class="nav-inner" style="display: flex; justify-content: space-between; align-items: center;">
+  <div class="nav-inner">
     <nav class="nav-links" aria-label="Nawigacja newsów">
-      
-    <path d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1V9.5z"
-          fill="currentColor" />
-  </svg>
-</a>
-
-      <a href="{{ url_for('news.news_home') }}"
-         class="nav-btn {% if request.endpoint == 'news.news_home' %}nav-btn--active{% endif %}">
-        Strona główna
-      </a>
-
+        <a href="{{ url_for('news.news_home') }}" class="nav-btn">
+          <i class="bi bi-arrow-left"></i>
+          <span> Powrót </span>
+        </a>
       <a href="{{ url_for('news.crime_list') }}"
          class="nav-btn {% if request.endpoint == 'news.crime_list' %}nav-btn--active{% endif %}">
         Kryminalne – Kraków
@@ -47,56 +77,84 @@
          class="nav-btn {% if request.endpoint == 'news.search' or request.endpoint == 'news.search_results' %}nav-btn--active{% endif %}">
         Wyszukiwarka
       </a>
+    <a href="{{ url_for('news.bookmarks') }}"
+        class="nav-btn {% if request.endpoint == 'news.bookmarks' %}nav-btn--active{% endif %}">
+        Zakładki
+    </a>
 
     </nav>
   </div>
 </header>
 
-
-  {% block main %}
+{% block main %}
   <main class="page-main">
     <section class="hero">
-      <h1>Moduł newsowy</h1>
-      <p>Wybierz kategorię wiadomości lub przejdź do wyszukiwarki.</p>
+     <div class="home-tiles">
 
-      <div class="home-tiles">
-        <!-- Kafelek: kryminalne -->
-        <a href="{{ url_for('news.crime_list') }}" class="home-tile home-tile-crime">
-          <div class="home-tile-header">
-            <h2>Kryminalne – Kraków</h2>
-            <p>Napady, zatrzymania, komunikaty policji i służb.</p>
-          </div>
+  <!-- KAFEL KRYMINALNE (klik cały) -->
+  <a href="{{ url_for('news.crime_list') }}" class="home-tile home-tile-crime home-tile--biglink">
+    <div class="home-tile-header">
+      <h2>Kryminalne – Kraków</h2>
+      <p>Napady, zatrzymania, komunikaty policji i służb.</p>
+    </div>
 
-          <div class="home-tile-news-slot">
-            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy kryminalne -->
-            <p class="home-tile-placeholder">
-              Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
-            </p>
-          </div>
+    <div class="home-tile-news-slot">
+      {% if crime_latest %}
+        <ul class="home-tile-list">
+          {% for n in crime_latest %}
+            <li>
+              <span class="home-tile-article">
+                <span class="home-tile-article-title">{{ n.title }}</span>
+                {% if n.published_at %}
+                  <span class="home-tile-date">{{ n.published_at.strftime("%d.%m") }}</span>
+                {% endif %}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="home-tile-placeholder">
+          Wkrótce: ostatnie zeskrapowane wiadomości kryminalne.
+        </p>
+      {% endif %}
+    </div>
 
-          <span class="home-tile-cta">Przejdź do listy artykułów</span>
-        </a>
+    <span class="home-tile-cta-link">PRZEJDŹ DO LISTY ARTYKUŁÓW</span>
+  </a>
 
-        <!-- Kafelek: sport -->
-        <a href="{{ url_for('news.sport_list') }}" class="home-tile home-tile-sport">
-          <div class="home-tile-header">
-            <h2>Sport – Polska</h2>
-            <p>Ekstraklasa, reprezentacja, żużel i inne wydarzenia sportowe.</p>
-          </div>
+  <!-- KAFEL SPORT (klik cały) -->
+  <a href="{{ url_for('news.sport_list') }}" class="home-tile home-tile-sport home-tile--biglink">
+    <div class="home-tile-header">
+      <h2>Sport – Polska</h2>
+      <p>Ekstraklasa, reprezentacja, żużel i inne wydarzenia sportowe.</p>
+    </div>
 
-          <div class="home-tile-news-slot">
-            <!-- tu kiedyś wejdą ostatnie zeskrapowane newsy sportowe -->
-            <p class="home-tile-placeholder">
-              Wkrótce: ostatnie zeskrapowane wiadomości sportowe.
-            </p>
-          </div>
+    <div class="home-tile-news-slot">
+      {% if sport_latest %}
+        <ul class="home-tile-list">
+          {% for n in sport_latest %}
+            <li>
+              <span class="home-tile-article">
+                <span class="home-tile-article-title">{{ n.title }}</span>
+                {% if n.published_at %}
+                  <span class="home-tile-date">{{ n.published_at.strftime("%d.%m") }}</span>
+                {% endif %}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+      {% endif %}
+    </div>
 
-          <span class="home-tile-cta">Przejdź do listy artykułów</span>
-        </a>
-      </div>
+    <span class="home-tile-cta-link">PRZEJDŹ DO LISTY ARTYKUŁÓW</span>
+  </a>
+
+</div>
+
     </section>
   </main>
-  {% endblock %}
+{% endblock %}
 
   <footer class="main-footer" role="contentinfo" aria-label="Stopka strony">
     <p class="mb-0">© 2025 Serwis informacyjny</p>

@@ -12,6 +12,15 @@
       {% if articles %}
         {% for n in articles %}
         <article class="news-card">
+          {# --- PRZYCISK ZAKŁADKI W PRAWYM GÓRNYM ROGU --- #}
+          <button class="bookmark-btn"
+                  type="button"
+                  aria-label="Dodaj do zakładek"
+                  data-article-id="{{ n.id_number }}">
+            <i class="bi bi-bookmark"></i>
+          </button>
+          {# ----------------------------------------------- #}
+
           <header>
             <h3>
               <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
@@ -28,7 +37,7 @@
           <footer class="news-footer">
             {% if n.subcategory %}
             <span class="tag">
-              {{n.subcategory }}
+              {{ n.subcategory }}
             </span>
             {% endif %}
             <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">Szczegóły</a>
