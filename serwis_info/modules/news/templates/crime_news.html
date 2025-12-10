@@ -12,9 +12,18 @@
       {% if articles %}
         {% for n in articles %}
         <article class="news-card">
+          <!-- PRZYCISK ZAKŁADEK W PRAWYM GÓRNYM ROGU -->
+          <button class="bookmark-btn"
+                  type="button"
+                  data-article-id="{{ n.id_number }}">
+            <i class="bi bi-bookmark"></i>
+          </button>
+
           <header>
             <h3>
-              <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
+              <a href="{{ url_for('news.detail', news_id=n.id_number) }}">
+                {{ n.title }}
+              </a>
             </h3>
             <p class="news-meta">
               {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
@@ -26,7 +35,9 @@
           {% endif %}
 
           <footer class="news-footer">
-            <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">Szczegóły</a>
+            <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">
+              Szczegóły
+            </a>
           </footer>
         </article>
         {% endfor %}

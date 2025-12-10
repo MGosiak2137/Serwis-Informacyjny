@@ -78,7 +78,7 @@ body.home-page {
 
 /* Kolorowe cienie dla poszczególnych kafelków */
 .card-item.card-news {
-  background: linear-gradient(135deg, #2e9c60 0%, #50b329 50%, #84f589 100%);
+  background: linear-gradient(135deg, #2e9c60 0%, #50b329 50%, #47dc4b 100%);
   border: 2px solid rgba(34, 197, 94, 0.6);
   box-shadow: 0 4px 12px rgba(6, 95, 70, 0.3);
   color: white;

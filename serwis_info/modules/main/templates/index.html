@@ -89,6 +89,7 @@
               <div class="carousel-item {% if loop.first %}active{% endif %} h-100">
                 <a href="{{ url_for('news.news_home') }}" class="news-preview-slide">
 
+
                   <div class="news-preview-image-wrapper">
                     {% if item.image_url %}
                       <img src="{{ item.image_url }}"
@@ -102,10 +103,9 @@
                   </div>
 
                   <div class="news-preview-caption">
-                    <h3 class="news-preview-title">{{ item.title }}</h3>
+                      <h3  class="news-preview-title">{{ item.title }}</h3>
                     <p class="news-preview-summary">{{ item.summary or '' }}</p>
                   </div>
-
                 </a>
               </div>
               {% endfor %}

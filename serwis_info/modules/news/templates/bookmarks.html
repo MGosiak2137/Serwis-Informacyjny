@@ -1,0 +1,59 @@
+{% extends "nav_footnews.html" %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section class="news-section news-crime">
+    <h2>Twoje zakładki</h2>
+    <p class="lead">Artykuły zapisane do przeczytania.</p>
+
+    <div class="news-list">
+      {% if bookmarked_articles %}
+        {% for article in bookmarked_articles %}
+        <article class="news-card">
+          <!-- PRZYCISK USUWANIA ZAKŁADKI W PRAWYM GÓRNYM ROGU -->
+          <button class="bookmark-remove-btn"
+                  type="button"
+                  data-article-id="{{ article.article_id }}"
+                  aria-label="Usuń zakładkę">
+            <i class="bi bi-bookmark-fill"></i>
+          </button>
+
+          <header>
+            <h3>
+              <a href="{{ url_for('news.detail', news_id=article.article_id) }}">
+                {{ article.article_title }}
+              </a>
+            </h3>
+            <p class="news-meta">
+              {{ article.timestamp }}
+            </p>
+          </header>
+
+          {% if article.article_summary or article.summary %}
+          <p class="news-summary">{{ article.article_summary or article.summary }}</p>
+          {% endif %}
+
+          <footer class="news-footer">
+            {% if article.article_category or article.category %}
+            <span class="tag" data-category="{{ article.article_category or article.category }}">
+              {{ article.article_category or article.category }}
+            </span>
+            {% endif %}
+            <a href="{{ url_for('news.detail', news_id=article.article_id) }}" class="btn-secondary">
+              Szczegóły
+            </a>
+          </footer>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Brak zapisanych artykułów.</p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+<script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
+
+{% endblock %}
