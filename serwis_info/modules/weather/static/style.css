@@ -535,3 +535,21 @@ body {
 .weather-back-btn {
   margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
 }
+
+/* ---------- forecast calendar & modal ---------- */
+.forecast-calendar { padding: 0.6rem; }
+.calendar-days { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.7rem; }
+.cal-day-btn { padding:0.5rem 0.8rem; border-radius:8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; }
+.cal-day-btn:hover { transform:translateY(-2px); box-shadow:0 6px 12px rgba(37,99,235,0.08);}
+
+
+.selected-day-details { margin-top:0.6rem; background:#f8fafc; padding:0.8rem; border-radius:10px; border:1px solid #e0e7ff; }
+
+
+.hourly-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index:2000; }
+.hourly-modal { background:#fff; padding:1rem; border-radius:12px; width:min(900px,95%); max-height:90vh; overflow:auto; box-shadow:0 12px 40px rgba(0,0,0,0.2);}
+.hourly-modal-close { position:absolute; right:1rem; top:1rem; border:none; background:transparent; font-size:1.1rem; cursor:pointer; }
+.hour-row { padding:0.4rem 0; border-bottom:1px dashed #e6eefc; }
+
+
+@media (max-width:600px){ .calendar-days { gap:0.4rem; } .hourly-modal { width:98%; padding:0.6rem; } }
