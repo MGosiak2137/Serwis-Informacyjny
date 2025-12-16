@@ -422,10 +422,6 @@ p {
   z-index: 1;
 }
 
-/* zakładka ma być najwyżej i klikalna */
-.news-card--clickable .bookmark-btn{
-  z-index: 3;
-}
 
 .news-meta {
   font-size: 0.78rem;
@@ -545,7 +541,7 @@ transition: background 0.15s ease,
   margin-bottom: 0.6rem;
 }
 
-detail-meta {
+.detail-meta {
   font-size: 0.8rem;
   color: #6b7280;
   display: flex;
@@ -1048,13 +1044,34 @@ header.site-header {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.bookmark-remove-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.6rem;
-    color: #70c613;
-    padding: .25rem;
-    border-radius: .5rem;
-    flex-shrink: 0;
+.bookmark-remove-btn i {
+  font-size: 1.3rem;
+  color: #22c55e;
+}
+.bookmark-remove-btn:hover {
+  background: #ecfdf5;
+}
+/* tylko dla detail */
+.detail-header .bookmark-btn {
+  position: static;       /* albo absolute jeśli chcesz w rogu detaila */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: #064e3b;
+  padding: .25rem;
+  border-radius: .5rem;
+  flex-shrink: 0;
+}
+
+.detail-header .bookmark-btn:hover {
+  background: #ecfdf5;
+}
+.news-card { position: relative; }
+
+.news-card .bookmark-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
 }

@@ -11,43 +11,49 @@
     <div class="news-list">
       {% if articles %}
         {% for n in articles %}
-        <article class="news-card">
+          <article class="news-card">
 
-          <!-- ZAKŁADKA -->
-          <button class="bookmark-btn"
-                  type="button"
-                  data-article-id="{{ n.id_number or n.id }}"
-                  aria-label="Dodaj do zakładek">
-            <i class="bi bi-bookmark"></i>
-          </button>
+            <!-- IKONA ZAKŁADKI – TYLKO WIZUALNA -->
+            <button class="bookmark-btn"
+                    type="button"
+                    data-article-id="{{ n.id_number or n.id }}"
+                    data-title="{{ n.title|e }}"
+                    data-category="{{ n.subcategory or '' }}"
+                    data-summary="{{ (n.content[0] if n.content else '')|e }}"
+                    data-source="{{ n.source_name or n.author or '' }}"
+                    data-url="{{ n.url or '' }}"
+                    aria-label="Dodaj do zakładek">
+              <i class="bi bi-bookmark"></i>
+            </button>
 
-          <header>
-            <h3>
-              <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}">
-                {{ n.title }}
+
+            <header>
+              <h3>
+                <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}">
+                  {{ n.title }}
+                </a>
+              </h3>
+
+              <p class="news-meta">
+                {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+                {% if n.subcategory %}
+                  · {{ n.subcategory }}
+                {% endif %}
+              </p>
+            </header>
+
+            {% if n.content %}
+              <p class="news-summary">{{ n.content[0] }}</p>
+            {% endif %}
+
+            <footer class="news-footer">
+              <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
+                 class="btn-secondary">
+                Szczegóły
               </a>
-            </h3>
+            </footer>
 
-            <p class="news-meta">
-              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
-              {% if n.subcategory %}
-                · {{ n.subcategory }}
-              {% endif %}
-            </p>
-          </header>
-
-          {% if n.content %}
-            <p class="news-summary">{{ n.content[0] }}</p>
-          {% endif %}
-
-          <footer class="news-footer">
-            <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
-               class="btn-secondary">
-              Szczegóły
-            </a>
-          </footer>
-
-        </article>
+          </article>
         {% endfor %}
       {% else %}
         <p class="muted">Brak artykułów.</p>
@@ -55,4 +61,8 @@
     </div>
   </section>
 </main>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
 {% endblock %}
