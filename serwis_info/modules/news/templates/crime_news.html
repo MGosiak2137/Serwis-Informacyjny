@@ -11,35 +11,44 @@
     <div class="news-list">
       {% if articles %}
         {% for n in articles %}
-        <article class="news-card">
-          <!-- PRZYCISK ZAKŁADEK W PRAWYM GÓRNYM ROGU -->
-          <button class="bookmark-btn"
-                  type="button"
-                  data-article-id="{{ n.id_number }}">
-            <i class="bi bi-bookmark"></i>
-          </button>
+                    <article class="news-card news-card--clickable">
+              <!-- “niewidzialny” link przykrywający całą kartę -->
+              <a class="news-card-link"
+                 href="{{ url_for('news.detail', news_id=n.id_number) }}"
+                 aria-label="Otwórz artykuł: {{ n.title }}"></a>
 
-          <header>
-            <h3>
-              <a href="{{ url_for('news.detail', news_id=n.id_number) }}">
-                {{ n.title }}
-              </a>
-            </h3>
-            <p class="news-meta">
-              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
-            </p>
-          </header>
+              <!-- PRZYCISK ZAKŁADEK -->
+              <button class="bookmark-btn"
+                      type="button"
+                      data-article-id="{{ n.id_number }}"
+                      aria-label="Dodaj do zakładek">
+                <i class="bi bi-bookmark"></i>
+              </button>
 
-          {% if n.content %}
-          <p class="news-summary">{{ n.content[0] }}</p>
-          {% endif %}
+              <header>
+                <h3 class="news-title">
+                  <a class="news-title-link"
+                     href="{{ url_for('news.detail', news_id=n.id_number) }}">
+                    {{ n.title }}
+                  </a>
+                </h3>
 
-          <footer class="news-footer">
-            <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">
-              Szczegóły
-            </a>
-          </footer>
-        </article>
+                <p class="news-meta">
+                  {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+                </p>
+              </header>
+
+              {% if n.content %}
+                <p class="news-summary">{{ n.content[0] }}</p>
+              {% endif %}
+
+              <footer class="news-footer">
+                <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">
+                  Szczegóły
+                </a>
+              </footer>
+            </article>
+
         {% endfor %}
       {% else %}
         <p class="muted">Brak artykułów.</p>

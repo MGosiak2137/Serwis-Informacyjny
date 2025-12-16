@@ -405,6 +405,27 @@ p {
   text-decoration: none;
 }
 
+.news-card--clickable{
+  position: relative;
+}
+
+.news-card--clickable .news-card-link{
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 2
+}
+
+/* cała treść ma być “nad” linkiem, żeby dało się zaznaczać tekst itd. */
+.news-card > *:not(.news-card-link) {
+  position: relative;
+  z-index: 1;
+}
+
+/* zakładka ma być najwyżej i klikalna */
+.news-card--clickable .bookmark-btn{
+  z-index: 3;
+}
 
 .news-meta {
   font-size: 0.78rem;
@@ -738,7 +759,7 @@ detail-meta {
   .btn-secondary {
     flex-shrink: 0;
   }
-}
+
 
 @media (max-width: 520px) {
   .nav-inner {
