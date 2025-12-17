@@ -28,7 +28,7 @@
                     data-source="{{ n.source_name or n.author or '' }}"
                     data-url="{{ n.url or '' }}"
                     aria-label="Dodaj do zakładek">
-              <i class="bi bi-bookmark"></i>
+              <i class="bi {{ 'bi-bookmark-fill' if (n.id_number or n.id) in bookmarked_ids else 'bi-bookmark' }}"></i>
             </button>
 
             <header>

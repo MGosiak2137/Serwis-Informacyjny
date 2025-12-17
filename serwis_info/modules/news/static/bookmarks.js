@@ -1,4 +1,31 @@
 // news/static/bookmarks.js
+
+// ===== WSPÓLNE POWIADOMIENIA =====
+function notify(message, error = false) {
+  const n = document.createElement('div');
+  n.textContent = message;
+  n.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${error ? '#ef4444' : '#22c55e'};
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 9999;
+    font-size: 0.9rem;
+  `;
+  document.body.appendChild(n);
+  setTimeout(() => n.remove(), 2500);
+}
+
+function setIcon(icon, active) {
+  if (!icon) return;
+  icon.classList.toggle('bi-bookmark-fill', active);
+  icon.classList.toggle('bi-bookmark', !active);
+}
+
+// ===== USUWANIE ZAKŁADEK NA STRONIE /news/bookmarks =====
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('.bookmark-remove-btn');
   if (!btn) return;
@@ -44,29 +71,12 @@ document.addEventListener('click', async (e) => {
   }
 });
 
-function notify(message, error = false) {
-  const n = document.createElement('div');
-  n.textContent = message;
-  n.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${error ? '#ef4444' : '#22c55e'};
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    z-index: 9999;
-    font-size: 0.9rem;
-  `;
-  document.body.appendChild(n);
-  setTimeout(() => n.remove(), 2500);
-}
-// ===== BOOKMARKS Z LIST (CRIME / SPORT) =====
+// ===== BOOKMARKI Z LIST (CRIME / SPORT) =====
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('.bookmark-btn[data-article-id]');
   if (!btn) return;
 
-  // NIE ruszamy detaila (on ma swój JS)
+  // NIE ruszamy detaila (detail ma swój JS)
   if (document.querySelector('.detail-page')) return;
 
   e.preventDefault();
@@ -74,7 +84,7 @@ document.addEventListener('click', async (e) => {
 
   const icon = btn.querySelector('i');
   const articleId = btn.dataset.articleId;
-  const isActive = icon.classList.contains('bi-bookmark-fill');
+  const isActive = icon && icon.classList.contains('bi-bookmark-fill');
 
   try {
     if (isActive) {
@@ -87,6 +97,8 @@ document.addEventListener('click', async (e) => {
       if (res.ok) {
         setIcon(icon, false);
         notify('Usunięto z zakładek');
+      } else {
+        notify('Błąd usuwania', true);
       }
       return;
     }
@@ -104,35 +116,18 @@ document.addEventListener('click', async (e) => {
       })
     });
 
-    if (res.ok || res.status === 500) {
+    if (res.ok) {
       setIcon(icon, true);
-      notify(res.ok ? 'Dodano do zakładek' : 'Już w zakładkach');
+      notify('Dodano do zakładek');
+    } else if (res.status === 500) {
+      // u Ciebie 500 często oznacza UNIQUE constraint (już zapisane)
+      setIcon(icon, true);
+      notify('Już w zakładkach');
+    } else {
+      notify('Błąd zapisu', true);
     }
   } catch (err) {
     console.error(err);
     notify('Błąd połączenia', true);
   }
 });
-
-function setIcon(icon, active) {
-  if (!icon) return;
-  icon.classList.toggle('bi-bookmark-fill', active);
-  icon.classList.toggle('bi-bookmark', !active);
-}
-
-function notify(message, error = false) {
-  const n = document.createElement('div');
-  n.textContent = message;
-  n.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${error ? '#ef4444' : '#22c55e'};
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    z-index: 9999;
-  `;
-  document.body.appendChild(n);
-  setTimeout(() => n.remove(), 2500);
-}

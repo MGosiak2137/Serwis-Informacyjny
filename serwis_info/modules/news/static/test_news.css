@@ -416,11 +416,11 @@ p {
   z-index: 2
 }
 
-/* cała treść ma być “nad” linkiem, żeby dało się zaznaczać tekst itd. */
-.news-card > *:not(.news-card-link) {
+.news-card > *:not(.news-card-link):not(.bookmark-btn):not(.bookmark-remove-btn) {
   position: relative;
   z-index: 1;
 }
+
 
 
 .news-meta {
@@ -1011,7 +1011,7 @@ header.site-header {
     flex: 1;
     margin-right: 1rem;
 }
-
+/*
 .bookmark-btn {
     background: none;
     border: none;
@@ -1026,7 +1026,7 @@ header.site-header {
 .bookmark-btn:hover {
     background: #ecfdf5;
 }
-
+*/
 .bookmark-remove-btn {
   position: absolute;
   top: 0.75rem;
@@ -1051,6 +1051,7 @@ header.site-header {
 .bookmark-remove-btn:hover {
   background: #ecfdf5;
 }
+
 /* tylko dla detail */
 .detail-header .bookmark-btn {
   position: static;       /* albo absolute jeśli chcesz w rogu detaila */
@@ -1075,3 +1076,12 @@ header.site-header {
   right: 0.75rem;
   z-index: 10;
 }
+.news-card--clickable .bookmark-btn,
+.news-card--clickable .bookmark-remove-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 5;
+  pointer-events: auto;/* ważne: > z-index linka (2) */
+}
+

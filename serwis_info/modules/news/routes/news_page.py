@@ -69,10 +69,21 @@ def crime_list():
     except Exception as e:
         print(f"Error loading crime articles: {e}")
         articles = []
+
+    # ID zakładek użytkownika
+    bookmarked_ids = set()
+    try:
+        user_bookmarks = bookmarks_service.fetch_user_bookmarks(current_user.id) or []
+        bookmarked_ids = {b.get("article_id") for b in user_bookmarks if b.get("article_id")}
+    except Exception as e:
+        print(f"Error loading bookmarks IDs: {e}")
+        bookmarked_ids = set()
+
     return render_template(
         "crime_news.html",
         articles=articles,
         title="Wiadomości kryminalne",
+        bookmarked_ids=bookmarked_ids,
     )
 
 
@@ -85,11 +96,22 @@ def sport_list():
     except Exception as e:
         print(f"Error loading sport articles: {e}")
         articles = []
+
+    bookmarked_ids = set()
+    try:
+        user_bookmarks = bookmarks_service.fetch_user_bookmarks(current_user.id) or []
+        bookmarked_ids = {b.get("article_id") for b in user_bookmarks if b.get("article_id")}
+    except Exception as e:
+        print(f"Error loading bookmarks IDs: {e}")
+        bookmarked_ids = set()
+
     return render_template(
         "sport_news.html",
         articles=articles,
         title="Wiadomości sportowe",
+        bookmarked_ids=bookmarked_ids,
     )
+
 
 
 @news_bp.get("/detail/<news_id>")
