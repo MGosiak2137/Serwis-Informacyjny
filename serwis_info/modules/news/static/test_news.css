@@ -19,14 +19,12 @@ body {
   min-height: 100vh;
 }
 
-
 a,
 a:focus,
 a:focus-visible,
 a:active {
   text-decoration: none;
 }
-
 
 h1,
 h2,
@@ -104,7 +102,6 @@ p {
   text-decoration: none;
 }
 
-
 .nav-btn-home {
   background: #064e3b;
   color: #ffffff;
@@ -118,7 +115,6 @@ p {
   border-color: #022c22;
 }
 
-
 .nav-btn-login {
   margin-left: auto;
   background: #ffffff;
@@ -130,7 +126,6 @@ p {
 .nav-btn-login:focus-visible {
   background: #ecfdf5;
 }
-
 
 .nav-btn-home-icon {
   width: 48px;
@@ -160,7 +155,6 @@ p {
   fill: currentColor;
 }
 
-
 .nav-btn--active {
   background: #064e3b;
   color: #ffffff;
@@ -183,20 +177,16 @@ p {
   padding: 3rem 2rem;
 }
 
-
 .hero {
   background: #ffffff;
   border-radius: 20px;
   padding: 4rem 3rem;
   box-shadow: 0 8px 24px rgba(6,95,70,0.12);
   border: 1px solid #bbf7d0;
-
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
-
-
 
 .hero h1 {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
@@ -222,16 +212,13 @@ p {
   justify-content: center;
 }
 
-
 .home-tile {
   flex: 1 1 48%;
   max-width: 48%;
   min-width: 22rem;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   padding: 2.2rem 2.4rem;
   border-radius: 1.25rem;
   background: #fefce8;
@@ -246,7 +233,6 @@ p {
   flex-direction: column;
 }
 
-
 .home-tile--link:hover {
   transform: translateY(-0.15rem);
   box-shadow: 0 0.75rem 2rem rgba(6, 95, 70, 0.18);
@@ -259,10 +245,6 @@ p {
   }
 }
 
-
-
-
-
 .home-tile-list {
   list-style: none;
   margin: 0;
@@ -272,7 +254,6 @@ p {
 .home-tile-list li + li {
   margin-top: 0.5rem;
 }
-
 
 .home-tile-article {
   display: inline-flex;
@@ -294,18 +275,15 @@ p {
   text-overflow: ellipsis;
 }
 
-
 .home-tile-date {
   font-size: 0.78rem;
   color: #6b7280;
 }
 
-
 .home-tile-article:hover {
   background: #a7f3d0;
   border-color: #22c55e;
 }
-
 
 .home-tile-cta-link {
   margin-top: 1.4rem;
@@ -317,18 +295,16 @@ p {
   color: #064e3b;
 }
 
-
 @media (max-width: 48rem) {
   .home-tiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
   }
 
   .home-tile {
     flex: 1 1 calc(50% - 2rem);
   }
-
 }
 
 .home-tile-header h2 {
@@ -361,13 +337,11 @@ p {
   font-size: 0.95rem;
 }
 
-
 .news-list {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
 }
-
 
 .news-card {
   background: #ffffff;
@@ -380,7 +354,6 @@ p {
   gap: 0.5rem;
   transition: transform 0.1s ease, box-shadow 0.15s ease,
     border-color 0.15s ease;
-
   position: relative;
 }
 
@@ -413,15 +386,14 @@ p {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  z-index: 2
+  z-index: 2;
 }
 
+/* treść nad linkiem, ale NIE dotykamy przycisków zakładek */
 .news-card > *:not(.news-card-link):not(.bookmark-btn):not(.bookmark-remove-btn) {
   position: relative;
   z-index: 1;
 }
-
-
 
 .news-meta {
   font-size: 0.78rem;
@@ -440,7 +412,6 @@ p {
   gap: 0.4rem;
   align-items: center;
 }
-
 
 .tag {
   padding: 0.15rem 0.55rem;
@@ -465,13 +436,12 @@ p {
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-transition: background 0.15s ease,
-            color 0.15s ease,
-            transform 0.08s ease,
-            box-shadow 0.15s ease,
-            border-color 0.15s ease;
+  transition: background 0.15s ease,
+              color 0.15s ease,
+              transform 0.08s ease,
+              box-shadow 0.15s ease,
+              border-color 0.15s ease;
 }
-
 
 .btn-primary {
   color: #333;
@@ -487,7 +457,6 @@ transition: background 0.15s ease,
   transform: translateY(-1px);
 }
 
-
 .btn-secondary {
   background: #ffffff;
   color: #333;
@@ -500,7 +469,6 @@ transition: background 0.15s ease,
   border-color: #22c55e;
   box-shadow: 0 4px 12px rgba(212, 143, 168, 0.20);
 }
-
 
 .btn-link {
   background: transparent;
@@ -515,10 +483,6 @@ transition: background 0.15s ease,
   color: #064e3b;
   text-decoration: none;
 }
-
-/* ========== STOPKA ========== */
-
-/* Footer styles now handled by global .main-footer in style.css */
 
 /* ========== STRONA SZCZEGÓŁU (detail) ========== */
 
@@ -576,14 +540,12 @@ transition: background 0.15s ease,
   margin-bottom: 0.75rem;
 }
 
-
 .detail-footer {
   margin-top: 1.4rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
 }
-
 
 .error-message {
   text-align: center;
@@ -604,7 +566,6 @@ transition: background 0.15s ease,
   max-width: 1300px;
   margin: 0 auto;
 }
-
 
 .search-page .search-section {
   display: grid;
@@ -663,7 +624,6 @@ transition: background 0.15s ease,
   border-color: #22c55e;
 }
 
-
 .search-results {
   margin-top: 0.8rem;
 }
@@ -672,7 +632,6 @@ transition: background 0.15s ease,
   font-size: 1rem;
   margin-bottom: 0.3rem;
 }
-
 
 .search-history {
   background: #ffffff;
@@ -735,27 +694,26 @@ transition: background 0.15s ease,
   }
 }
 
-  .hero {
-    padding: 2rem 1.4rem;
-  }
+.hero {
+  padding: 2rem 1.4rem;
+}
 
-  .news-card {
-    padding: 0.9rem 1rem;
-  }
+.news-card {
+  padding: 0.9rem 1rem;
+}
 
-  .form-actions {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    margin-top: .5rem;
-  }
+.form-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: .5rem;
+}
 
-  .btn-primary,
-  .btn-secondary {
-    flex-shrink: 0;
-  }
-
+.btn-primary,
+.btn-secondary {
+  flex-shrink: 0;
+}
 
 @media (max-width: 520px) {
   .nav-inner {
@@ -788,18 +746,15 @@ transition: background 0.15s ease,
   align-items: flex-end;
 }
 
-
 .search-row > label {
   width: 100%;
 }
-
 
 .form-actions {
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
 }
-
 
 .form-actions .btn-primary,
 .form-actions .btn-secondary {
@@ -830,7 +785,6 @@ header.site-header {
 
 /* Upewnij się, że navbar działa poprawnie na mobile */
 @media (max-width: 768px) {
-  /* Navbar przeniesiony na dół - nadpisanie klasy fixed-top z Bootstrap */
   nav.main-navbar.fixed-top,
   .navbar.main-navbar.fixed-top,
   .main-navbar.fixed-top {
@@ -868,45 +822,15 @@ header.site-header {
     justify-content: center !important;
   }
 
-  /* Dostosuj margines dla header */
   header.site-header {
     margin-top: 0 !important;
-    margin-bottom: 60px !important; /* Miejsce na navbar na dole */
+    margin-bottom: 60px !important;
   }
 
   body {
-    padding-bottom: 60px !important; /* Miejsce na navbar na dole */
+    padding-bottom: 60px !important;
   }
 }
-
-
-.home-tile-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.home-tile-list li + li {
-  margin-top: 0.35rem;
-}
-
-.home-tile-list a {
-  font-size: 0.9rem;
-  color: #064e3b;
-}
-
-.home-tile-list a:hover,
-.home-tile-list a:focus-visible {
-  color: #022c22;
-}
-
-.home-tile-date {
-  margin-left: 0.4rem;
-  font-size: 0.78rem;
-  color: #6b7280;
-}
-
-
 
 /* ===========================================
    STRONA GŁÓWNA NEWSÓW
@@ -921,7 +845,6 @@ header.site-header {
   padding: 2rem 2rem;
 }
 
-
 .news-home-page .home-tiles {
   flex: 1;
   display: flex;
@@ -933,7 +856,6 @@ header.site-header {
   padding: 1.6rem 1.8rem;
 }
 
-/* Reakcja na mniejsze laptopy */
 @media (max-height: 800px) {
   .news-home-page .hero {
     padding-top: 1.5rem;
@@ -960,14 +882,23 @@ header.site-header {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(6,95,70,0.20);
 }
-/* ----- Ikona zakładki — wspólny wygląd ----- */
+
+/* ===========================
+   ZAKŁADKI (JEDNA WERSJA CSS)
+   =========================== */
+
+/* globalny przycisk zakładki (lista + domyślnie) */
 .bookmark-btn {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
   background: transparent;
   border: none;
-  padding: 0.25rem;
   border-radius: 999px;
   cursor: pointer;
 
@@ -976,11 +907,14 @@ header.site-header {
   justify-content: center;
 
   transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 5;             /* > z-index linka (2) */
+  pointer-events: auto;
 }
 
 .bookmark-btn i {
   font-size: 1.3rem;
   color: #6b7280;
+  pointer-events: none;   /* klik zawsze trafia w button */
 }
 
 .bookmark-btn:hover {
@@ -992,48 +926,22 @@ header.site-header {
   color: #064e3b;
 }
 
-/* Stan aktywny */
 .bookmark-btn.active i {
   color: #22c55e;
 }
-.detail-header {
-    position: relative;
-}
-.detail-header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 100%;
-}
 
-.detail-header-top h1 {
-    flex: 1;
-    margin-right: 1rem;
-}
-/*
-.bookmark-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.6rem;
-    color: #064e3b;
-    padding: .25rem;
-    border-radius: .5rem;
-    flex-shrink: 0;
-}
-
-.bookmark-btn:hover {
-    background: #ecfdf5;
-}
-*/
+/* remove na stronie Zakładki */
 .bookmark-remove-btn {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
   background: transparent;
   border: none;
-  padding: 0.25rem;
   border-radius: 999px;
   cursor: pointer;
 
@@ -1042,46 +950,61 @@ header.site-header {
   justify-content: center;
 
   transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 5;
+  pointer-events: auto;
 }
 
 .bookmark-remove-btn i {
   font-size: 1.3rem;
   color: #22c55e;
+  pointer-events: none;
 }
+
 .bookmark-remove-btn:hover {
   background: #ecfdf5;
 }
 
-/* tylko dla detail */
+/* detail layout */
+.detail-header {
+  position: relative;
+}
+
+.detail-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.detail-header-top h1 {
+  flex: 1;
+  margin-right: 1rem;
+  min-width: 0; /* ważne w flex, żeby h1 nie nachodził na button */
+}
+
+/* tylko dla detail: button w nagłówku (nie absolute) */
 .detail-header .bookmark-btn {
-  position: static;       /* albo absolute jeśli chcesz w rogu detaila */
+  position: relative; /* nie static */
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.6rem;
-  color: #064e3b;
-  padding: .25rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: .5rem;
   flex-shrink: 0;
+
+  z-index: 20;
+  pointer-events: auto;
 }
 
 .detail-header .bookmark-btn:hover {
   background: #ecfdf5;
 }
-.news-card { position: relative; }
-
-.news-card .bookmark-btn {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 10;
-}
-.news-card--clickable .bookmark-btn,
-.news-card--clickable .bookmark-remove-btn {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 5;
-  pointer-events: auto;/* ważne: > z-index linka (2) */
-}
-

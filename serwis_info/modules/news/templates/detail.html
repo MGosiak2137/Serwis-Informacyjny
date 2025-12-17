@@ -7,16 +7,17 @@
       <article class="news-detail">
         {% if article %}
         <header class="detail-header">
-        <div class="detail-header">
-            <div class="detail-header-top">
-                <div class="detail-header-top">
-                    <h1>{{ article.title }}</h1>
+          <div class="detail-header-top">
+            <h1>{{ article.title }}</h1>
 
-                    <button class="bookmark-btn" aria-label="Dodaj do zakładek" data-article-id="{{ article.id_number or article.id }}" data-is-bookmarked="{{ is_bookmarked|lower }}">
-                        <i class="bi bi-bookmark" id="bookmark-icon"></i>
-                    </button>
-                </div>
-            </div>
+            <button class="bookmark-btn"
+                    type="button"
+                    aria-label="Dodaj do zakładek"
+                    data-article-id="{{ article.id_number or article.id }}"
+                    data-is-bookmarked="{{ is_bookmarked|lower }}">
+              <i class="bi bi-bookmark" id="bookmark-icon"></i>
+            </button>
+          </div>
 
           <div class="detail-meta">
             <span>{{ article.published_at.strftime("%d.%m.%Y %H:%M") }}</span>
