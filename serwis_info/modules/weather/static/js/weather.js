@@ -22,12 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         forecast.forEach(day => {
             box.innerHTML += `
-                <div class="forecast-item">
-                    <img class="f-icon" src="https://openweathermap.org/img/wn/${day.icon}.png">
-                    <span class="f-date">${day.date.slice(5)}</span>
-                    <span class="f-temp">${day.temp}°C</span>
-                    <span class="f-desc">${day.desc}</span>
-                </div>
+                <div class="forecast-day">
+            <img class="f-icon" src="https://openweathermap.org/img/wn/${day.icon}.png">
+            <span class="f-date">${day.date.slice(5)}</span>
+            <span class="f-temp">${day.temp}°C</span>
+        </div>
             `;
         });
     });
