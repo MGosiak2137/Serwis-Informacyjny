@@ -5,6 +5,7 @@ from app.models import User
 from app.forms import ChangePasswordForm
 import os
 import json
+import threading
 
 main_bp = Blueprint(
     "main",
@@ -115,26 +116,50 @@ def get_calendar():
 @main_bp.route("/api/exchange")
 def home():
     from serwis_info.modules.main.routes import exchange_service
-    eur_pln, usd_pln = exchange_service.get_currency_rates()
-    gold_price = exchange_service.get_gold_price()
-    # attempt to fetch historical gold prices (last 90 days)
+
+    # Serve gold data immediately from cache (fast)
     gold_history = []
     try:
         gold_history = exchange_service.get_gold_history(90)
     except Exception:
         gold_history = []
 
-    # fetch small FX histories for USD/PLN and EUR/PLN (last 30 days)
+    # Use cached latest price (fast) rather than blocking network call
+    gold_price = exchange_service.get_cached_latest_price()
+
+    # Obtain last known FX rates quickly from in-memory cache (may be None)
+    eur_pln, usd_pln = exchange_service.get_last_rates()
+
+    # If we don't have rates yet, trigger a background refresh (non-blocking)
+    if eur_pln is None or usd_pln is None:
+        try:
+            threading.Thread(target=exchange_service.get_currency_rates, daemon=True).start()
+        except Exception:
+            pass
+
+    # fetch small FX histories for USD/PLN and EUR/PLN (last 30 days) — prefer fast cached histories and refresh in background if short
     usd_history = []
     eur_history = []
     try:
-        usd_history = exchange_service.get_currency_history('USD', 'PLN', 30)
+        usd_history = exchange_service.get_cached_currency_history('USD', 'PLN', 30)
     except Exception:
         usd_history = []
     try:
-        eur_history = exchange_service.get_currency_history('EUR', 'PLN', 30)
+        eur_history = exchange_service.get_cached_currency_history('EUR', 'PLN', 30)
     except Exception:
         eur_history = []
+
+    # if cached histories are missing or too short, trigger a background fetch to populate them
+    try:
+        if not usd_history or len(usd_history) < 30:
+            threading.Thread(target=exchange_service.get_currency_history, args=('USD', 'PLN', 30), daemon=True).start()
+    except Exception:
+        pass
+    try:
+        if not eur_history or len(eur_history) < 30:
+            threading.Thread(target=exchange_service.get_currency_history, args=('EUR', 'PLN', 30), daemon=True).start()
+    except Exception:
+        pass
 
     return jsonify(
         eur_pln=eur_pln,
