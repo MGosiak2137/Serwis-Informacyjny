@@ -32,6 +32,18 @@ CREATE TABLE IF NOT EXISTS bookmarks (
 )
 """)
 
+c.execute("""
+CREATE TABLE IF NOT EXISTS articles_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    article_id TEXT NOT NULL,
+    article_title TEXT NOT NULL,
+    viewed_at TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE(user_id, article_id)
+)
+""")
+
 conn.commit()
 print(">>> USING DATABASE:", DB_PATH)
 

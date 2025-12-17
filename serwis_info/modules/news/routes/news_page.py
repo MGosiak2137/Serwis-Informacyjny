@@ -7,6 +7,7 @@ from flask_login import login_required, current_user
 
 from serwis_info.modules.news.services import articles_data_giver
 from serwis_info.modules.news.services import bookmarks_service
+from serwis_info.modules.news.services import history_service
 
 _sample_articles = articles_data_giver._sample_articles
 _sample_history = articles_data_giver._sample_history
@@ -130,13 +131,23 @@ def detail(news_id):
         print(f"Error loading article detail: {e}")
         return "Błąd podczas ładowania artykułu", 500
 
+    try:
+        history_service.record_view(current_user.id, article)
+    except Exception as e:
+        print(f"Error recording viewed article: {e}")
+
     return render_template("detail.html", article=article)
 
 
 @news_bp.get("/search")
 @login_required
 def search():
-    history = _sample_history()
+    try:
+        history = history_service.get_view_history(current_user.id, limit=10)
+    except Exception as e:
+        print(f"Error loading view history: {e}")
+        history = []
+
     return render_template(
         "news_search.html",
         results=None,
@@ -182,7 +193,12 @@ def search_results():
         else:
             results = articles
 
-    history = _sample_history()
+    try:
+        history = history_service.get_view_history(current_user.id, limit=10)
+    except Exception as e:
+        print(f"Error loading view history: {e}")
+        history = []
+
     return render_template(
         "news_search.html",
         results=results,

@@ -94,8 +94,13 @@
         {% if history %}
           {% for h in history %}
           <li>
-            <span class="hist-query">{{ h.query }}</span>
-            <span class="hist-meta">{{ h.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+            <a class="hist-query" href="{{ url_for('news.detail', news_id=h.article_id) }}">
+              {{ h.article_title }}
+            </a>
+            <span class="hist-meta">
+              {{ h.viewed_at }}
+              {% if h.article_category %} • {{ h.article_category }}{% endif %}
+            </span>
           </li>
           {% endfor %}
         {% else %}
@@ -103,7 +108,7 @@
         {% endif %}
       </ul>
       <p class="muted">
-        Logika usuwania/edycji historii może być później dopisana (zgodnie z UML).
+        To jest lista ostatnio przeglądanych artykułów.
       </p>
     </aside>
   </section>

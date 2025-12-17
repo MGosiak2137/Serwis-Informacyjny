@@ -43,17 +43,16 @@ def load_file_data(file_path):
         if os.path.exists(json_path):
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                print("DEBUG: Wczytano dane z JSON, typ:", type(data))  # Powinno być list
-                print("DEBUG: Pierwszy element typu:", type(data[0]) if data else "Brak danych")
+
 
                 # Spłaszczanie, jeśli data to lista list
                 if data and isinstance(data, list) and isinstance(data[0], list):
                     articles = [item for sublist in data for item in sublist]
-                    print("DEBUG: Spłaszczono listę list. Liczba artykułów:", len(articles))
+
                 else:
                     articles = data
 
-                print("DEBUG: Liczba artykułów po przetworzeniu:", len(articles))
+
 
                 # Przetwarzaj artykuły
                 for idx, article in enumerate(articles):
