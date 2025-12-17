@@ -133,6 +133,12 @@ def detail(news_id):
         print(f"Error checking is_bookmarked in detail: {e}")
         is_bookmarked_flag = False
 
+    try:
+        history_service.record_view(current_user.id, article)
+    except Exception as e:
+        print(f"Error recording viewed article: {e}")
+
+
     return render_template("detail.html", article=article, is_bookmarked=is_bookmarked_flag)
 
 
@@ -196,6 +202,7 @@ def search_results():
     except Exception as e:
         print(f"Error loading view history: {e}")
         history = []
+
 
     return render_template(
         "news_search.html",
