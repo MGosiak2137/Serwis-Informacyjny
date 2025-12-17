@@ -65,19 +65,17 @@ def news_home():
 @login_required
 def crime_list():
     try:
-        articles = load_articles("crime")
-        articles = _sort_articles(articles)
+        articles = _sort_articles(load_articles("crime"))
     except Exception as e:
         print(f"Error loading crime articles: {e}")
         articles = []
 
-    # ID zakładek użytkownika
-    bookmarked_ids = set()
+    # >>> bierzemy z bookmarks_service / repo
     try:
         user_bookmarks = bookmarks_service.fetch_user_bookmarks(current_user.id) or []
-        bookmarked_ids = {b.get("article_id") for b in user_bookmarks if b.get("article_id")}
+        bookmarked_ids = {str(b["article_id"]) for b in user_bookmarks}
     except Exception as e:
-        print(f"Error loading bookmarks IDs: {e}")
+        print(f"Error loading bookmarked_ids: {e}")
         bookmarked_ids = set()
 
     return render_template(
@@ -88,22 +86,21 @@ def crime_list():
     )
 
 
+
 @news_bp.get("/sport")
 @login_required
 def sport_list():
     try:
-        articles = load_articles("sport")
-        articles = _sort_articles(articles)
+        articles = _sort_articles(load_articles("sport"))
     except Exception as e:
         print(f"Error loading sport articles: {e}")
         articles = []
 
-    bookmarked_ids = set()
     try:
         user_bookmarks = bookmarks_service.fetch_user_bookmarks(current_user.id) or []
-        bookmarked_ids = {b.get("article_id") for b in user_bookmarks if b.get("article_id")}
+        bookmarked_ids = {str(b["article_id"]) for b in user_bookmarks}
     except Exception as e:
-        print(f"Error loading bookmarks IDs: {e}")
+        print(f"Error loading bookmarked_ids: {e}")
         bookmarked_ids = set()
 
     return render_template(
@@ -115,28 +112,29 @@ def sport_list():
 
 
 
+
 @news_bp.get("/detail/<news_id>")
 @login_required
 def detail(news_id):
     try:
         articles = load_articles("all")
-        # znajdź artykuł o podanym id_number
-        article = next(
-            (a for a in articles if a.get("id_number") == news_id),
-            None,
-        )
+        article = next((a for a in articles if a.get("id_number") == news_id), None)
         if article is None:
             return "Artykuł nie został znaleziony", 404
     except Exception as e:
         print(f"Error loading article detail: {e}")
         return "Błąd podczas ładowania artykułu", 500
 
+    # >>> TO JEST SYNCHRONIZACJA ZAKŁADKI (ważne)
     try:
-        history_service.record_view(current_user.id, article)
+        # bookmarks_repository.is_bookmarked(user_id, article_id)
+        is_bookmarked_flag = bookmarks_service.is_bookmarked(current_user.id, news_id)
     except Exception as e:
-        print(f"Error recording viewed article: {e}")
+        print(f"Error checking is_bookmarked in detail: {e}")
+        is_bookmarked_flag = False
 
-    return render_template("detail.html", article=article)
+    return render_template("detail.html", article=article, is_bookmarked=is_bookmarked_flag)
+
 
 
 @news_bp.get("/search")

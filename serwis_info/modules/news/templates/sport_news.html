@@ -11,9 +11,14 @@
     <div class="news-list">
       {% if articles %}
         {% for n in articles %}
-          <article class="news-card">
+          <article class="news-card news-card--clickable">
 
-            <!-- IKONA ZAKŁADKI – TYLKO WIZUALNA -->
+            <!-- LINK NA CAŁY KAFEL -->
+            <a class="news-card-link"
+               href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
+               aria-label="{{ n.title }}"></a>
+
+            <!-- IKONA ZAKŁADKI -->
             <button class="bookmark-btn"
                     type="button"
                     data-article-id="{{ n.id_number or n.id }}"
@@ -23,16 +28,11 @@
                     data-source="{{ n.source_name or n.author or '' }}"
                     data-url="{{ n.url or '' }}"
                     aria-label="Dodaj do zakładek">
-                    <i class="bi {{ 'bi-bookmark-fill' if (n.id_number or n.id) in bookmarked_ids else 'bi-bookmark' }}"></i>
+              <i class="bi {{ 'bi-bookmark-fill' if (n.id_number or n.id) in bookmarked_ids else 'bi-bookmark' }}"></i>
             </button>
 
-
             <header>
-              <h3>
-                <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}">
-                  {{ n.title }}
-                </a>
-              </h3>
+              <h3>{{ n.title }}</h3>
 
               <p class="news-meta">
                 {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
@@ -47,10 +47,7 @@
             {% endif %}
 
             <footer class="news-footer">
-              <a href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
-                 class="btn-secondary">
-                Szczegóły
-              </a>
+              <span class="btn-secondary">Szczegóły</span>
             </footer>
 
           </article>
