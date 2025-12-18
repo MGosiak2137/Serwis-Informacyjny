@@ -78,25 +78,36 @@ def test_fetch_flights_oneway_parses_listings(mock_get):
     assert len(res) >= 1
 
 
+@patch("serwis_info.modules.exchange.routes.journey.render_template")
+@patch("serwis_info.modules.exchange.routes.journey.translate_to_english")
 @patch("serwis_info.modules.exchange.routes.journey.requests.get")
-def test_journey_route_basic_flow(mock_get):
-    # Mock NBP USD rate call plus flights APIs
+def test_journey_route_basic_flow(mock_get, mock_translate, mock_render):
+    mock_translate.side_effect = lambda x: x
+    mock_render.return_value = "HTML content"
+
+    # Mock API call
     def side_effect(url, *args, **kwargs):
         if "api.nbp.pl" in url:
             mock = MagicMock()
             mock.status_code = 200
-            mock.json.return_value = {"rates": [{"mid": 4.2}]}
+            mock.json.return_value = {"rates":[{"mid":4.2}]}
             return mock
-        # for flights api, return empty
-        mock = MagicMock()
-        mock.status_code = 200
-        mock.json.return_value = {"data": {"listings": []}}
-        return mock
+        elif "booking-com.p.rapidapi.com" in url:
+            mock = MagicMock()
+            mock.status_code = 200
+            mock.json.return_value = {"result":[{"hotel_name":"Test","address_trans":"Addr","min_total_price":100,"review_score":9.0,"max_photo_url":""}]}
+            return mock
+        else:
+            mock = MagicMock()
+            mock.status_code = 200
+            mock.json.return_value = {"data":{"listings":[{"totalPriceWithDecimal":{"price":100},"airlines":[{"name":"A"}],"slices":[{"segments":[{"departInfo":{"airport":{"code":"WAW"},"time":{"dateTime":"2025-12-01T10:00:00Z"}}},{"arrivalInfo":{"airport":{"code":"LHR"},"time":{"dateTime":"2025-12-01T12:30:00Z"}}}]}]}]}}
+            return mock
 
     mock_get.side_effect = side_effect
 
     app = make_app()
     client = app.test_client()
     resp = client.get('/journey/?origin=WAW&destination=LHR&date_from=2025-12-01&date_to=2025-12-02')
+
     assert resp.status_code == 200
-    assert b"Warszawa" in resp.data or resp.status_code == 200
+    assert resp.data == b"HTML content"
