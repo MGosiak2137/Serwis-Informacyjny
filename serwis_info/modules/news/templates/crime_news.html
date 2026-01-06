@@ -1,12 +1,13 @@
 {% extends "nav_footnews.html" %}
 
+{% block page_title %}Wiadomości Kryminalne - Kraków{% endblock %}
+{% block page_subtitle %}Zestawienie najnowszych informacji kryminalnych z Krakowa{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block main %}
 <main class="page-main">
   <section class="news-section news-crime">
-    <h2>{{ title or "Wiadomości kryminalne — Kraków" }}</h2>
-    <p class="lead">Zestawienie najnowszych informacji kryminalnych z Krakowa.</p>
 
     <div class="news-list">
       {% if articles %}

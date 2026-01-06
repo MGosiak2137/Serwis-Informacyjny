@@ -1,14 +1,18 @@
 {% extends "nav_foot_eco.html" %}
 
+{% block page_title %}Kursy Walut{% endblock %}
+{% block page_subtitle %}Aktualne kursy wymiany walut i przelicznik walutowy{% endblock %}
+
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='currencies.css') }}">
+{% endblock %}
+
+{% block header_js %}
 <script src="{{ url_for('currencies.static', filename='currencies.js') }}"></script>
 {% endblock %}
 
 {% block main %}
-<main class="page-main">
   <section id="home" class="currency-section">
-    <h2>{{ title or "Kursy walut" }}</h2>
 
     <div class="currency-container">
       {% if rates %}
@@ -98,5 +102,4 @@
       {% endif %}
     </div>
   </section>
-</main>
 {% endblock %}

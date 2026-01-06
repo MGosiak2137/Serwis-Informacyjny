@@ -846,14 +846,89 @@ body.dark .hero {
 
 /* Tło strony pogody */
 [data-theme="dark"] body,
-body.dark body {
+[data-theme="dark"] body.weather-dashboard-page,
+body.dark body,
+body.dark body.weather-dashboard-page {
   background: var(--bg-primary) !important;
   color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] html,
+[data-theme="dark"] html body.weather-dashboard-page,
+body.dark html,
+body.dark html body.weather-dashboard-page {
+  background: var(--bg-primary) !important;
 }
 
 [data-theme="dark"] .weather-dashboard,
 body.dark .weather-dashboard {
   background: transparent !important;
+}
+
+/* Wrapper dla tytułu i dashboard */
+[data-theme="dark"] .weather-content-wrapper,
+body.dark .weather-content-wrapper {
+  background: transparent !important;
+}
+
+/* Tytuł strony pogody */
+[data-theme="dark"] .weather-page-header,
+[data-theme="dark"] .weather-page-header h1,
+body.dark .weather-page-header,
+body.dark .weather-page-header h1 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .weather-page-header .page-subtitle,
+body.dark .weather-page-header .page-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+/* Kalendarz prognozy */
+[data-theme="dark"] .forecast-calendar,
+body.dark .forecast-calendar {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cal-day-btn,
+body.dark .cal-day-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cal-day-btn:hover,
+body.dark .cal-day-btn:hover {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .selected-day-details,
+body.dark .selected-day-details {
+  background: var(--bg-tertiary) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Modal godzinowy */
+[data-theme="dark"] .hourly-modal-overlay,
+body.dark .hourly-modal-overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .hourly-modal,
+body.dark .hourly-modal {
+  background: var(--bg-secondary) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .hour-row,
+body.dark .hour-row {
+  border-bottom-color: rgba(59, 130, 246, 0.2) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Sidebar - Hero i Panel */

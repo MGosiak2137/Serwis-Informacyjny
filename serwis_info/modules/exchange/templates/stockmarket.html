@@ -1,16 +1,21 @@
 {% extends "nav_foot_eco.html" %}
+
+{% block page_title %}Giełda — Przegląd Rynku{% endblock %}
+{% block page_subtitle %}Śledź notowania akcji, indeksów i innych instrumentów finansowych{% endblock %}
+
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('currencies.static', filename='stockmarket.css') }}">
+{% endblock %}
+
+{% block header_js %}
 <script src="{{ url_for('currencies.static', filename='script.js') }}" defer></script>
 <script src="{{ url_for('currencies.static', filename='stockmarket.js') }}"></script>
 {% endblock %}
 {% block main %}
-<main class="page-main">
   <section id="home" class="stockmarket-section">
-    <header class="sm-hero">
-      <h2>{{ title or "Giełda — przegląd rynku" }}</h2>
-      <p style="font-size:0.9em;color:#666;">Ostatnia aktualizacja: {{ update_time or 'n/d' }} (odświeżanie co 60 sekund)</p>
-    </header>
+    <div class="update-info" style="text-align:center;margin-bottom:1rem;font-size:0.9em;color:#666;">
+      Ostatnia aktualizacja: {{ update_time or 'n/d' }} (odświeżanie co 60 sekund)
+    </div>
 
     <div class="sm-tabs" style="margin:1rem 0;display:flex;gap:0.5rem;align-items:center;">
       <button id="tab-category" class="tab-btn active" onclick="showTab('category')">Kategoria</button>
@@ -168,6 +173,4 @@
 
     <div id="stockmarket-init" data-selected-category="{{ selected_category or '' }}" data-current-range="{{ current_range or '' }}" data-selected-symbols="{{ selected_symbols|join(',') if selected_symbols else '' }}" style="display:none;"></div>
   </section>
-</main>
-
 {% endblock %}

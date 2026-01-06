@@ -1,12 +1,13 @@
 {% extends "nav_footnews.html" %}
 
+{% block page_title %}Wiadomości Sportowe - Polska{% endblock %}
+{% block page_subtitle %}Najważniejsze informacje sportowe z całej Polski{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block main %}
 <main class="page-main">
   <section class="news-section news-sport">
-    <h2>{{ title or "Wiadomości sportowe — Polska" }}</h2>
-    <p class="lead">Najważniejsze informacje sportowe z całej Polski.</p>
 
     <div class="news-list">
       {% if articles %}

@@ -14,9 +14,8 @@ html,body{
   min-height:100vh;
   background: #f7f7f9;
 }
-body{
+body.eco-module{
   margin:0;
-  margin-top: 60px; /* Account for navbar */
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background: #f7f7f9;
   color:var(--text);
@@ -30,9 +29,10 @@ body{
 /* Main demo area */
 .page-main{
   flex: 1 0 auto;
-  max-width:1100px;
-  margin:2rem auto;
-  padding:0 1rem;
+  max-width:1000px;
+  width: 100%;
+  margin:0 auto 2rem auto;
+  padding:0;
 }
 .hero{background:var(--card);padding:2rem;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);border:1px solid rgba(0,0,0,0.06)}
 .hero h1{margin:0 0 0.5rem 0}
@@ -43,9 +43,14 @@ body{
   /* ustawione na kolor stopki */
   background: var(--footer-bg);
   border-bottom: 1px solid rgba(255,255,255,0.04);
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .nav-inner{
-  max-width:1100px;
+  max-width:1000px;
   margin:0 auto;
   padding:1rem 1.5rem;
   display:flex;
@@ -53,15 +58,15 @@ body{
   gap:1.25rem;
   justify-content:center;
 }
-/* Nav links: 3 przyciski równomiernie rozłożone - ulepszone */
+/* Nav links: przyciski równomiernie rozłożone - ulepszone */
 .nav-links{
   flex:1 1 auto;
-  width:80%;
-  max-width:900px;
+  width:100%;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  gap:1.25rem;
+  gap:1rem;
+  flex-wrap: wrap;
 }
 /* Nav buttons - ulepszone kształty i padding */
 .nav-btn{
@@ -77,6 +82,8 @@ body{
   font-size: 0.95rem;
   min-width: 100px;
   text-align: center;
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
 .nav-btn:hover{
   background: linear-gradient(90deg, rgba(255,106,0,1), rgba(255,59,48,0.95));
@@ -110,18 +117,15 @@ body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4
 /* Responsive: zachowaj logiczne zachowanie na mobile */
 @media (max-width:720px){
   .nav-inner{padding:0.5rem 0.75rem;flex-direction:column;align-items:center;gap:0.5rem}
-  .nav-links{width:100%;justify-content:space-around;gap:0.5rem}
-  .nav-btn{padding:0.5rem 0.75rem; font-size:0.95rem}
+  .nav-links{width:100%;justify-content:center;gap:0.75rem;flex-wrap:wrap}
+  .nav-btn{padding:0.6rem 1rem; font-size:0.9rem;min-width:auto;flex:1 1 calc(50% - 0.375rem)}
 }
 
-/* Dodanie marginesu dla header.site-header, aby znajdował się poniżej navbar */
-header.site-header {
-  margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
-}
+/* Site header jest już w template.html, nie potrzebuje dodatkowego marginesu */
 
 /* Preferences Section */
 .preferences-section {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .preferences-section h2 {

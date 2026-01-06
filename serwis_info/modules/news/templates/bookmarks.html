@@ -1,12 +1,12 @@
 {% extends "nav_footnews.html" %}
 
+{% block page_title %}Twoje Zakładki{% endblock %}
+{% block page_subtitle %}Artykuły zapisane do przeczytania{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block main %}
-<main class="page-main">
   <section class="news-section news-crime">
-    <h2>Twoje zakładki</h2>
-    <p class="lead">Artykuły zapisane do przeczytania.</p>
 
     <div class="news-list">
       {% if bookmarked_articles %}
@@ -52,8 +52,8 @@
       {% endif %}
     </div>
   </section>
-</main>
+{% endblock %}
 
+{% block news_extra_js %}
 <script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
-
 {% endblock %}

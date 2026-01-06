@@ -13,6 +13,55 @@ body {
   flex-direction: column;
 }
 
+/* ===========================
+   TYTUŁY STRON (PAGE HEADER) - IDENTYCZNE JAK HOROSKOP
+   =========================== */
+.page-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0.3rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-header h1 {
+  color: #333;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.page-header .page-subtitle {
+  color: #666;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 300;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Specjalne style dla różnych modułów */
+.eco-module .page-header h1 {
+  color: #ff6a00;
+}
+
+.news-module .page-header h1 {
+  color: #064e3b;
+}
+
+.weather-dashboard-page .page-header h1 {
+  color: #1e3a8a;
+}
+
+.weather-page-header {
+  padding: 0.3rem 0;
+  margin-bottom: 0.5rem;
+}
+
 /* Główna przestrzeń pod navbar – wspólna dla wszystkich stron */
 .main-content {
   flex: 1 0 auto;
@@ -26,6 +75,30 @@ body {
   box-sizing: border-box;
   overflow: hidden;
   min-height: 0;
+}
+
+/* Dla modułów z page-header (ekonomia, news) - NIE dla strony głównej */
+.eco-module .main-content,
+.weather-dashboard-page .main-content {
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  overflow-y: visible;
+}
+
+/* Tylko dla modułu wiadomości - bez padding, aby navbar był na pełnej szerokości */
+.news-module .main-content {
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0;
+  width: 100%;
+  overflow-y: visible;
+}
+
+/* Margines nad tytułem w module wiadomości - taki sam jak padding w horoskopie */
+.news-module .page-header {
+  margin-top: 1.5rem;
 }
 
 /* Stopka – wspólna dla wszystkich stron */
@@ -60,6 +133,13 @@ body {
     margin: 0 auto;
     overflow: visible;
     align-items: flex-start;
+  }
+  
+  /* Strona główna na mobile */
+  body.home-page .main-content {
+    width: 90%;
+    padding: 0.5rem 0.5rem;
+    overflow: visible;
   }
 
   .main-footer {

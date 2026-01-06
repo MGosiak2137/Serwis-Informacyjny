@@ -1,12 +1,13 @@
 {% extends "nav_foot_eco.html" %}
+
+{% block page_title %}Wyszukiwarka Lotów{% endblock %}
+{% block page_subtitle %}Znajdź najlepsze ceny lotów i hoteli dla swojej podróży{% endblock %}
+
 {% block header %}
 <link rel="stylesheet" href="{{ url_for('journey.static', filename='journey.css') }}">
 {% endblock %}
 {% block main %}
-<main class="page-main journey-page">
 <section class="journey-section">
-<h2>Wyszukiwarka lotów</h2>
-<p class="lead">Znajdź najlepsze ceny lotów w obie strony.</p>
 <form class="journey-form" method="get" action="/journey">
 <label> Miasto lub lotnisko wylotu
 <input type="text" name="origin" placeholder="np. Warszawa lub WAW" value="{{ origin or '' }}">
@@ -114,7 +115,6 @@
 {% endif %}
 
 </section>
-</main>
 <script>
 const messages = [
     "Wyszukujemy Twoją wymarzoną podróż...",
