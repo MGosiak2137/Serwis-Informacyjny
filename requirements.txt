@@ -8,6 +8,7 @@ python-dotenv
 requests
 beautifulsoup4
 selenium
+schedule
 
 python-dateutil
 holidays

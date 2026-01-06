@@ -7,8 +7,8 @@ import random
 
 
 def articles_builder(id_number,category,subcategory,link,title,author_name,author_link,date,content,content_format,images):
-    articles = []
-    articles.append({
+    # Zwracamy słownik bezpośrednio, nie listę z jednym słownikiem
+    return {
         "id_number": id_number,
         "category": category,
         "subcategory": subcategory.rstrip("/"),
@@ -20,8 +20,7 @@ def articles_builder(id_number,category,subcategory,link,title,author_name,autho
         "content": content,
         "content_format": content_format,
         "images": images
-    })
-    return articles
+    }
 
 def id_generator(prefix,length,used_ids):
     while True:
