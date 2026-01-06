@@ -1,11 +1,18 @@
 import sqlite3
 import os
 
+import os
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DB_PATH = os.path.join(BASE_DIR, "news.db")
+
+DB_PATH = os.getenv(
+    "NEWS_DB_PATH",
+    os.path.join(BASE_DIR, "news.db")
+)
 
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
+
 
 # tabela użytkowników
 c.execute("""

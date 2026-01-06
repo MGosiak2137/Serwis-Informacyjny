@@ -8,6 +8,9 @@ python-dotenv
 requests
 beautifulsoup4
 selenium
+pytest
+playwright
+pytest-playwright
 
 python-dateutil
 holidays
