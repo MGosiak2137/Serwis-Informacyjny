@@ -15,3 +15,9 @@ yfinance
 psycopg2-binary
 email-validator
 googletrans
+
+# Testy
+pytest
+pytest-flask
+playwright
+pytest-playwright
