@@ -113,6 +113,11 @@ body {
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
+
+/* Ensure any panel using weather-panel layout (e.g. user panel) has full-width buttons */
+.weather-panel .weather-btn-secondary {
+  width: 100%;
+}
 .weather-panel button:hover {
   background: #e0f2fe;
   border-color: #2563eb;
@@ -127,6 +132,18 @@ body {
 #panelContent p {
   margin: 0.5rem 0;
   line-height: 1.4;
+}
+
+/* Gdy panel jest rozwinięty - dopasuj wygląd do okienka ostrzeżeń */
+#panelContent:not(.hidden) {
+  display: block;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid #e0e7ff;
+  box-shadow: 0 2px 12px rgba(26, 58, 82, 0.1);
+  text-align: center;
+  color: #1e3a8a;
 }
 .weather-panel .hidden {
   display: none;
@@ -262,6 +279,8 @@ body {
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(26, 58, 82, 0.1);
   border: 1px solid #e0e7ff;
+  position: relative;
+  z-index: 50;
 }
 .weather-layers-box h3 {
   font-size: 0.85rem;
@@ -273,9 +292,42 @@ body {
 }
 
 .weather-layer-selector {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.8rem;
+  align-items: stretch;
+}
+
+.weather-layer-selector label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: #f8fafc;
+  border: 1px solid #e0e7ff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e3a8a;
+  text-align: center;
+}
+
+.weather-layer-selector label:hover {
+  background: #e6f0ff;
+  border-color: #93c5fd;
+}
+
+.weather-layer-selector input[type="radio"],
+.weather-layer-selector input[type="checkbox"] {
+  margin: 0;
+  transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+  .weather-layer-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .layer-btn {
@@ -547,7 +599,18 @@ body {
 
 
 .hourly-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; z-index:2000; }
-.hourly-modal { background:#fff; padding:1rem; border-radius:12px; width:min(900px,95%); max-height:90vh; overflow:auto; box-shadow:0 12px 40px rgba(0,0,0,0.2);}
+.hourly-modal { 
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1rem;
+  border-radius: 14px;
+  width: min(900px,95%);
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 4px 16px rgba(26,58,82,0.15);
+  border: 1px solid #e0e7ff;
+  color: #1e3a8a;
+  text-align: center;
+}
 .hourly-modal-close { position:absolute; right:1rem; top:1rem; border:none; background:transparent; font-size:1.1rem; cursor:pointer; }
 .hour-row { padding:0.4rem 0; border-bottom:1px dashed #e6eefc; }
 

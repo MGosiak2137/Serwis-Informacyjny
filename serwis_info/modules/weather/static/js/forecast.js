@@ -132,11 +132,7 @@ async function onSelectCalendarDay(event) {
 
         let html = `
             <div class="day-details">
-                <h4>Prognoza na ${new Date(date).toLocaleDateString("pl-PL", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long"
-                })}</h4>
+                <h4>Prognoza na ${date}</h4>
                 <ul class="hour-list">
         `;
 
@@ -203,54 +199,83 @@ const slice = data.list.slice(start, end);
     const chartLabels = slice.map(i => i.dt_txt.split(" ")[1].slice(0, 5));
     const chartTemps = slice.map(i => i.main.temp);
 
-    // 📌 OTWIERAMY NOWE OKNO
-    const win = window.open("", "_blank", "width=700,height=600");
+    // Tworzymy modal w-stronie (używamy klas .hourly-modal-overlay i .hourly-modal ze style.css)
+    const overlay = document.createElement("div");
+    overlay.className = "hourly-modal-overlay";
 
-    win.document.write(`
-        <html>
-        <head>
-            <title>Prognoza godzinowa - ${city}</title>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        </head>
-        <body style="font-family:Arial;padding:20px">
-        
+    const canvasId = `hourChart-${Date.now()}`;
+
+    // Rozdziel datę i godzinę: "2026-01-10 00:00:00" -> datePart="2026-01-10", timeShort="00:00"
+    const [datePart, timePart] = (fullDateTime || '').split(' ');
+    const timeShort = timePart ? timePart.slice(0,5) : '';
+
+    overlay.innerHTML = `
+        <div class="hourly-modal" role="dialog" aria-modal="true">
+            <button class="hourly-modal-close" aria-label="Zamknij">×</button>
             <h2>Prognoza godzinowa</h2>
             <h3>${city}</h3>
-            <p><b>Godzina:</b> ${fullDateTime}</p>
+            <p><b>Data:</b> ${datePart}</p>
+            <p><b>Godzina:</b> ${timeShort}</p>
             <p><b>Temperatura:</b> ${temp}°C</p>
             <p><b>Opis:</b> ${desc}</p>
             <p><b>Wiatr:</b> ${wind} m/s</p>
             <p><b>Wilgotność:</b> ${hum}%</p>
             <p><b>Ciśnienie:</b> ${press} hPa</p>
-            
+
             <h3>Wykres temperatury</h3>
-            <canvas id="hourChart" width="600" height="300"></canvas>
+            <canvas id="${canvasId}" width="700" height="300"></canvas>
+        </div>
+    `;
 
-            <script>
-                const ctx = document.getElementById("hourChart").getContext("2d");
+    // Zamknięcie modala
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
 
-                new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: ${JSON.stringify(chartLabels)},
-                        datasets: [{
-                            label: "Temperatura (°C)",
-                            data: ${JSON.stringify(chartTemps)},
-                            borderWidth: 2,
-                            fill: false
-                        }]
-                    },
-                    options: {
-                        responsive: false,
-                        scales: {
-                            y: { beginAtZero: false }
-                        }
-                    }
-                });
-            </script>
+    document.body.appendChild(overlay);
 
-        </body>
-        </html>
-    `);
+    const closeBtn = overlay.querySelector(".hourly-modal-close");
+    if (closeBtn) closeBtn.addEventListener("click", () => overlay.remove());
+
+    // Upewnij się, że Chart.js jest załadowany (dashboard.html ładuje go po module)
+    async function ensureChart() {
+        if (window.Chart) return;
+        return new Promise(resolve => {
+            const s = document.createElement("script");
+            s.src = "https://cdn.jsdelivr.net/npm/chart.js";
+            s.onload = () => resolve();
+            document.head.appendChild(s);
+        });
+    }
+
+    await ensureChart();
+
+    try {
+        const ctx = overlay.querySelector(`#${canvasId}`).getContext("2d");
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: "Temperatura (°C)",
+                    data: chartTemps,
+                    borderWidth: 2,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37,99,235,0.08)',
+                    fill: true,
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: false }
+                }
+            }
+        });
+    } catch (err) {
+        console.error('Błąd inicjalizacji wykresu:', err);
+    }
 }
 

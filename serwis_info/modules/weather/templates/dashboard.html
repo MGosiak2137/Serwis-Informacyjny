@@ -32,7 +32,7 @@
         {% if current_user.is_authenticated %}
   <p>Cześć, <span id="usernameDisplay"></span>!</p>
 
-  <div id="userPanel" class="panel">
+  <div id="userPanel" class="weather-panel">
     <button id="togglePanelBtn" class="weather-btn-secondary">☰ Rozwiń panel</button>
     <div id="panelContent" class="hidden">
       <div class="history-section">
@@ -67,17 +67,20 @@
 </div>
   
 
-<!-- NAKŁADKI MAPY -->
-    <div class="weather-layers-box">
-        <h3>Warstwy mapy</h3>
+<!-- NAKŁADKI MAPY (przeniesione poniżej kart miasta) -->
+
+<div id="weatherInfoContainer" class="weather-cards-grid" style="display:flex; gap:15px;"></div>
+
+  <div class="weather-layers-box">
+    <h3>Warstwy mapy</h3>
     <div id="layerSelector" class="weather-layer-selector">
-    <label><input type="radio" name="weatherLayer" value="temp" checked> Temperatura</label>
-    <label><input type="radio" name="weatherLayer" value="rain"> Opady</label>
-    <label><input type="radio" name="weatherLayer" value="clouds"> Zachmurzenie</label>
-    <label><input type="radio" name="weatherLayer" value="wind"> Wiatr</label>
-    <label><input type="radio" name="weatherLayer" value="none"> Brak</label>
+      <label><input type="radio" name="weatherLayer" value="temp" checked> Temperatura</label>
+      <label><input type="radio" name="weatherLayer" value="rain"> Opady</label>
+      <label><input type="radio" name="weatherLayer" value="clouds"> Zachmurzenie</label>
+      <label><input type="radio" name="weatherLayer" value="wind"> Wiatr</label>
+      <label><input type="radio" name="weatherLayer" value="none"> Brak</label>
+    </div>
   </div>
-</div>
 
 <div id="weatherInfoContainer" class="weather-cards-grid" style="display:flex; gap:15px;"></div>
 <div id="map"></div>
