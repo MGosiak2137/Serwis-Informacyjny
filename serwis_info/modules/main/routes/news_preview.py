@@ -53,7 +53,6 @@ def load_news_preview(limit=3):
                 sport_data = json.load(f)
             if isinstance(sport_data, list):
                 all_articles.extend(sport_data)
-            current_app.logger.info("_load_news_preview: załadowano articles_sport.json")
     except Exception as e:
         current_app.logger.exception("_load_news_preview: błąd czytania articles_sport.json: %s", e)
 
@@ -64,7 +63,6 @@ def load_news_preview(limit=3):
                 crime_data = json.load(f)
             if isinstance(crime_data, list):
                 all_articles.extend(crime_data)
-            current_app.logger.info("_load_news_preview: załadowano articles_crime.json")
     except Exception as e:
         current_app.logger.exception("_load_news_preview: błąd czytania articles_crime.json: %s", e)
 
@@ -80,7 +78,6 @@ def load_news_preview(limit=3):
         else:
             flattened.append(item)
 
-    current_app.logger.info("_load_news_preview: po spłaszczeniu mam %d artykułów", len(flattened))
 
     # Normalizacja i parsowanie dat
     normalized = []
@@ -163,7 +160,5 @@ def load_news_preview(limit=3):
         if len(result) >= limit:
             break
 
-    for idx, art in enumerate(result):
-            print("  [%d] %s (id: %s)", idx, art["title"][:50], art.get("id", ""))
 
     return result

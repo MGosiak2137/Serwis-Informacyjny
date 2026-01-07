@@ -67,17 +67,27 @@
         <div class="news-list">
           {% if results %}
             {% for n in results %}
-            <article class="news-card">
-              <h4>
-                <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
-              </h4>
-              <p class="news-meta">
-                {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
-                • {{ n.category_label or '' }}
-              </p>
-              {% if n.summary %}
-              <p class="news-summary">{{ n.summary }}</p>
+            <article class="news-card news-card--clickable">
+
+              <!-- LINK NA CAŁY KAFEL -->
+              <a class="news-card-link"
+                 href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
+                 aria-label="{{ n.title }}"></a>
+
+              <header>
+                <h3>{{ n.title }}</h3>
+
+                <p class="news-meta">
+                  {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+                  • {{ n.category_label or '' }}
+                </p>
+              </header>
+
+              {% set summary = n.summary if n.summary else (n.content[1] if (n.content is defined and n.content|length > 1) else (n.content[0] if (n.content is defined and n.content|length > 0) else '')) %}
+              {% if summary %}
+              <p class="news-summary">{{ summary }}</p>
               {% endif %}
+
             </article>
             {% endfor %}
           {% else %}
@@ -94,8 +104,13 @@
         {% if history %}
           {% for h in history %}
           <li>
-            <span class="hist-query">{{ h.query }}</span>
-            <span class="hist-meta">{{ h.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+            <a class="hist-query" href="{{ url_for('news.detail', news_id=h.article_id) }}">
+              {{ h.article_title }}
+            </a>
+            <span class="hist-meta">
+              {{ h.viewed_at }}
+              {% if h.article_category %} • {{ h.article_category }}{% endif %}
+            </span>
           </li>
           {% endfor %}
         {% else %}
@@ -103,7 +118,7 @@
         {% endif %}
       </ul>
       <p class="muted">
-        Logika usuwania/edycji historii może być później dopisana (zgodnie z UML).
+        To jest lista ostatnio przeglądanych artykułów.
       </p>
     </aside>
   </section>

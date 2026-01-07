@@ -1,6 +1,5 @@
-
 from flask import (Blueprint, render_template, request, url_for, redirect)
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 import os
 
@@ -43,28 +42,38 @@ def load_file_data(file_path):
         if os.path.exists(json_path):
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                print("DEBUG: Wczytano dane z JSON, typ:", type(data))  # Powinno być list
-                print("DEBUG: Pierwszy element typu:", type(data[0]) if data else "Brak danych")
+
 
                 # Spłaszczanie, jeśli data to lista list
                 if data and isinstance(data, list) and isinstance(data[0], list):
                     articles = [item for sublist in data for item in sublist]
-                    print("DEBUG: Spłaszczono listę list. Liczba artykułów:", len(articles))
+
                 else:
                     articles = data
 
-                print("DEBUG: Liczba artykułów po przetworzeniu:", len(articles))
+
 
                 # Przetwarzaj artykuły
                 for idx, article in enumerate(articles):
                     article['id'] = idx + 1
                     if article.get('date'):
                         try:
-                            article['published_at'] = datetime.fromisoformat(article['date'])
+                            # parse ISO formats; handle trailing Z
+                            s = article['date']
+                            if isinstance(s, str) and s.endswith('Z'):
+                                s = s.replace('Z', '+00:00')
+                            dt = datetime.fromisoformat(s)
+                            # Normalize to UTC and make tz-aware
+                            if dt.tzinfo is None:
+                                dt = dt.replace(tzinfo=timezone.utc)
+                            else:
+                                dt = dt.astimezone(timezone.utc)
+                            article['published_at'] = dt
                         except Exception:
-                            article['published_at'] = datetime.utcnow()
+                            article['published_at'] = datetime.utcnow().replace(tzinfo=timezone.utc)
                     else:
-                        article['published_at'] = datetime.utcnow()
+                        # set default as UTC-aware now
+                        article['published_at'] = datetime.utcnow().replace(tzinfo=timezone.utc)
 
                 return articles
         else:

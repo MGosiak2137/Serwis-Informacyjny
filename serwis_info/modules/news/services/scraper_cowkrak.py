@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time, re, json
 from datetime import datetime
-from articles_data_builder import articles_builder, id_generator
+from serwis_info.modules.news.services.articles_data_builder import articles_builder, id_generator
 
 
 
@@ -17,7 +17,7 @@ url = "https://cowkrakowie.pl/category/kryminalne"
 
 prefix = "https://cowkrakowie.pl/"
 pattern = re.compile(r".*/[0-9]{4}/[0-9]{2}")  # artykuły z datą w URL
-size_of_scrap = 2  # liczba podstron do scrapowania
+# liczba podstron do scrapowania
 
 trash = [
     "cookies", "Polityka prywatności", "newsletter",
@@ -47,7 +47,9 @@ def extract_date_from_url(url):
 
 
  # lista do zapisania JSON
-def cowkrak_scraper_function():
+def cowkrak_scraper_function(size_of_scrap):
+    if size_of_scrap is None:
+        size_of_scrap = 1
     print("Rozpoczynanie scrapowania cowkrakowie.pl")
     articles = []
     used_ids = set()

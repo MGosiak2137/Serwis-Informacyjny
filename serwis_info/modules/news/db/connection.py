@@ -1,11 +1,18 @@
 import sqlite3
 import os
 
+import os
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DB_PATH = os.path.join(BASE_DIR, "news.db")
+
+DB_PATH = os.getenv(
+    "NEWS_DB_PATH",
+    os.path.join(BASE_DIR, "news.db")
+)
 
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
+
 
 # tabela użytkowników
 c.execute("""
@@ -27,6 +34,18 @@ CREATE TABLE IF NOT EXISTS bookmarks (
     article_source TEXT,
     article_url TEXT,
     timestamp TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE(user_id, article_id)
+)
+""")
+
+c.execute("""
+CREATE TABLE IF NOT EXISTS articles_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    article_id TEXT NOT NULL,
+    article_title TEXT NOT NULL,
+    viewed_at TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     UNIQUE(user_id, article_id)
 )

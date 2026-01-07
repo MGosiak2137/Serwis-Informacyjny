@@ -11,38 +11,46 @@
     <div class="news-list">
       {% if articles %}
         {% for n in articles %}
-        <article class="news-card">
-          {# --- PRZYCISK ZAKŁADKI W PRAWYM GÓRNYM ROGU --- #}
-          <button class="bookmark-btn"
-                  type="button"
-                  aria-label="Dodaj do zakładek"
-                  data-article-id="{{ n.id_number }}">
-            <i class="bi bi-bookmark"></i>
-          </button>
-          {# ----------------------------------------------- #}
+          <article class="news-card news-card--clickable">
 
-          <header>
-            <h3>
-              <a href="{{ url_for('news.detail', news_id=n.id_number) }}">{{ n.title }}</a>
-            </h3>
-            <p class="news-meta">
-              {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
-            </p>
-          </header>
+            <!-- LINK NA CAŁY KAFEL -->
+            <a class="news-card-link"
+               href="{{ url_for('news.detail', news_id=(n.id_number or n.id)) }}"
+               aria-label="{{ n.title }}"></a>
 
-          {% if n.content %}
-          <p class="news-summary">{{ n.content[0] }}</p>
-          {% endif %}
+            <!-- IKONA ZAKŁADKI -->
+            <button class="bookmark-btn"
+                    type="button"
+                    data-article-id="{{ n.id_number or n.id }}"
+                    data-title="{{ n.title|e }}"
+                    data-category="{{ n.subcategory or '' }}"
+                    data-summary="{{ (n.content[0] if n.content else '')|e }}"
+                    data-source="{{ n.source_name or n.author or '' }}"
+                    data-url="{{ n.url or '' }}"
+                    aria-label="Dodaj do zakładek">
+              <i class="bi {{ 'bi-bookmark-fill' if (n.id_number or n.id) in bookmarked_ids else 'bi-bookmark' }}"></i>
+            </button>
 
-          <footer class="news-footer">
-            {% if n.subcategory %}
-            <span class="tag">
-              {{ n.subcategory }}
-            </span>
+            <header>
+              <h3>{{ n.title }}</h3>
+
+              <p class="news-meta">
+                {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+                {% if n.subcategory %}
+                  · {{ n.subcategory }}
+                {% endif %}
+              </p>
+            </header>
+
+            {% if n.content %}
+              <p class="news-summary">{{ n.content[0] }}</p>
             {% endif %}
-            <a href="{{ url_for('news.detail', news_id=n.id_number) }}" class="btn-secondary">Szczegóły</a>
-          </footer>
-        </article>
+
+            <footer class="news-footer">
+              <span class="btn-secondary">Szczegóły</span>
+            </footer>
+
+          </article>
         {% endfor %}
       {% else %}
         <p class="muted">Brak artykułów.</p>
@@ -50,4 +58,8 @@
     </div>
   </section>
 </main>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
 {% endblock %}
