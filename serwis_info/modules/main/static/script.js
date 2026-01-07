@@ -217,13 +217,21 @@ document.addEventListener("DOMContentLoaded", () => {
         eurEl && (eurEl.textContent = 'brak danych');
         usdEl && (usdEl.textContent = 'brak danych');
         goldEl && (goldEl.textContent = 'brak danych');
+        try {
+          const goldLoading = document.getElementById('gold-chart-loading');
+          if (goldLoading) goldLoading.style.display = 'none';
+        } catch (e) { /* ignore */ }
       }
     }
-    async function loadGoldChart() {
+    async function loadGoldChart(passedData) {
       try {
-        const resp = await fetch('/main/api/exchange');
-        if (!resp.ok) throw new Error('Network response was not ok');
-        const data = await resp.json();
+        let data = passedData;
+        if (!data) {
+          const resp = await fetch('/main/api/exchange');
+          if (!resp.ok) throw new Error('Network response was not ok');
+          data = await resp.json();
+        }
+
         // prepare arrays for labels and prices
         const labels = [];
         const prices = [];
@@ -253,7 +261,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const canvas = document.getElementById('gold-chart');
-        if (!canvas) return;
+        const goldLoading = document.getElementById('gold-chart-loading');
+        if (goldLoading) goldLoading.style.display = 'flex';
+        if (goldLoading) goldLoading.style.display = 'flex';
+        if (!canvas) {
+          if (goldLoading) goldLoading.style.display = 'none';
+          return;
+        }
         // wymuś rozmiar css, Chart.js weźmie je pod uwagę przy maintainAspectRatio:false
         canvas.style.width = '100%';
         canvas.style.height = '150px';
@@ -309,6 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // wywołaj resize, żeby Chart.js dopasował się do nowych stylów
         try { window.goldChart.resize(); } catch (e) { /* ignore */ }
+        if (goldLoading) goldLoading.style.display = 'none';
 
         // zapewnij responsywne dopasowanie przy zmianie rozmiaru okna
         if (!window._goldChartResizeHandler) {
@@ -318,6 +333,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } catch (err) {
         console.error('Błąd wczytywania wykresu złota:', err);
+        try {
+          const goldLoading = document.getElementById('gold-chart-loading');
+          if (goldLoading) goldLoading.style.display = 'none';
+          const goldEl = document.getElementById('gold-price');
+          if (goldEl && (!goldEl.textContent || goldEl.textContent === 'Ładowanie...')) {
+            goldEl.textContent = 'brak danych';
+          }
+        } catch (e) { /* ignore */ }
       }
 }
 
@@ -410,11 +433,68 @@ function drawSparkline(canvasId, baseValue, history) {
       loadCalendar();
       loadExchange();
       updateClock();
-      loadGoldChart();
       setInterval(updateClock, 60000);
       // refresh exchange rates every 5 minutes
       setInterval(loadExchange, 300000);
+      // refresh exchange (including gold chart) every 2 minutes to pick up cache updates
+      setInterval(loadExchange, 120000);
     });
+
+    // Also refresh chart when exchange data contains gold_history
+    async function loadExchange() {
+      try {
+        // show loading placeholders immediately
+        const eurEl = document.getElementById('eur-pln');
+        const usdEl = document.getElementById('usd-pln');
+        const goldEl = document.getElementById('gold-price');
+        const goldLoading = document.getElementById('gold-chart-loading');
+        eurEl && (eurEl.textContent = 'Ładowanie...');
+        usdEl && (usdEl.textContent = 'Ładowanie...');
+        goldEl && (goldEl.textContent = 'Ładowanie...');
+        if (goldLoading) goldLoading.style.display = 'flex';
+
+        const resp = await fetch('/main/api/exchange');
+        if (!resp.ok) throw new Error('Network response was not ok');
+        const data = await resp.json();
+
+        eurEl && (eurEl.textContent = data.eur_pln !== null && data.eur_pln !== undefined ? Number(data.eur_pln).toFixed(4) : 'brak danych');
+        usdEl && (usdEl.textContent = data.usd_pln !== null && data.usd_pln !== undefined ? Number(data.usd_pln).toFixed(4) : 'brak danych');
+        goldEl && (goldEl.textContent = data.gold_price !== null && data.gold_price !== undefined ? Number(data.gold_price).toFixed(2) : 'brak danych');
+
+        // If backend gave fresh gold_history, re-render chart immediately (pass data to avoid double-fetch)
+        if (data && Array.isArray(data.gold_history) && data.gold_history.length > 0) {
+          loadGoldChart(data);
+        } else {
+          // no gold_history: still redraw chart (deterministic)
+          loadGoldChart(data);
+        }
+
+        // draw small sparklines under each currency (existing logic follows)
+        try {
+          // prefer real history if backend provided it
+          if (data && Array.isArray(data.usd_history) && data.usd_history.length > 0) {
+            drawSparkline('usd-spark', Number(data.usd_pln), data.usd_history);
+          } else if (data && (data.usd_pln || data.usd_pln === 0)) { drawSparkline('usd-spark', Number(data.usd_pln)); }
+          if (data && Array.isArray(data.eur_history) && data.eur_history.length > 0) {
+            drawSparkline('eur-spark', Number(data.eur_pln), data.eur_history);
+          } else if (data && (data.eur_pln || data.eur_pln === 0)) { drawSparkline('eur-spark', Number(data.eur_pln)); }
+        } catch (err) {
+          console.error('Błąd rysowania sparkline:', err);
+        }
+      } catch (err) {
+        console.error('Błąd wczytywania kursów:', err);
+        const eurEl = document.getElementById('eur-pln');
+        const usdEl = document.getElementById('usd-pln');
+        const goldEl = document.getElementById('gold-price');
+        eurEl && (eurEl.textContent = 'brak danych');
+        usdEl && (usdEl.textContent = 'brak danych');
+        goldEl && (goldEl.textContent = 'brak danych');
+        try {
+          const goldLoading = document.getElementById('gold-chart-loading');
+          if (goldLoading) goldLoading.style.display = 'none';
+        } catch (e) { /* ignore */ }
+      }
+    }
 
 
     document.addEventListener("DOMContentLoaded", loadMiniWeather);
