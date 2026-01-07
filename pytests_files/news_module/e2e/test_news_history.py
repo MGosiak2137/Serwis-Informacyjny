@@ -3,6 +3,7 @@ import subprocess
 import time
 import socket
 import pytest
+import sys
 
 EMAIL = "e2e@example.com"
 PASSWORD = "E2eTest!1"
@@ -25,15 +26,27 @@ def server_base_url():
     env["NEWS_DB_PATH"] = r"serwis_info\modules\news\test_news.db"
 
     proc = subprocess.Popen(
-        ["python", "app.py"],
+        [sys.executable, "app.py"],
         env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
+        bufsize=1,
     )
 
     try:
-        _wait_for_5000()
+        try:
+            _wait_for_5000()
+        except Exception as e:
+            output = ""
+            try:
+                if proc.stdout:
+                    output = proc.stdout.read()
+            except Exception:
+                output = "<failed to read process stdout>"
+            raise RuntimeError(
+                "Server did not start on port 5000 in time. Process output:\n" + output
+            ) from e
         yield "http://127.0.0.1:5000"
     finally:
         proc.terminate()

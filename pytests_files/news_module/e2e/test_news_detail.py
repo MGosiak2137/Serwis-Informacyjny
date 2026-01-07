@@ -3,6 +3,7 @@ import subprocess
 import time
 import socket
 import pytest
+import sys
 
 EMAIL = "e2e@example.com"
 PASSWORD = "E2eTest!1"
@@ -24,23 +25,46 @@ def server_base_url():
     env = os.environ.copy()
     env["NEWS_DB_PATH"] = r"serwis_info\modules\news\test_news.db"
 
+    # If a server is already running on 127.0.0.1:5000 (e.g., from another test), reuse it
+    proc = None
+    try:
+        with socket.create_connection(("127.0.0.1", 5000), timeout=0.5):
+            yield "http://127.0.0.1:5000"
+            return
+    except OSError:
+        pass
+
     proc = subprocess.Popen(
-        ["python", "app.py"],
+        [sys.executable, "app.py"],
         env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
+        bufsize=1,
     )
 
     try:
-        _wait_for_5000()
+        try:
+            _wait_for_5000()
+        except Exception as e:
+            # Capture any output from the server process to help debugging
+            output = ""
+            try:
+                if proc and proc.stdout:
+                    output = proc.stdout.read()
+            except Exception:
+                output = "<failed to read process stdout>"
+            raise RuntimeError(
+                "Server did not start on port 5000 in time. Process output:\n" + output
+            ) from e
         yield "http://127.0.0.1:5000"
     finally:
-        proc.terminate()
-        try:
-            proc.wait(timeout=5)
-        except Exception:
-            proc.kill()
+        if proc:
+            proc.terminate()
+            try:
+                proc.wait(timeout=5)
+            except Exception:
+                proc.kill()
 
 
 def ensure_logged_in(page, server_base_url):
