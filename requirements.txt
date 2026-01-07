@@ -19,3 +19,4 @@ yfinance
 psycopg2-binary
 email-validator
 googletrans
+pytest

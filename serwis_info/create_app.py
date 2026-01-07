@@ -52,6 +52,18 @@ def create_app():
     def index():
         return redirect(url_for("main.index"))
 
+    # --- Temporary: accept POST to '/' for debugging repeated POSTs from localhost ---
+    @app.route('/', methods=['POST'])
+    def root_post():
+        try:
+            from flask import request
+            ua = request.headers.get('User-Agent')
+            app.logger.info(f"Received POST / from {request.remote_addr} UA={ua} body={request.get_data(as_text=True)[:500]}")
+        except Exception as e:
+            app.logger.info(f"Received POST / (failed to read details): {e}")
+        # respond quickly with no content; return 204 so clients stop retrying on 405
+        return ('', 204)
+
     return app
 
 

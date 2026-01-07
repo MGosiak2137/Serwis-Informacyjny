@@ -156,10 +156,10 @@
           <p id="mini-temp" class="wm-temp">Ładowanie...</p>
           <p id="mini-desc" class="wm-desc"></p>
 
-          <div class="weather-forecast-mini" id="forecast-mini">
-            Ładowanie prognozy...
-            <div class="forecast-row" id="forecast-row"></div>
-          </div>
+          <div class="weather-forecast-mini">
+    <div class="forecast-row" id="forecast-mini"></div>
+</div>
+
         </div>
       </a>
 
@@ -167,7 +167,7 @@
       <a href="{{ url_for('main_eco.main') }}" class="card-item card-economy">
         <div class="currency-header">
           <div class="usd">
-            <div class="currency-line">USD/PLN: <span id="usd-pln">{{ usd_pln if usd_pln else 'brak danych' }}</span></div>
+            <div class="currency-line">USD/PLN: <span id="usd-pln">Ładowanie...</span></div>
             <div class="spark-row">
               <div class="spark-y-vertical">
                 <div class="y-max" id="usd-spark-ymax"></div>
@@ -183,7 +183,7 @@
             </div>
           </div>
           <div class="eur">
-            <div class="currency-line">EUR/PLN: <span id="eur-pln">{{ eur_pln if eur_pln else 'brak danych' }}</span></div>
+            <div class="currency-line">EUR/PLN: <span id="eur-pln">Ładowanie...</span></div>
             <div class="spark-row">
               <div class="spark-y-vertical">
                 <div class="y-max" id="eur-spark-ymax"></div>
@@ -201,9 +201,12 @@
         </div>
         <div class="gold-section">
           <div class="gold-price">
-            Złoto: <span id="gold-price">{{ gold_price|round(2) if gold_price else 'brak danych' }}</span> USD/oz
+            Złoto: <span id="gold-price">Ładowanie...</span> USD/oz
           </div>
-          <canvas id="gold-chart"></canvas>
+          <div id="gold-chart-wrap" style="position:relative;">
+            <canvas id="gold-chart"></canvas>
+            <div id="gold-chart-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;">Ładowanie...</div>
+          </div>
         </div>
       </a>
     </div>  {# koniec .col-right #}

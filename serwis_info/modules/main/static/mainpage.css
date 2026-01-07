@@ -198,6 +198,7 @@ body.home-page {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+    overflow: hidden !important;
   }
   
   .card-economy {
