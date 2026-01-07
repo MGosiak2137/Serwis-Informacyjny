@@ -29,9 +29,30 @@ start_scheduler()
 
 def _sort_articles(articles):
     """Sortuj artykuły malejąco po dacie publikacji (tak jak w listach)."""
+    def _norm_dt(a):
+        dt = a.get('published_at')
+        if not dt:
+            return datetime.min.replace(tzinfo=None)
+        # if dt is str, try parse
+        if isinstance(dt, str):
+            try:
+                s = dt.replace('Z','+00:00')
+                dt = datetime.fromisoformat(s)
+            except Exception:
+                return datetime.min.replace(tzinfo=None)
+        # now dt is datetime
+        try:
+            if dt.tzinfo is None:
+                # assume UTC
+                dt = dt.replace(tzinfo=timezone.utc)
+            # convert to UTC and remove tzinfo for comparison
+            return dt.astimezone(timezone.utc).replace(tzinfo=None)
+        except Exception:
+            return datetime.min.replace(tzinfo=None)
+
     return sorted(
         articles,
-        key=lambda a: (a.get("published_at") or datetime.min).replace(tzinfo=None),
+        key=lambda a: _norm_dt(a),
         reverse=True,
     )
 
@@ -170,7 +191,7 @@ def search():
 @news_bp.get("/search/results")
 @login_required
 def search_results():
-    q = request.args.get("q")
+    q = (request.args.get("q") or "").strip()
     scope = request.args.get("scope", "all")
     from_date = request.args.get("from_date")
     to_date = request.args.get("to_date")
@@ -189,17 +210,57 @@ def search_results():
         print(f"Error loading articles for search: {e}")
         articles = []
 
-    if articles:
-        if q:
-            q_l = q.lower()
-            for a in articles:
-                if scope != "all" and a.get("category") != scope:
-                    continue
-                text = (a.get("title") or "") + " " + " ".join(a.get("content") or [])
-                if q_l in text.lower():
-                    results.append(a)
-        else:
-            results = articles
+    # Helper: parse date strings like 'YYYY-MM-DD' or ISO with timezone; return date() or None
+    def _parse_to_date_only(val):
+        if not val:
+            return None
+        if isinstance(val, datetime):
+            return val.date()
+        try:
+            # handle ISO with Z timezone
+            s = val.replace("Z", "+00:00") if isinstance(val, str) else val
+            dt = datetime.fromisoformat(s)
+            return dt.date()
+        except Exception:
+            try:
+                return datetime.strptime(val, "%Y-%m-%d").date()
+            except Exception:
+                return None
+
+    # Start with scope-filtered articles
+    candidates = []
+    for a in articles:
+        if scope != "all" and a.get("category") != scope:
+            continue
+        candidates.append(a)
+
+    # Filter by query (title only)
+    if q:
+        q_l = q.lower()
+        candidates = [a for a in candidates if q_l in (a.get("title") or "").lower()]
+
+    # Filter by date range (inclusive) if any date provided
+    from_d = _parse_to_date_only(from_date)
+    to_d = _parse_to_date_only(to_date)
+    if from_d or to_d:
+        filtered = []
+        for a in candidates:
+            pub = a.get("published_at")
+            pub_d = _parse_to_date_only(pub) if not isinstance(pub, datetime) else pub.date()
+            if pub_d is None:
+                # If we can't determine article date, skip it when date filter is applied
+                continue
+            if from_d and pub_d < from_d:
+                continue
+            if to_d and pub_d > to_d:
+                continue
+            filtered.append(a)
+        candidates = filtered
+
+    # Ensure results are sorted newest-first (important when no date filter is provided)
+    candidates = _sort_articles(candidates)
+
+    results = candidates
 
     try:
         history = history_service.get_view_history(current_user.id, limit=10)
