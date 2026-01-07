@@ -23,8 +23,8 @@ news_bp = Blueprint(
 )
 
 # Uruchom automatyczne scrapowanie artykułów
-from serwis_info.modules.news.services.scheduler import start_scheduler
-start_scheduler()
+#from serwis_info.modules.news.services.scheduler import start_scheduler
+#start_scheduler()
 
 
 def _sort_articles(articles):
