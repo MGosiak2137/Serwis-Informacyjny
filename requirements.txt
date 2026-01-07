@@ -9,9 +9,6 @@ requests
 beautifulsoup4
 selenium
 schedule
-pytest
-playwright
-pytest-playwright
 
 python-dateutil
 holidays
@@ -19,4 +16,8 @@ yfinance
 psycopg2-binary
 email-validator
 googletrans
+
 pytest
+pytest-flask
+playwright
+pytest-playwright

@@ -66,7 +66,7 @@
 /* GODZINA – duża i responsywna */
 .calendar-time {
     font-size: clamp(3rem, 6vw, 4.5rem);
-    font-weight: 800;
+    font-weight: 500;
     line-height: 1;
     color: #fff;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
