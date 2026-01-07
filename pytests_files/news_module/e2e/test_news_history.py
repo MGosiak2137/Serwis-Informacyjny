@@ -59,7 +59,7 @@ def test_article_appears_in_history(page, server_base_url):
     page.goto(f"{server_base_url}/news/", wait_until="domcontentloaded")
     first_link = page.locator('a[href^="/news/detail/"]').first
     title = first_link.inner_text().strip()
-    assert title  # jakiś tekst
+    assert title
 
 
     first_link.click()
