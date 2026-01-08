@@ -1,0 +1,8 @@
+{
+  "coord": { "lon": 19.94, "lat": 50.06 },
+  "weather": [{ "id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d" }],
+  "main": { "temp": 12.0, "pressure": 1015, "humidity": 55 },
+  "wind": { "speed": 2.0 },
+  "name": "Krakow",
+  "cod": 200
+}

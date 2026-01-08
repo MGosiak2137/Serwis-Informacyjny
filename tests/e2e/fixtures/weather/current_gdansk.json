@@ -1,0 +1,8 @@
+{
+  "coord": { "lon": 18.65, "lat": 54.35 },
+  "weather": [{ "id": 500, "main": "Rain", "description": "light rain", "icon": "10d" }],
+  "main": { "temp": 9.0, "pressure": 1008, "humidity": 82 },
+  "wind": { "speed": 4.0 },
+  "name": "Gdansk",
+  "cod": 200
+}

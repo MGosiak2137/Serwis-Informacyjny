@@ -1,0 +1,8 @@
+{
+  "coord": { "lon": 19.0, "lat": 52.0 },
+  "weather": [{ "id": 800, "main": "Clear", "description": "clear sky", "icon": "01d" }],
+  "main": { "temp": 15.5, "pressure": 1012, "humidity": 60 },
+  "wind": { "speed": 3.5 },
+  "name": "Warsaw",
+  "cod": 200
+}
