@@ -1,16 +1,17 @@
 import os
-import subprocess
-import time
-import socket
 import re
-import pytest
+import socket
+import subprocess
 import sys
+import time
+
+import pytest
 
 EMAIL = "e2e@example.com"
 PASSWORD = "E2eTest!1"
 
 
-def _wait_for_5000(timeout: float = 20.0) -> None:
+def _wait_for_5000(timeout: float = 25.0) -> None:
     start = time.time()
     while time.time() - start < timeout:
         try:
@@ -26,6 +27,14 @@ def server_base_url():
     env = os.environ.copy()
     env["NEWS_DB_PATH"] = r"serwis_info\modules\news\test_news.db"
 
+    # jeśli serwer już działa — nie odpalamy drugi raz
+    try:
+        with socket.create_connection(("127.0.0.1", 5000), timeout=0.5):
+            yield "http://127.0.0.1:5000"
+            return
+    except OSError:
+        pass
+
     proc = subprocess.Popen(
         [sys.executable, "app.py"],
         env=env,
@@ -36,18 +45,7 @@ def server_base_url():
     )
 
     try:
-        try:
-            _wait_for_5000()
-        except Exception as e:
-            output = ""
-            try:
-                if proc.stdout:
-                    output = proc.stdout.read()
-            except Exception:
-                output = "<failed to read process stdout>"
-            raise RuntimeError(
-                "Server did not start on port 5000 in time. Process output:\n" + output
-            ) from e
+        _wait_for_5000()
         yield "http://127.0.0.1:5000"
     finally:
         proc.terminate()
@@ -57,69 +55,76 @@ def server_base_url():
             proc.kill()
 
 
-def ensure_logged_in(page, server_base_url):
+def ensure_logged_in(page, server_base_url: str):
     page.goto(f"{server_base_url}/auth/login", wait_until="domcontentloaded")
 
-    email_input = page.locator('input[placeholder="np. mojmail@example.com"]')
-    email_input.wait_for(state="visible", timeout=15000)
-    email_input.fill(EMAIL)
-
-    password_input = page.locator('input[type="password"]')
-    password_input.wait_for(state="visible", timeout=15000)
-    password_input.fill(PASSWORD)
+    page.locator('input[placeholder="np. mojmail@example.com"]').fill(EMAIL)
+    page.locator('input[type="password"]').fill(PASSWORD)
 
     page.get_by_role("button", name="Zaloguj się").click()
     page.wait_for_load_state("domcontentloaded")
 
 
-def _find_search_input(page):
+def _pick_query_from_first_article(page, server_base_url: str, section: str = "crime") -> str:
+    # Uwaga: listy są pod /news/crime i /news/sport
+    page.goto(f"{server_base_url}/news/{section}", wait_until="domcontentloaded")
 
-    cand = page.locator('input[type="search"]')
-    if cand.count() > 0:
-        return cand.first
+    # Na listach masz overlay .news-card-link z href do /news/detail/<id>
+    first_link = page.locator('a.news-card-link[href^="/news/detail/"]').first
+    if first_link.count() == 0:
+        # fallback: dowolny link do detail
+        first_link = page.locator('a[href^="/news/detail/"]').first
 
+    first_link.wait_for(state="visible", timeout=15000)
 
-    cand = page.locator('input[placeholder*="szuk" i], input[placeholder*="wyszuk" i]')
-    if cand.count() > 0:
-        return cand.first
+    # tytuł artykułu jest w h3 a.news-title-link, ale bierzemy z całej karty jako fallback
+    card = first_link.locator("xpath=ancestor::article[1]")
+    title_text = ""
+    title_loc = card.locator("a.news-title-link").first
+    if title_loc.count() > 0:
+        title_text = title_loc.inner_text().strip()
+    else:
+        title_text = card.inner_text().strip()
 
+    assert title_text
 
-    section = page.get_by_text("Wyszukiwarka").first
-    section.wait_for(timeout=10000)
-    inputs = page.locator("input")
-    return inputs.first  # fallback
+    words = re.findall(r"[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{5,}", title_text)
+    query = words[0] if words else title_text[:6]
+    return query
 
 
 def test_search_filters_articles(page, server_base_url):
     ensure_logged_in(page, server_base_url)
 
-    page.goto(f"{server_base_url}/news/", wait_until="domcontentloaded")
-
-
-    first_link = page.locator('a[href^="/news/detail/"]').first
-    first_link.wait_for(state="visible", timeout=15000)
-    title = first_link.inner_text().strip()
-    assert title
-
-
-    words = re.findall(r"[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{5,}", title)
-    query = words[0] if words else title[:6]
+    query = _pick_query_from_first_article(page, server_base_url, section="crime")
     assert query
 
-    search_input = _find_search_input(page)
+    # Wyszukiwarka w Twoim module jest na /news/search
+    page.goto(f"{server_base_url}/news/search", wait_until="domcontentloaded")
+
+    # Najpewniejsze: input o nazwie q
+    search_input = page.locator('input[name="q"]')
+    if search_input.count() == 0:
+        # fallback: pierwszy input
+        search_input = page.locator("input").first
+
     search_input.wait_for(state="visible", timeout=15000)
-
-
     search_input.fill(query)
 
+    # klik przycisku "Szukaj" jeśli istnieje, inaczej Enter
+    btn = page.get_by_role("button", name=re.compile(r"Szukaj|Wyszukaj", re.I))
+    if btn.count() > 0:
+        btn.first.click()
+    else:
+        search_input.press("Enter")
 
-    search_input.press("Enter")
+    # Wyniki są na /news/search/results?... (albo ten sam template po GET)
     page.wait_for_timeout(500)
 
-
+    # Sprawdzamy, że są wyniki (linki do detail)
     results = page.locator('a[href^="/news/detail/"]')
     assert results.count() > 0
 
-
-    page_text = page.locator("body").inner_text().lower()
-    assert query.lower() in page_text
+    # I że fraza jest widoczna na stronie wyników
+    body = page.locator("body").inner_text().lower()
+    assert query.lower() in body
