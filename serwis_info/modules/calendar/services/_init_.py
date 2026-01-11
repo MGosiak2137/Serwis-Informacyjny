@@ -1,2 +1,0 @@
-from .calendar_service import get_calendar_data
-from .horoscope_service import get_horoscope, get_available_zodiacs
