@@ -7,9 +7,12 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
-def create_app():
+def create_app(config_class=None):
+    if config_class is None:
+        config_class = Config
+    
     app = Flask(__name__, template_folder="templates", static_folder="static")
-    app.config.from_object(Config)
+    app.config.from_object(config_class)
 
     db.init_app(app)
     login_manager.init_app(app)

@@ -1,10 +1,10 @@
 # tests/integration/test_horoscope_endpoints.py
 
-def test_horoscope_page_returns_html(client, logged_in_user):
+def test_horoscope_page_returns_html(authenticated_client):
     """
     Integracyjny test endpointu HTML (login required)
     """
-    response = client.get("/calendar/horoscope")
+    response = authenticated_client.get("/calendar/horoscope")
 
     assert response.status_code == 200
     assert b"<html" in response.data

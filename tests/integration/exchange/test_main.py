@@ -14,8 +14,8 @@ class TestMainExchangeRoutes:
         """Test that /main_eco returns HTML page"""
         response = client.get("/main_eco/main_eco")
         
-        # Should return 200 or 401 (if login required)
-        assert response.status_code in [200, 401]
+        # Should return 200, 401, or 302 (redirect to login if login required)
+        assert response.status_code in [200, 401, 302]
 
     def test_get_preferences_requires_login(self, client):
         """Test that /main_eco/get-preferences requires login"""
