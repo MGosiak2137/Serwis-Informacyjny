@@ -1,0 +1,410 @@
+/* Ogólne style dla całej aplikacji */
+/* ===========================
+   PODSTAWA
+   =========================== */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f7f7f9 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Główna przestrzeń pod navbar – wspólna dla wszystkich stron */
+.main-content {
+  flex: 1 0 auto;
+  margin: 60px auto 0;
+  width: 90%;
+  max-width: 1300px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Stopka – wspólna dla wszystkich stron */
+.main-footer {
+  flex-shrink: 0;
+  width: 100%;
+  height: 50px;
+  background: #000000;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.main-footer p {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex: 1 0 auto;
+    min-height: calc(100vh - 60px);
+    height: auto;
+    width: 90%;
+    padding: 0.5rem 0.5rem;
+    margin: 0 auto;
+    overflow: visible;
+    align-items: flex-start;
+  }
+
+  .main-footer {
+    display: none;
+  }
+}
+
+/* ...existing code... */
+
+
+/* Strona główna */
+html.home-page,
+body.home-page {
+  background: #f7f7f9 !important;
+}
+body.home-page {
+  overflow: hidden;
+}
+
+/* Na dużych urządzeniach - brak przewijania */
+@media (min-width: 769px) {
+  body.home-page {
+    overflow: hidden !important;
+    height: 100vh;
+  }
+  
+  body.home-page .main-content {
+    height: calc(100vh - 110px); /* 100vh - navbar(60px) - footer(50px) */
+    max-height: calc(100vh - 110px);
+    overflow: hidden;
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Wrapper na kafelki */
+.home-layout {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* GRID KAFELKÓW – DESKTOP */
+.cards-grid {
+  flex: 1;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  display: grid;
+  gap: 20px;
+
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+    "calendar calendar calendar"
+    "weather  news      economy";
+}
+
+@media (min-width: 769px) {
+  .cards-grid {
+    gap: 1.2rem;
+  }
+}
+
+/* przypisanie kafelków do pól siatki */
+.card-calendar { grid-area: calendar; }
+.card-weather  { grid-area: weather; }
+.card-news     { grid-area: news; }
+.card-economy  { grid-area: economy; }
+
+/* Kafelki wspólne */
+.card-item {
+  background: #e5e5e5;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #333;
+
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* NEWS - karuzela */
+.card-news {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-news .carousel,
+.card-news .carousel-inner,
+.card-news .carousel-item {
+  height: 100%;
+}
+
+.news-preview-slide {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Górna część – obrazek */
+.news-preview-image-wrapper {
+  position: relative;
+  flex: 3;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.news-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder, jeśli brak obrazka */
+.news-preview-image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5e5;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* Dolna część – tytuł + opis */
+.news-preview-caption {
+  flex: 2;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.news-preview-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.news-preview-summary {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Kontrolki karuzeli – węższe */
+.card-news .carousel-control-prev,
+.card-news .carousel-control-next {
+  width: 15%;
+}
+
+/* --- KAFELEK POGODOWY (style3 rozbudowane) --- */
+.card-weather {
+  display: block; /* aby cały <a> był klikany */
+  text-decoration: none;
+  color: inherit;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(0,123,255,0.45), rgba(0,200,255,0.35));
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-weather:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* WEWNĘTRZNY PANEL MINI */
+.weather-mini {
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  width: 100%;
+}
+
+/* Miasto */
+.weather-mini p:first-child {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+/* Temperatura */
+#mini-temp {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* Opis pogody */
+#mini-desc {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+/* Ikona pogody */
+#mini-icon {
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.weather-forecast-mini {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.forecast-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+/* rozbudowane forecast-item jako grid */
+.forecast-item {
+  display: grid;
+  grid-template-columns: 90px 1fr 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.forecast-item:last-child {
+  border-bottom: none;
+}
+
+.f-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.f-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.f-date {
+  font-weight: bold;
+  width: 90px;
+}
+
+.f-temp {
+  font-weight: bold;
+}
+
+.f-extra {
+  font-size: 12px;
+  color: #eef;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.f-desc {
+  grid-column: 1 / 4;
+  font-size: 12px;
+  color: #eef;
+  margin-top: 2px;
+  text-transform: capitalize;
+}
+
+/* --- KONIEC: dodatkowe style z style3.css --- */
+
+/* DODATKOWE responsywne reguły dla layoutu kafelków (uzupełnienie) */
+@media (max-width: 768px) {
+  body.home-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+  }
+  
+  body.home-page .main-content {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .home-layout {
+    gap: 12px;
+    margin-top: 0;
+    height: auto;
+    max-height: none;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "calendar"
+      "weather"
+      "news"
+      "economy";
+    height: auto;
+    max-height: none;
+  }
+
+  .card-item {
+    min-height: 18vh;
+    max-height: none;
+  }
+
+  .card-calendar {
+    min-height: 12vh;
+  }
+
+  .main-footer {
+    display: none;
+  }
+
+  .page-main,
+  .weather-dashboard {
+    padding-bottom: 1rem;
+  }
+}

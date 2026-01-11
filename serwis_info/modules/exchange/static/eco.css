@@ -1,0 +1,293 @@
+/* Kolory i reset */
+:root{
+  --bg: #f7f7f9;        /* match main page background */
+  --card: #ffffff;      /* biały */
+  --primary: #ff6a00;   /* żywy pomarańcz */
+  --accent: #ff3b30;    /* intensywny czerwony */
+  --text: #1f2937;      /* ciemny szary (czytelny) */
+  --muted: #7b7f86;     /* przygaszony szary */
+  --footer-bg: #2f2f33; /* ciemne szare tło stopki */
+}
+
+*{box-sizing:border-box}
+html,body{
+  min-height:100vh;
+  background: #f7f7f9;
+}
+body{
+  margin:0;
+  margin-top: 60px; /* Account for navbar */
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f7f7f9;
+  color:var(--text);
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
+
+/* Main demo area */
+.page-main{
+  flex: 1 0 auto;
+  max-width:1100px;
+  margin:2rem auto;
+  padding:0 1rem;
+}
+.hero{background:var(--card);padding:2rem;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);border:1px solid rgba(0,0,0,0.06)}
+.hero h1{margin:0 0 0.5rem 0}
+.hero p{margin:0;color:var(--muted)}
+
+/* Header / Navbar (bez logo) */
+.site-header{
+  /* ustawione na kolor stopki */
+  background: var(--footer-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1rem 1.5rem;
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+  justify-content:center;
+}
+/* Nav links: 3 przyciski równomiernie rozłożone - ulepszone */
+.nav-links{
+  flex:1 1 auto;
+  width:80%;
+  max-width:900px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1.25rem;
+}
+/* Nav buttons - ulepszone kształty i padding */
+.nav-btn{
+  background: var(--primary);
+  color: #fff;
+  text-decoration:none;
+  padding:0.75rem 1.25rem;
+  font-weight:700;
+  border-radius:12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(255,106,0,0.2);
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+  font-size: 0.95rem;
+  min-width: 100px;
+  text-align: center;
+}
+.nav-btn:hover{
+  background: linear-gradient(90deg, rgba(255,106,0,1), rgba(255,59,48,0.95));
+  color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,59,48,0.25);
+}
+
+/* hamburger: hidden on desktop, visible on small screens */
+.nav-toggle{display:none;background:transparent;border:0;padding:0;cursor:pointer}
+.nav-toggle .hamburger{display:block;width:22px;height:2px;background:#fff;position:relative}
+.nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:#fff;transition:transform .18s ease}
+.nav-toggle .hamburger::before{top:-7px}
+.nav-toggle .hamburger::after{top:7px}
+
+/* mobile: show hamburger and stack nav when nav-open */
+@media (max-width:720px){
+  .nav-toggle{display:block}
+  .nav-links{display:none;flex-direction:column;align-items:center;gap:0.6rem;width:100%}
+  body.nav-open .nav-links{display:flex}
+  .nav-links .nav-btn{width:100%;max-width:320px;text-align:center;padding:0.6rem 0; border-radius:8px}
+}
+
+/* animate hamburger to X when open */
+body.nav-open .nav-toggle .hamburger{background:transparent}
+body.nav-open .nav-toggle .hamburger::before{transform:rotate(45deg) translate(4px,4px)}
+body.nav-open .nav-toggle .hamburger::after{transform:rotate(-45deg) translate(4px,-4px)}
+
+/* Footer styles now handled by global .main-footer in style.css */
+
+/* Responsive: zachowaj logiczne zachowanie na mobile */
+@media (max-width:720px){
+  .nav-inner{padding:0.5rem 0.75rem;flex-direction:column;align-items:center;gap:0.5rem}
+  .nav-links{width:100%;justify-content:space-around;gap:0.5rem}
+  .nav-btn{padding:0.5rem 0.75rem; font-size:0.95rem}
+}
+
+/* Dodanie marginesu dla header.site-header, aby znajdował się poniżej navbar */
+header.site-header {
+  margin-top: 60px; /* Wysokość navbar (dostosuj w razie potrzeby) */
+}
+
+/* Preferences Section */
+.preferences-section {
+  margin-top: 2rem;
+}
+
+.preferences-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.preferences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.preference-box {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.preference-box h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  color: var(--primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preference-box i {
+  font-size: 1.25rem;
+}
+
+.preference-content {
+  min-height: 80px;
+}
+
+.preference-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.preference-list li {
+  padding: 0.6rem 0;
+  padding-left: 1.5rem;
+  color: var(--text);
+  font-weight: 500;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preference-list li:last-child {
+  border-bottom: none;
+}
+
+.preference-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.action-link {
+  color: var(--text);
+  text-decoration: none;
+  flex: 1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #ff3b30;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.remove-btn:hover {
+  color: #ff6a00;
+}
+
+.no-data {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+/* Action Links */
+.action-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--text);
+  text-decoration: none;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.preference-list li a {
+  width: 100%;
+}
+
+.preference-list li .remove-btn {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+/* Responsive: adjust grid on smaller screens */
+@media (max-width: 720px) {
+  .preferences-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .preference-box {
+    padding: 1rem;
+  }
+
+  .preferences-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Style dla kolorowania zmiany */
+.change.positive {
+  color: #28a745; /* zielony */
+  font-weight: 600;
+}
+
+.change.negative {
+  color: #dc3545; /* czerwony */
+  font-weight: 600;
+}
+
+.change.neutral {
+  color: #6c757d; /* szary */
+  font-weight: 600;
+}

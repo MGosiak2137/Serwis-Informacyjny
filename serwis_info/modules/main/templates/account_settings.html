@@ -1,0 +1,68 @@
+{% extends "template.html" %}
+
+{% block title %}Ustawienia konta{% endblock %}
+
+{% block body_class %}account-settings-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/account_settings.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/delete_account_modal.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <div class="account-settings-card">
+      <h1>Ustawienia konta</h1>
+      <p class="text-muted">
+        Zarządzaj swoim kontem i preferencjami.
+      </p>
+
+      {# Display flash messages including success messages #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-3">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mb-2" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div class="account-info">
+        <div class="account-info-item">
+          <span class="account-info-label">Nazwa użytkownika:</span>
+          <span class="account-info-value">{{ current_user.nickname }}</span>
+        </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Adres e-mail:</span>
+          <span class="account-info-value">{{ current_user.email }}</span>
+        </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Data utworzenia konta:</span>
+          <span class="account-info-value">
+            {% if current_user.created_at %}
+              {{ current_user.created_at.strftime('%d.%m.%Y o %H:%M') }}
+            {% else %}
+              Nieznana
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+      <div class="account-actions">
+        <a href="{{ url_for('main.account_more_options') }}" class="more-options-btn">
+          <i class="bi bi-three-dots me-2"></i>Więcej opcji
+        </a>
+        <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+          Wyloguj się
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

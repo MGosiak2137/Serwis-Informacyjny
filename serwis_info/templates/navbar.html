@@ -1,0 +1,64 @@
+<nav class="navbar main-navbar fixed-top">
+  <div class="container-fluid px-4">
+
+    <!-- LEWA STRONA -->
+<a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('main.index') }}">
+  <img src="{{ url_for('static', filename='img/logo1.png') }}" 
+       alt="Logo" 
+       class="nav-logo">
+  <span class="nav-brand-text">Serwis informacyjny</span>
+  {% if current_user.is_authenticated %}
+    <span class="nav-welcome-text ms-2">Witaj, {{ current_user.nickname }}</span>
+  {% endif %}
+</a>
+
+    <!-- PRAWA STRONA -->
+    <div class="navbar-icons d-flex align-items-center ms-auto">
+      <a href="{{ url_for('main.index') }}" class="icon-btn" title="Strona główna">
+        <i class="bi bi-house"></i>
+      </a>
+      {% if current_user.is_authenticated %}
+      {% if request.endpoint != 'horoscope.horoscope_page' %}
+      <a href="{{ url_for('horoscope.horoscope_page') }}" class="icon-btn" title="Horoskop">
+        <i class="bi bi-calendar-heart"></i>
+      </a>
+      {% endif %}
+      {% if request.endpoint != 'weather_api.dashboard_page' %}
+      <a href="{{ url_for('weather_api.dashboard_page') }}" class="icon-btn" title="Pogoda">
+        <i class="bi bi-cloud-sun"></i>
+      </a>
+      {% endif %}
+      {% if request.endpoint not in ['news.news_home', 'news.crime_list', 'news.sport_list', 'news.search', 'news.search_results', 'news.detail', 'news.bookmarks', 'news.sport_scraped'] %}
+      <a href="{{ url_for('news.news_home') }}" class="icon-btn" title="Wiadomości">
+        <i class="bi bi-card-checklist"></i>
+      </a>
+      {% endif %}
+      {% if request.endpoint not in ['main_eco.main', 'currencies.currencies', 'currencies.convert', 'stockmarket.stockmarket', 'journey.journey'] %}
+      <a href="{{ url_for('main_eco.main') }}" class="icon-btn" title="Ekonomia">
+        <i class="bi bi-coin"></i>
+      </a>
+      {% endif %}
+      {% if request.endpoint not in ['auth.login', 'auth.register', 'main.account_settings', 'main.account_more_options', 'main.change_password'] %}
+      <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
+        <i class="bi bi-moon"></i>
+        <i class="bi bi-sun" style="display: none;"></i>
+      </button>
+      {% endif %}
+        <a href="{{ url_for('main.account_settings') }}" class="icon-btn" title="Ustawienia konta">
+          <i class="bi bi-gear"></i>
+        </a>
+      {% else %}
+        {% if request.endpoint not in ['auth.login', 'auth.register'] %}
+        <button type="button" class="icon-btn theme-toggle-btn" title="Zmień motyw">
+          <i class="bi bi-moon"></i>
+          <i class="bi bi-sun" style="display: none;"></i>
+        </button>
+        {% endif %}
+        <a href="{{ url_for('auth.login') }}" class="icon-btn" title="Logowanie">
+          <i class="bi bi-person-circle"></i>
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</nav>

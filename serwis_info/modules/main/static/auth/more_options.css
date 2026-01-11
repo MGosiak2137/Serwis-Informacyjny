@@ -1,0 +1,785 @@
+/* ===========================
+   MORE OPTIONS PAGE
+   =========================== */
+
+/* Hide base template flash messages */
+body.account-more-options-page .main-content .w-100 > .mb-3:first-child {
+  display: none !important;
+}
+
+/* Override login-page scrolling restrictions for more options page */
+body.account-more-options-page {
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
+  background: #f7f7f9 !important;
+}
+
+body.account-more-options-page .main-content,
+body.account-more-options-page main.main-content {
+  height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
+  min-height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 60px 0 0 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+}
+
+@media (min-width: 769px) {
+  body.account-more-options-page .main-content,
+  body.account-more-options-page main.main-content {
+    height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
+    min-height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+  }
+  
+  body.account-more-options-page .main-footer {
+    display: none !important;
+  }
+}
+
+body.account-more-options-page .main-content .w-100 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  flex: 1 1 auto !important;
+}
+
+.account-more-options-page .login-container {
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account-more-options-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.account-more-options-card h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.account-more-options-card .text-muted {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+.options-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.options-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.danger-section {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.section-title.text-danger {
+  justify-content: center;
+}
+
+/* Form labels - match login page style */
+.account-more-options-card .form-label {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Bootstrap utility class support - match login page */
+.account-more-options-card .mb-3 {
+  margin-bottom: 1rem;
+}
+
+.account-more-options-card .mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+/* Form inputs - match login page style */
+.account-more-options-card .form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #111827;
+  transition: all 0.3s ease;
+  margin-bottom: 0.25rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+/* Improve autofill styling - match login page */
+.account-more-options-card .form-control:-webkit-autofill,
+.account-more-options-card .form-control:-webkit-autofill:hover,
+.account-more-options-card .form-control:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+  -webkit-text-fill-color: #111827;
+  border: 2px solid #3b82f6;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.account-more-options-card .form-control:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.account-more-options-card .form-control::placeholder {
+  color: #9ca3af;
+}
+
+/* Prevent zoom on iOS inputs - match login page */
+@media screen and (max-width: 768px) {
+  .account-more-options-card .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Error messages - match login page style */
+.account-more-options-card .invalid-feedback {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Submit button - match login page style */
+.change-password-submit-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  margin-top: 0.5rem;
+  min-height: 44px;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.change-password-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.change-password-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Disable hover transform on touch devices - match login page */
+@media (hover: none) {
+  .change-password-submit-btn:hover {
+    transform: none;
+  }
+}
+
+.delete-account-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #6c757d;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+}
+
+.delete-account-btn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.delete-account-btn:active {
+  transform: translateY(0);
+}
+
+.delete-account-btn i {
+  font-size: 1.125rem;
+}
+
+/* Alert messages - match login page style */
+.account-more-options-card .alert {
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+}
+
+.account-more-options-card .alert-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+.account-more-options-card .alert-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.account-more-options-card .alert-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
+.account-more-options-card .alert-info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+/* Optimize for larger screens */
+@media (min-width: 1024px) {
+  .account-more-options-page .login-container {
+    padding: 0.5rem 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .account-more-options-card {
+    padding: 1.75rem 2rem;
+    max-width: 550px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.625rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .account-more-options-card .mb-4 {
+    margin-bottom: 1rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.875rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.6rem 0.875rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .change-password-submit-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 0.35rem;
+    min-height: 40px;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+  }
+
+  .options-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  .account-more-options-page .login-container {
+    padding: 0.4rem 1rem;
+  }
+
+  .account-more-options-card {
+    padding: 1.5rem 2rem;
+    max-height: calc(100vh - 70px);
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+    line-height: 1.35;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.625rem;
+  }
+
+  .account-more-options-card .mb-4 {
+    margin-bottom: 0.875rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.8125rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.55rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .change-password-submit-btn {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.875rem;
+    margin-top: 0.3rem;
+    min-height: 38px;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .options-section {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .account-more-options-page .login-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .account-more-options-card {
+    max-width: 550px;
+    padding: 2.25rem 2rem;
+  }
+}
+
+/* Responsive adjustments - restore scrolling on mobile/tablets */
+@media (max-width: 1023px) {
+  body.account-more-options-page {
+    overflow: auto !important;
+    height: auto !important;
+    position: relative !important;
+  }
+
+  body.account-more-options-page .main-content,
+  body.account-more-options-page main.main-content {
+    height: auto !important;
+    min-height: calc(100vh - 60px) !important; /* Account for navbar (60px) only - no footer */
+    overflow: visible !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.account-more-options-page .main-content .w-100 {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  body.account-more-options-page .main-footer {
+    display: none !important;
+  }
+
+  .account-more-options-page .login-container {
+    padding: 2rem 1rem;
+    min-height: auto;
+    height: auto;
+  }
+
+  .account-more-options-card {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .account-more-options-page .login-container {
+    padding: 0.4rem;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .account-more-options-card {
+    max-width: 100%;
+    padding: 1.25rem 1.25rem;
+    border-radius: 16px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .account-more-options-card h1 {
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
+    margin-bottom: 0.4rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+    line-height: 1.35;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.875rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.8125rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.7rem 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .change-password-submit-btn {
+    padding: 0.75rem 1.125rem;
+    font-size: 0.9rem;
+    min-height: 42px;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+  }
+
+  .options-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.625rem 0.8125rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-more-options-page .login-container {
+    padding: 0.3rem;
+  }
+
+  .account-more-options-card {
+    padding: 1rem 0.875rem;
+    border-radius: 14px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.75rem;
+    margin-bottom: 0.875rem;
+    line-height: 1.3;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.625rem 0.7rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-more-options-card .invalid-feedback {
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+  }
+
+  .change-password-submit-btn {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    min-height: 40px;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .options-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .account-more-options-page .login-container {
+    padding: 0.25rem;
+  }
+
+  .account-more-options-card {
+    padding: 0.875rem 0.75rem;
+    border-radius: 12px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.7rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.65rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.6rem 0.65rem;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-bottom: 0.2rem;
+  }
+
+  .account-more-options-card .invalid-feedback {
+    font-size: 0.65rem;
+  }
+
+  .change-password-submit-btn {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.8125rem;
+    border-radius: 8px;
+    min-height: 38px;
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+  }
+
+  .options-section {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.65rem;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .account-more-options-page .login-container {
+    padding: 0.3rem;
+    height: 100%;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .account-more-options-card {
+    padding: 1rem 1.25rem;
+    max-width: 100%;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .account-more-options-card .text-muted {
+    font-size: 0.75rem;
+    margin-bottom: 0.875rem;
+    line-height: 1.3;
+  }
+
+  .account-more-options-card .mb-3 {
+    margin-bottom: 0.7rem;
+  }
+
+  .account-more-options-card .form-label {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-more-options-card .form-control {
+    padding: 0.6rem 0.75rem;
+    font-size: 16px;
+  }
+
+  .change-password-submit-btn {
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+    min-height: 38px;
+  }
+
+  .account-more-options-card .alert {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .account-more-options-page .login-container {
+    padding: 0.5rem;
+  }
+
+  .account-more-options-card {
+    padding: 1rem 0.875rem;
+    max-height: calc(100vh - 70px);
+  }
+
+  .account-more-options-card h1 {
+    font-size: 1.25rem;
+  }
+  .account-more-options-card .form-control {
+    padding: 0.625rem 0.625rem;
+  }
+}

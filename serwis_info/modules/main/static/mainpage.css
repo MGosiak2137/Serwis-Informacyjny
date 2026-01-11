@@ -1,0 +1,231 @@
+/* Strona główna */
+html.home-page,
+body.home-page {
+  background: #f7f7f9 !important;
+}
+
+/* Na dużych urządzeniach - brak przewijania */
+@media (min-width: 769px) {
+  body.home-page {
+    overflow: hidden !important;
+    height: 100vh;
+  }
+}
+
+/* Wrapper na kafelki */
+.home-layout {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto; 
+  margin-bottom: 40px;  
+}
+
+/* GŁÓWNY UKŁAD – dwie kolumny */
+.cards-grid {
+  display: flex;
+  gap: 2vh;
+  width: 100%;
+  height: 100%;  
+}
+
+/* LEWA i PRAWA KOLUMNA */
+.col-left,
+.col-right {
+  flex: 1;            
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* proporcje wysokości wewnątrz kolumn */
+
+/* KOLUMNA 1: kalendarz : news = 1 : 2 */
+.col-left .card-calendar { flex: 1; }
+.col-left .card-news     { flex: 2; }
+
+/* KOLUMNA 2: pogoda : ekonomia = 1 : 1 */
+.col-right .card-weather { flex: 1; }
+.col-right .card-economy { flex: 1; }
+
+.card-item {
+  background: #e5e5e5;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  height: 100%;  
+  min-height: 0;
+    /* wygląd – wspólny dla wszystkich kart */
+  padding: 1.5rem 2rem;
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #e5e5e5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  /* link jako karta */
+  text-decoration: none;
+  color: #111827;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+/* Kolorowe cienie dla poszczególnych kafelków */
+.card-item.card-news {
+  background: linear-gradient(135deg, #2e9c60 0%, #50b329 50%, #47dc4b 100%);
+  border: 2px solid rgba(34, 197, 94, 0.6);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.3);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-item.card-news::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.card-item.card-news:hover,
+.card-news.card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5) !important;
+  border-color: rgba(34, 197, 94, 0.9) !important;
+}
+
+.card-item.card-news:hover::before,
+.card-news.card-item:hover::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+
+@media (max-width: 768px) {
+  body.home-page {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    height: auto !important;
+    min-height: calc(100vh - 60px) !important;
+    max-height: none !important;
+    width: 100% !important;
+    padding: 0.3rem 0.5rem !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+  
+  .home-layout {
+    height: 100% !important;
+    width: 100% !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .cards-grid {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100% !important;
+    width: 100% !important;
+    padding: 0.2vh 0.6vh !important;
+    gap: 0.3vh !important;
+    display: flex !important;
+    box-sizing: border-box !important;
+    flex: 1 1 auto !important;
+  }
+
+  .col-left,
+  .col-right {
+    display: contents;
+  }
+
+  /* KALENDARZ - na górze, naturalna wysokość, nie rośnie */
+  .card-calendar {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    order: 1 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* NEWS, POGODA, EKONOMIA – mniejsze wysokości, zawsze widoczne, z możliwością przewijania */
+  .card-news,
+  .card-weather,
+  .card-economy {
+    flex: 0 0 auto !important;
+    min-height: 25vh !important;
+    max-height: 25vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  .card-news {
+    order: 2 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .card-weather {
+    order: 3 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden !important;
+  }
+  
+  .card-economy {
+    order: 4 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .card-item {
+    min-height: 0 !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+  
+  /* Override height for flex items */
+  .card-news.card-item,
+  .card-weather.card-item,
+  .card-economy.card-item {
+    height: 25vh !important;
+    max-height: 100% !important;
+  }
+  
+  .card-calendar.card-item {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

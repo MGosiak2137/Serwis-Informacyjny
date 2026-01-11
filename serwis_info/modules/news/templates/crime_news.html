@@ -1,0 +1,71 @@
+{% extends "nav_footnews.html" %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+<main class="page-main">
+  <section class="news-section news-crime">
+    <h2>{{ title or "Wiadomości kryminalne — Kraków" }}</h2>
+    <p class="lead">Zestawienie najnowszych informacji kryminalnych z Krakowa.</p>
+
+    <div class="news-list">
+      {% if articles %}
+        {% for n in articles %}
+          <article class="news-card news-card--clickable">
+
+            <!-- overlay na całą kartę -->
+            <a class="news-card-link"
+               href="{{ url_for('news.detail', news_id=n.id_number) }}"
+               aria-label="Otwórz artykuł: {{ n.title }}"></a>
+
+            <!-- IKONA ZAKŁADKI – TYLKO WIZUALNA -->
+            <button class="bookmark-btn"
+                    type="button"
+                    data-article-id="{{ n.id_number or n.id }}"
+                    data-title="{{ n.title|e }}"
+                    data-category="{{ n.subcategory or '' }}"
+                    data-summary="{{ (n.content[0] if n.content else '')|e }}"
+                    data-source="{{ n.source_name or n.author or '' }}"
+                    data-url="{{ n.url or '' }}"
+                    aria-label="Dodaj do zakładek">
+              <i class="bi {{ 'bi-bookmark-fill' if (n.id_number or n.id) in bookmarked_ids else 'bi-bookmark' }}"></i>
+            </button>
+
+            <header>
+              <h3 class="news-title">
+                <a class="news-title-link"
+                   href="{{ url_for('news.detail', news_id=n.id_number) }}">
+                  {{ n.title }}
+                </a>
+              </h3>
+
+              <p class="news-meta">
+                {{ n.published_at.strftime("%Y-%m-%d %H:%M") if n.published_at else "Brak daty" }}
+              </p>
+            </header>
+
+            {% if n.content %}
+              <p class="news-summary">{{ n.content[0] }}</p>
+            {% endif %}
+
+            <footer class="news-footer">
+              <a href="{{ url_for('news.detail', news_id=n.id_number) }}"
+                 class="btn-secondary">
+                Szczegóły
+              </a>
+            </footer>
+
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="muted">Brak artykułów.</p>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('news.static', filename='bookmarks.js') }}"></script>
+{% endblock %}
+

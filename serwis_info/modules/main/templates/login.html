@@ -1,0 +1,103 @@
+{% extends "template.html" %}
+
+{% block title %}Logowanie{% endblock %}
+
+{% block body_class %}login-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_layout.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/auth_common.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/password_features.css') }}">
+<link rel="stylesheet" href="{{ url_for('main.static', filename='auth/form_validation.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Logowanie</h1>
+      <p class="text-muted">
+        Zaloguj się, aby uzyskać dostęp do swoich zakładek i ustawień.
+      </p>
+
+      {# Display flash messages including success messages inside the card #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-3">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mb-2" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+          <label class="form-label">Adres e-mail</label>
+          {{ form.email(class_="form-control", placeholder="np. mojmail@example.com") }}
+          {% for error in form.email.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hasło</label>
+          <div class="password-input-wrapper">
+            {{ form.password(class_="form-control password-input", placeholder="••••••••", id="login-password") }}
+            <button type="button" class="password-toggle-btn" id="login-password-toggle" aria-label="Pokaż/ukryj hasło">
+              <i class="bi bi-eye" id="login-password-icon"></i>
+            </button>
+          </div>
+          {% for error in form.password.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        {% if form.remember_me is defined %}
+        <div class="form-check">
+          {{ form.remember_me(class_="form-check-input", id="login-remember") }}
+          <label class="form-check-label" for="login-remember">Zapamiętaj mnie</label>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">
+          Zaloguj się
+        </button>
+
+        <div class="login-links-vertical">
+          <a href="{{ url_for('auth.register') }}" class="login-link">Utwórz konto</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Password visibility toggle for login
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('login-password');
+    const toggleBtn = document.getElementById('login-password-toggle');
+    const toggleIcon = document.getElementById('login-password-icon');
+    
+    if (passwordInput && toggleBtn) {
+      toggleBtn.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        if (type === 'text') {
+          toggleIcon.classList.remove('bi-eye');
+          toggleIcon.classList.add('bi-eye-slash');
+        } else {
+          toggleIcon.classList.remove('bi-eye-slash');
+          toggleIcon.classList.add('bi-eye');
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

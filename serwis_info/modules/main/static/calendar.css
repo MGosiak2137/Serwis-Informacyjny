@@ -1,0 +1,384 @@
+/* ===========================
+   CALENDAR - STANDARDIZED TO HOROSCOPE DESIGN
+   =========================== */
+
+.card-calendar {
+    grid-area: calendar;
+    background: linear-gradient(135deg, #ff9ec4 0%, #ff6ba8 50%, #ff4d9e 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 2px solid #ff3590;
+    box-shadow: 0 4px 12px rgba(255, 77, 158, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-calendar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
+.card-calendar:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(255, 77, 158, 0.5);
+    border-color: #ff4d9e;
+}
+
+.card-calendar:hover::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+}
+
+/* UKŁAD DWA SEKTORY: LEWY (GODZINA+DATA) + PRAWY (BOXES) */
+.calendar-horizontal {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 1rem;
+    min-height: 0;
+}
+
+/* LEWA STRONA */
+.calendar-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* GODZINA – duża i responsywna */
+.calendar-time {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+/* DATA – mniejsza */
+.calendar-date {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    align-items: center;
+    color: rgba(255, 255, 255, 0.95);
+    margin-top: 0.3rem;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* PRAWA STRONA – wrapper dla scrollowania */
+.calendar-right-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar {
+    width: clamp(4px, 0.8vw, 6px);
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+}
+
+.calendar-right-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* PRAWA STRONA – siatka responsywna */
+.calendar-right {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: clamp(0.2rem, 0.6vw, 0.35rem);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+/* POJEDYNCZE POLE */
+.calendar-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.3rem, 0.9vw, 0.5rem);
+    border-radius: clamp(5px, 0.8vw, 8px);
+    backdrop-filter: blur(10px);
+    border: 2px solid #ff3590;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    transition: all 0.2s ease;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.calendar-box:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* TEKSTY W PUDŁACH */
+.calendar-label {
+    font-size: clamp(0.5rem, 0.75vw, 0.6rem);
+    color: #ff4d9e;
+    font-weight: 600;
+    margin-bottom: clamp(0.08rem, 0.25vw, 0.12rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+
+.calendar-value {
+    font-size: clamp(0.55rem, 0.85vw, 0.7rem);
+    color: #2d1b3d;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: clamp(1.05, 1.1vw, 1.15);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    width: 100%;
+    min-height: 0;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 1024px) {
+    .calendar-horizontal {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 0.8rem;
+    }
+    
+    .calendar-time {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+    }
+}
+
+@media (max-width: 850px) {
+    .calendar-horizontal {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        grid-template-rows: 1fr;
+    }
+
+    /* LEWA STRONA - zachowaj styl poziomy */
+    .calendar-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+
+    .calendar-time {
+        font-size: clamp(3rem, 8vw, 5.5rem);
+        color: #fff;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        margin: 0;
+        line-height: 1;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+    }
+
+    .calendar-date {
+        font-size: clamp(0.9rem, 2vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 0.3rem;
+        flex-shrink: 0;
+    }
+
+    /* PRAWA STRONA - tylko Imieniny i Święto */
+    .calendar-right-wrapper {
+        height: 100%;
+    }
+
+    .calendar-right {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        gap: clamp(0.2rem, 0.6vw, 0.35rem);
+    }
+
+    /* Ukryj Status dnia i Dzień roku */
+    .calendar-box:nth-child(2),
+    .calendar-box:nth-child(4) {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .card-calendar {
+        padding: 1rem;
+    }
+    
+    .calendar-horizontal {
+        gap: 0.6rem;
+    }
+    
+    .calendar-left {
+        height: 100%;
+    }
+    
+    .calendar-time {
+        font-size: clamp(2.5rem, 7vw, 4.5rem);
+        line-height: 1;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+    }
+    
+    .calendar-date {
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        flex-shrink: 0;
+    }
+    
+    .calendar-right {
+        gap: clamp(0.2rem, 0.6vw, 0.35rem);
+    }
+    
+    .calendar-box {
+        padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.3rem, 0.9vw, 0.5rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-horizontal {
+        gap: 0.5rem;
+    }
+
+    .calendar-left {
+        height: 100%;
+    }
+
+    .calendar-time {
+        font-size: clamp(2rem, 6.5vw, 4rem);
+        line-height: 1;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+    }
+    
+    .calendar-date {
+        font-size: clamp(0.8rem, 2vw, 1rem);
+        flex-shrink: 0;
+    }
+    
+    .calendar-box {
+        padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.3rem, 0.9vw, 0.5rem);
+    }
+    
+    .calendar-label {
+        font-size: clamp(0.5rem, 0.75vw, 0.6rem);
+    }
+    
+    .calendar-value {
+        font-size: clamp(0.55rem, 0.85vw, 0.7rem);
+    }
+}
+
+@media (max-width: 360px) {
+    .card-calendar {
+        padding: 0.8rem;
+    }
+    
+    .calendar-horizontal {
+        gap: 0.4rem;
+    }
+    
+    .calendar-left {
+        height: 100%;
+    }
+    
+    .calendar-time {
+        font-size: clamp(1.8rem, 6vw, 3.5rem);
+        line-height: 1;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+    }
+    
+    .calendar-date {
+        font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+        flex-shrink: 0;
+    }
+    
+    .calendar-right {
+        gap: clamp(0.2rem, 0.6vw, 0.35rem);
+    }
+    
+    .calendar-box {
+        padding: clamp(0.25rem, 0.7vw, 0.4rem) clamp(0.3rem, 0.9vw, 0.5rem);
+    }
+    
+    .calendar-label {
+        font-size: clamp(0.5rem, 0.75vw, 0.6rem);
+    }
+    
+    .calendar-value {
+        font-size: clamp(0.55rem, 0.85vw, 0.7rem);
+    }
+}

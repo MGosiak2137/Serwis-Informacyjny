@@ -1,0 +1,234 @@
+{% extends "nav_footnews.html" %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+    <main class="page-main detail-page">
+      <article class="news-detail">
+        {% if article %}
+        <header class="detail-header">
+          <div class="detail-header-top">
+            <h1>{{ article.title }}</h1>
+
+            <button class="bookmark-btn"
+                    type="button"
+                    aria-label="Dodaj do zakładek"
+                    data-article-id="{{ article.id_number or article.id }}"
+                    data-is-bookmarked="{{ is_bookmarked|lower }}">
+              <i class="bi bi-bookmark" id="bookmark-icon"></i>
+            </button>
+          </div>
+
+          <div class="detail-meta">
+            <span>{{ article.published_at.strftime("%d.%m.%Y %H:%M") }}</span>
+            {% if article.source_name %}
+              — <span class="source">{{ article.source_name }}</span>
+            {% endif %}
+          </div>
+        </header>
+
+
+        <div class="detail-content">
+
+          {% if article.content %}
+              <div class="article-text">
+                  {% set first = article.content[0] %}
+                  <p><strong>{{ first }}</strong></p>
+
+                  {% if article.images %}
+
+                      {% set img_url = article.images[0] %}
+                            {% if img_url %}
+                                <img src="{{ img_url }}" alt="Article image" class="article-image"  >
+                            {% endif %}
+                  {% endif %}
+
+                  {% for paragraph in article.content[1:] %}
+                    {% if article.content_format[loop.index] == 'header' %}
+                        <h2><strong>{{ paragraph }}</strong></h2>
+                    {% elif article.content_format[loop.index] == 'text' %}
+                        <p>{{ paragraph }}</p>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if article.author == "" %}
+                        <a class="source-link">Autor: Nieznany</a>
+                  {% elif article.author %}
+                        <a class="source-link">Autor: {{ article.author }}</a>
+                  {% endif %}
+
+                  {% if article.url %}
+                        <a href="{{ article.url }}" class="source-link" target="_blank" rel="noopener">
+                            Oryginalne źródło
+                        </a>
+                  {% endif %}
+              </div>
+          {% endif %}
+        </div>
+
+
+
+        <footer class="detail-footer">
+          <a href="{{ request.referrer or url_for('news.search') }}" class="btn-secondary">Wróć</a>
+        </footer>
+        {% else %}
+        <div class="error-message">
+          <h2>Artykuł nie znaleziony</h2>
+          <p><a href="{{ url_for('news.search') }}">Powróć do wyszukiwarki</a></p>
+        </div>
+        {% endif %}
+      </article>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookmarkBtn = document.querySelector('.bookmark-btn');
+        if (!bookmarkBtn) return;
+
+        const articleId = bookmarkBtn.dataset.articleId;
+        const isBookmarked = bookmarkBtn.dataset.isBookmarked === 'true';
+        const bookmarkIcon = document.querySelector('#bookmark-icon');
+
+        // Ustaw wstępny stan ikony
+        updateBookmarkIcon(isBookmarked);
+
+        bookmarkBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            const article = {
+                id_number: articleId,
+                title: document.querySelector('h1').innerText,
+                category: '{{ article.get("category") or "" }}',
+                summary: '{{ (article.get("content") and article.get("content")[0]) or "" }}',
+                source_name: '{{ article.get("source_name") or article.get("author") or "" }}',
+                url: '{{ article.get("url") or "" }}'
+            };
+
+            const currentState = bookmarkIcon.classList.contains('bookmarked');
+
+            if (currentState) {
+                // Usuń z bookmarków
+                try {
+                    const response = await fetch('/news/api/bookmark/remove', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            article_id: articleId
+                        })
+                    });
+
+                    if (response.ok) {
+                        updateBookmarkIcon(false);
+                        showNotification('Artykuł usunięty z zakładek');
+                    }
+                } catch (error) {
+                    console.error('Error removing bookmark:', error);
+                }
+            } else {
+                // Dodaj do bookmarków
+                try {
+                    const response = await fetch('/news/api/bookmark/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            article_id: articleId,
+                            article_title: article.title,
+                            article_category: article.category,
+                            article_summary: article.summary,
+                            article_source: article.source_name,
+                            article_url: article.url
+                        })
+                    });
+
+                    if (response.ok) {
+                        updateBookmarkIcon(true);
+                        showNotification('Artykuł dodany do zakładek');
+                    }
+                } catch (error) {
+                    console.error('Error adding bookmark:', error);
+                }
+            }
+        });
+
+        function updateBookmarkIcon(isBookmarked) {
+            if (isBookmarked) {
+                bookmarkIcon.classList.add('bookmarked');
+                bookmarkIcon.classList.remove('bi-bookmark');
+                bookmarkIcon.classList.add('bi-bookmark-fill');
+            } else {
+                bookmarkIcon.classList.remove('bookmarked');
+                bookmarkIcon.classList.remove('bi-bookmark-fill');
+                bookmarkIcon.classList.add('bi-bookmark');
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 4px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease-in-out;
+            `;
+            notification.innerText = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    });
+    </script>
+
+    <style>
+    .bookmark-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #333;
+        padding: 5px;
+        transition: color 0.3s ease;
+    }
+
+    .bookmark-btn:hover {
+        color: #007bff;
+    }
+
+    .bookmark-btn #bookmark-icon.bookmarked {
+        color: #70c613;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+    </style>
+{% endblock %}

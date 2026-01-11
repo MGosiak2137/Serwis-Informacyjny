@@ -1,0 +1,23 @@
+# Lista bibliotek wymaganych do uruchomienia projektu
+
+Flask-WTF
+Flask-Login
+Flask-SQLAlchemy
+python-dotenv
+
+requests
+beautifulsoup4
+selenium
+schedule
+
+python-dateutil
+holidays
+yfinance
+psycopg2-binary
+email-validator
+googletrans
+
+pytest
+pytest-flask
+playwright
+pytest-playwright

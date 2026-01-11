@@ -1,0 +1,149 @@
+.card-weather {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+    height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  
+
+  background: linear-gradient(135deg, rgba(0,123,255,0.45), rgba(0,200,255,0.35));
+  border: 2px solid rgba(59, 130, 246, 0.6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-weather::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+/* Hover on entire card */
+.card-item.card-weather:hover,
+.card-weather.card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.5) !important;
+  border-color: rgba(59, 130, 246, 0.9) !important;
+}
+
+.card-weather:hover::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+}
+
+/* ======================= WNĘTRZE ======================= */
+
+.weather-mini {
+  padding: 14px 18px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 10px 12px;
+  height: 100%;
+  width: 100%;
+  gap: 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+  width: 100%;
+  gap: 6px;
+
+  backdrop-filter: blur(4px);
+}
+
+
+
+#mini-icon {
+  width: 48px;
+  height: 48px;
+}
+
+#mini-temp {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+#mini-desc {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.wm-city {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ======================= PROGNOZA ======================= */
+
+.weather-forecast-mini {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.forecast-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.forecast-day {
+  flex: 1;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  padding: 4px 2px;
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecast-day img {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 2px;
+}
+
+.f-temp {
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+/* ===================== RESPONSYWNOŚĆ ===================== */
+
+@media (max-width: 768px) {
+  #mini-icon { width: 60px; height: 60px; }
+  #mini-temp { font-size: 1.9rem; }
+  .wm-city { font-size: 1.15rem; }
+
+  .forecast-day img { width: 22px; height: 22px; }
+  .f-temp { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  #mini-icon { width: 55px; height: 55px; }
+  #mini-temp { font-size: 1.8rem; }
+  .wm-city { font-size: 1rem; }
+
+  .forecast-day { padding: 4px 2px; }
+  .forecast-day img { width: 20px; height: 20px; }
+}
