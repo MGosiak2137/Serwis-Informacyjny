@@ -9,7 +9,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-API_KEY = "fca_live_U9au8QtFvTahZj1e9JAR1Hgg9hL83QoEWDckPdTO"
+API_KEY = os.getenv("CURRENCY_API_KEY")
 API_URL = "https://api.freecurrencyapi.com/v1/latest"
 
 # Gold history cache settings

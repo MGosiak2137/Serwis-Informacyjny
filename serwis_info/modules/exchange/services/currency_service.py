@@ -1,6 +1,7 @@
 import requests
+import os
 
-API_KEY = "fca_live_ETTrbfogzJW4ig6qMwd4i3Co98bLc61r7HnsqMex"
+API_KEY = os.getenv("CURRENCY_API_KEY")
 API_URL = "https://api.freecurrencyapi.com/v1/latest"
 
 

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from flask import jsonify
 import requests
+import os
 
 currencies_bp = Blueprint(
     "currencies",
@@ -10,7 +11,7 @@ currencies_bp = Blueprint(
     static_folder="../static"
 )
 
-API_KEY = "fca_live_U9au8QtFvTahZj1e9JAR1Hgg9hL83QoEWDckPdTO"
+API_KEY = os.getenv("CURRENCY_API_KEY")
 API_URL = "https://api.freecurrencyapi.com/v1/latest"
 
 

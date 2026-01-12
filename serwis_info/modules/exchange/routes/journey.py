@@ -4,6 +4,7 @@ import statistics
 from datetime import datetime
 from googletrans import Translator
 from dateutil.parser import isoparse
+import os
 
 journey_bp = Blueprint(
     "journey", __name__, url_prefix="/journey", template_folder="../templates", static_folder="../static"
@@ -12,16 +13,16 @@ journey_bp = Blueprint(
 API_URL_ROUNDTRIP = "https://priceline-com2.p.rapidapi.com/flights/search-roundtrip"
 API_URL_ONEWAY = "https://priceline-com2.p.rapidapi.com/flights/search-one-way"
 API_HEADERS = {
-    "x-rapidapi-host": "priceline-com2.p.rapidapi.com",
-    "x-rapidapi-key": "db58deade0msh6f6f77b75f6a195p12d372jsncb54d5a89da2"
+    "x-rapidapi-host": os.getenv("RAPIDAPI_HOST_PRICELINE"),
+    "x-rapidapi-key": os.getenv("RAPIDAPI_KEY")
 }
 
 API_HOTELS_LOCATIONS = "https://booking-com.p.rapidapi.com/v1/hotels/locations"
 API_HOTELS_SEARCH = "https://booking-com.p.rapidapi.com/v1/hotels/search"
 
 BOOKING_HEADERS = {
-    "x-rapidapi-host": "booking-com.p.rapidapi.com",
-    "x-rapidapi-key": "db58deade0msh6f6f77b75f6a195p12d372jsncb54d5a89da2"
+    "x-rapidapi-host": os.getenv("RAPIDAPI_HOST_BOOKING"),
+    "x-rapidapi-key": os.getenv("RAPIDAPI_KEY")
 }
 
 translator = Translator()

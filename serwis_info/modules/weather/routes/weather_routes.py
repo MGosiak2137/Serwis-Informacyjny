@@ -2,16 +2,25 @@ from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
 import requests
 from collections import Counter
+import os
 
 weather_api_bp = Blueprint("weather_api", __name__)
 
-API_KEY = "25ae8c36b22398f35b25584807571f27"
+API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 
 @weather_api_bp.route("/dashboard")
 @login_required
 def dashboard_page():
     return render_template("dashboard.html")
+
+@weather_api_bp.route("/api/config")
+def get_config():
+    """Endpoint zwracający konfigurację (API_KEY)"""
+    return jsonify({
+        "API_KEY": API_KEY,
+        "API_URL": "https://api.openweathermap.org/data/2.5/weather?q="
+    })
 
 @weather_api_bp.route("/api/simple_weather")
 def simple_weather():
