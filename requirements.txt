@@ -21,3 +21,4 @@ pytest
 pytest-flask
 playwright
 pytest-playwright
+pytest-mock

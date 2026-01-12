@@ -1,9 +1,13 @@
 from playwright.sync_api import Page, expect
 
 
-def test_logged_user_panel_toggles(page: Page, e2e_server):
-    # Simulate logged user by setting cookie used by weather scripts
-    page.context.add_cookies([{"name": "username", "value": "alice", "url": e2e_server}])
+def test_logged_user_panel_toggles(page: Page, e2e_server, credentials):
+    # Login user first
+    page.goto(f"{e2e_server}/auth/login")
+    page.locator("input[name='email']").fill(credentials['email'])
+    page.locator("input[name='password']").fill(credentials['password'])
+    page.get_by_role("button", name="Zaloguj się").click()
+    page.wait_for_load_state("networkidle")
 
     page.goto(f"{e2e_server}/weather/")
 

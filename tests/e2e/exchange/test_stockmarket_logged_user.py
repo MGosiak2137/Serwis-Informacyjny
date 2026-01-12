@@ -1,13 +1,13 @@
 from playwright.sync_api import Page, expect
 import re
 
-def test_historical_price_data(page: Page, e2e_server):
+def test_historical_price_data(page: Page, e2e_server, credentials):
 
     # GIVEN: zalogowany użytkownik
     page.goto(f"{e2e_server}/auth/login")
-    page.locator("input[name='email']").fill("1233@wp.pl")
-    page.locator("input[name='password']").fill("12345678")
-    page.get_by_role("button", name="Zaloguj").click()
+    page.locator("input[name='email']").fill(credentials['email'])
+    page.locator("input[name='password']").fill(credentials['password'])
+    page.get_by_role("button", name="Zaloguj się").click()
     page.wait_for_load_state("networkidle")
 
     # WHEN: przechodzi do giełdy

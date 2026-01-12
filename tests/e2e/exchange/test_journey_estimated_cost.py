@@ -1,12 +1,12 @@
 from playwright.sync_api import Page, expect
 
-def test_logged_user_sees_estimated_trip_cost(page: Page, e2e_server):
+def test_logged_user_sees_estimated_trip_cost(page: Page, e2e_server, credentials):
     # GIVEN: użytkownik zalogowany
     page.goto(f"{e2e_server}/auth/login")
 
-    page.locator("input[name='email']").fill("test@test.pl")
-    page.locator("input[name='password']").fill("test123T!")
-    page.get_by_role("button", name="Zaloguj").click()
+    page.locator("input[name='email']").fill(credentials['email'])
+    page.locator("input[name='password']").fill(credentials['password'])
+    page.get_by_role("button", name="Zaloguj się").click()
     page.wait_for_load_state("networkidle")
 
     # WHEN: przechodzi do wyszukiwarki lotów

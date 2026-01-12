@@ -1,14 +1,16 @@
 from playwright.sync_api import Page, expect
 
-def test_favourites_positions(page: Page, e2e_server):
+def test_favourites_positions(page: Page, e2e_server, credentials):
 
     # GIVEN: zalogowany użytkownik
     page.goto(f"{e2e_server}/auth/login")
-    page.locator("input[name='email']").fill("1233@wp.pl")
-    page.locator("input[name='password']").fill("12345678")
-    page.get_by_role("button", name="Zaloguj").click()
+    page.locator("input[name='email']").fill(credentials['email'])
+    page.locator("input[name='password']").fill(credentials['password'])
+    page.get_by_role("button", name="Zaloguj się").click()
+    page.wait_for_load_state("networkidle")
 
     page.goto(f"{e2e_server}/main_eco/main_eco")
+    page.wait_for_load_state("networkidle")
 
     expect(page.locator("h2:has-text('Ulubione pozycje w module ekonomicznym')")).to_be_visible()
 

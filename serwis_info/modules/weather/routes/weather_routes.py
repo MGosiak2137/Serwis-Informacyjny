@@ -7,6 +7,10 @@ weather_api_bp = Blueprint("weather_api", __name__)
 
 API_KEY = "25ae8c36b22398f35b25584807571f27"
 
+@weather_api_bp.route("/")
+def weather_main():
+    return render_template("dashboard.html")
+
 @weather_api_bp.route("/dashboard")
 @login_required
 def dashboard_page():
