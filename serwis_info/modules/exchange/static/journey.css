@@ -1,24 +1,25 @@
 .journey-page{max-width:1100px;margin:1.5rem auto;padding:0 1rem}
-.journey-section h2{margin:0 0 .5rem 0;color:var(--text);font-size:clamp(1.5rem, 4vw, 2rem);font-weight:700;text-align:center}
-.journey-section .lead{color:var(--muted);margin:0 0 1.5rem 0;font-size:1rem;text-align:center}
+.journey-section h2{margin:0 0 .5rem 0;color:var(--text-primary);font-size:clamp(1.5rem, 4vw, 2rem);font-weight:700;text-align:center}
+.journey-section .lead{color:var(--text-secondary);margin:0 0 1.5rem 0;font-size:1rem;text-align:center}
 
 /* Formularz grid - ulepszone kształty i padding */
 .journey-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  background: var(--card);
+  background: var(--bg-secondary);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .journey-form label {
   display: flex;
   flex-direction: column;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   font-size: 0.95rem;
 }
 
@@ -28,9 +29,9 @@
   margin-top: 0.5rem;
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  border: 2px solid #e5e5e5;
-  background: white;
-  color: #333;
+  border: 2px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -77,12 +78,12 @@
 }
 
 .btn-secondary {
-  background: var(--card);
-  color: var(--text);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
   text-decoration: none;
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 2px solid var(--border-color);
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
@@ -98,11 +99,12 @@
 /* Wynik - ulepszone kształty */
 .journey-result {
   margin-top: 2rem;
-  background: var(--card);
+  background: var(--bg-secondary);
   padding: 2.5rem;
   border-radius: 20px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: var(--text-primary);
 }
 
 .journey-result ul {
@@ -111,7 +113,7 @@
 }
 
 .journey-result .muted {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 .flights-list {
@@ -121,13 +123,14 @@
 }
 
 .flight-card {
-  background: var(--card);
+  background: var(--bg-secondary);
   margin-bottom: 1.25rem;
   padding: 1.75rem;
   border-radius: 16px;
   border-left: 5px solid var(--primary);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  color: var(--text-primary);
 }
 
 .flight-card:hover {
@@ -137,14 +140,15 @@
 }
 
 .flights-list li {
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 15px;
   padding: 1rem 1.25rem;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--border-color);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-size: 0.95rem;
   margin-bottom: 0.75rem;
   transition: all 0.3s ease;
+  color: var(--text-primary);
 }
 
 .flights-list li:hover {
@@ -162,12 +166,13 @@
 }
 
 .hotel-card {
-  background: var(--card);
+  background: var(--bg-secondary);
   padding: 1.75rem;
   border-radius: 16px;
   border-left: 5px solid var(--primary);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  color: var(--text-primary);
 }
 
 .hotel-card:hover {
@@ -183,7 +188,7 @@
 }
 
 .hotel-address {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -202,12 +207,13 @@
 /* Podsumowanie - ulepszone kształty */
 .summary-box {
   margin-top: 2rem;
-  background: var(--card);
+  background: var(--bg-secondary);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
   text-align: center;
+  color: var(--text-primary);
 }
 
 .results-grid {
@@ -220,12 +226,13 @@
 
 .left-column,
 .right-column {
-  background: var(--card);
+  background: var(--bg-secondary);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
   height: 100%;
+  color: var(--text-primary);
 }
 .spinner-overlay {
   position: fixed;
@@ -233,11 +240,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(247, 247, 249, 0.9);
+  background: rgba(26, 26, 26, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+[data-theme="light"] .spinner-overlay,
+body:not(.dark) .spinner-overlay {
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .spinner-container {
@@ -247,7 +260,7 @@
 }
 
 .spinner {
-  border: 4px solid #f3f3f3;
+  border: 4px solid var(--border-color);
   border-top: 4px solid var(--primary);
   border-radius: 50%;
   width: 40px;
@@ -260,7 +273,7 @@
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
 }
 
 @keyframes spin {

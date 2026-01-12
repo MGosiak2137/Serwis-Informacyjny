@@ -12,8 +12,8 @@ async function loadConfig() {
     }
 }
 
-// Załaduj konfigurację przy starcie
-loadConfig();
+// Załaduj konfigurację przy starcie i czekaj
+await loadConfig();
 
 export { API_KEY, API_URL };
 
