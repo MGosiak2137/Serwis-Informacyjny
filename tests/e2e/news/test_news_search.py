@@ -128,3 +128,70 @@ def test_search_filters_articles(page, server_base_url):
     # I że fraza jest widoczna na stronie wyników
     body = page.locator("body").inner_text().lower()
     assert query.lower() in body
+# File: tests/e2e/news/test_news_search.py
+import re
+import pytest
+
+
+def ui_login(page, base_url: str, credentials: dict) -> None:
+    page.goto(f"{base_url}/auth/login", wait_until="domcontentloaded")
+    page.locator('input[placeholder="np. mojmail@example.com"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[placeholder="np. mojmail@example.com"]').fill(credentials["email"])
+    page.locator('input[type="password"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[type="password"]').fill(credentials["password"])
+    page.get_by_role("button", name="Zaloguj się").click()
+    page.wait_for_load_state("domcontentloaded")
+
+
+def _pick_query_from_first_article(page, base_url: str, section: str = "crime") -> str:
+    page.goto(f"{base_url}/news/{section}", wait_until="domcontentloaded")
+
+    first_link = page.locator('a.news-card-link[href^="/news/detail/"]').first
+    if first_link.count() == 0:
+        first_link = page.locator('a[href^="/news/detail/"]').first
+
+    first_link.wait_for(state="visible", timeout=15000)
+
+    card = first_link.locator("xpath=ancestor::article[1]")
+    title_text = ""
+    title_loc = card.locator("a.news-title-link").first
+    if title_loc.count() > 0:
+        title_text = title_loc.inner_text().strip()
+    else:
+        title_text = card.inner_text().strip()
+
+    assert title_text
+
+    words = re.findall(r"[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{5,}", title_text)
+    query = words[0] if words else title_text[:6]
+    return query
+
+
+def test_search_filters_articles(page, e2e_server, credentials):
+    ui_login(page, e2e_server, credentials)
+
+    query = _pick_query_from_first_article(page, e2e_server, section="crime")
+    assert query
+
+    page.goto(f"{e2e_server}/news/search", wait_until="domcontentloaded")
+
+    search_input = page.locator('input[name="q"]')
+    if search_input.count() == 0:
+        search_input = page.locator("input").first
+
+    search_input.wait_for(state="visible", timeout=15000)
+    search_input.fill(query)
+
+    btn = page.get_by_role("button", name=re.compile(r"Szukaj|Wyszukaj", re.I))
+    if btn.count() > 0:
+        btn.first.click()
+    else:
+        search_input.press("Enter")
+
+    page.wait_for_timeout(500)
+
+    results = page.locator('a[href^="/news/detail/"]')
+    assert results.count() > 0
+
+    body = page.locator("body").inner_text().lower()
+    assert query.lower() in body

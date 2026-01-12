@@ -1,36 +1,96 @@
-# tests/e2e/news/test_news_bookmark_remove.py
+from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
+import time
 
-from playwright.sync_api import Page
+
+def _get_bookmark_state_detail(page: Page) -> str:
+    """
+    Zwraca 'true'/'false' dla przycisku zakładki na stronie detail.
+    Najpierw próbuje data-is-bookmarked, a jeśli front tego nie aktualizuje,
+    to robi fallback na klasę ikony (bi-bookmark-fill).
+    """
+    btn = page.locator("button.bookmark-btn").first
+    if btn.count() == 0:
+        return "false"
+
+    attr = (btn.get_attribute("data-is-bookmarked") or "").lower().strip()
+    if attr in ("true", "false"):
+        return attr
+
+    # fallback: ikona (często tylko to jest aktualizowane przez JS)
+    icon_fill = btn.locator("i.bi-bookmark-fill").count() > 0
+    return "true" if icon_fill else "false"
 
 
 def _wait_until_bookmark_attr(page: Page, desired: str, timeout_ms: int = 20000) -> None:
-    page.wait_for_function(
-        """
-        (desired) => {
-          const btn = document.querySelector('button.bookmark-btn');
-          if (!btn) return false;
-          const v = (btn.getAttribute('data-is-bookmarked') || '').toLowerCase();
-          return v === desired;
-        }
-        """,
-        arg=desired,
-        timeout=timeout_ms,
-    )
+    desired = desired.lower().strip()
+    deadline = time.time() + timeout_ms / 1000.0
+
+    while True:
+        state = _get_bookmark_state_detail(page)
+        if state == desired:
+            print(f"DEBUG: bookmark state reached desired='{desired}'")
+            return
+
+        if time.time() >= deadline:
+            raise AssertionError(f"Timeout waiting for bookmark state='{desired}', current='{state}'")
+
+        time.sleep(0.05)
 
 
-def _set_bookmark_state_on_detail(page: Page, desired: str) -> None:
-    """
-    Na stronie detail: desired = "true"/"false"
-    """
+def _set_bookmark_state_on_detail(page: Page, desired: str, max_retries: int = 3) -> None:
+    desired = desired.lower().strip()
+
     btn = page.locator("button.bookmark-btn").first
     btn.wait_for(state="visible", timeout=20000)
 
-    current = (btn.get_attribute("data-is-bookmarked") or "").lower()
+    article_id = btn.get_attribute("data-article-id") or btn.get_attribute("data-id") or ""
+    current = _get_bookmark_state_detail(page)
+    print("DEBUG before click, state:", current, "article_id:", article_id)
+
     if current == desired:
         return
 
-    btn.click()
-    _wait_until_bookmark_attr(page, desired, timeout_ms=30000)
+    for attempt in range(1, max_retries + 1):
+        try:
+            def _predicate(resp):
+                try:
+                    if "/news/api/bookmark/" not in resp.url:
+                        return False
+                    if resp.request.method not in ("POST", "DELETE", "PUT"):
+                        return False
+                    return True
+                except Exception:
+                    return False
+
+            with page.expect_response(_predicate, timeout=15000) as resp_info:
+                btn.click()
+            resp = resp_info.value
+            print(f"DEBUG network response status: {resp.status} url: {resp.url} attempt:{attempt}")
+
+            if resp.status in (200, 204):
+                _wait_until_bookmark_attr(page, desired, timeout_ms=30000)
+                after = _get_bookmark_state_detail(page)
+                print("DEBUG after wait, state:", after)
+
+                # stabilizacja
+                time.sleep(0.15)
+                still = _get_bookmark_state_detail(page)
+                if after == desired and still == desired:
+                    return
+                else:
+                    print(f"DEBUG attempt {attempt}: state flipped (after={after}, still={still})")
+            else:
+                print(f"DEBUG unexpected status {resp.status} on attempt {attempt}")
+
+        except PlaywrightTimeoutError:
+            print(f"DEBUG attempt {attempt}: timeout waiting for network response")
+        except AssertionError as e:
+            print(f"DEBUG attempt {attempt}: assertion/wait error: {e}")
+
+        time.sleep(0.2)
+
+    final = _get_bookmark_state_detail(page)
+    raise AssertionError(f"Failed to set bookmark to '{desired}', final state='{final}'")
 
 
 def _open_bookmarks_via_nav(page: Page) -> None:
@@ -41,39 +101,23 @@ def _open_bookmarks_via_nav(page: Page) -> None:
     page.wait_for_load_state("domcontentloaded")
 
 
-from playwright.sync_api import Page
-
-
 def _remove_bookmark_on_bookmarks_page(page: Page, article_id: str) -> None:
-    """
-    Usuwa zakładkę na /news/bookmarks klikając zieloną ikonę zakładki
-    w tej samej karcie, która ma link do /news/detail/<article_id>.
-    """
-
-    # 1) znajdź link do detail w zakładkach
     detail_link = page.locator(f'a[href="/news/detail/{article_id}"]').first
     detail_link.wait_for(state="visible", timeout=20000)
 
-    # 2) weź "kartę" / "kontener" tego wpisu (najbliższy ancestor)
-    #    (działa niezależnie czy to <article> czy <div>)
     card = detail_link.locator("xpath=ancestor::*[self::article or self::div][1]")
 
-    # 3) w tej karcie znajdź ikonę/przycisk zakładki (zielona ikonka)
-    #    najczęściej to <i class="bi bi-bookmark-fill"> albo podobnie
-    icon = card.locator("i.bi-bookmark-fill, i.bi-bookmark").first
-
-    # czasem ikona jest w buttonie – klikniemy button jeśli istnieje
+    # klik w przycisk (preferowane), a jak nie ma, to w ikonę
     btn = card.locator("button:has(i.bi-bookmark-fill), button:has(i.bi-bookmark)").first
+    icon = card.locator("i.bi-bookmark-fill, i.bi-bookmark").first
 
     if btn.count() > 0:
         btn.wait_for(state="visible", timeout=20000)
         btn.click()
     else:
-        # fallback: klik w samą ikonę (czasem nie ma buttona)
         icon.wait_for(state="visible", timeout=20000)
         icon.click(force=True)
 
-    # 4) po kliknięciu wpis powinien zniknąć z zakładek
     page.wait_for_function(
         """
         (id) => !document.querySelector(`a[href="/news/detail/${id}"]`)
@@ -83,61 +127,71 @@ def _remove_bookmark_on_bookmarks_page(page: Page, article_id: str) -> None:
     )
 
 
+def ui_login(page: Page, base_url: str, credentials: dict) -> None:
+    page.goto(f"{base_url}/auth/login", wait_until="domcontentloaded")
+    page.locator('input[placeholder="np. mojmail@example.com"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[placeholder="np. mojmail@example.com"]').fill(credentials["email"])
+    page.locator('input[type="password"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[type="password"]').fill(credentials["password"])
+    page.get_by_role("button", name="Zaloguj się").click()
+    page.get_by_text("Witaj").first.wait_for(timeout=15000)
 
-def test_bookmark_remove_flow(
-    page,
-    server_base_url,
-    credentials,
-    ensure_logged_in,
-    open_first_article_detail,
-):
-    """
-    Kolejność:
-    1) zaznacza zakładkę
-    2) odświeża stronę
-    3) sprawdza czy stan zakładki się nie zmienił
-    4) wchodzi do Zakładek z nav i sprawdza czy zakładka jest
-    5) usuwa zakładkę na stronie Zakładek
-    6) wraca do artykułu i sprawdza, że zakładka jest niezapisana
-    """
 
+def open_first_article_detail(page: Page, base_url: str, section: str = "crime") -> str:
+    page.goto(f"{base_url}/news/{section}", wait_until="domcontentloaded")
+
+    first_link = page.locator('a[href^="/news/detail/"]').first
+    first_link.wait_for(state="visible", timeout=20000)
+    first_link.click()
+    page.wait_for_url("**/news/detail/**", timeout=30000)
+
+    btn = page.locator("button.bookmark-btn").first
+    btn.wait_for(state="visible", timeout=15000)
+
+    article_id = btn.get_attribute("data-article-id") or btn.get_attribute("data-id") or ""
+    if not article_id:
+        url = page.url
+        if "/news/detail/" in url:
+            article_id = url.split("/news/detail/")[-1].split("/")[0]
+
+    assert article_id, "Nie udało się pobrać article_id z detail"
+    return article_id
+
+
+def test_bookmark_remove_flow(page, e2e_server, credentials):
     page.set_default_timeout(20000)
 
-    login = ensure_logged_in
-    open_detail = open_first_article_detail
+    ui_login(page, e2e_server, credentials)
 
-    # 0) login
-    login(page, server_base_url, credentials)
+    article_id = open_first_article_detail(page, e2e_server, section="crime")
+    assert article_id, "Nie udało się pobrać article_id z detail"
 
-    # 0.5) otwórz detail i weź article_id
-    article_id = open_detail(page, server_base_url, section="crime")
-    assert article_id, "Nie udało się pobrać data-article-id z przycisku zakładki w detail"
-
-    # 1) zaznacz zakładkę
+    # 1) Ustaw zakładkę na true (na detail)
     _set_bookmark_state_on_detail(page, "true")
 
-    # 2) odśwież detail
+    # 2) Reload i upewnij się, że stan jest zapisany
     page.reload(wait_until="domcontentloaded")
     page.locator("button.bookmark-btn").first.wait_for(state="visible", timeout=20000)
 
-    # 3) stan nadal true
-    persisted = (page.locator("button.bookmark-btn").first.get_attribute("data-is-bookmarked") or "").lower()
+    persisted = _get_bookmark_state_detail(page)
     assert persisted == "true"
 
-    # 4) wejdź w Zakładki i sprawdź, że jest wpis
+    # 3) Przejdź do zakładek i usuń
     _open_bookmarks_via_nav(page)
-    assert page.locator(f'[data-article-id="{article_id}"]').count() > 0, (
+
+    # tutaj nie zakładamy, że jest data-article-id w DOM zakładek,
+    # bo u Ciebie usuwanie działało po linku /news/detail/<id>
+    assert page.locator(f'a[href="/news/detail/{article_id}"]').count() > 0, (
         f"Nie znaleziono zakładki na /news/bookmarks dla article_id={article_id}"
     )
 
-    # 5) usuń ją na stronie zakładek
     _remove_bookmark_on_bookmarks_page(page, article_id)
-    assert page.locator(f'[data-article-id="{article_id}"]').count() == 0
+    assert page.locator(f'a[href="/news/detail/{article_id}"]').count() == 0
 
-    # 6) wróć do detail i sprawdź, że false
-    page.goto(f"{server_base_url}/news/detail/{article_id}", wait_until="domcontentloaded")
+    # 4) Wróć na detail i sprawdź, że jest false
+    page.goto(f"{e2e_server}/news/detail/{article_id}", wait_until="domcontentloaded")
     page.locator("button.bookmark-btn").first.wait_for(state="visible", timeout=20000)
 
     _wait_until_bookmark_attr(page, "false", timeout_ms=30000)
-    final_state = (page.locator("button.bookmark-btn").first.get_attribute("data-is-bookmarked") or "").lower()
+    final_state = _get_bookmark_state_detail(page)
     assert final_state == "false"

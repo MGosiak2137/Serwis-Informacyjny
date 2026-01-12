@@ -74,3 +74,24 @@ def test_news_list_renders(page, server_base_url):
     # Na stronie /news/ masz listę newsów z linkami /news/detail/<id>
     articles = page.locator('a[href^="/news/detail/"]')
     assert articles.count() > 0
+# File: tests/e2e/news/test_news_list.py
+import pytest
+
+
+def ui_login(page, base_url: str, credentials: dict) -> None:
+    page.goto(f"{base_url}/auth/login", wait_until="domcontentloaded")
+    page.locator('input[placeholder="np. mojmail@example.com"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[placeholder="np. mojmail@example.com"]').fill(credentials["email"])
+    page.locator('input[type="password"]').wait_for(state="visible", timeout=15000)
+    page.locator('input[type="password"]').fill(credentials["password"])
+    page.get_by_role("button", name="Zaloguj się").click()
+    page.get_by_text("Witaj").first.wait_for(timeout=15000)
+
+
+def test_news_list_renders(page, e2e_server, credentials):
+    ui_login(page, e2e_server, credentials)
+
+    page.goto(f"{e2e_server}/news/", wait_until="domcontentloaded")
+
+    articles = page.locator('a[href^="/news/detail/"]')
+    assert articles.count() > 0

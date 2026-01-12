@@ -48,17 +48,17 @@ def _find_free_port():
 
 def pytest_collect_file(path=None, file_path=None, parent=None):
     # Support both legacy (path) and new (file_path) hook signatures.
-    p = file_path if file_path is not None else path
-    if p is None:
-        return None
-    try:
-        name = p.basename
-    except AttributeError:
-        name = os.path.basename(str(p))
-    if name.startswith("test_") and name.endswith(".py"):
-        modname = os.path.splitext(name)[0]
-        if modname in sys.modules:
-            del sys.modules[modname]
+  #  p = file_path if file_path is not None else path
+   # if p is None:
+    #    return None
+    #try:
+     #   name = p.basename
+    #except AttributeError:
+     #   name = os.path.basename(str(p))
+    #if name.startswith("test_") and name.endswith(".py"):
+     #   modname = os.path.splitext(name)[0]
+      #  if modname in sys.modules:
+       #     del sys.modules[modname]
     return None
 
 
