@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from ..services.history_service import add_city_to_history, fetch_history, fetch_last3, clear_user_history
+from ..services.history_service import add_city_to_history, fetch_history, clear_user_history
 
 history_bp = Blueprint("history_bp", __name__)
 

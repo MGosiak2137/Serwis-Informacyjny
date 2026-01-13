@@ -1,4 +1,4 @@
-from ..db.history_repository import add_history_entry, get_history, get_history_last3, clear_history
+from ..db.history_repository import add_history_entry, get_history, clear_history
 
 def add_city_to_history(username, city):
     add_history_entry(username, city)
