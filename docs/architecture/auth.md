@@ -21,9 +21,9 @@ Moduł wykorzystuje Flask-Login do zarządzania sesjami oraz Werkzeug do bezpiec
 
 ## 2. Zakres funkcjonalny (powiązanie z User Stories)
 
-- **US-AUTH-001** — Jako użytkownik niezalogowany chcę móc zalogować się na istniejące już konto, aby uzyskać dostęp do funkcjonalności wymagających autoryzacji.
-- **US-AUTH-002** — Jako użytkownik nieposiadający konta w aplikacji chcę móc założyć konto oraz otrzymać e-mail z potwierdzeniem jego utworzenia, aby móc korzystać z aplikacji i otrzymać potwierdzenie rejestracji.
-- **US-AUTH-003** — Jako zalogowany użytkownik chcę móc zachować swoje preferencje, aby aplikacja zapamiętywała moje ustawienia i wybory.
+- **US-AUTH-001** - Jako użytkownik niezalogowany chcę móc zalogować się na istniejące już konto, aby uzyskać dostęp do funkcjonalności wymagających autoryzacji.
+- **US-AUTH-002** - Jako użytkownik nieposiadający konta w aplikacji chcę móc założyć konto oraz otrzymać e-mail z potwierdzeniem jego utworzenia, aby móc korzystać z aplikacji i otrzymać potwierdzenie rejestracji.
+- **US-AUTH-003** - Jako zalogowany użytkownik chcę móc zachować swoje preferencje, aby aplikacja zapamiętywała moje ustawienia i wybory.
 
 Pełna lista User Stories znajduje się w: [`docs/specification/user_stories.md`](../specification/user_stories.md)
 
@@ -126,11 +126,11 @@ Reprezentuje użytkownika aplikacji.
 **Nazwa tabeli:** `user`
 
 **Pola:**
-- `id` (Integer, Primary Key) – unikalny identyfikator użytkownika
-- `email` (String(120), Unique, Not Null) – adres e-mail użytkownika (używany do logowania)
-- `nickname` (String(64), Unique, Not Null) – nazwa użytkownika wyświetlana w aplikacji
-- `password_hash` (String(200), Not Null) – zahashowane hasło użytkownika (PBKDF2)
-- `created_at` (DateTime, Nullable, Default: UTC now) – data utworzenia konta
+- `id` (Integer, Primary Key)  unikalny identyfikator użytkownika
+- `email` (String(120), Unique, Not Null) - adres e-mail użytkownika (używany do logowania)
+- `nickname` (String(64), Unique, Not Null) - nazwa użytkownika wyświetlana w aplikacji
+- `password_hash` (String(200), Not Null) - zahashowane hasło użytkownika (PBKDF2)
+- `created_at` (DateTime, Nullable, Default: UTC now) - data utworzenia konta
 
 **Relacje:**
 - Moduł logowania nie definiuje bezpośrednich relacji z innymi encjami, ale encja `User` jest wykorzystywana przez inne moduły (np. moduł pogodowy może przechowywać ulubione lokalizacje użytkownika).

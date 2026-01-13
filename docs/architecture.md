@@ -237,7 +237,7 @@ Konfiguracja aplikacji jest zarządzana przez klasę `Config` w pliku `config.py
 
 **Zmienne środowiskowe używane w aplikacji:**
 - `SECRET_KEY` – klucz sesji Flask (wymagany)
-- `FREECURRENCY_API_KEY` – klucz do FreeCurrencyAPI (moduł economy)
+- `CURRENCY_API_KEY` – klucz do FreeCurrencyAPI (moduł economy)
 - `RAPIDAPI_KEY`, `RAPIDAPI_HOST_PRICELINE`, `RAPIDAPI_HOST_BOOKING` – klucze do API podróży (moduł economy)
 - `OPENWEATHER_API_KEY` – klucz do OpenWeatherMap API (moduł weather)
 

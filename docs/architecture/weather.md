@@ -21,11 +21,11 @@ Część funkcjonalności (historia, panel użytkownika) dostępna jest tylko dl
 
 **TU UZUPEŁNIĆ:** wstaw listę User Stories (ID z Jiry + krótki opis).
 
-- **US-WEATHER-01** — Jako użytkownik chcę wyszukać aktualną pogodę dla miasta.
-- **US-WEATHER-02** — Jako użytkownik chcę zobaczyć prognozę godzinową i dzienną.
-- **US-WEATHER-03** — Jako użytkownik chcę zobaczyć mapę pogodową z warstwami (temperatura, opady, wiatr).
-- **US-WEATHER-04** — Jako zalogowany użytkownik chcę mieć zapisaną historię wyszukiwań.
-- **US-WEATHER-05** — Jako użytkownik chcę otrzymać ostrzeżenia pogodowe (upał, mróz, silny wiatr).
+- **US-WEATHER-01** - Jako użytkownik chcę wyszukać aktualną pogodę dla miasta.
+- **US-WEATHER-02** - Jako użytkownik chcę zobaczyć prognozę godzinową i dzienną.
+- **US-WEATHER-03** - Jako użytkownik chcę zobaczyć mapę pogodową z warstwami (temperatura, opady, wiatr).
+- **US-WEATHER-04** - Jako zalogowany użytkownik chcę mieć zapisaną historię wyszukiwań.
+- **US-WEATHER-05** - Jako użytkownik chcę otrzymać ostrzeżenia pogodowe (upał, mróz, silny wiatr).
 
 
 ---

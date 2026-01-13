@@ -19,8 +19,8 @@ Moduł integruje się z zewnętrznymi API w celu pobrania horoskopów, a następ
 
 ## 2. Zakres funkcjonalny (powiązanie z User Stories)
 
-- **US-CAL-001** — Jako zalogowany użytkownik, po kliknięciu w kartkę z kalendarza na stronie głównej, chcę móc zobaczyć tygodniowy horoskop, aby poznać prognozę astrologiczną na najbliższy tydzień.
-- **US-HOME-002** — Jako użytkownik chcę na stronie głównej zobaczyć w formie graficznej aktualną datę, imieniny, numerację dnia roku oraz informację, czy ten dzień jest wolny od pracy, czy nie, aby mieć szybki dostęp do podstawowych informacji kalendarzowych.
+- **US-CAL-001** - Jako zalogowany użytkownik, po kliknięciu w kartkę z kalendarza na stronie głównej, chcę móc zobaczyć tygodniowy horoskop, aby poznać prognozę astrologiczną na najbliższy tydzień.
+- **US-HOME-002** - Jako użytkownik chcę na stronie głównej zobaczyć w formie graficznej aktualną datę, imieniny, numerację dnia roku oraz informację, czy ten dzień jest wolny od pracy, czy nie, aby mieć szybki dostęp do podstawowych informacji kalendarzowych.
 
 Pełna lista User Stories znajduje się w: [`docs/specification/user_stories.md`](../specification/user_stories.md)
 

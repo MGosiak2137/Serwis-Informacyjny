@@ -46,7 +46,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
     ├── project_management.md
     ├── contribution.md
     ├── specification/
-    │   ├── user_strories.md
+    │   ├── user_stories.md
     ├── architecture/
     │   ├── <module_1>.md
     │   ├── <module_2>.md
@@ -260,7 +260,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 - [x] `README.md` – główny opis projektu - **GOTOWE**
 - [x] `docs/architecture.md` – architektura wspólna aplikacji - **GOTOWE**
 - [x] `docs/api_reference.md` – pełna referencja endpointów - **GOTOWE**
-- [ ] `docs/setup.md` – konfiguracja środowiska i `.env` - **BRAK**
+- [x] `docs/setup.md` – konfiguracja środowiska i `.env` - **GOTOWE**
 - [ ] `docs/testing.md` – plan testów + tabele testów + raport - **BRAK**
 - [x] `docs/project_management.md` – opis prowadzenia projektu - **GOTOWE**
 - [ ] `docs/contribution.md` – zasady pracy i kontrybucji - **BRAK**
@@ -278,20 +278,20 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 - [x] `docs/assets/screenshots/` zawiera aktualne screenshoty i README je wyświetla - **TAK**
 - [ ] `docs/assets/reports/report.html` istnieje (lub wskazano, jak go wygenerować) - **BRAK**
 - [x] Linki w README i dokumentacji działają (ścieżki względne) - **TAK**
-- [ ] W `setup.md` istnieje kompletna tabela `.env` + `.env.example` bez sekretów - **BRAK PLIKU**
+- [x] W `setup.md` istnieje kompletna tabela `.env` + `.env.example` bez sekretów - **TAK**
 
 ---
 
 ## Lista rzeczy do uzupełnienia (szczegółowa)
 
 ### Pliki do utworzenia (PRIORYTET 1):
-- [ ] `docs/setup.md` - konfiguracja środowiska i `.env`
-  - Wymagania systemowe (Python/Node/OS)
-  - Instalacja lokalna
-  - Pełna tabela zmiennych `.env` (opis + czy wymagane)
-  - `.env.example` (bez sekretów)
-  - Różnice środowisk (dev/test/prod)
-  - Typowe problemy
+- [x] `docs/setup.md` - konfiguracja środowiska i `.env` - **GOTOWE**
+  - [x] Wymagania systemowe (Python/Node/OS)
+  - [x] Instalacja lokalna
+  - [x] Pełna tabela zmiennych `.env` (opis + czy wymagane)
+  - [x] `.env.example` (bez sekretów)
+  - [x] Różnice środowisk (dev/test/prod)
+  - [x] Typowe problemy
 
 - [ ] `docs/testing.md` - plan testów + tabele testów + raport
   - Testy Unit / Integration / E2E
@@ -337,12 +337,23 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 
 ## Podsumowanie statusu:
 
-**Zgodność z instrukcją: ~70%**
+**Zgodność z instrukcją: ~80%**
 
-**Gotowe:**
+**Uzupełnione w 100% (poza weather.md):**
+- README.md
+- docs/architecture.md
+- docs/api_reference.md
+- docs/setup.md
+- docs/project_management.md
+- docs/architecture/auth.md
+- docs/architecture/calendar.md
+- docs/architecture/economy.md
+
+**Gotowe (100% uzupełnione):**
 - README.md
 - docs/architecture.md
 - docs/api_reference.md (wszystkie endpointy)
+- docs/setup.md
 - docs/project_management.md
 - docs/architecture/auth.md
 - docs/architecture/calendar.md
@@ -350,7 +361,6 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 - Screenshoty w docs/assets/screenshots/
 
 **Brakuje:**
-- docs/setup.md
 - docs/testing.md
 - docs/contribution.md
 - docs/architecture/news.md (pusty)

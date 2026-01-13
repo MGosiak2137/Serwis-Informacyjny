@@ -18,12 +18,12 @@ Moduł **economy** (ekonomiczny) dostarcza funkcjonalności związane z danymi f
 
 ## 2. Zakres funkcjonalny (powiązanie z User Stories)
 
-- **US-ECO-001** — Jako użytkownik niezalogowany chcę dowiedzieć się kursu euro, dolara i franka szwajcarskiego
-- **US-ECO-002** — Jako zalogowany użytkownik chcę sprawdzić historyczne dane cenowe dotyczące walut, indeksów akcyjnych oraz surowców naturalnych
-- **US-ECO-003** — Jako zalogowany użytkownik chcę sprawdzić, jaka jest prawdopodobna cena mojej podróży do wybranego miejsca wyjazdu (koszty dojazdu oraz miejsca zamieszkania)
-- **US-ECO-004** — Jako zalogowany użytkownik chcę sprawdzić kursy różnych walut oraz możliwość przeliczania walut
-- **US-ECO-005** — Jako zalogowany użytkownik chcę na stronie głównej w okienku ekonomicznym widzieć 3 wybrane przeze mnie kursy waluty, ceny akcji lub surowców
-- **US-ECO-006** — Jako zalogowany użytkownik chcę po przejściu do modułu ekonomicznego mieć możliwość grupowania w zakładki wybrane przeze mnie pozycje walutowe, akcyjne i surowcowe
+- **US-ECO-001** - Jako użytkownik niezalogowany chcę dowiedzieć się kursu euro, dolara i franka szwajcarskiego
+- **US-ECO-002** - Jako zalogowany użytkownik chcę sprawdzić historyczne dane cenowe dotyczące walut, indeksów akcyjnych oraz surowców naturalnych
+- **US-ECO-003** - Jako zalogowany użytkownik chcę sprawdzić, jaka jest prawdopodobna cena mojej podróży do wybranego miejsca wyjazdu (koszty dojazdu oraz miejsca zamieszkania)
+- **US-ECO-004** - Jako zalogowany użytkownik chcę sprawdzić kursy różnych walut oraz możliwość przeliczania walut
+- **US-ECO-005** - Jako zalogowany użytkownik chcę na stronie głównej w okienku ekonomicznym widzieć 3 wybrane przeze mnie kursy waluty, ceny akcji lub surowców
+- **US-ECO-006** - Jako zalogowany użytkownik chcę po przejściu do modułu ekonomicznego mieć możliwość grupowania w zakładki wybrane przeze mnie pozycje walutowe, akcyjne i surowcowe
 
 Szczegóły wszystkich User Stories: [`user_stories.md`](../specification/user_stories.md#moduł-ekonomia-economy)
 
@@ -139,10 +139,10 @@ exchange/
 
 | Zmienna | Typ | Opis | Wymagana |
 |---|---|---|---|
-| `FREECURRENCY_API_KEY` | string | Klucz do FreeCurrencyAPI | TAK |
-| `PRICELINE_API_KEY` | string | Klucz do API Priceline | TAK |
-| `BOOKING_API_KEY` | string | Klucz do API Booking.com | TAK |
-| `RAPIDAPI_HOST` | string | Host RapidAPI | TAK |
+| `CURRENCY_API_KEY` | string | Klucz do FreeCurrencyAPI | TAK |
+| `RAPIDAPI_KEY` | string | Klucz do RapidAPI (używany dla Priceline i Booking.com) | TAK |
+| `RAPIDAPI_HOST_PRICELINE` | string | Host RapidAPI dla Priceline API | TAK |
+| `RAPIDAPI_HOST_BOOKING` | string | Host RapidAPI dla Booking.com API | TAK |
 
 > Szczegóły: [`../setup.md`](../setup.md)
 
@@ -194,9 +194,9 @@ price = ticker.history(period="1d")
 - **Kluczowe pola:**
   - `id` (Integer, PK)
   - `user_id` (Integer, FK → users.id, UNIQUE)
-  - `favorite_actions` (JSON, default=[]) — ulubione akcje
-  - `currencies` (ARRAY(String), default=[]) — ulubione waluty
-  - `search_history` (JSON, default=[]) — historia wyszukiwań
+  - `favorite_actions` (JSON, default=[]) - ulubione akcje
+  - `currencies` (ARRAY(String), default=[]) - ulubione waluty
+  - `search_history` (JSON, default=[]) - historia wyszukiwań
 - **Relacje:** 1:1 z User
 
 ---
@@ -379,7 +379,7 @@ flowchart LR
 Szczegóły: [`../testing.md`](../testing.md)
 
 ### 10.1 Unit tests (pytest)
-- `tests/unit/exchange/` — testowanie:
+- `tests/unit/exchange/` - testowanie:
   - Funkcje serwisu `currency_service.py` (pobieranie i konwersja kursów)
   - Logika obliczania kosztów podróży
   - Validacja parametrów wyszukiwania
@@ -387,17 +387,17 @@ Szczegóły: [`../testing.md`](../testing.md)
 
 ### 10.2 Integration tests (HTML/API)
 - `tests/integration/exchange/`
-  - `test_currencies.py` — pełny przepływ: strona → API FreeCurrency → JSON
-  - `test_journey.py` — wyszukiwanie lotów i hoteli
-  - `test_eco_preferences.py` — zapis/odczyt preferencji z bazy
-  - `test_main.py` — strona główna modułu
+  - `test_currencies.py` - pełny przepływ: strona → API FreeCurrency → JSON
+  - `test_journey.py` - wyszukiwanie lotów i hoteli
+  - `test_eco_preferences.py` - zapis/odczyt preferencji z bazy
+  - `test_main.py` - strona główna modułu
 
 ### 10.3 Acceptance tests (Playwright)
 - `tests/e2e/exchange/`
-  - `test_currencies_logged_user.py` — zalogowany użytkownik przegląda waluty i dodaje do ulubionych
-  - `test_stockmarket_logged_user.py` — przegląd akcji i dodanie do ulubionych
-  - `test_journey_estimated_cost.py` — wyszukiwanie lotu+hotelu i otrzymanie szacunkowej ceny
-  - `test_favourites_logged_user.py` — zarządzanie ulubionymi instrumentami
+  - `test_currencies_logged_user.py` - zalogowany użytkownik przegląda waluty i dodaje do ulubionych
+  - `test_stockmarket_logged_user.py` - przegląd akcji i dodanie do ulubionych
+  - `test_journey_estimated_cost.py` - wyszukiwanie lotu+hotelu i otrzymanie szacunkowej ceny
+  - `test_favourites_logged_user.py` - zarządzanie ulubionymi instrumentami
 
 ---
 
@@ -416,7 +416,7 @@ Szczegóły: [`../testing.md`](../testing.md)
 
 ### Dalszy rozwój
 - [ ] Dodać caching dla kursów walut (TTL: 1 godzina)
-- [ ] Dodać historię cen akcji — zapisywać ceny w bazie co N godzin
+- [ ] Dodać historię cen akcji - zapisywać ceny w bazie co N godzin
 - [ ] Implementować pełny workflow rezerwacji (nie tylko estymacji)
 - [ ] Dodać porównywanie ofert między różnymi dostawcami
 - [ ] Implementować alerty cen (powiadomienie, gdy cena akcji zmienia się)
