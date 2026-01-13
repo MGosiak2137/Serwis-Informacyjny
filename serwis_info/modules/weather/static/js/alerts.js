@@ -22,7 +22,7 @@ function generateWarnings(city, current, forecastNextHours){
     if (String(code).startsWith("2")) alerts.push(`⛈️ Burze w ${city}! (${desc})`);
     if (String(code).startsWith("5")) alerts.push(`🌧️ Ulewne opady w ${city}`);
     if (String(code).startsWith("6")) alerts.push(`❄️ Opady śniegu w ${city}`);
-    if (String(code).startsWith("7")) alerts.push(`🌫️ Słaba widoczność – mgła lub pyły`);
+    if (String(code).startsWith("7")) alerts.push(`🌫️ Słaba widoczność – mgła lub pyły w ${city}`);
     if (String(code) === "800" && temp >= 35) alerts.push(`🔥 Ekstremalny upał i pełne słońce w ${city} – uważaj na udary!`);
     
 
