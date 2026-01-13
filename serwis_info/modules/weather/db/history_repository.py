@@ -10,9 +10,9 @@ def get_history(username):
     c.execute("SELECT query, timestamp FROM history WHERE username=? ORDER BY id DESC", (username,))
     return [{"city": row[0], "timestamp": row[1]} for row in c.fetchall()]
 
-def get_history_last3(username):
-    c.execute("SELECT query, timestamp FROM history WHERE username=? ORDER BY id DESC LIMIT 3", (username,))
-    return [{"city": row[0], "timestamp": row[1]} for row in c.fetchall()]
+# def get_history_last3(username):
+#     c.execute("SELECT query, timestamp FROM history WHERE username=? ORDER BY id DESC LIMIT 3", (username,))
+#     return [{"city": row[0], "timestamp": row[1]} for row in c.fetchall()]
 
 def clear_history(username):
     c.execute("DELETE FROM history WHERE username=?", (username,))

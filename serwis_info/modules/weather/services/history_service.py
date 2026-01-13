@@ -6,8 +6,8 @@ def add_city_to_history(username, city):
 def fetch_history(username):
     return get_history(username)
 
-def fetch_last3(username):
-    return get_history_last3(username)
+# def fetch_last3(username):
+#     return get_history_last3(username)
 
 def clear_user_history(username):
     clear_history(username)
