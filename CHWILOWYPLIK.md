@@ -252,17 +252,71 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 
 ## Lista rzeczy do uzupełnienia
 
+---
 
---
+## Checklista zgodności z instrukcją (sekcja 6)
 
-### README.md - chyba skończony
+### Wymagane pliki i ich status:
+- [x] `README.md` – główny opis projektu - **GOTOWE**
+- [x] `docs/architecture.md` – architektura wspólna aplikacji - **GOTOWE**
+- [x] `docs/api_reference.md` – pełna referencja endpointów - **GOTOWE**
+- [ ] `docs/setup.md` – konfiguracja środowiska i `.env` - **BRAK**
+- [ ] `docs/testing.md` – plan testów + tabele testów + raport - **BRAK**
+- [x] `docs/project_management.md` – opis prowadzenia projektu - **GOTOWE**
+- [ ] `docs/contribution.md` – zasady pracy i kontrybucji - **BRAK**
+- [x] `docs/architecture/auth.md` – dokumentacja modułu auth - **GOTOWE**
+- [x] `docs/architecture/calendar.md` – dokumentacja modułu calendar - **GOTOWE**
+- [x] `docs/architecture/economy.md` – dokumentacja modułu economy - **GOTOWE**
+- [ ] `docs/architecture/weather.md` – dokumentacja modułu weather - **DO UZUPEŁNIENIA** (5x `TU UZUPEŁNIĆ`)
+- [ ] `docs/architecture/news.md` – dokumentacja modułu news - **PUSTY PLIK**
 
-### docs/architecture.md - skończony
+### Checklista "dokumentacja gotowa" (z instrukcji):
+- [ ] W repo nie ma fragmentów `TU UZUPEŁNIĆ` - **NIE** (weather.md ma 5 miejsc, news.md jest pusty)
+- [ ] Wszystkie moduły mają swój plik: `docs/architecture/<module>.md` - **TAK** (ale weather.md i news.md nie są uzupełnione)
+- [x] `docs/api_reference.md` zawiera **wszystkie** endpointy HTML + JSON - **TAK**
+- [ ] `docs/testing.md` zawiera tabele testów dla każdego modułu i opis raportu HTML - **BRAK PLIKU**
+- [x] `docs/assets/screenshots/` zawiera aktualne screenshoty i README je wyświetla - **TAK**
+- [ ] `docs/assets/reports/report.html` istnieje (lub wskazano, jak go wygenerować) - **BRAK**
+- [x] Linki w README i dokumentacji działają (ścieżki względne) - **TAK**
+- [ ] W `setup.md` istnieje kompletna tabela `.env` + `.env.example` bez sekretów - **BRAK PLIKU**
 
-### docs/architecture/economy.md - skończony
+---
 
+## Lista rzeczy do uzupełnienia (szczegółowa)
 
-### Zasoby (assets)
+### Pliki do utworzenia (PRIORYTET 1):
+- [ ] `docs/setup.md` - konfiguracja środowiska i `.env`
+  - Wymagania systemowe (Python/Node/OS)
+  - Instalacja lokalna
+  - Pełna tabela zmiennych `.env` (opis + czy wymagane)
+  - `.env.example` (bez sekretów)
+  - Różnice środowisk (dev/test/prod)
+  - Typowe problemy
+
+- [ ] `docs/testing.md` - plan testów + tabele testów + raport
+  - Testy Unit / Integration / E2E
+  - Oddzielna tabela testów dla każdego modułu
+  - Mapowanie E2E ↔ User Stories
+  - Instrukcja generowania raportu HTML
+  - Umieszczenie raportu w `docs/assets/reports/report.html`
+
+- [ ] `docs/contribution.md` - zasady pracy i kontrybucji
+  - Przyjęty workflow (branching)
+  - Zasady commitów (np. z ID z Jiry)
+  - Zasady PR i code review
+  - Definition of Done
+
+### Pliki do uzupełnienia (PRIORYTET 1):
+- [ ] `docs/architecture/weather.md` - usunąć wszystkie `TU UZUPEŁNIĆ`:
+  - [ ] Linia 22: lista User Stories
+  - [ ] Linia 254: moduł, serwisy, modele, zależności
+  - [ ] Linia 263: testy jednostkowe
+  - [ ] Linia 266: testy integracyjne
+  - [ ] Linia 271: testy akceptacyjne
+
+- [ ] `docs/architecture/news.md` - plik jest pusty, trzeba uzupełnić całą dokumentację modułu
+
+### Zasoby (assets):
 - [ ] Sprawdzić czy screenshoty są aktualne i odpowiadają aktualnemu wyglądowi aplikacji
 - [ ] Wygenerować raport HTML z testów (gdy będą testy):
   ```bash
@@ -270,11 +324,37 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
   ```
 - [ ] Dodać diagramy do `docs/assets/diagrams/` (jeśli nie używamy tylko Mermaid) - **OPCJONALNE: jeśli używamy Mermaid w dokumentacji, nie jest wymagane**
 
-### Ogólne sprawdzenie i finalizacja
-- [ ] Sprawdzić czy wszystkie linki w dokumentacji działają (ścieżki względne)
-- [ ] Upewnić się, że nie ma żadnych `TU UZUPEŁNIĆ` w całym repo (sprawdzić wszystkie pliki .md)
-- [ ] Usunąć wszystkie instrukcje pomocnicze (np. "Instrukcja: ...", "PRZYKŁAD:")
+### Ogólne sprawdzenie i finalizacja:
+- [x] Sprawdzić czy wszystkie linki w dokumentacji działają (ścieżki względne) - **TAK**
+- [ ] Upewnić się, że nie ma żadnych `TU UZUPEŁNIĆ` w całym repo (sprawdzić wszystkie pliki .md) - **NIE** (weather.md, news.md)
+- [x] Usunąć wszystkie instrukcje pomocnicze (np. "Instrukcja: ...", "PRZYKŁAD:") - **TAK**
 - [ ] Sprawdzić spójność numeracji User Stories w całej dokumentacji
 - [ ] Sprawdzić czy wszystkie moduły mają linki w `docs/architecture.md` (sekcja 10)
 - [ ] Sprawdzić czy `README.md` ma poprawne linki do wszystkich dokumentów
 - [ ] Sprawdzić czy `docs/architecture.md` ma poprawne linki do modułów (auth, calendar, economy, weather, news)
+
+---
+
+## Podsumowanie statusu:
+
+**Zgodność z instrukcją: ~70%**
+
+**Gotowe:**
+- README.md
+- docs/architecture.md
+- docs/api_reference.md (wszystkie endpointy)
+- docs/project_management.md
+- docs/architecture/auth.md
+- docs/architecture/calendar.md
+- docs/architecture/economy.md
+- Screenshoty w docs/assets/screenshots/
+
+**Brakuje:**
+- docs/setup.md
+- docs/testing.md
+- docs/contribution.md
+- docs/architecture/news.md (pusty)
+- Raport HTML z testów
+
+**Wymaga uzupełnienia:**
+- docs/architecture/weather.md (5x `TU UZUPEŁNIĆ`)
