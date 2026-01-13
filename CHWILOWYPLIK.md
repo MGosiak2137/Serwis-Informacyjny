@@ -257,24 +257,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 
 ### README.md - chyba skończony
 
-### docs/architecture.md
-- [ ] **PRIORYTET:** Uzupełnić wszystkie miejsca `TU UZUPEŁNIĆ` (24 wystąpienia w sekcjach 1-11)
-- [ ] Usunąć instrukcje (np. "Instrukcja: ..." w liniach 3-4, 36, 152)
-- [ ] Sekcja 1: Uzupełnić cel i zakres architektury (3-6 zdań)
-- [ ] Sekcja 2: Uzupełnić widok systemu jako całości (5-10 punktów)
-- [ ] Sekcja 3: Uzupełnić tabelę stosu technologicznego (Flask, Frontend, DB, Testy, Hosting)
-- [ ] Sekcja 4.1: Opisać strukturę katalogów (`app/`, `templates/`, `static/`, `tests/`, `docs/`)
-- [ ] Sekcja 4.2: Opisać konwencje nazewnictwa (blueprinty, endpointy, pliki, klasy)
-- [ ] Sekcja 4.3: Opisać wspólne biblioteki/utilities
-- [ ] Sekcja 5.1: Dostosować diagram architektury Mermaid (dodać brakujące elementy)
-- [ ] Sekcja 6: Uzupełnić przepływ danych (skąd dane, walidacja, zapis do DB, odczyt)
-- [ ] Sekcja 7.2: Opisać encję User (rola, atrybuty, relacje)
-- [ ] Sekcja 8.1: Opisać konfigurację `.env` (gdzie ładowane, zabezpieczenie)
-- [ ] Sekcja 8.2: Opisać obsługę błędów i logowanie
-- [ ] Sekcja 8.3: Opisać bezpieczeństwo (walidacja, sekrety, formularze)
-- [ ] Sekcja 9: Uzupełnić decyzje architektoniczne (3-8 decyzji)
-- [ ] Sekcja 10: Dodać linki do modułów auth i calendar (obecnie tylko weather, economy, news)
-- [ ] Sekcja 11: Uzupełnić ograniczenia, ryzyka i dalszy rozwój
+### docs/architecture.md - skończony
 
 ### docs/architecture/economy.md
 - [ ] Zaktualizować numery User Stories (US-2, US-3, US-8, US-9, US-48, US-54 → US-ECO-XXX)
