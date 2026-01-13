@@ -259,18 +259,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 
 ### docs/architecture.md - skończony
 
-### docs/architecture/economy.md
-- [ ] Zaktualizować numery User Stories (US-2, US-3, US-8, US-9, US-48, US-54 → US-ECO-XXX)
-- [ ] Poprawić linki w tabeli interfejsu (sekcja 5) - dodać format markdown `[`api_reference.md`](../api_reference.md#...)`
-
-### docs/specification/user_stories.md
-- [ ] Dodać sekcję "Moduł: Ekonomia (Economy)" z User Stories:
-  - US-ECO-001 (kursy walut dla niezalogowanych) - z US-2
-  - US-ECO-002 (dane historyczne dla zalogowanych) - z US-3
-  - US-ECO-003 (estymacja ceny podróży) - z US-8
-  - US-ECO-004 (kursy walut i przeliczanie) - z US-9
-  - US-ECO-005 (3 wybrane kursy na stronie głównej) - z US-48
-  - US-ECO-006 (grupowanie w zakładki) - z US-54
+### docs/architecture/economy.md - skończony
 
 
 ### Zasoby (assets)

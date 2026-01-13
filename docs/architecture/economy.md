@@ -18,12 +18,14 @@ Moduł **economy** (ekonomiczny) dostarcza funkcjonalności związane z danymi f
 
 ## 2. Zakres funkcjonalny (powiązanie z User Stories)
 
-- **US-2** — Jako uzytkownik niezalogowany chcialbym dowiedziec sie kursu euro, dolara i złota
-- **US-3** — Jako zalogowany uzytkownik chcialbym sprawdzic historyczne dane cenowe dotyczace walut, indeksów akcyjnych oraz surowców naturalnych
-- **US-8** — Jako uzytkownik zalogowany chcialbym sprawdzic jaka jest prawdopodobna cena mojej podrozy do wybranego miejsca wyjazdu. Chcę, aby cena zawierała koszty dojazdu oraz miejsca zamieszkania.
-- **US-9** — Jako użytkownik zalogowany chciałbym sprawdzić kursy różnych walut oraz możliwość przeliczania walut.
-- **US-48** — Jako użytkownik zalogowany chciałbym na stronie głównej w okienku ekonomicznym, widzieć 3 wybrane przeze mnie kursy waluty, ceny akcji lub surowców.
-- **US-54** — Jako użytkownik zalogowany po przejściu do modułu ekonomicznego, chciałbym mieć możliwość grupowania w zakładki wybrane przeze mnie pozycje walutowe, akcyjne i surowcowe.
+- **US-ECO-001** — Jako użytkownik niezalogowany chcę dowiedzieć się kursu euro, dolara i franka szwajcarskiego
+- **US-ECO-002** — Jako zalogowany użytkownik chcę sprawdzić historyczne dane cenowe dotyczące walut, indeksów akcyjnych oraz surowców naturalnych
+- **US-ECO-003** — Jako zalogowany użytkownik chcę sprawdzić, jaka jest prawdopodobna cena mojej podróży do wybranego miejsca wyjazdu (koszty dojazdu oraz miejsca zamieszkania)
+- **US-ECO-004** — Jako zalogowany użytkownik chcę sprawdzić kursy różnych walut oraz możliwość przeliczania walut
+- **US-ECO-005** — Jako zalogowany użytkownik chcę na stronie głównej w okienku ekonomicznym widzieć 3 wybrane przeze mnie kursy waluty, ceny akcji lub surowców
+- **US-ECO-006** — Jako zalogowany użytkownik chcę po przejściu do modułu ekonomicznego mieć możliwość grupowania w zakładki wybrane przeze mnie pozycje walutowe, akcyjne i surowcowe
+
+Szczegóły wszystkich User Stories: [`user_stories.md`](../specification/user_stories.md#moduł-ekonomia-economy)
 
 
 ---
@@ -34,7 +36,7 @@ Moduł **economy** (ekonomiczny) dostarcza funkcjonalności związane z danymi f
 - Pobieranie i prezentacja kursów walut (API FreeCurrencyAPI)
 - Pobieranie i prezentacja danych instrumentów finansowych (akcje, indeksy, surowce) via yfinance
 - Wyszukiwanie lotów (API Priceline)
-- Wyszukiwanie rezerwacja hoteli (API Booking.com)
+- Wyszukiwanie i rezerwacja hoteli (API Booking.com)
 - Zarządzanie preferencjami ekonomicznymi zalogowanego użytkownika
 - Obliczanie szacunkowych kosztów podróży (loty + hotele)
 - Tłumaczenie nazw miast na angielski (Google Translate)
@@ -84,19 +86,19 @@ exchange/
 
 | Metoda | Ścieżka | Typ | Rola w module | Powiązane User Stories | Szczegóły |
 |---:|---|---|---|---|---|
-| GET | /main_eco | HTML | Strona główna modułu | US-48 | api_reference.md#exchange-main |
-| GET | /main_eco/get-preferences | JSON | Pobierz preferencje użytkownika | US-9, US-54 | api_reference.md#exchange-get-pref |
-| PUT | /main_eco/update-preferences | JSON | Zaktualizuj preferencje | US-54 | api_reference.md#exchange-update-pref |
-| GET | /main_eco/api/price/<symbol> | JSON | Aktualna cena instrumentu | US-9, US-48 | api_reference.md#exchange-price |
-| GET | /currencies | HTML | Strona kursów walut | US-2, US-9 | api_reference.md#exchange-currencies |
-| GET | /currencies/api/latest | JSON | Aktualne kursy walut | US-2, US-9 | api_reference.md#exchange-latest-rates |
-| GET | /stockmarket | HTML | Strona indeksów giełdowych | US-3, US-9 | api_reference.md#exchange-stockmarket |
-| GET | /stockmarket/api/search | JSON | Wyszukaj instrument finansowy | US-3, US-9 | api_reference.md#exchange-search |
-| POST | /stockmarket/api/favorites | JSON | Dodaj do ulubionych | US-54 | api_reference.md#exchange-favorites |
-| GET | /journey | HTML | Strona rezerwacji podróży | US-8 | api_reference.md#exchange-journey |
-| POST | /journey/search-flights | JSON | Wyszukaj loty | US-8 | api_reference.md#exchange-search-flights |
-| POST | /journey/search-hotels | JSON | Wyszukaj hotele | US-8 | api_reference.md#exchange-search-hotels |
-| GET | /journey/estimate-cost | JSON | Estymacja całkowitej ceny | US-8 | api_reference.md#exchange-estimate-cost |
+| GET | /main_eco | HTML | Strona główna modułu | US-ECO-005 | [api_reference.md](../api_reference.md#exchange-main) |
+| GET | /main_eco/get-preferences | JSON | Pobierz preferencje użytkownika | US-ECO-004, US-ECO-006 | [api_reference.md](../api_reference.md#exchange-get-pref) |
+| PUT | /main_eco/update-preferences | JSON | Zaktualizuj preferencje | US-ECO-006 | [api_reference.md](../api_reference.md#exchange-update-pref) |
+| GET | /main_eco/api/price/<symbol> | JSON | Aktualna cena instrumentu | US-ECO-004, US-ECO-005 | [api_reference.md](../api_reference.md#exchange-price) |
+| GET | /currencies | HTML | Strona kursów walut | US-ECO-001, US-ECO-004 | [api_reference.md](../api_reference.md#exchange-currencies) |
+| GET | /currencies/api/latest | JSON | Aktualne kursy walut | US-ECO-001, US-ECO-004 | [api_reference.md](../api_reference.md#exchange-latest-rates) |
+| GET | /stockmarket | HTML | Strona indeksów giełdowych | US-ECO-002, US-ECO-004 | [api_reference.md](../api_reference.md#exchange-stockmarket) |
+| GET | /stockmarket/api/search | JSON | Wyszukaj instrument finansowy | US-ECO-002, US-ECO-004 | [api_reference.md](../api_reference.md#exchange-search) |
+| POST | /stockmarket/api/favorites | JSON | Dodaj do ulubionych | US-ECO-006 | [api_reference.md](../api_reference.md#exchange-favorites) |
+| GET | /journey | HTML | Strona rezerwacji podróży | US-ECO-003 | [api_reference.md](../api_reference.md#exchange-journey) |
+| POST | /journey/search-flights | JSON | Wyszukaj loty | US-ECO-003 | [api_reference.md](../api_reference.md#exchange-search-flights) |
+| POST | /journey/search-hotels | JSON | Wyszukaj hotele | US-ECO-003 | [api_reference.md](../api_reference.md#exchange-search-hotels) |
+| GET | /journey/estimate-cost | JSON | Estymacja całkowitej ceny | US-ECO-003 | [api_reference.md](../api_reference.md#exchange-estimate-cost) |
 
 ---
 
@@ -176,7 +178,7 @@ price = ticker.history(period="1d")
 
 ### 6.7 Obsługa błędów i fallback
 
-- **FreeCurrencyAPI:** Jeśli API nie dostęp, zwróć pusty słownik; UI wyświetli "Brak danych"
+- **FreeCurrencyAPI:** Jeśli API nie jest dostępne, zwróć pusty słownik; UI wyświetli "Brak danych"
 - **yfinance:** Jeśli brak danych dla symbolu, zwróć pusty list
 - **Priceline/Booking:** Jeśli API zwróci błąd, wyświetl komunikat błędu użytkownikowi
 - **Google Translate:** Jeśli tłumaczenie się nie uda, użyj oryginalnej nazwy miasta
@@ -284,7 +286,7 @@ User (zalogowany)
 
 1. **Użytkownik przechodzi na stronę Journey** (`GET /journey`)
    - Flask renderuje [journey.html](serwis_info/modules/exchange/templates/journey.html)
-   - Interfejs prosi o: depozyt/przylot, daty, liczbę pasażerów, hotel destynacja
+   - Interfejs prosi o: wylot/przylot, daty, liczbę pasażerów, hotel, destynacja
 
 2. **Użytkownik wybiera parametry i kliknie "Szukaj"**
    - Frontend wysyła `POST /journey/search-flights` z parametrami

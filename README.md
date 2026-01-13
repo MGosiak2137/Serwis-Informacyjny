@@ -4,7 +4,7 @@
 
 ## Opis (1–3 zdania)
 
-Aplikacja jest przeznaczona dla użytkowników chcących mieć dostęp do aktualnych informacji w jednym miejscu. Rozwiązuje problem rozproszenia informacji z wielu źródeł, oferując kompleksowy serwis informacyjny zawierający dane pogodowe, kursy walut, wiadomości oraz funkcjonalności kalendarzowe. Aplikacja wymaga rejestracji i logowania, aby zapewnić spersonalizowanie użytkownika.
+Aplikacja jest przeznaczona dla użytkowników chcących mieć dostęp do aktualnych informacji w jednym miejscu. Rozwiązuje problem rozproszenia informacji z wielu źródeł, oferując kompleksowy serwis informacyjny zawierający dane pogodowe, kursy walut, wiadomości oraz funkcjonalności kalendarzowe. Aplikacja wymaga rejestracji i logowania, aby zapewnić personalizację doświadczenia użytkownika.
 
 ---
 
@@ -28,7 +28,7 @@ Aplikacja jest przeznaczona dla użytkowników chcących mieć dostęp do aktual
 
 1. Sklonuj repozytorium:
    ```bash
-   git clone <https://github.com/MGosiak2137/Serwis-Informacyjny.git>
+   git clone https://github.com/MGosiak2137/Serwis-Informacyjny.git
    cd Serwis-Informacyjny
    ```
 

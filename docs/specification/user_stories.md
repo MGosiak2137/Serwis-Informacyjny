@@ -55,6 +55,40 @@
 
 ---
 
+## Moduł: Ekonomia (Economy)
+
+### US-ECO-001
+**Jako** użytkownik niezalogowany  
+**Chcę** dowiedzieć się kursu euro, dolara i franka szwajcarskiego  
+**Aby** mieć dostęp do podstawowych informacji o kursach walut bez konieczności rejestracji
+
+### US-ECO-002
+**Jako** zalogowany użytkownik  
+**Chcę** sprawdzić historyczne dane cenowe dotyczące walut, indeksów akcyjnych oraz surowców naturalnych  
+**Aby** analizować trendy i zmiany cen w czasie
+
+### US-ECO-003
+**Jako** zalogowany użytkownik  
+**Chcę** sprawdzić, jaka jest prawdopodobna cena mojej podróży do wybranego miejsca wyjazdu (koszty dojazdu oraz miejsca zamieszkania)  
+**Aby** zaplanować budżet podróży
+
+### US-ECO-004
+**Jako** zalogowany użytkownik  
+**Chcę** sprawdzić kursy różnych walut oraz możliwość przeliczania walut  
+**Aby** móc konwertować kwoty między różnymi walutami
+
+### US-ECO-005
+**Jako** zalogowany użytkownik  
+**Chcę** na stronie głównej w okienku ekonomicznym widzieć 3 wybrane przeze mnie kursy waluty, ceny akcji lub surowców  
+**Aby** mieć szybki dostęp do najważniejszych dla mnie informacji ekonomicznych
+
+### US-ECO-006
+**Jako** zalogowany użytkownik  
+**Chcę** po przejściu do modułu ekonomicznego mieć możliwość grupowania w zakładki wybrane przeze mnie pozycje walutowe, akcyjne i surowcowe  
+**Aby** lepiej organizować i szybciej znajdować interesujące mnie dane ekonomiczne
+
+---
+
 ## Moduł: Backend i infrastruktura
 
 ### US-DEV-001

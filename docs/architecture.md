@@ -63,7 +63,7 @@ Główne katalogi projektu:
 - **`static/`** – wspólne zasoby statyczne (CSS, JS, obrazy)
 - **`tests/`** – testy aplikacji podzielone na unit, integration oraz e2e
 - **`docs/`** – dokumentacja projektu (architecture, api_reference, setup, testing, itp.)
-- **`env/`** – katalog zawierający plik `.env` z konfiguracją (nie commituje się do repo)
+- **`env/`** – katalog zawierający plik `.env` z konfiguracją (nie jest commitowany do repo)
 - **`config.py`** – konfiguracja aplikacji (Config, TestingConfig)
 - **`app.py`** – punkt wejścia aplikacji (uruchomienie serwera deweloperskiego)
 
@@ -98,9 +98,7 @@ Wspólne biblioteki i narzędzia używane w całej aplikacji:
 
 ### 5.1 Diagram architektury (wymagany)
 
-Wstaw diagram pokazujący elementy systemu: UI → Flask → DB → API zewnętrzne.
-
-**Opcja A: Mermaid (zalecana na GitHub)**
+Diagram przedstawiający elementy systemu: UI → Flask → DB → API zewnętrzne.
 
 ```mermaid
 flowchart TD
@@ -132,13 +130,6 @@ flowchart TD
 ```
 
 Diagram przedstawia główne komponenty systemu: warstwę UI, backend Flask z modułami funkcjonalnymi, bazy danych (główna oraz modułowe), model użytkownika oraz integracje z zewnętrznymi API.
-
-**Opcja B: Obraz w `doc/assets/diagrams/`**
-- Umieść plik np. `doc/assets/diagrams/system-architecture.png`
-- Wstaw w MD:
-  ```md
-  ![Diagram architektury](assets/diagrams/system-architecture.png)
-  ```
 
 ---
 
@@ -184,7 +175,7 @@ do jednego modułu systemu.
 > (np. danych pogodowych, ekonomicznych, wiadomości itp.).  
 > Dane specyficzne dla poszczególnych modułów należy opisać
 > w dokumentacji architektury odpowiednich modułów:
-> `doc/architecture/<module>.md`.
+> `docs/architecture/<module>.md`.
 
 ---
 
@@ -242,7 +233,7 @@ Konfiguracja aplikacji jest zarządzana przez klasę `Config` w pliku `config.py
 
 **Gdzie ładowane:** Zmienne są ładowane przy starcie aplikacji przez `load_dotenv(ENV_FILE)`, gdzie `ENV_FILE = BASE_DIR / "env" / ".env"`.
 
-**Zabezpieczenie:** Plik `.env` zawiera sekrety (SECRET_KEY, klucze API) i **nie jest commituje się do repozytorium** (dodany do `.gitignore`). W repozytorium powinien znajdować się plik `.env.example` z przykładowymi nazwami zmiennych bez wartości.
+**Zabezpieczenie:** Plik `.env` zawiera sekrety (SECRET_KEY, klucze API) i **nie jest commitowany do repozytorium** (dodany do `.gitignore`). W repozytorium powinien znajdować się plik `.env.example` z przykładowymi nazwami zmiennych bez wartości.
 
 **Zmienne środowiskowe używane w aplikacji:**
 - `SECRET_KEY` – klucz sesji Flask (wymagany)
@@ -273,7 +264,7 @@ Szczegóły: [`setup.md`](setup.md)
 - **XSS** – Jinja2 automatycznie escapuje zmienne w szablonach HTML
 
 **Sekrety:**
-- Plik `.env` z sekretami **nie jest commituje się do repozytorium** (dodany do `.gitignore`)
+- Plik `.env` z sekretami **nie jest commitowany do repozytorium** (dodany do `.gitignore`)
 - Klucze API i SECRET_KEY są przechowywane tylko w zmiennych środowiskowych
 - W repozytorium powinien być plik `.env.example` bez wartości sekretów
 
