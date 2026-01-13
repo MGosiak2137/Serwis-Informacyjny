@@ -8,10 +8,6 @@ def history(username):
     data = fetch_history(username)
     return jsonify(data)
 
-# @history_bp.route("/api/history_last3/<username>", methods=["GET"])
-# def history_last3(username):
-#     data = fetch_last3(username)
-#     return jsonify(data)
 
 @history_bp.route("/api/history/<username>", methods=["POST"])
 def history_add(username):
