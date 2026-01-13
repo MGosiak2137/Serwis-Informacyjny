@@ -17,12 +17,6 @@ export async function loadHistory() {
   });
 }
 
-// export async function clearHistory() {
-//   if (!confirm("Na pewno chcesz usunąć historię?")) return;
-
-//   await fetch(`/weather/api/history/${username}`, { method: "DELETE" });
-//   loadHistory();
-// }
 
 
 //integracje- uzywane przez panel.js i search.js
