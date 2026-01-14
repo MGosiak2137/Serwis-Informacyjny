@@ -60,33 +60,42 @@ Globalne ustawienia serwisu informacyjnego, np. newsy czy inne moduły.
 ---
 
 ## 4. Struktura kodu modułu
-weather/
+serwis_info/modules/weather/
 │
 ├─ db/
-│  ├─ connection.py          # Połączenie z bazą SQLite
-│  └─ history_repository.py  # CRUD historii wyszukiwań
+│  ├─ connection.py          # Połączenie z bazą SQLite (users.db)
+│  ├─ history_repository.py  # Operacje CRUD na historii wyszukiwań
+│  └─ user_repository.py     # Operacje na użytkownikach modułu (np. użytkownik demo)
 │
 ├─ routes/
-│  ├─ __init__.py            # Rejestracja blueprintów
-│  ├─ weather_routes.py      # Endpointy pogodowe
-│  └─ history_routes.py      # Endpointy historii
+│  ├─ __init__.py            # Rejestracja blueprintów modułu
+│  ├─ weather_routes.py      # Endpointy API pogodowego i konfiguracji
+│  ├─ history_routes.py      # Endpointy API historii wyszukiwań
+│  └─ dashboard_routes.py    # Routing widoku dashboardu pogodowego
 │
 ├─ services/
-│  └─ history_service.py     # Logika historii wyszukiwań
+│  └─ history_service.py     # Logika biznesowa historii wyszukiwań
 │
-├─ static/js/
-│  ├─ app.js                 # Inicjalizacja panelu, mapy i wyszukiwania
-│  ├─ config.js              # Pobranie API_KEY i URL
-│  ├─ forecast.js            # Obsługa prognozy godzinowej/dniowej
-│  ├─ alerts.js              # Obsługa ostrzeżeń pogodowych
-│  ├─ history.js             # Ładowanie historii użytkownika
-│  ├─ mapControls.js         # Sterowanie mapą i warstwami
-│  ├─ mapLayers.js           # Definicje warstw OpenWeatherMap
-│  ├─ panel.js               # Logika panelu bocznego
-│  └─ search.js              # Wyszukiwanie miast i obsługa kart pogodowych
+├─ static/
+│  ├─ style.css              # Style CSS specyficzne dla modułu pogodowego
+│  └─ js/
+│     ├─ app.js              # Główna inicjalizacja modułu w UI
+│     ├─ config.js           # Pobieranie konfiguracji (API_KEY, API_URL)
+│     ├─ forecast.js         # Prognoza wielodniowa i godzinowa + wykresy
+│     ├─ alerts.js           # Generowanie ostrzeżeń pogodowych
+│     ├─ history.js          # Obsługa historii wyszukiwań w UI
+│     ├─ mapControls.js      # Obsługa mapy i warstw pogodowych
+│     ├─ mapLayers.js        # Definicje warstw OpenWeatherMap
+│     ├─ panel.js            # Logika panelu bocznego użytkownika
+│     ├─ search.js           # Wyszukiwanie miast i karty pogodowe
+│     ├─ user.js             # Obsługa użytkownika (cookie, display name)
+│     └─ weather.js          # Mini-widget bieżącej pogody i prognozy 3-dniowej
 │
 ├─ templates/
-│  └─ dashboard.html         # Widok modułu pogodowego
+│  └─ dashboard.html         # Widok dashboardu pogodowego
+│
+└─ users.db                  # Lokalna baza danych SQLite modułu pogodowego
+
 
 - **routes/** – endpointy HTTP (API + HTML)
 - **services/** – logika biznesowa
@@ -105,18 +114,23 @@ Poniżej przedstawiono endpointy udostępniane przez ten moduł.
 Szczegółowa specyfikacja każdego endpointu (parametry, odpowiedzi, błędy)
 znajduje się w pliku [`doc/api_reference.md`](../api_reference.md).
 
->**PRZYKŁAD TABELI:** dostosuj do swojego modułu.
-| Metoda | Ścieżka                 | Typ  | Rola w module                        | Powiązane User Stories | Szczegóły                               |
-| -----: | ----------------------- | ---- | ------------------------------------ | ---------------------- | --------------------------------------- |
-|    GET | /dashboard              | HTML | Widok dashboardu pogodowego          | US-201, US-202         | api_reference.md#weather-dashboard      |
-|    GET | /api/config             | JSON | Pobranie konfiguracji (API_KEY, URL) | US-201                 | api_reference.md#weather-config         |
-|    GET | /api/simple_weather     | JSON | Bieżąca pogoda dla Warszawy          | US-201                 | api_reference.md#weather-simple         |
-|    GET | /api/forecast           | JSON | 3-dniowa prognoza                    | US-202                 | api_reference.md#weather-forecast       |
-|    GET | /api/history/<username> | JSON | Historia wyszukiwań                  | US-204                 | api_reference.md#weather-history        |
-|   POST | /api/history/<username> | JSON | Dodanie miasta do historii           | US-201, US-204         | api_reference.md#weather-history-add    |
-| DELETE | /api/history/<username> | JSON | Usunięcie historii użytkownika       | US-205                 | api_reference.md#weather-history-delete |
+| Metoda | Ścieżka                         | Typ  | Rola w module                            | Powiązane User Stories            | Szczegóły                               |
+| -----: | ------------------------------- | ---- | ---------------------------------------- | --------------------------------- | --------------------------------------- |
+|    GET | /weather/dashboard              | HTML | Widok dashboardu pogodowego              | US1, US2, US3, US4, US5, US6, US7 | api_reference.md#weather-dashboard      |
+|    GET | /weather/api/config             | JSON | Pobranie konfiguracji (API_KEY, API_URL) | US1, US2, US3                     | api_reference.md#weather-config         |
+|    GET | /weather/api/simple_weather     | JSON | Bieżąca pogoda dla domyślnej lokalizacji | US1, US7                          | api_reference.md#weather-simple         |
+|    GET | /weather/api/forecast           | JSON | Prognoza pogody (dniowa i godzinowa)     | US5, US7                          | api_reference.md#weather-forecast       |
+|    GET | /weather/api/history/<username> | JSON | Pobranie historii wyszukiwań użytkownika | US6                               | api_reference.md#weather-history        |
+|   POST | /weather/api/history/<username> | JSON | Zapis miasta do historii                 | US2, US6                          | api_reference.md#weather-history-add    |
+| DELETE | /weather/api/history/<username> | JSON | Usunięcie historii użytkownika           | US6                               | api_reference.md#weather-history-delete |
 
-
+US1 – domyślna pogoda (Warszawa) → dashboard + simple_weather
+US2 – szczegóły dla wybranego miasta → dashboard + zapis historii
+US3 – wizualizacja (mapa) → dashboard + config
+US4 – alerty → dashboard
+US5 – prognoza → forecast
+US6 – zapamiętywanie lokalizacji → history GET/POST/DELETE
+US7 – obsługa błędów → simple_weather + forecast + dashboard
 ---
 
 ## 6. Zewnętrzne API wykorzystywane przez moduł
@@ -256,22 +270,79 @@ sequenceDiagram
 Szczegóły: [`doc/testing.md`](../testing.md)
 
 ### 10.1 Unit tests (pytest)
-**TU UZUPEŁNIĆ:** co testujecie jednostkowo (np. funkcje services, walidacja).
+**TU UZUPEŁNIĆ:** 
+Testy jednostkowe koncentrują się na logice biznesowej modułu oraz funkcjach pomocniczych, niezależnych od frameworka Flask i zewnętrznych API.
+
+Zakres testów jednostkowych:
+logika generowania ostrzeżeń pogodowych (temperatura, wiatr),
+agregacja i przetwarzanie danych prognozy (średnie wartości, wybór ikony/opisu)
+
+logika serwisów (warstwa services):
+dodawanie miasta do historii,
+pobieranie historii,
+czyszczenie historii,
+funkcje pomocnicze (np. budowanie URL warstw mapowych).
+
+Przykładowe pliki:
+tests/unit/weather/test_alerts_logic.py
+tests/unit/weather/test_forecast_processing.py
+tests/unit/weather/test_history_service.py
+tests/unit/weather/test_weather_utils.py
 
 ### 10.2 Integration tests (HTML/API)
-**TU UZUPEŁNIĆ:** które endpointy są testowane integracyjnie.
+**TU UZUPEŁNIĆ:** 
+Testy integracyjne sprawdzają poprawne działanie endpointów Flask oraz ich integrację z:
+warstwą routingu,
+serwisami,
+bazą danych SQLite,
+zewnętrznym API (mockowane).
+
+Zakres testów integracyjnych:
+konfiguracja API (/weather/api/config),
+bieżąca pogoda (/weather/api/simple_weather) – z mockiem OpenWeatherMap,
+prognoza 3-dniowa (/weather/api/forecast) – z mockiem danych,
+
+API historii wyszukiwań:
+GET /weather/api/history/<username>,
+POST /weather/api/history/<username>,
+DELETE /weather/api/history/<username>,
+renderowanie HTML dashboardu pogodowego (/weather/dashboard).
+
+Przykładowe pliki:
+tests/integration/weather/test_weather_api.py
+tests/integration/weather/test_weather_history_api.py
+tests/integration/weather/test_weather_html.py
 
 ### 10.3 Acceptance tests (Playwright)
 Wymaganie: **min. 1 test Playwright na każde User Story modułu**.
+Testy akceptacyjne (E2E) realizowane są przy użyciu Playwright i symulują rzeczywiste zachowanie użytkownika w przeglądarce.
+Każda User Story modułu pogodowego ma co najmniej jeden test akceptacyjny.
 
-**TU UZUPEŁNIĆ:** lista testów akceptacyjnych + mapowanie do US.
+| User Story | Test          | Opis                                                    |
+| ---------- | ------------- | ------------------------------------------------------- |
+| **US1** | `test_US1.py` | Wyświetlenie bieżącej pogody dla Warszawy lub fallback  |
+| **US2** | `test_US2.py` | Wyszukiwanie miasta i wyświetlenie szczegółów pogody    |
+| **US5** | `test_US5.py` | Prognoza wielodniowa, kalendarz i widok godzinowy       |
+| **US4** | `test_US4.py` | Wyświetlanie ostrzeżeń pogodowych                       |
+| **US6** | `test_US6.py` | Odtworzenie ostatnio wyszukiwanych miast po odświeżeniu |
+| **US3** | `test_US3.py` | Obsługa warstw mapy i legend                            |
+
 
 ---
 
 ## 11. Ograniczenia, ryzyka, dalszy rozwój
 
-zależność od zewnętrznego API,
+1. Ograniczenia
+Moduł zależy od zewnętrznego API OpenWeatherMap (limity zapytań, dostępność).
+Brak trwałego cache po stronie backendu (cache istnieje tylko w JS).
+Historia wyszukiwań oparta o prostą bazę SQLite (ograniczona skalowalność).
 
-brak cache po stronie backendu,
+2. Ryzyka
+Przekroczenie limitów API przy dużej liczbie użytkowników.
+Zmiany struktury odpowiedzi OpenWeatherMap mogą wymagać aktualizacji parserów.
+Testy E2E zależne od działania JavaScript i czasu odpowiedzi API.
 
-możliwość rozbudowy o alerty push i zapisy ulubionych miast.
+3. Dalszy rozwój
+Rozszerzenie ostrzeżeń o więcej zjawisk.
+Rozbudowa historii wyszukiwań (statystyki, ulubione miasta).
+Mockowanie API OpenWeatherMap również w testach E2E.
