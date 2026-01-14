@@ -5,7 +5,7 @@ from flask import make_response
 from app import db
 from app.models import User
 from app.forms import RegisterForm, LoginForm
-from . import auth_bp  # <--- blueprint z __init__.py w tym samym pakiecie
+from . import auth_bp  
 
 
 

@@ -96,7 +96,7 @@ Wspólne biblioteki i narzędzia używane w całej aplikacji:
 
 ## 5. Komponenty i zależności
 
-### 5.1 Diagram architektury (wymagany)
+### 5.1 Diagram architektury
 
 Diagram przedstawiający elementy systemu: UI → Flask → DB → API zewnętrzne.
 
@@ -175,8 +175,6 @@ co najmniej jedno z poniższych kryteriów:
 - realizują **funkcje przekrojowe** (cross-cutting concerns),
   takie jak bezpieczeństwo, audyt czy monitorowanie.
 
-Encje, które są używane **wyłącznie w jednym module**,
-powinny być opisane w dokumentacji architektury tego modułu.
 
 ---
 
