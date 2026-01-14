@@ -102,20 +102,17 @@ pytest tests/e2e
 
 ### 4.1 Moduł: Logowanie (Authentication)
 
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| UT-01  | Unit         | Hashowanie hasła               | User.set_password()                       |  ✅Passed   |
-| UT-02  | Unit         | Poprawna weryfikacja hasła     | User.check_password()                     |  ✅Passed   |
-| UT-03  | Unit         | Błędna weryfikacja hasła       | User.check_password()                     |  ✅Passed   |
-| UT-04  | Unit         | Obsługa pustego hasła          | User.check_password("")                   |  ✅Passed   |
-| IT-01  | Integration  | Endpoint HTML logowania        | GET /auth/login                          | ⬜          |
-| IT-02  | Integration  | Endpoint HTML rejestracji      | GET /auth/register                        | ⬜          |
-| IT-03  | Integration  | Proces logowania (POST)        | POST /auth/login                         | ⬜          |
-| IT-04  | Integration  | Proces rejestracji (POST)      | POST /auth/register                      | ⬜          |
-| E2E-01 | E2E          | US-AUTH-001: Logowanie         | Strona logowania się ładuje              |  ✅Passed   |
-| E2E-02 | E2E          | US-AUTH-001: Logowanie         | Formularz logowania ma wszystkie pola    |  ✅Passed   |
-| E2E-03 | E2E          | US-AUTH-001: Logowanie         | Logowanie z niepoprawnymi danymi         |  ✅Passed   |
-| E2E-04 | E2E          | US-AUTH-001: Logowanie         | Logowanie z poprawnymi danymi            |  ✅Passed   |
+| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                     | Status     |
+|--------|--------------|--------------------------------|------------------------------------------|------------|
+| UT-01  | Unit         | Hashowanie hasła               | User.set_password()                      |  ✅Passed  |
+| UT-02  | Unit         | Poprawna weryfikacja hasła     | User.check_password()                    |  ✅Passed  |
+| UT-03  | Unit         | Błędna weryfikacja hasła       | User.check_password()                    |  ✅Passed  |
+| UT-04  | Unit         | Obsługa pustego hasła          | User.check_password("")                  |  ✅Passed  |
+| IT-01  | Integration  | Strona główna serwisu          | GET/                                     |  ✅Passed |
+| E2E-01 | E2E          | US-AUTH-001: Logowanie         | Strona logowania się ładuje              |  ✅Passed  |
+| E2E-02 | E2E          | US-AUTH-001: Logowanie         | Formularz logowania ma wszystkie pola    |  ✅Passed  |
+| E2E-03 | E2E          | US-AUTH-001: Logowanie         | Logowanie z niepoprawnymi danymi         |  ✅Passed  |
+| E2E-04 | E2E          | US-AUTH-001: Logowanie         | Logowanie z poprawnymi danymi            |  ✅Passed  |
 
 ---
 
