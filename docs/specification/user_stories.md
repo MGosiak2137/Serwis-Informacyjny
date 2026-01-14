@@ -18,11 +18,6 @@
 **Chcę** na stronie głównej zobaczyć w formie graficznej aktualną datę, imieniny, numerację dnia roku oraz informację, czy ten dzień jest wolny od pracy, czy nie  
 **Aby** mieć szybki dostęp do podstawowych informacji kalendarzowych
 
-### US-HOME-003
-**Jako** zalogowany użytkownik  
-**Chcę** po kliknięciu w kartkę z kalendarza na stronie głównej móc zobaczyć tygodniowy horoskop  
-**Aby** poznać prognozę astrologiczną na najbliższy tydzień
-
 ---
 
 ## Moduł: Kalendarz (Calendar)
@@ -43,8 +38,8 @@
 
 ### US-AUTH-002
 **Jako** użytkownik nieposiadający konta w aplikacji  
-**Chcę** móc założyć konto oraz otrzymać e-mail z potwierdzeniem jego utworzenia  
-**Aby** móc korzystać z aplikacji i otrzymać potwierdzenie rejestracji
+**Chcę** móc założyć konto
+**Aby** móc korzystać z aplikacji
 
 **Uwaga:** Funkcjonalność wysyłania e-maila z potwierdzeniem jest obecnie niezaimplementowana.
 
