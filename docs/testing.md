@@ -157,13 +157,37 @@ pytest tests/e2e
 
 ### 4.5 Moduł: Ekonomia (Economy)
 
-| ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
-|-------|-------------|-------------------------|---------------------------------------------------|--------|
-| UT-01 | Unit        | Przetwarzanie danych    | **TU UZUPEŁNIĆ** (np. `normalize_rates()`)        | ⬜     |
-| UT-02 | Unit        | Logika biznesowa        | **TU UZUPEŁNIĆ** (np. `select_top_changes()`)     | ⬜     |
-| IT-01 | Integration | Endpoint HTML           | **TU UZUPEŁNIĆ** (np. `/economy`)                 | ⬜     |
-| IT-02 | Integration | Endpoint API            | **TU UZUPEŁNIĆ** (np. `/api/economy/rates`)       | ⬜     |
-| E2E-01| E2E         | User Story              | **TU UZUPEŁNIĆ** (np. „Użytkownik widzi kursy walut”)| ⬜   |
+| ID     | Typ testu    | Co testujemy                       | Scenariusz / funkcja                              | Status     |
+|--------|--------------|-----------------------------------|---------------------------------------------------|------------|
+| UT-01  | Unit         | Przetwarzanie danych gieldy       | `interpolate_data()` – interpolacja danych        |  ✅Passed  |
+| UT-02  | Unit         | Logika godzin otwarcia rynku      | `is_market_open_for_symbol()` – giełda US         |  ✅Passed  |
+| UT-03  | Unit         | Logika godzin otwarcia rynku      | `is_market_open_for_symbol()` – crypto            |  ✅Passed  |
+| UT-04  | Unit         | Logika godzin otwarcia rynku      | `is_market_open_for_symbol()` – weekend           |  ✅Passed  |
+| UT-05  | Unit         | Pobieranie ceny symbolu           | `get_symbol_price()` – poprawny symbol            |  ✅Passed  |
+| UT-06  | Unit         | Obsługa błędnych symboli          | `get_symbol_price()` – symbol nie istnieje        |  ✅Passed  |
+| UT-07  | Unit         | Parsowanie symboli ze znakami     | `get_symbol_price()` – symbol z nawiasami        |  ✅Passed  |
+| IT-01  | Integration  | Endpoint HTML kursów walut        | GET /currencies/                                  |  ✅Passed  |
+| IT-02  | Integration  | Endpoint API – kursy walut        | GET /currencies/api/latest                        |  ✅Passed  |
+| IT-03  | Integration  | Struktura danych kursów           | GET /currencies/api/latest (struktura JSON)       |  ✅Passed  |
+| IT-04  | Integration  | Obsługa brakujących danych        | GET /currencies/api/latest (brak danych)         |  ✅Passed  |
+| IT-05  | Integration  | Endpoint HTML giełdy              | GET /stockmarket/                                 |  ✅Passed  |
+| IT-06  | Integration  | Endpoint API – dane intraday       | `get_intraday_data()` – funkcja zwraca dane      |  ✅Passed  |
+| IT-07  | Integration  | Obsługa pustych danych            | `get_intraday_data()` – brak danych historycznych|  ✅Passed  |
+| IT-08  | Integration  | Obsługa błędów API                | `get_intraday_data()` – błąd połączenia           |  ✅Passed  |
+| IT-09  | Integration  | Endpoint API – cena symbolu       | GET /api/get_price/<symbol>                       |  ✅Passed  |
+| IT-10  | Integration  | Obsługa symboli ze znakami        | GET /api/get_price/<symbol> (symbol z nawiasami) |  ✅Passed  |
+| IT-11  | Integration  | Obsługa błędnych symboli          | GET /api/get_price/<symbol> (symbol invalidu)    |  ✅Passed  |
+| IT-12  | Integration  | Strona główna modułu ekonomii     | GET /main_eco/main_eco                            |  ✅Passed  |
+| IT-13  | Integration  | Pobranie preferencji użytkownika   | GET /main_eco/get_prefs (wymagane logowanie)      |  ✅Passed  |
+| IT-14  | Integration  | Aktualizacja preferencji          | POST /main_eco/update_prefs (wymagane logowanie)  |  ✅Passed  |
+| E2E-01 | E2E          | US-ECO-001: Kursy walut           | Zalogowany użytkownik widzi tabelę kursów        |  ✅Passed  |
+| E2E-02 | E2E          | US-ECO-001: Kursy walut           | Konwersja walut – wkład danych i wynik            |  ✅Passed  |
+| E2E-03 | E2E          | US-ECO-002: Giełda papierów       | Zalogowany użytkownik widzi kategorie indeksów   |  ✅Passed  |
+| E2E-04 | E2E          | US-ECO-002: Giełda papierów       | Wybór symbolu i wyświetlenie historycznego wykresu|  ✅Passed  |
+| E2E-05 | E2E          | US-ECO-003: Ulubione pozycje      | Użytkownik widzi listę ulubionych pozycji        |  ✅Passed  |
+| E2E-06 | E2E          | US-ECO-003: Ulubione pozycje      | Przyciski usuwania ulubionych pozycji są widoczne|  ✅Passed  |
+| E2E-07 | E2E          | US-ECO-004: Wyszukiwanie podróży  | Użytkownik wyszukuje podróże (loty i hotele)     |  ✅Passed  |
+| E2E-08 | E2E          | US-ECO-004: Wyszukiwanie podróży  | Wyświetlenie wyników wyszukiwania (loty, hotele) |  ✅Passed  |
 
 ---
 
