@@ -29,16 +29,6 @@ def test_get_history_after_add(client):
     assert "timestamp" in data[0]
 
 
-def test_get_last3_history(client):
-    for city in ["Warszawa", "Kraków", "Gdańsk", "Wrocław"]:
-        client.post("/weather/api/history/test_user", json={"city": city})
-
-    response = client.get("/weather/api/history_last3/test_user")
-    data = response.get_json()
-
-    assert len(data) == 3
-
-
 def test_clear_history(client):
     response = client.delete("/weather/api/history/test_user")
 

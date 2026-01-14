@@ -1,5 +1,5 @@
 import { API_KEY, API_URL } from "./config.js";
-import { loadHistory, clearHistory } from "./history.js";
+import { loadHistory } from "./history.js";
 import { username } from "./user.js";
 
 
