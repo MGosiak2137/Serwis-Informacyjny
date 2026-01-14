@@ -204,13 +204,25 @@ pytest tests/e2e
 
 ### 4.6 Moduł: Wiadomości (News)
 
-| ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
-|-------|-------------|-------------------------|---------------------------------------------------|--------|
-| UT-01 | Unit        | Parsowanie danych       | **TU UZUPEŁNIĆ** (np. `parse_news_feed()`)        | ⬜     |
-| UT-02 | Unit        | Filtrowanie/sortowanie  | **TU UZUPEŁNIĆ** (np. `filter_by_keyword()`)      | ⬜     |
-| IT-01 | Integration | Endpoint HTML           | **TU UZUPEŁNIĆ** (np. `/news`)                    | ⬜     |
-| IT-02 | Integration | Endpoint API            | **TU UZUPEŁNIĆ** (np. `/api/news/latest`)         | ⬜     |
-| E2E-01| E2E         | User Story              | **TU UZUPEŁNIĆ** (np. „Użytkownik widzi listę wiadomości”) | ⬜ |
+| ID     | Typ testu   | Co testujemy                | Scenariusz / funkcja                                                                 | Status |
+|--------|-------------|-----------------------------|--------------------------------------------------------------------------------------|--------|
+| UT-01 | Unit        | Parsowanie / ładowanie  | articles_data_giver.load_file_data() — normalizacja artykułów z articles_*.json (id, title, content, published_at) | ✅Passed     |
+| UT-02 | Unit        | Normalizacja artykułu   | articles_data_builder.normalize_article() — trim/merge content, normalize image URLs, id gen | ✅Passed     |
+| UT-03 | Unit        | Bookmarks service       | bookmarks_service.add/remove/is_bookmarked() — obsługa duplikatów i walidacja danych | ✅Passed     |
+| UT-04 | Unit        | History service         | history_service.record_view() / get_view_history() — zapis i pobieranie historii użytkownika | ✅Passed     |
+| UT-05 | Unit        | Filtracja / wyszukiwanie| articles_data_giver.search_and_sort() — q, scope, from_date/to_date oraz sortowanie po published_at | ✅Passed     |
+| UT-06 | Unit        | Saver / deduplikacja    | articles_saver.aggregate() — deduplikacja po url i dopisywanie do articles_sport.json`/articles_crime.json` | ✅Passed     |
+| IT-01 | Integration | Endpoint HTML - home    | GET /news/ — render strony głównej (kafelki + ~10 najnowszych) (US-13, US-34, US-49) | ✅Passed     |
+| IT-02 | Integration | Endpoint HTML - crime   | GET /news/crime — lista wiadomości kryminalnych, oznaczenie zakładek (US-32, US-41) | ✅Passed     |
+| IT-03 | Integration | Endpoint HTML - sport   | GET /news/sport — lista wiadomości sportowych (US-32) | ✅Passed     |
+| IT-04 | Integration | Endpoint HTML - search  | GET /news/search — formularz wyszukiwania i panel historii użytkownika (US-36, US-35) | ✅Passed     |
+| IT-05 | Integration | Search results filtering| GET /news/search/results?q=...&scope=... — filtracja po zapytaniu i zakresie dat (test: zawiera "Napad") | ✅Passed     |
+| IT-06 | Integration | Detail not found        | GET /news/detail/<id> — brak artykułu -> 404 (test detail_not_found) | ✅Passed     |
+| IT-07 | Integration | Bookmarks page          | GET /news/bookmarks — lista zakładek zalogowanego użytkownika (US-41) | ✅Passed     |
+| IT-08 | Integration | API add bookmark        | POST /news/api/bookmark/add — poprawne dodanie zakładki, walidacja article_id (tests: success / missing id) | ✅Passed     |
+| IT-09 | Integration | API remove bookmark     | POST /news/api/bookmark/remove — poprawne usunięcie zakładki, walidacja article_id (tests: success / missing id) | ✅Passed     |
+| E2E-01 | E2E         | User Story                  | „Użytkownik przegląda listę newsów i otwiera szczegóły artykułu”                     | ✅Passed     |
+| E2E-02 | E2E         | User Story                  | „Zalogowany użytkownik dodaje i usuwa artykuł z zakładek”                            | ✅Passed     |
 
 ---
 
