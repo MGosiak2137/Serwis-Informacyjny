@@ -268,10 +268,10 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 - [x] `docs/architecture/calendar.md` – dokumentacja modułu calendar - **GOTOWE**
 - [x] `docs/architecture/economy.md` – dokumentacja modułu economy - **GOTOWE**
 - [ ] `docs/architecture/weather.md` – dokumentacja modułu weather - **DO UZUPEŁNIENIA** (5x `TU UZUPEŁNIĆ`)
-- [ ] `docs/architecture/news.md` – dokumentacja modułu news - **PUSTY PLIK**
+- [x] `docs/architecture/news.md` – dokumentacja modułu news - **GOTOWE**
 
 ### Checklista "dokumentacja gotowa" (z instrukcji):
-- [ ] W repo nie ma fragmentów `TU UZUPEŁNIĆ` - **NIE** (weather.md ma 5 miejsc, news.md jest pusty)
+- [ ] W repo nie ma fragmentów `TU UZUPEŁNIĆ` - **NIE** (weather.md ma 5 miejsc)
 - [ ] Wszystkie moduły mają swój plik: `docs/architecture/<module>.md` - **TAK** (ale weather.md i news.md nie są uzupełnione)
 - [x] `docs/api_reference.md` zawiera **wszystkie** endpointy HTML + JSON - **TAK**
 - [ ] `docs/testing.md` zawiera tabele testów dla każdego modułu i opis raportu HTML - **BRAK PLIKU**
@@ -314,7 +314,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
   - [ ] Linia 266: testy integracyjne
   - [ ] Linia 271: testy akceptacyjne
 
-- [ ] `docs/architecture/news.md` - plik jest pusty, trzeba uzupełnić całą dokumentację modułu
+- [x] `docs/architecture/news.md` - dokumentacja modułu news - **GOTOWE**
 
 ### Zasoby (assets):
 - [ ] Sprawdzić czy screenshoty są aktualne i odpowiadają aktualnemu wyglądowi aplikacji
@@ -326,7 +326,7 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 
 ### Ogólne sprawdzenie i finalizacja:
 - [x] Sprawdzić czy wszystkie linki w dokumentacji działają (ścieżki względne) - **TAK**
-- [ ] Upewnić się, że nie ma żadnych `TU UZUPEŁNIĆ` w całym repo (sprawdzić wszystkie pliki .md) - **NIE** (weather.md, news.md)
+- [ ] Upewnić się, że nie ma żadnych `TU UZUPEŁNIĆ` w całym repo (sprawdzić wszystkie pliki .md) - **NIE** (weather.md)
 - [x] Usunąć wszystkie instrukcje pomocnicze (np. "Instrukcja: ...", "PRZYKŁAD:") - **TAK**
 - [ ] Sprawdzić spójność numeracji User Stories w całej dokumentacji
 - [ ] Sprawdzić czy wszystkie moduły mają linki w `docs/architecture.md` (sekcja 10)
@@ -358,12 +358,12 @@ Docelowo w repozytorium powinna istnieć poniższa struktura:
 - docs/architecture/auth.md
 - docs/architecture/calendar.md
 - docs/architecture/economy.md
+- docs/architecture/news.md
 - Screenshoty w docs/assets/screenshots/
 
 **Brakuje:**
 - docs/testing.md
 - docs/contribution.md
-- docs/architecture/news.md (pusty)
 - Raport HTML z testów
 
 **Wymaga uzupełnienia:**
