@@ -100,53 +100,18 @@ pytest tests/e2e
 
 ---
 
-### 4.1 Moduł: Logowanie (Authentication)
+### 4.1 Moduł: Strona główna (Home)
 
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| UT-01  | Unit         | Hashowanie hasła               | User.set_password()                       |  ✅Passed   |
-| UT-02  | Unit         | Poprawna weryfikacja hasła     | User.check_password()                     |  ✅Passed   |
-| UT-03  | Unit         | Błędna weryfikacja hasła       | User.check_password()                     |  ✅Passed   |
-| UT-04  | Unit         | Obsługa pustego hasła          | User.check_password("")                   |  ✅Passed   |
-| IT-01  | Integration  | Endpoint HTML logowania        | GET /auth/login                          | ⬜          |
-| IT-02  | Integration  | Endpoint HTML rejestracji      | GET /auth/register                        | ⬜          |
-| IT-03  | Integration  | Proces logowania (POST)        | POST /auth/login                         | ⬜          |
-| IT-04  | Integration  | Proces rejestracji (POST)      | POST /auth/register                      | ⬜          |
-| E2E-01 | E2E          | US-AUTH-001: Logowanie         | Strona logowania się ładuje              |  ✅Passed   |
-| E2E-02 | E2E          | US-AUTH-001: Logowanie         | Formularz logowania ma wszystkie pola    |  ✅Passed   |
-| E2E-03 | E2E          | US-AUTH-001: Logowanie         | Logowanie z niepoprawnymi danymi         |  ✅Passed   |
-| E2E-04 | E2E          | US-AUTH-001: Logowanie         | Logowanie z poprawnymi danymi            |  ✅Passed   |
+| ID    | Typ testu   | Co testujemy     | Scenariusz / funkcja                                      | Status |
+|-------|-------------|------------------|-----------------------------------------------------------|--------|
+| UT-01 | Unit        | **TU UZUPEŁNIĆ** | **TU UZUPEŁNIĆ** (np. `build_dashboard_context()`)        | ⬜     |
+| IT-01 | Integration | Endpoint HTML    | **TU UZUPEŁNIĆ** (np. `/`)                                | ⬜     |
+| IT-02 | Integration | Endpoint API     | **TU UZUPEŁNIĆ** (np. `/api/summary`)                     | ⬜     |
+| E2E-01| E2E         | User Story       | **TU UZUPEŁNIĆ** (np. „Użytkownik widzi stronę główną”)    | ⬜     |
 
 ---
 
-### 4.2 Moduł: Strona główna (Home)
-
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| IT-01  | Integration  | Endpoint HTML strony głównej  | GET /main/                                |  ✅Passed   |
-| IT-02  | Integration  | Endpoint API kalendarza        | GET /main/api/calendar                    |  ✅Passed   |
-| IT-03  | Integration  | Struktura danych kalendarza    | GET /main/api/calendar (struktura JSON)   |  ✅Passed   |
-| E2E-01 | E2E          | US-HOME-001: Strona główna     | Strona główna się ładuje                 |  ✅Passed   |
-| E2E-02 | E2E          | US-HOME-001: Strona główna     | Navbar jest widoczny                     |  ✅Passed   |
-| E2E-03 | E2E          | US-HOME-001: Strona główna     | Karty modułów są widoczne (4 karty)      |  ✅Passed   |
-| E2E-04 | E2E          | US-HOME-001: Strona główna     | Stopka jest widoczna                     |  ✅Passed   |
-
----
-
-### 4.3 Moduł: Kalendarz / Horoskop (Calendar)
-
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| IT-01  | Integration  | Endpoint HTML horoskopu        | GET /calendar/horoscope                  |  ✅Passed   |
-| IT-02  | Integration  | Endpoint API horoskopu          | GET /calendar/api/horoscope/<sign>       |  ✅Passed   |
-| IT-03  | Integration  | Lista znaków zodiaku (API)      | GET /calendar/api/horoscope              |  ✅Passed   |
-| E2E-01 | E2E          | US-CAL-001: Horoskop           | Strona horoskopu wymaga logowania        |  ✅Passed   |
-| E2E-02 | E2E          | US-CAL-001: Horoskop           | Strona horoskopu ładuje się po zalogowaniu |  ✅Passed   |
-| E2E-03 | E2E          | US-CAL-001: Horoskop           | Znaki zodiaku są widoczne                |  ✅Passed   |
-
----
-
-### 4.4 Moduł: Pogoda (Weather)
+### 4.2 Moduł: Pogoda (Weather)
 
 | ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
 |-------|-------------|-------------------------|---------------------------------------------------|--------|
@@ -158,7 +123,7 @@ pytest tests/e2e
 
 ---
 
-### 4.5 Moduł: Ekonomia (Economy)
+### 4.3 Moduł: Ekonomia (Economy)
 
 | ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
 |-------|-------------|-------------------------|---------------------------------------------------|--------|
@@ -170,7 +135,7 @@ pytest tests/e2e
 
 ---
 
-### 4.6 Moduł: Wiadomości (News)
+### 4.4 Moduł: Wiadomości (News)
 
 | ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
 |-------|-------------|-------------------------|---------------------------------------------------|--------|
