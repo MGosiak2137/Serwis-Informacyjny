@@ -10,10 +10,7 @@
 
 ## 1. Cel modułu
 
-Moduł `weather` odpowiada za prezentację danych pogodowych w serwisie informacyjnym.  
-Umożliwia użytkownikowi wyszukiwanie pogody dla miast, wyświetlanie prognoz, alertów pogodowych oraz map pogodowych.  
-Moduł integruje się z zewnętrznym API OpenWeatherMap i przechowuje historię wyszukiwań użytkownika.  
-Część funkcjonalności (historia, panel użytkownika) dostępna jest tylko dla zalogowanych użytkowników.
+Moduł pogodowy odpowiada za pobieranie, prezentowanie i archiwizowanie informacji pogodowych dla użytkowników serwisu. Udostępnia dane o aktualnej pogodzie, prognozie godzinowej i 3-dniowej oraz ostrzeżenia pogodowe. Moduł zarządza również historią wyszukiwań użytkowników i integruje dane z zewnętrznego API OpenWeatherMap.
 
 ---
 
@@ -21,53 +18,75 @@ Część funkcjonalności (historia, panel użytkownika) dostępna jest tylko dl
 
 **TU UZUPEŁNIĆ:** wstaw listę User Stories (ID z Jiry + krótki opis).
 
-- **US-WEATHER-01** - Jako użytkownik chcę wyszukać aktualną pogodę dla miasta.
-- **US-WEATHER-02** - Jako użytkownik chcę zobaczyć prognozę godzinową i dzienną.
-- **US-WEATHER-03** - Jako użytkownik chcę zobaczyć mapę pogodową z warstwami (temperatura, opady, wiatr).
-- **US-WEATHER-04** - Jako zalogowany użytkownik chcę mieć zapisaną historię wyszukiwań.
-- **US-WEATHER-05** - Jako użytkownik chcę otrzymać ostrzeżenia pogodowe (upał, mróz, silny wiatr).
+- **US-WEATHER-01** Jako użytkownik zalogowany chcę zobaczyć informacje dla wybranej przeze mnie lokalizacji dotyczące temperatury, ciśnienia, opadów, wiatru, wilgotności powietrza, jakości powietrza
+- **US-WEATHER-02** Jako użytkownik niezalogowany chcę zobaczyć pogodę dla Warszawy / mojej domyślnej lokalizacji. 
+- **US-WEATHER-03** Jako użytkownik chcę otrzymać informację o braku danych gdy są one niedostępne.
+- **US-WEATHER-04** Jako użytkownik chcę zobaczyć graficzną prezentację informacji pogodowych na mapie dla lokalizacji.
+- **US-WEATHER-05** Jako użytkownik chcę otrzymać powiadomienie, gdy pogoda gwałtownie się zmienia
 
+Alerty o:
+opadach śniegu,
+opadach deszczu,
+temperaturze poniżej 0 oraz powyżej 30 stopni Celsjusza,
 
+burzach.
+- 
+**US-WEATHER-06**
+ Jako użytkownik chcę zobaczyć moje poprzednie lokalizacje po ponownym zalogowaniu
+ - 
+**US-WEATHER-07**
+Jako użytkownik, chcę zobaczyć prognozę pogody na kilka dni, aby zaplanować swoje aktywności.
 ---
+
 
 ## 3. Granice modułu (co wchodzi / co nie wchodzi)
 
 ### 3.1 Moduł odpowiada za
-- komunikację z API OpenWeatherMap,
-- logikę pogodową (prognozy, alerty, mapy),
-- przechowywanie historii wyszukiwań miast,
-- frontend panelu pogodowego.
+Pobieranie danych pogodowych z OpenWeatherMap.
+
+Przechowywanie i odczyt historii wyszukiwań użytkowników w lokalnej bazie SQLite.
+
+Generowanie ostrzeżeń pogodowych na podstawie pobranych danych.
+
+Obsługę widoku panelu pogodowego i warstw mapy w UI.
 
 ### 3.2 Moduł nie odpowiada za
-- autoryzację i logowanie użytkownika (moduł `auth`),
-- globalną nawigację i layout aplikacji,
-- zarządzanie kontem użytkownika.
+Autoryzację i zarządzanie użytkownikami (realizuje moduł auth).
+
+Ogólną nawigację i wygląd strony (realizuje moduł dashboard/navbar).
+
+Globalne ustawienia serwisu informacyjnego, np. newsy czy inne moduły.
 
 ---
 
 ## 4. Struktura kodu modułu
-
-modules/weather/
-├── db/
-│ ├── connection.py
-│ ├── history_repository.py
-│ └── user_repository.py
-├── routes/
-│ ├── weather_routes.py
-│ ├── history_routes.py
-│ └── dashboard_routes.py
-├── services/
-│ └── history_services.py
-├── static/
-│ ├── js/
-│ │ ├── app.js
-│ │ ├── search.js
-│ │ ├── forecast.js
-│ │ ├── alerts.js
-│ │ └── mapControls.js
-│ └── style.css
-└── templates/
-└── dashboard.html
+weather/
+│
+├─ db/
+│  ├─ connection.py          # Połączenie z bazą SQLite
+│  └─ history_repository.py  # CRUD historii wyszukiwań
+│
+├─ routes/
+│  ├─ __init__.py            # Rejestracja blueprintów
+│  ├─ weather_routes.py      # Endpointy pogodowe
+│  └─ history_routes.py      # Endpointy historii
+│
+├─ services/
+│  └─ history_service.py     # Logika historii wyszukiwań
+│
+├─ static/js/
+│  ├─ app.js                 # Inicjalizacja panelu, mapy i wyszukiwania
+│  ├─ config.js              # Pobranie API_KEY i URL
+│  ├─ forecast.js            # Obsługa prognozy godzinowej/dniowej
+│  ├─ alerts.js              # Obsługa ostrzeżeń pogodowych
+│  ├─ history.js             # Ładowanie historii użytkownika
+│  ├─ mapControls.js         # Sterowanie mapą i warstwami
+│  ├─ mapLayers.js           # Definicje warstw OpenWeatherMap
+│  ├─ panel.js               # Logika panelu bocznego
+│  └─ search.js              # Wyszukiwanie miast i obsługa kart pogodowych
+│
+├─ templates/
+│  └─ dashboard.html         # Widok modułu pogodowego
 
 - **routes/** – endpointy HTTP (API + HTML)
 - **services/** – logika biznesowa
@@ -87,55 +106,56 @@ Szczegółowa specyfikacja każdego endpointu (parametry, odpowiedzi, błędy)
 znajduje się w pliku [`doc/api_reference.md`](../api_reference.md).
 
 >**PRZYKŁAD TABELI:** dostosuj do swojego modułu.
-
-| Metoda | Ścieżka | Typ | Rola w module | Powiązane US | Szczegóły |
-|---:|---|---|---|---|---|
-| GET | /weather/dashboard | HTML | Panel pogodowy | US-WEATHER-01 | api_reference.md#weather-dashboard |
-| GET | /weather/api/simple_weather | JSON | Aktualna pogoda | US-WEATHER-01 | api_reference.md#simple-weather |
-| GET | /weather/api/forecast | JSON | Prognoza 3-dniowa | US-WEATHER-02 | api_reference.md#forecast |
-| GET | /weather/api/history/{username} | JSON | Historia wyszukiwań | US-WEATHER-04 | api_reference.md#history |
-| POST | /weather/api/history/{username} | JSON | Dodanie wpisu | US-WEATHER-04 | api_reference.md#history-add |
-| DELETE | /weather/api/history/{username} | JSON | Czyszczenie historii | US-WEATHER-04 | api_reference.md#history-delete |
-
+| Metoda | Ścieżka                 | Typ  | Rola w module                        | Powiązane User Stories | Szczegóły                               |
+| -----: | ----------------------- | ---- | ------------------------------------ | ---------------------- | --------------------------------------- |
+|    GET | /dashboard              | HTML | Widok dashboardu pogodowego          | US-201, US-202         | api_reference.md#weather-dashboard      |
+|    GET | /api/config             | JSON | Pobranie konfiguracji (API_KEY, URL) | US-201                 | api_reference.md#weather-config         |
+|    GET | /api/simple_weather     | JSON | Bieżąca pogoda dla Warszawy          | US-201                 | api_reference.md#weather-simple         |
+|    GET | /api/forecast           | JSON | 3-dniowa prognoza                    | US-202                 | api_reference.md#weather-forecast       |
+|    GET | /api/history/<username> | JSON | Historia wyszukiwań                  | US-204                 | api_reference.md#weather-history        |
+|   POST | /api/history/<username> | JSON | Dodanie miasta do historii           | US-201, US-204         | api_reference.md#weather-history-add    |
+| DELETE | /api/history/<username> | JSON | Usunięcie historii użytkownika       | US-205                 | api_reference.md#weather-history-delete |
 
 
 ---
 
 ## 6. Zewnętrzne API wykorzystywane przez moduł
 
-Moduł korzysta z **OpenWeatherMap API**.
+Moduł korzysta z API OpenWeatherMap (https://openweathermap.org/
+):
 
-- Dostawca: OpenWeather Ltd.
-- Autoryzacja: API Key
-- Format danych: JSON
-- Limity: zależne od planu OpenWeather
+Current Weather Data — bieżąca pogoda (/weather)
 
-### Wykorzystywane endpointy
-- `/data/2.5/weather`
-- `/data/2.5/forecast`
-- `/data/2.5/air_pollution`
-- `/map/{layer}/{z}/{x}/{y}.png`
+5 day / 3 hour forecast — prognoza godzinowa i 3-dniowa (/forecast)
+
+Air Pollution API — jakość powietrza (/air_pollution)
+
+Weather Map Layers — warstwy mapy (/tile/{layer}/{z}/{x}/{y}.png)
+
+Autoryzacja: klucz API (API_KEY) w .env.
+Mapowanie danych: odpowiedzi JSON → obiekty JS (np. main.temp, weather[0].description).
 
 ### 6.1 Konfiguracja (zmienne `.env`)
 
 Wpisz zmienne używane do konfiguracji API:
 
+| Zmienna                 | Przykład | Opis                    | Wymagana |
+| ----------------------- | -------- | ----------------------- | -------- |
+| **OPENWEATHER_API_KEY** | `123abc` | Klucz do OpenWeatherMap | TAK      |
 
-| Zmienna | Przykład | Opis | Wymagana |
-|---|---|---|---|
-| OPENWEATHER_API_KEY | abc123 | Klucz API OpenWeather | TAK |
 
 ### 6.2 Przykład zapytania do API (opcjonalnie)
 
 ```bash
-curl "https://api.openweathermap.org/data/2.5/weather?q=Warsaw&appid=API_KEY&units=metric"
+curl "https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&lang=pl&appid=$OPENWEATHER_API_KEY"
+
 
 ### 6.3 Obsługa błędów i fallback
-brak odpowiedzi API → komunikat błędu w UI,
+Jeśli API nie odpowiada, frontend wyświetla komunikat błędu lub brak danych.
 
-niepoprawna nazwa miasta → informacja „Nie znaleziono miasta”,
+Cache w forecast.js redukuje liczbę powtórnych wywołań dla tej samej lokalizacji.
 
-brak klucza API → brak danych pogodowych.
+Ostrzeżenia (alerts.js) zwracają pustą tablicę, jeśli brak danych.
 
 ---
 
@@ -153,63 +173,53 @@ brak klucza API → brak danych pogodowych.
 
 ### 7.1 Encje bazodanowe (tabele)
 
-users
+users — informacje o użytkownikach modułu (wspólna tabela, minimalny rekord dla historii).
 
-rola: identyfikacja użytkownika modułu,
+pola: id, username
 
-pola: id, username,
+history — zapis wyszukiwanych miast przez użytkowników
 
-relacja: 1:N z history.
+pola: id, username, query (nazwa miasta), timestamp
 
-history
-
-rola: historia wyszukiwań miast,
-
-pola: id, username, query, timestamp,
-
-relacja: wiele wpisów dla jednego użytkownika.
+relacja: username → users.username (referencja logiczna)
 
 ---
 
 ### 7.2 Obiekty domenowe (bez tabel w bazie)
 
-Opisz obiekty:
-- pochodzące z API,
-- tworzone w logice modułu.
+WeatherData — dane pobierane z OpenWeatherMap (main, weather, wind, coord)
 
-WeatherData – dane bieżącej pogody z API,
+ForecastData — lista prognoz godzinowych (list[])
 
-ForecastItem – prognoza godzinowa/dzienna,
-
-WeatherAlert – ostrzeżenia pogodowe (logika JS),
-
-MapLayer – warstwy map pogodowych.
+AlertData — ostrzeżenia generowane na podstawie prognozy (temp, wind, code, desc)
 
 ---
 
 ### 7.3 Relacje i przepływ danych
 
-Opisz relacje i przepływ danych.
+Użytkownik → wpisuje miasto w wyszukiwarce → search.js → wywołanie API OpenWeatherMap.
 
-Użytkownik → frontend JS → backend Flask → OpenWeather API → backend → frontend.
-Historia wyszukiwań zapisywana jest lokalnie w SQLite.
+Dane pogodowe → wyświetlane w kartach i mapie → dodawane do historii (history_service.py).
+
+Prognoza godzinowa/dniowa → generowanie wykresów i szczegółów godzinowych.
+
+Ostrzeżenia → przetwarzane na alerty tekstowe w JS → wyświetlane w panelu.
 
 ---
 
 ## 8. Przepływ danych w module
 
-Opisz 1 kluczowy scenariusz krok po kroku.
->**Instrukcja:** Scenariusz powinien odpowiadać jednej z User Stories wymienionych w sekcji 2.
+Scenariusz: Wyszukanie pogody dla miasta
 
-Scenariusz: wyszukiwanie miasta
+Użytkownik wpisuje nazwę miasta w polu wyszukiwania i klika „Szukaj”.
 
-1. Użytkownik wpisuje nazwę miasta i klika „Szukaj”.
+search.js wykonuje fetch /api/weather?city=<miasto> i /api/air_pollution.
 
-2. Frontend wysyła zapytanie do OpenWeather API.
+Otrzymane dane wyświetlane są w karcie pogodowej, dodawane do mapy i historii (/api/history/<username>).
 
-3. Backend zapisuje miasto w historii użytkownika.
+forecast.js umożliwia wybór dnia i godziny → generuje wykres temperatury.
 
-4. Dane pogodowe są wyświetlane w panelu oraz na mapie.
+alerts.js pobiera prognozę i generuje ostrzeżenia → wyświetlane w panelu bocznym.
 
 ---
 
@@ -224,29 +234,15 @@ sequenceDiagram
   participant U as User/Browser
   participant F as Flask
   participant DB as Database
-  participant API as External API
+  participant API as OpenWeatherMap
 
-  U->>F: GET /tu-uzupelnic
-  F->>API: request data
-  API-->>F: response
-  F->>DB: save/read data
-  DB-->>F: result
-  F-->>U: HTML/JSON response
-```
-```mermaid
-sequenceDiagram
-  participant U as User
-  participant JS as Frontend JS
-  participant F as Flask
-  participant API as OpenWeather API
-  participant DB as SQLite
+  U->>F: POST /api/history/<username> + city
+  F->>API: GET /weather?q=city
+  API-->>F: JSON z pogodą
+  F->>DB: INSERT INTO history (username, city, timestamp)
+  DB-->>F: potwierdzenie zapisu
+  F-->>U: JSON z pogodą, ostrzeżeniami i AQI
 
-  U->>JS: Wyszukaj miasto
-  JS->>API: Pobierz pogodę
-  API-->>JS: Dane pogodowe
-  JS->>F: POST /api/history
-  F->>DB: Zapis historii
-  JS-->>U: Wyświetlenie pogody
   ```
 
 ### 9.2 Diagram komponentów modułu (opcjonalnie)
