@@ -145,13 +145,24 @@ pytest tests/e2e
 
 ### 4.4 Moduł: Pogoda (Weather)
 
-| ID    | Typ testu   | Co testujemy            | Scenariusz / funkcja                              | Status |
-|-------|-------------|-------------------------|---------------------------------------------------|--------|
-| UT-01 | Unit        | Normalizacja danych     | **TU UZUPEŁNIĆ** (np. `normalize_forecast()`)     | ⬜     |
-| UT-02 | Unit        | Walidacja wejścia       | **TU UZUPEŁNIĆ** (np. `validate_location()`)      | ⬜     |
-| IT-01 | Integration | Endpoint HTML           | **TU UZUPEŁNIĆ** (np. `/weather/pogoda`)          | ⬜     |
-| IT-02 | Integration | Endpoint API            | **TU UZUPEŁNIĆ** (np. `/weather/api/forecast`)    | ⬜     |
-| E2E-01| E2E         | User Story              | **TU UZUPEŁNIĆ** (np. „Niezalogowany widzi pogodę”)| ⬜    |
+| ID     | Typ testu   | Co testujemy                              | Scenariusz / funkcja                                                                                  | Status |
+| ------ | ----------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ |
+| UT-01  | Unit        | Logika ostrzeżeń pogodowych               | Generowanie alertów dla niskiej / wysokiej temperatury i silnego wiatru (`test_alerts_logic.py`)      | ✅      |
+| UT-02  | Unit        | Przetwarzanie danych prognozy             | Agregacja danych forecast (średnie wartości, dominująca ikona i opis) (`test_forecast_processing.py`) | ✅      |
+| UT-03  | Unit        | Logika warstwy serwisowej historii        | Delegowanie operacji do repozytorium (add / fetch / clear) (`test_history_service.py`)                | ✅      |
+| UT-04  | Unit        | Budowanie URL warstw mapy                 | Generowanie poprawnego adresu tile OpenWeather (`test_weather_utils.py`)                              | ✅      |
+| IT-01  | Integration | Renderowanie widoku HTML                  | Wyświetlenie dashboardu pogodowego (`/weather/dashboard`) (`test_weather_html.py`)                    | ✅      |
+| IT-02  | Integration | Endpoint API – konfiguracja               | Pobranie klucza API i URL (`/weather/api/config`) (`test_weather_api.py`)                             | ✅      |
+| IT-03  | Integration | Endpoint API – bieżąca pogoda             | Zwracanie uproszczonych danych pogodowych (`/weather/api/simple_weather`)                             | ✅      |
+| IT-04  | Integration | Endpoint API – prognoza                   | Zwracanie 3-dniowej prognozy w poprawnym formacie (`/weather/api/forecast`)                           | ✅      |
+| IT-05  | Integration | Endpoint API – historia wyszukiwań        | Dodawanie, pobieranie i czyszczenie historii (`/weather/api/history/<user>`)                          | ✅      |
+| E2E-01 | E2E         | User Story – podgląd pogody               | Niezalogowany użytkownik widzi pogodę Warszawy lub komunikat awaryjny (`test_US1.py`)                 | ✅      |
+| E2E-02 | E2E         | User Story – wyszukiwanie miasta          | Użytkownik wyszukuje miasto i widzi szczegóły pogody (`test_US2.py`)                                  | ✅      |
+| E2E-03 | E2E         | User Story – mapa pogodowa                | Użytkownik włącza warstwy pogodowe na mapie (`test_US3.py`)                                           | ✅      |
+| E2E-04 | E2E         | User Story – ostrzeżenia pogodowe         | Wyświetlanie ostrzeżeń dla wyszukiwanego miasta (`test_US4.py`)                                       | ✅      |
+| E2E-05 | E2E         | User Story – prognoza rozszerzona         | Kalendarz prognozy i widok godzinowy (`test_US5.py`)                                                  | ✅      |
+| E2E-06 | E2E         | User Story – przywracanie stanu aplikacji | Automatyczne odtworzenie ostatnio wyszukanych miast (`test_US6.py`)                                   | ✅      |
+
 
 ---
 

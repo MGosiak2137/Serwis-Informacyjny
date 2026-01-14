@@ -62,23 +62,23 @@ Globalne ustawienia serwisu informacyjnego, np. newsy czy inne moduły.
 ## 4. Struktura kodu modułu
 serwis_info/modules/weather/
 │
-├─ db/
+├─ db/                       #przechowywanie historii wyszukiwań i uzytkowników
 │  ├─ connection.py          # Połączenie z bazą SQLite (users.db)
 │  ├─ history_repository.py  # Operacje CRUD na historii wyszukiwań
 │  └─ user_repository.py     # Operacje na użytkownikach modułu (np. użytkownik demo)
 │
-├─ routes/
+├─ routes/                   #API Flaskowe dla pogody i historii
 │  ├─ __init__.py            # Rejestracja blueprintów modułu
 │  ├─ weather_routes.py      # Endpointy API pogodowego i konfiguracji
 │  ├─ history_routes.py      # Endpointy API historii wyszukiwań
 │  └─ dashboard_routes.py    # Routing widoku dashboardu pogodowego
 │
-├─ services/
+├─ services/                 #logika, pośredniczy miedzy db a routes
 │  └─ history_service.py     # Logika biznesowa historii wyszukiwań
 │
-├─ static/
+├─ static/                   #frontend
 │  ├─ style.css              # Style CSS specyficzne dla modułu pogodowego
-│  └─ js/
+│  └─ js/                    #interakcje uzytkownika, mapy, alerty
 │     ├─ app.js              # Główna inicjalizacja modułu w UI
 │     ├─ config.js           # Pobieranie konfiguracji (API_KEY, API_URL)
 │     ├─ forecast.js         # Prognoza wielodniowa i godzinowa + wykresy
@@ -114,15 +114,16 @@ Poniżej przedstawiono endpointy udostępniane przez ten moduł.
 Szczegółowa specyfikacja każdego endpointu (parametry, odpowiedzi, błędy)
 znajduje się w pliku [`doc/api_reference.md`](../api_reference.md).
 
-| Metoda | Ścieżka                         | Typ  | Rola w module                            | Powiązane User Stories            | Szczegóły                               |
-| -----: | ------------------------------- | ---- | ---------------------------------------- | --------------------------------- | --------------------------------------- |
-|    GET | /weather/dashboard              | HTML | Widok dashboardu pogodowego              | US1, US2, US3, US4, US5, US6, US7 | api_reference.md#weather-dashboard      |
-|    GET | /weather/api/config             | JSON | Pobranie konfiguracji (API_KEY, API_URL) | US1, US2, US3                     | api_reference.md#weather-config         |
-|    GET | /weather/api/simple_weather     | JSON | Bieżąca pogoda dla domyślnej lokalizacji | US1, US7                          | api_reference.md#weather-simple         |
-|    GET | /weather/api/forecast           | JSON | Prognoza pogody (dniowa i godzinowa)     | US5, US7                          | api_reference.md#weather-forecast       |
-|    GET | /weather/api/history/<username> | JSON | Pobranie historii wyszukiwań użytkownika | US6                               | api_reference.md#weather-history        |
-|   POST | /weather/api/history/<username> | JSON | Zapis miasta do historii                 | US2, US6                          | api_reference.md#weather-history-add    |
-| DELETE | /weather/api/history/<username> | JSON | Usunięcie historii użytkownika           | US6                               | api_reference.md#weather-history-delete |
+
+| Metoda | Endpoint                         | Typ  | Opis                               | User Stories        | Dokumentacja |
+|:------:|----------------------------------|:----:|------------------------------------|---------------------|--------------|
+| GET    | /weather/dashboard               | HTML | Dashboard pogodowy                 | US1–US6             | api_reference.md#weather-dashboard |
+| GET    | /weather/api/config              | JSON | Konfiguracja (API_KEY, API_URL)    | US1–US3             | api_reference.md#weather-config |
+| GET    | /weather/api/simple_weather      | JSON | Bieżąca pogoda (domyślna lokalizacja) | US1              | api_reference.md#weather-simple |
+| GET    | /weather/api/forecast            | JSON | Prognoza dzienna i godzinowa       | US5                 | api_reference.md#weather-forecast |
+| GET    | /weather/api/history/{username}  | JSON | Historia wyszukiwań użytkownika    | US6                 | api_reference.md#weather-history |
+| POST   | /weather/api/history/{username}  | JSON | Dodanie miasta do historii         | US2, US6            | api_reference.md#weather-history-add |
+| DELETE | /weather/api/history/{username}  | JSON | Usunięcie historii użytkownika     | US6                 | api_reference.md#weather-history-delete |
 
 US1 – domyślna pogoda (Warszawa) → dashboard + simple_weather
 US2 – szczegóły dla wybranego miasta → dashboard + zapis historii
@@ -130,7 +131,7 @@ US3 – wizualizacja (mapa) → dashboard + config
 US4 – alerty → dashboard
 US5 – prognoza → forecast
 US6 – zapamiętywanie lokalizacji → history GET/POST/DELETE
-US7 – obsługa błędów → simple_weather + forecast + dashboard
+
 ---
 
 ## 6. Zewnętrzne API wykorzystywane przez moduł
