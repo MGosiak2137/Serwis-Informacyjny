@@ -204,28 +204,28 @@ pytest tests/e2e
 
 ### 4.6 Moduł: Wiadomości (News)
 
-| ID     | Typ testu   | Co testujemy                          | Scenariusz / funkcja                                                                 | Status |
-|--------|-------------|---------------------------------------|--------------------------------------------------------------------------------------|--------|
-| UT-01  | Unit        | Parsowanie / ładowanie                | articles_data_giver.load_file_data() — normalizacja artykułów z articles_*.json (id, title, content, published_at) | ✅Passed     |
-| UT-02  | Unit        | Normalizacja artykułu                 | articles_data_builder.normalize_article() — trim/merge content, normalize image URLs, id gen | ✅Passed     |
-| UT-03  | Unit        | Bookmarks service                     | bookmarks_service.add/remove/is_bookmarked() — obsługa duplikatów i walidacja danych | ✅Passed     |
-| UT-04  | Unit        | History service                       | history_service.record_view() / get_view_history() — zapis i pobieranie historii użytkownika | ✅Passed     |
-| UT-05  | Unit        | Filtracja / wyszukiwanie              | articles_data_giver.search_and_sort() — q, scope, from_date/to_date oraz sortowanie po published_at | ✅Passed     |
-| UT-06  | Unit        | Saver / deduplikacja                  | articles_saver.aggregate() — deduplikacja po url i dopisywanie do articles_sport.json`/articles_crime.json` | ✅Passed     |
-| IT-01  | Integration | Endpoint HTML - home                  | GET /news/ — render strony głównej (kafelki + ~10 najnowszych) (US-13, US-34, US-49) | ✅Passed     |
-| IT-02  | Integration | Endpoint HTML - crime                 | GET /news/crime — lista wiadomości kryminalnych, oznaczenie zakładek (US-32, US-41) | ✅Passed     |
-| IT-03  | Integration | Endpoint HTML - sport                 | GET /news/sport — lista wiadomości sportowych (US-32) | ✅Passed     |
-| IT-04  | Integration | Endpoint HTML - search                | GET /news/search — formularz wyszukiwania i panel historii użytkownika (US-36, US-35) | ✅Passed     |
-| IT-05  | Integration | Wyszukiwanie i filtrowanie            | GET /news/search/results?q=...&scope=... — filtracja po zapytaniu i zakresie dat (test: zawiera "Napad") | ✅Passed     |
-| IT-06  | Integration | Detail not found                      | GET /news/detail/<id> — brak artykułu -> 404 (test detail_not_found) | ✅Passed     |
-| IT-07  | Integration | Strona z Zakładkami                   | GET /news/bookmarks — lista zakładek zalogowanego użytkownika (US-41) | ✅Passed     |
-| IT-08  | Integration | API add bookmark                      | POST /news/api/bookmark/add — poprawne dodanie zakładki, walidacja article_id (tests: success / missing id) | ✅Passed     |
-| IT-09  | Integration | API remove bookmark                   | POST /news/api/bookmark/remove — poprawne usunięcie zakładki, walidacja article_id (tests: success / missing id) | ✅Passed     |
-| E2E-01 | E2E         | Lista najnowselki izych wiadomości (home)   | Użytkownik przechodzi na /news/, widzi kaf listę najnowszych artykułów; może otworzyć szczegóły. (US-13)                                                         | ✅Passed     |
-| E2E-02 | E2E         | Widok kategorii (kryminalne/sportowe) | Użytkownik przechodzi na /news/crime i /news/sport, widzi listę artykułów danej kategorii oraz oznaczenia zakładek. (US-32)                                           | ✅Passed     |
-| E2E-03 | E2E         | Widoczność ~10 najnowszych            | Na stronie /news/ widoczne jest około 10 najnowszych wiadomości w kafelkach/listach. (US-34)                                                                          | ✅Passed     |
-| E2E-04 | E2E         | Wyszukiwanie artykułów                 | Użytkownik korzysta z formularza wyszukiwania na /news/search, wpisuje frazę i otrzymuje wyniki zawierające wyszukaną frazę. (US-36)                                  | ✅Passed     |
-| E2E-05 | E2E         | Zakładki / zapis do przeczytania       | Zalogowany użytkownik dodaje artykuł do zakładek, sprawdza widok /news/bookmarks i usuwa zakładkę; zmiany są widoczne również na stronie szczegółów. (US-41)             | ✅Passed     |
+| ID     | Typ testu   | Co testujemy                          | Scenariusz / funkcja                                                                                                                                         | Status |
+|--------|-------------|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| UT-01  | Unit        | Parsowanie / ładowanie                | articles_data_giver.load_file_data() — normalizacja artykułów z articles_*.json (id, title, content, published_at)                                           | ✅Passed     |
+| UT-02  | Unit        | Normalizacja artykułu                 | articles_data_builder.normalize_article() — trim/merge content, normalize image URLs, id gen                                                                 | ✅Passed     |
+| UT-03  | Unit        | Bookmarks service                     | bookmarks_service.add/remove/is_bookmarked() — obsługa duplikatów i walidacja danych                                                                         | ✅Passed     |
+| UT-04  | Unit        | History service                       | history_service.record_view() / get_view_history() — zapis i pobieranie historii użytkownika                                                                 | ✅Passed     |
+| UT-05  | Unit        | Filtracja / wyszukiwanie              | articles_data_giver.search_and_sort() — q, scope, from_date/to_date oraz sortowanie po published_at                                                          | ✅Passed     |
+| UT-06  | Unit        | Saver / deduplikacja                  | articles_saver.aggregate() — deduplikacja po url i dopisywanie do articles_sport.json`/articles_crime.json`                                                  | ✅Passed     |
+| IT-01  | Integration | Endpoint HTML - home                  | GET /news/ — render strony głównej (kafelki + ~10 najnowszych) (US-13, US-34, US-49)                                                                         | ✅Passed     |
+| IT-02  | Integration | Endpoint HTML - crime                 | GET /news/crime — lista wiadomości kryminalnych, oznaczenie zakładek (US-32, US-41)                                                                          | ✅Passed     |
+| IT-03  | Integration | Endpoint HTML - sport                 | GET /news/sport — lista wiadomości sportowych (US-32)                                                                                                        | ✅Passed     |
+| IT-04  | Integration | Endpoint HTML - search                | GET /news/search — formularz wyszukiwania i panel historii użytkownika (US-36, US-35)                                                                        | ✅Passed     |
+| IT-05  | Integration | Wyszukiwanie i filtrowanie            | GET /news/search/results?q=...&scope=... — filtracja po zapytaniu i zakresie dat (test: zawiera "Napad")                                                     | ✅Passed     |
+| IT-06  | Integration | Detail not found                      | GET /news/detail/<id> — brak artykułu -> 404 (test detail_not_found)                                                                                         | ✅Passed     |
+| IT-07  | Integration | Strona z Zakładkami                   | GET /news/bookmarks — lista zakładek zalogowanego użytkownika (US-41)                                                                                        | ✅Passed     |
+| IT-08  | Integration | API add bookmark                      | POST /news/api/bookmark/add — poprawne dodanie zakładki, walidacja article_id (tests: success / missing id)                                                  | ✅Passed     |
+| IT-09  | Integration | API remove bookmark                   | POST /news/api/bookmark/remove — poprawne usunięcie zakładki, walidacja article_id (tests: success / missing id)                                             | ✅Passed     |
+| E2E-01 | E2E         | Lista najnowszych wiadomości (home)   | Użytkownik przechodzi na /news/, widzi kafel/listę najnowszych artykułów; może otworzyć szczegóły. (US-13)                                                   | ✅Passed     |
+| E2E-02 | E2E         | Widok kategorii (kryminalne/sportowe) | Użytkownik przechodzi na /news/crime i /news/sport, widzi listę artykułów danej kategorii oraz oznaczenia zakładek. (US-32)                                  | ✅Passed     |
+| E2E-03 | E2E         | Widoczność ~10 najnowszych            | Na stronie /news/ widoczne jest około 10 najnowszych wiadomości w kafelkach/listach. (US-34)                                                                 | ✅Passed     |
+| E2E-04 | E2E         | Wyszukiwanie artykułów                | Użytkownik korzysta z formularza wyszukiwania na /news/search, wpisuje frazę i otrzymuje wyniki zawierające wyszukaną frazę. (US-36)                         | ✅Passed     |
+| E2E-05 | E2E         | Zakładki / zapis do przeczytania      | Zalogowany użytkownik dodaje artykuł do zakładek, sprawdza widok /news/bookmarks i usuwa zakładkę; zmiany są widoczne również na stronie szczegółów. (US-41) | ✅Passed     |
 ---
 
 ## 5. Powiązanie testów z User Stories
