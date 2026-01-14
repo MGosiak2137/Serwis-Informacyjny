@@ -100,7 +100,7 @@ Moduł ekonomiczny oferuje kompleksowe narzędzia do śledzenia danych finansowy
 ![Wiadomości](docs/assets/screenshots/news.png)
 
 Moduł wiadomości agreguje najnowsze informacje z różnych kategorii. Prezentuje wiadomości sportowe z Polski (Ekstraklasa, reprezentacja, żużel) oraz wiadomości kryminalne z Krakowa (napady, zatrzymania, komunikaty policji). Użytkownicy mogą przeglądać listy artykułów, czytać szczegóły oraz korzystać z wyszukiwarki. Dla zalogowanych użytkowników dostępne są zakładki (bookmarks) oraz historia przeglądania artykułów. Wiadomości są wyświetlane również w formie karuzeli na stronie głównej aplikacji.
----
+
 
 ## Technologie
 
