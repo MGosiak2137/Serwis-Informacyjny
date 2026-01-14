@@ -158,7 +158,7 @@ Wpisz zmienne używane do konfiguracji API:
 
 ```bash
 curl "https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&lang=pl&appid=$OPENWEATHER_API_KEY"
-
+```
 
 ### 6.3 Obsługa błędów i fallback
 Jeśli API nie odpowiada, frontend wyświetla komunikat błędu lub brak danych.
