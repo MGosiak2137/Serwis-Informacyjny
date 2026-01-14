@@ -18,23 +18,18 @@ Moduł pogodowy odpowiada za pobieranie, prezentowanie i archiwizowanie informac
 
 **TU UZUPEŁNIĆ:** wstaw listę User Stories (ID z Jiry + krótki opis).
 
-- **US-WEATHER-01** Jako użytkownik zalogowany chcę zobaczyć informacje dla wybranej przeze mnie lokalizacji dotyczące temperatury, ciśnienia, opadów, wiatru, wilgotności powietrza, jakości powietrza
-- **US-WEATHER-02** Jako użytkownik niezalogowany chcę zobaczyć pogodę dla Warszawy / mojej domyślnej lokalizacji. 
-- **US-WEATHER-03** Jako użytkownik chcę otrzymać informację o braku danych gdy są one niedostępne.
-- **US-WEATHER-04** Jako użytkownik chcę zobaczyć graficzną prezentację informacji pogodowych na mapie dla lokalizacji.
-- **US-WEATHER-05** Jako użytkownik chcę otrzymać powiadomienie, gdy pogoda gwałtownie się zmienia
-
+- **US2** Jako użytkownik zalogowany chcę zobaczyć informacje dla wybranej przeze mnie lokalizacji dotyczące temperatury, ciśnienia, opadów, wiatru, wilgotności powietrza, jakości powietrza
+- **US1** Jako użytkownik niezalogowany chcę zobaczyć pogodę dla Warszawy / mojej domyślnej lokalizacji. 
+- **US3** Jako użytkownik chcę zobaczyć graficzną prezentację informacji pogodowych na mapie dla lokalizacji.
+- **US4** Jako użytkownik chcę otrzymać powiadomienie, gdy pogoda gwałtownie się zmienia
 Alerty o:
 opadach śniegu,
 opadach deszczu,
 temperaturze poniżej 0 oraz powyżej 30 stopni Celsjusza,
-
 burzach.
-- 
-**US-WEATHER-06**
+- **US6**
  Jako użytkownik chcę zobaczyć moje poprzednie lokalizacje po ponownym zalogowaniu
- - 
-**US-WEATHER-07**
+ -**US5**
 Jako użytkownik, chcę zobaczyć prognozę pogody na kilka dni, aby zaplanować swoje aktywności.
 ---
 
