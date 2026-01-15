@@ -18,5 +18,5 @@ export async function loadHistory() {
 }
 
 
-
+//Ładuje historię wyszukiwań z backendu i wstawia do <ul id="historyList">. 
 //integracje- uzywane przez panel.js i search.js

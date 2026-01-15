@@ -1,14 +1,17 @@
+#Endpointy API do historii: 
+
 from flask import Blueprint, request, jsonify
 from ..services.history_service import add_city_to_history, fetch_history, clear_user_history
 
 history_bp = Blueprint("history_bp", __name__)
 
+#pobiera historię użytkownika
 @history_bp.route("/api/history/<username>", methods=["GET"])
 def history(username):
     data = fetch_history(username)
     return jsonify(data)
 
-
+#dodaje miesto do historii
 @history_bp.route("/api/history/<username>", methods=["POST"])
 def history_add(username):
     city = request.json.get("city")
@@ -21,3 +24,4 @@ def history_add(username):
 def history_delete(username):
     clear_user_history(username)
     return jsonify({"status": "ok"})
+#Współpracuje z history_service.py. 

@@ -1,6 +1,6 @@
 import pytest
 from playwright.sync_api import expect
-
+#Pełny scenariusz: wyszukiwanie miasta przez użytkownika 
 @pytest.mark.e2e
 def test_city_weather_details(page, e2e_server):
     page.goto(f"{e2e_server}/weather/dashboard")
@@ -35,3 +35,6 @@ def test_city_weather_details(page, e2e_server):
             or "pogod" in content.lower()
         )
 
+#Testuje core funkcjonalność modułu pogodowego 
+
+#Sprawdza renderowanie danych pogodowych 

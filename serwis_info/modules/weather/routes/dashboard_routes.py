@@ -6,3 +6,4 @@ def register_dashboard_routes(bp):
     @bp.route('/dashboard')
     def dashboard_page():
         return render_template('dashboard.html')
+#Serwuje stronę dashboardu pogodowego. 

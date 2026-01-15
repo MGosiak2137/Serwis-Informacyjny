@@ -1,3 +1,4 @@
+#Testują logikę biznesową w izolacji. 
 import pytest
 
 def generate_warnings(temp, wind):
@@ -11,7 +12,7 @@ def generate_warnings(temp, wind):
     if wind >= 25:
         alerts.append(f"🌪️ Możliwe zjawiska wichurowe!")
     return alerts
-
+#Alert dla bardzo niskiej temperatury 
 def test_generate_warnings_low_temp():
     res = generate_warnings(-10, 5)
     assert "❄️ Bardzo niska temperatura: -10°C" in res

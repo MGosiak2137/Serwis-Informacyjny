@@ -1,18 +1,19 @@
-// weather/static/js/forecast.js (zastępuje poprzedni)
+
 import { API_KEY } from "./config.js";
 
 
 // cache odpowiedzi dla miasta, żeby nie fetchować wielokrotnie
 const forecastCache = new Map();
 
-
+//gdy user kliknie "Pokaż prognozę" przy danym mieście funkcja:
 export async function loadForecast(event) {
+    //pobieramy dane z przycisku
 const city = event.target.dataset.city;
 const targetId = event.target.dataset.target;
 const output = document.getElementById(targetId);
 
 
-// toggle: jeśli widoczne -> schowaj
+// czy prognoza jest już widoczna
 if (!output.classList.contains("hidden")) {
 output.classList.add("hidden");
 output.innerHTML = "";
@@ -32,7 +33,7 @@ return;
 }
 
 
-// Grupuj po dacie
+// Grupuje po dacie
 const grouped = {};
 data.list.forEach(item => {
 const date = item.dt_txt.split(" ")[0];
@@ -51,23 +52,20 @@ let html = `
 <h3>Wybierz dzień:</h3>
 <div class="calendar-days">
 `;
-
-
+//format daty
 dates.forEach(date => {
 const prettyDate = new Date(date).toLocaleDateString("pl-PL", {
 weekday: "long",
 day: "numeric",
 month: "long"
 });
-
-
+//przyciski dni
 html += `
 <button class="cal-day-btn" data-date="${date}" data-city="${city}">
 ${prettyDate}
 </button>
 `;
 });
-
 
 html += `
 </div>
@@ -80,7 +78,7 @@ output.innerHTML = html;
 output.classList.remove("hidden");
 
 
-// podczep listener-y na dni
+// kliknięcia dni prowadzi do kolejnej funkcji
 output.querySelectorAll(".cal-day-btn").forEach(btn => {
 btn.addEventListener("click", onSelectCalendarDay);
 });
@@ -92,6 +90,14 @@ output.innerHTML = "<p>Błąd pobierania prognozy.</p>";
 }
 }
 
+
+
+
+
+
+
+
+// jesli dane były, zwróć z pamieci
 async function fetchForecast(city) {
     if (forecastCache.has(city)) return forecastCache.get(city);
 
@@ -102,6 +108,8 @@ async function fetchForecast(city) {
     forecastCache.set(city, data);
     return data;
 }
+
+
 function slugify(text) {
     return text
         .toString()
@@ -113,6 +121,8 @@ function slugify(text) {
         .replace(/[^\w-]+/g, "")
         .replace(/--+/g, "-");
 }
+
+
 async function onSelectCalendarDay(event) {
     const date = event.target.dataset.date;
     const city = event.target.dataset.city;
@@ -122,6 +132,7 @@ async function onSelectCalendarDay(event) {
 
     try {
         const data = await fetchForecast(city);
+//filtruje dane prognozy dla wybranego dnia,
 
         const items = data.list.filter(i => i.dt_txt.startsWith(date));
 
@@ -135,7 +146,7 @@ async function onSelectCalendarDay(event) {
                 <h4>Prognoza na ${date}</h4>
                 <ul class="hour-list">
         `;
-
+//wyświetla listę godzin wraz z temperaturą,
         items.forEach(item => {
             const hour = item.dt_txt.split(" ")[1].slice(0, 5);
             html += `
@@ -154,7 +165,9 @@ async function onSelectCalendarDay(event) {
 
         container.innerHTML = html;
 
-        // podpinamy kliknięcia godzin
+//dla każdej godziny tworzy przycisk,
+
+//podpina obsługę kliknięcia w godzinę.
         container.querySelectorAll(".hour-btn").forEach(btn => {
             btn.addEventListener("click", openHourWindow);
         });
@@ -237,7 +250,7 @@ const slice = data.list.slice(start, end);
     const closeBtn = overlay.querySelector(".hourly-modal-close");
     if (closeBtn) closeBtn.addEventListener("click", () => overlay.remove());
 
-    // Upewnij się, że Chart.js jest załadowany (dashboard.html ładuje go po module)
+    // Upewnic się, że Chart.js jest załadowany (dashboard.html ładuje go po module)
     async function ensureChart() {
         if (window.Chart) return;
         return new Promise(resolve => {

@@ -1,3 +1,4 @@
+//Inicjalizacja mini-widgetu na dashboardzie: 
 document.addEventListener("DOMContentLoaded", () => {
 
     // --------- BIEŻĄCA POGODA ---------

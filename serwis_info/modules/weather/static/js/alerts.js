@@ -1,6 +1,6 @@
 import { API_KEY, API_URL } from "./config.js";    
 
-
+// generowanie ostrzeżeń na podstawie danych pogodowych
 
 function generateWarnings(city, current, forecastNextHours){
     const alerts = [];
@@ -75,7 +75,7 @@ export async function getCityAlerts(city) {
 
         }
     }
-
+// ładuje ostrzeżenia dla listy miast i wyświetl w panelu
     export async function loadAlertsForCities(cities) {
     const all = [];
 

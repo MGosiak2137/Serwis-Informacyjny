@@ -1,6 +1,6 @@
 import pytest
 from playwright.sync_api import expect
-
+#testuje kalendarz i pgornoze godzinową
 @pytest.mark.e2e
 def test_forecast_calendar_and_hour(page, e2e_server):
     page.goto(f"{e2e_server}/weather/dashboard")

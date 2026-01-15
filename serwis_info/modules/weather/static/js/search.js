@@ -8,12 +8,14 @@ let markers = [];
 let weatherCards = [];
 let maxCities = 3;
 
+//podpiecia przyciskow
 export function initSearch() {
   document.getElementById("searchBtn").addEventListener("click", firstSearch);
   document.getElementById("nextSearchBtn").addEventListener("click", nextSearch);
   document.getElementById("resetSearchBtn").addEventListener("click", resetSearch);
 }
 
+//pierwsze miasto
 async function firstSearch() {
   resetSearch();
   await runSearch();
@@ -51,22 +53,24 @@ function showNextButtons() {
 }
 
 async function runSearch(auto=false) {
+  //pobranie z inputa
   const city = document.getElementById("cityInput").value;
   if (!city) return alert("Wpisz miasto!");
 
   try {
+    //pobranie danych z API
     const res = await fetch(`${API_URL}${city}&appid=${API_KEY}&units=metric&lang=pl`);
     const data = await res.json();
 
     if (data.cod !== 200) return alert("Nie znaleziono miasta!");
-
+//jakie chcemy dane
     const { coord, main, weather, wind, name } = data;
 
     const airRes = await fetch(
       `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coord.lat}&lon=${coord.lon}&appid=${API_KEY}`
     );
     const airData = await airRes.json();
-
+//zamiana aqi na tekst
     const aqiLevels = {
       1: "Bardzo dobra 😊",
       2: "Dobra 🙂",
@@ -86,7 +90,7 @@ async function runSearch(auto=false) {
     addMarker(coord.lat, coord.lon, name, main.temp);
 
     if (!auto)fitAllMarkers();
-
+//zapis historii uzytkownika
     await fetch(`/weather/api/history/${username}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

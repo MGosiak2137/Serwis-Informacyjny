@@ -1,7 +1,8 @@
+##Testują endpointy Flask bez przeglądarki, z mockami API. 
 import json
 from unittest.mock import patch
 
-
+#Sprawdza: status 200 obecność API_KEY i API_URL poprawny URL OpenWeather 
 def test_get_config_endpoint(client):
     response = client.get("/weather/api/config")
 
@@ -14,6 +15,9 @@ def test_get_config_endpoint(client):
 
 
 @patch("serwis_info.modules.weather.routes.weather_routes.requests.get")
+
+#Sprawdza: strukturę JSON typy danych zaokrąglenie temperatury 
+
 def test_simple_weather_endpoint(mock_get, client):
     """
     Test /api/simple_weather z mockiem OpenWeather
@@ -35,7 +39,7 @@ def test_simple_weather_endpoint(mock_get, client):
     assert isinstance(data["desc"], str)
     assert isinstance(data["icon"], str)
 
-
+#Mock danych forecast Sprawdza: agregację do dni strukturę odpowiedzi (date, temp, wind itd.) 
 @patch("serwis_info.modules.weather.routes.weather_routes.requests.get")
 def test_weather_forecast_endpoint(mock_get, client):
     """

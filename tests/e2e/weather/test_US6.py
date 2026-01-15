@@ -1,3 +1,4 @@
+
 import pytest
 
 @pytest.mark.e2e
@@ -8,7 +9,7 @@ def test_restore_last_cities(page, e2e_server):
     page.fill("#cityInput", "Poznań")
     page.click("#searchBtn")
     page.wait_for_timeout(1200)
-
+#testuje Zapamiętywanie stanu aplikacji 
     # 2️⃣ odświeżenie strony
     page.reload()
     page.wait_for_timeout(1500)

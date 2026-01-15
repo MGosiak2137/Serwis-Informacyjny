@@ -10,3 +10,6 @@ def fetch_history(username):
 
 def clear_user_history(username):
     clear_history(username)
+#Logika pośrednicząca między repozytorium DB a API. 
+
+#Oddziela backendowy dostęp do DB od logiki routes. 

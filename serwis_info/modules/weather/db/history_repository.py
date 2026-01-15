@@ -15,3 +15,5 @@ def get_history(username):
 def clear_history(username):
     c.execute("DELETE FROM history WHERE username=?", (username,))
     conn.commit()
+
+#Repozytorium do obsługi historii wyszukiwań w bazie. Warstwa czysto DB, używana przez services/history_service.py. 

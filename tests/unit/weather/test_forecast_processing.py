@@ -1,6 +1,6 @@
 import pytest
 from collections import Counter
-
+#Algorytm agregacji forecast: średnie temperatury,średni wiatr , dominująca ikona ,dominujący opis 
 def test_forecast_aggregation():
     # przygotowujemy przykładowe dane z API
     data_list = [

@@ -1,3 +1,6 @@
+#testuje Czy /weather/dashboard: 
+#renderuje HTML zawiera kluczowe elementy UI 
+
 def test_weather_dashboard_render(client):
     """
     Sprawdza czy dashboard pogodowy się renderuje

@@ -11,3 +11,6 @@ export function initUserDisplay() {
   if (!username) return; // jeśli nie ma ciasteczka, nie wyświetlaj lub ukryj
   document.getElementById("usernameDisplay").innerText = username;
 }
+//Obsługa ciasteczek do pobrania username. 
+
+//Funkcja initUserDisplay() wyświetla nazwę użytkownika. 

@@ -8,3 +8,8 @@ def test_map_tile_url_generation():
 
     assert "temp_new" in url
     assert api_key in url
+#Budowanie URL warstw mapy. Sprawdza: 
+
+#poprawny layer (temp_new) 
+
+#obecność API key 

@@ -2,7 +2,9 @@ import { API_KEY, API_URL } from "./config.js";
 import { loadHistory } from "./history.js";
 import { username } from "./user.js";
 
+//Panel boczny z historią wyszukiwań. 
 
+//Toggle panelu, toggle historii, clear history. 
 export function initPanel() {
     document.getElementById("togglePanelBtn").addEventListener("click", () => {
         document.getElementById("panelContent").classList.toggle("hidden");
@@ -27,6 +29,8 @@ export function initPanel() {
     }
 });
 
+
+//Komunikuje się z backendem API (/api/history). 
     document.getElementById("clearHistoryBtn").addEventListener("click", async () => {
        
         if (confirm("Na pewno chcesz usunąć historię?")) {

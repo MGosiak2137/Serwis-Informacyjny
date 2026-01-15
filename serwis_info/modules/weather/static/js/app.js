@@ -12,3 +12,4 @@ initLayerSelector();
 initSearch();
 initPanel();
 autoLoadLastCities();
+//punkt startowy modułu

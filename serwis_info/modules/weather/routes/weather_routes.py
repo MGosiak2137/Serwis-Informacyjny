@@ -1,3 +1,5 @@
+#Backendowy dostęp do pogody i prognozy w dashboardzie. Frontend pobiera te dane przez JS.
+
 from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
 import requests
@@ -8,12 +10,13 @@ weather_api_bp = Blueprint("weather_api", __name__)
 
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
-
+#Współpracuje z history_service.py.
 @weather_api_bp.route("/dashboard")
 @login_required
 def dashboard_page():
     return render_template("dashboard.html")
 
+#zwraca konfigurację API OpenWeather (klucz i URL bazowy). 
 @weather_api_bp.route("/api/config")
 def get_config():
     """Endpoint zwracający konfigurację (API_KEY)"""
@@ -22,6 +25,7 @@ def get_config():
         "API_URL": "https://api.openweathermap.org/data/2.5/weather?q="
     })
 
+#zwraca aktualną pogodę w Warszawie (temp, opis, ikona). 
 @weather_api_bp.route("/api/simple_weather")
 def simple_weather():
     url = f"https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&lang=pl&appid={API_KEY}"
@@ -32,6 +36,8 @@ def simple_weather():
         "icon": data["weather"][0]["icon"]
     })
 
+
+#zwraca prognozę 3-dniową dla Warszawy: 
 @weather_api_bp.route("/api/forecast")
 def weather_forecast():
     url = f"https://api.openweathermap.org/data/2.5/forecast?q=Warsaw&units=metric&lang=pl&appid={API_KEY}"

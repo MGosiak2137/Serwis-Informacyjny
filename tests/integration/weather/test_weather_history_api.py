@@ -1,3 +1,4 @@
+#Nowy użytkownik → pusta historia 
 def test_history_empty(client):
     """
     Historia dla nowego użytkownika
@@ -9,7 +10,7 @@ def test_history_empty(client):
 
     assert isinstance(data, list)
 
-
+#POST historii Sprawdza status "ok" 
 def test_add_history_entry(client):
     response = client.post(
         "/weather/api/history/test_user",
@@ -19,7 +20,7 @@ def test_add_history_entry(client):
     assert response.status_code == 200
     assert response.get_json()["status"] == "ok"
 
-
+#czy Historia zawiera: city timestamp 
 def test_get_history_after_add(client):
     response = client.get("/weather/api/history/test_user")
     data = response.get_json()
@@ -28,7 +29,7 @@ def test_get_history_after_add(client):
     assert "city" in data[0]
     assert "timestamp" in data[0]
 
-
+#czy usuwa
 def test_clear_history(client):
     response = client.delete("/weather/api/history/test_user")
 
