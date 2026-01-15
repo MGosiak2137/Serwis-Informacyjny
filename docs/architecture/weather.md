@@ -233,7 +233,7 @@ alerts.js pobiera prognozę i generuje ostrzeżenia → wyświetlane w panelu bo
 
 ## 9. Diagramy modułu (wymagane)
 
-### 9.1 Diagram sekwencji (dla 1 user story)
+### 9.1 Diagram sekwencji
 
 **Opcja: Mermaid**
 
@@ -257,7 +257,11 @@ sequenceDiagram
 
 
   ```
+Ten diagram pokazuje jak działa mapa pogodowa, gdy użytkownik:
 
+zaznacza / odznacza warstwy pogodowe
+
+ogląda temperaturę, opady, wiatr itp. na mapie
 ### 9.2 Diagram komponentów modułu (opcjonalnie)
 
 
