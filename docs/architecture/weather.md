@@ -240,16 +240,21 @@ alerts.js pobiera prognozę i generuje ostrzeżenia → wyświetlane w panelu bo
 ```mermaid
 sequenceDiagram
   participant U as User/Browser
-  participant F as Flask
-  participant DB as Database
-  participant API as OpenWeatherMap
+  participant JS as Frontend JS
+  participant L as Leaflet
+  participant OSM as OpenStreetMap
+  participant OWM as OpenWeatherMap Tiles
 
-  U->>F: POST /api/history/<username> + city
-  F->>API: GET /weather?q=city
-  API-->>F: JSON z pogodą
-  F->>DB: INSERT INTO history (username, city, timestamp)
-  DB-->>F: potwierdzenie zapisu
-  F-->>U: JSON z pogodą, ostrzeżeniami i AQI
+  U->>JS: Zaznacza checkbox (np. Temperatura)
+  JS->>L: updateLayers()
+  L->>L: usuń stare warstwy
+  JS->>OWM: Pobierz tiles pogodowe (temp/rain/wind)
+  JS->>OSM: Pobierz mapę bazową
+  OWM-->>JS: kafelki pogodowe (x,y,z)
+  OSM-->>JS: kafelki mapy
+  JS->>L: addLayer()
+  L-->>U: Wyświetlenie mapy + legenda
+
 
   ```
 
