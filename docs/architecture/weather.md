@@ -16,8 +16,6 @@ Moduł pogodowy odpowiada za pobieranie, prezentowanie i archiwizowanie informac
 
 ## 2. Zakres funkcjonalny (powiązanie z User Stories)
 
-**TU UZUPEŁNIĆ:** wstaw listę User Stories (ID z Jiry + krótki opis).
-
 - **US2** Jako użytkownik zalogowany chcę zobaczyć informacje dla wybranej przeze mnie lokalizacji dotyczące temperatury, ciśnienia, opadów, wiatru, wilgotności powietrza, jakości powietrza
 - **US1** Jako użytkownik niezalogowany chcę zobaczyć pogodę dla Warszawy / mojej domyślnej lokalizacji. 
 - **US3** Jako użytkownik chcę zobaczyć graficzną prezentację informacji pogodowych na mapie dla lokalizacji.
@@ -257,7 +255,7 @@ sequenceDiagram
 
 ### 9.2 Diagram komponentów modułu (opcjonalnie)
 
-**TU UZUPEŁNIĆ:** moduł, serwisy, modele, zależności.
+
 
 ---
 
@@ -266,7 +264,7 @@ sequenceDiagram
 Szczegóły: [`doc/testing.md`](../testing.md)
 
 ### 10.1 Unit tests (pytest)
-**TU UZUPEŁNIĆ:** 
+
 Testy jednostkowe koncentrują się na logice biznesowej modułu oraz funkcjach pomocniczych, niezależnych od frameworka Flask i zewnętrznych API.
 
 Zakres testów jednostkowych:
@@ -286,7 +284,7 @@ tests/unit/weather/test_history_service.py
 tests/unit/weather/test_weather_utils.py
 
 ### 10.2 Integration tests (HTML/API)
-**TU UZUPEŁNIĆ:** 
+
 Testy integracyjne sprawdzają poprawne działanie endpointów Flask oraz ich integrację z:
 warstwą routingu,
 serwisami,
