@@ -96,7 +96,7 @@ Wspólne biblioteki i narzędzia używane w całej aplikacji:
 
 ## 5. Komponenty i zależności
 
-### 5.1 Diagram architektury (wymagany)
+### 5.1 Diagram architektury
 
 Diagram przedstawiający elementy systemu: UI → Flask → DB → API zewnętrzne.
 
@@ -164,21 +164,6 @@ Opis dotyczy ogólnego przepływu danych w aplikacji, niezależnie od konkretneg
 
 ## 7. Model danych (część wspólna)
 
-### Cel sekcji
-
-Celem tej sekcji jest opisanie **wspólnego modelu danych aplikacji**, czyli encji
-i relacji, które mają charakter **przekrojowy** i nie są przypisane wyłącznie
-do jednego modułu systemu.
-
-> **Ważne:**  
-> W tej sekcji **nie opisujemy danych stricte modułowych**  
-> (np. danych pogodowych, ekonomicznych, wiadomości itp.).  
-> Dane specyficzne dla poszczególnych modułów należy opisać
-> w dokumentacji architektury odpowiednich modułów:
-> `docs/architecture/<module>.md`.
-
----
-
 ### 7.1 Zakres modelu danych wspólnego
 
 Wspólny model danych obejmuje **encje bazodanowe**, które spełniają
@@ -190,20 +175,10 @@ co najmniej jedno z poniższych kryteriów:
 - realizują **funkcje przekrojowe** (cross-cutting concerns),
   takie jak bezpieczeństwo, audyt czy monitorowanie.
 
-Encje, które są używane **wyłącznie w jednym module**,
-powinny być opisane w dokumentacji architektury tego modułu.
 
 ---
 
 ### 7.2 Encje wspólne i ich odpowiedzialność
-
-W tej podsekcji należy opisać **encje wspólne aplikacji**.
-
-Dla każdej encji należy podać:
-- nazwę encji (tabeli),
-- krótką charakterystykę jej roli w systemie,
-- najważniejsze atrybuty (bez opisywania wszystkich pól),
-- relacje z innymi encjami wspólnymi lub modułami.
 
 
 #### Encja: User

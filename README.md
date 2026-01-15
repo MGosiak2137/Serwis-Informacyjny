@@ -2,7 +2,7 @@
 
 **Serwis Informacyjny** to aplikacja webowa (Flask) służąca jako strona informacji z różnych dziedzin: pogody, ekonomii, wiadomości oraz kalendarza. Aplikacja umożliwia użytkownikom dostęp do aktualnych informacji w jednym miejscu.
 
-## Opis (1–3 zdania)
+## Opis 
 
 Aplikacja jest przeznaczona dla użytkowników chcących mieć dostęp do aktualnych informacji w jednym miejscu. Rozwiązuje problem rozproszenia informacji z wielu źródeł, oferując kompleksowy serwis informacyjny zawierający dane pogodowe, kursy walut, wiadomości oraz funkcjonalności kalendarzowe. Aplikacja wymaga rejestracji i logowania, aby zapewnić personalizację doświadczenia użytkownika.
 
@@ -100,7 +100,7 @@ Moduł ekonomiczny oferuje kompleksowe narzędzia do śledzenia danych finansowy
 ![Wiadomości](docs/assets/screenshots/news.png)
 
 Moduł wiadomości agreguje najnowsze informacje z różnych kategorii. Prezentuje wiadomości sportowe z Polski (Ekstraklasa, reprezentacja, żużel) oraz wiadomości kryminalne z Krakowa (napady, zatrzymania, komunikaty policji). Użytkownicy mogą przeglądać listy artykułów, czytać szczegóły oraz korzystać z wyszukiwarki. Dla zalogowanych użytkowników dostępne są zakładki (bookmarks) oraz historia przeglądania artykułów. Wiadomości są wyświetlane również w formie karuzeli na stronie głównej aplikacji.
----
+
 
 ## Technologie
 

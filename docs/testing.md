@@ -98,52 +98,22 @@ pytest tests/e2e
 
 **Status (zalecane oznaczenia):** ⬜ – nie wykonano, ✅ – zaliczony, ❌ – błąd
 
----
+### 4.1 Moduły: Logowanie, Strona główna, Horoskop
 
-### 4.1 Moduł: Logowanie (Authentication)
+| ID     | Typ testu   | Co testujemy                          | Scenariusz / funkcja                                                                                  | Status |
+| ------ | ----------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ |
+| UT-01  | Unit        | Hashowanie hasła                      | Weryfikacja bezpieczeństwa haseł (`test_user_unit.py`)                                                | ✅      |
+| IT-01  | Integration | Endpoint HTML strony głównej          | GET / - Strona główna serwisu (`test_main_endpoints.py`)                                              | ✅      |
+| IT-02  | Integration | Endpoint API kalendarza               | GET /main/api/calendar - Struktura danych i zawartość (`test_calendar_api.py`)                       | ✅      |
+| IT-03  | Integration | Endpoint HTML horoskopu               | GET /calendar/horoscope - Widok horoskopu (wymaga logowania) (`test_horoscope_endpoints.py`)         | ✅      |
+| IT-04  | Integration | Endpoint API horoskopu                | GET /calendar/api/horoscope - Lista znaków i API (`test_horoscope_endpoints.py`)                      | ✅      |
+| E2E-01 | E2E         | US-AUTH-001: Logowanie               | Strona logowania, formularz i walidacja danych (`test_login.py`)                                     | ✅      |
+| E2E-02 | E2E         | US-HOME-001: Strona główna            | Ładowanie strony, navbar, karty modułów, stopka (`test_homepage.py`)                                 | ✅      |
+| E2E-03 | E2E         | US-HOME-001: Ładowanie modułów        | Załadowanie wszystkich modułów na stronie głównej (`test_load_modules.py`)                            | ✅      |
+| E2E-04 | E2E         | US-HOME-002: Dane kalendarzowe        | Wyświetlanie aktualnej daty, imienin, świąt (`test_weather.py`)                                      | ✅      |
+| E2E-05 | E2E         | US-CAL-001: Horoskop                  | Wymaga logowania, widoczne znaki zodiaku, pobieranie horoskopów (`test_horoscope.py`)                | ✅      |
 
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                     | Status     |
-|--------|--------------|--------------------------------|------------------------------------------|------------|
-| UT-01  | Unit         | Hashowanie hasła               | User.set_password()                      |  ✅Passed  |
-| UT-02  | Unit         | Poprawna weryfikacja hasła     | User.check_password()                    |  ✅Passed  |
-| UT-03  | Unit         | Błędna weryfikacja hasła       | User.check_password()                    |  ✅Passed  |
-| UT-04  | Unit         | Obsługa pustego hasła          | User.check_password("")                  |  ✅Passed  |
-| IT-01  | Integration  | Strona główna serwisu          | GET/                                     |  ✅Passed |
-| E2E-01 | E2E          | US-AUTH-001: Logowanie         | Strona logowania się ładuje              |  ✅Passed  |
-| E2E-02 | E2E          | US-AUTH-001: Logowanie         | Formularz logowania ma wszystkie pola    |  ✅Passed  |
-| E2E-03 | E2E          | US-AUTH-001: Logowanie         | Logowanie z niepoprawnymi danymi         |  ✅Passed  |
-| E2E-04 | E2E          | US-AUTH-001: Logowanie         | Logowanie z poprawnymi danymi            |  ✅Passed  |
-
----
-
-### 4.2 Moduł: Strona główna (Home)
-
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| IT-01  | Integration  | Endpoint HTML strony głównej  | GET /main/                                |  ✅Passed   |
-| IT-02  | Integration  | Endpoint API kalendarza        | GET /main/api/calendar                    |  ✅Passed   |
-| IT-03  | Integration  | Struktura danych kalendarza    | GET /main/api/calendar (struktura JSON)   |  ✅Passed   |
-| E2E-01 | E2E          | US-HOME-001: Strona główna     | Strona główna się ładuje                 |  ✅Passed   |
-| E2E-02 | E2E          | US-HOME-001: Strona główna     | Navbar jest widoczny                     |  ✅Passed   |
-| E2E-03 | E2E          | US-HOME-001: Strona główna     | Karty modułów są widoczne (4 karty)      |  ✅Passed   |
-| E2E-04 | E2E          | US-HOME-001: Strona główna     | Stopka jest widoczna                     |  ✅Passed   |
-
----
-
-### 4.3 Moduł: Kalendarz / Horoskop (Calendar)
-
-| ID     | Typ testu    | Co testujemy                   | Scenariusz / funkcja                      | Status     |
-|--------|--------------|--------------------------------|-------------------------------------------|------------|
-| IT-01  | Integration  | Endpoint HTML horoskopu        | GET /calendar/horoscope                  |  ✅Passed   |
-| IT-02  | Integration  | Endpoint API horoskopu          | GET /calendar/api/horoscope/<sign>       |  ✅Passed   |
-| IT-03  | Integration  | Lista znaków zodiaku (API)      | GET /calendar/api/horoscope              |  ✅Passed   |
-| E2E-01 | E2E          | US-CAL-001: Horoskop           | Strona horoskopu wymaga logowania        |  ✅Passed   |
-| E2E-02 | E2E          | US-CAL-001: Horoskop           | Strona horoskopu ładuje się po zalogowaniu |  ✅Passed   |
-| E2E-03 | E2E          | US-CAL-001: Horoskop           | Znaki zodiaku są widoczne                |  ✅Passed   |
-
----
-
-### 4.4 Moduł: Pogoda (Weather)
+### 4.2 Moduł: Pogoda (Weather)
 
 | ID     | Typ testu   | Co testujemy                              | Scenariusz / funkcja                                                                                  | Status |
 | ------ | ----------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ |
@@ -166,7 +136,7 @@ pytest tests/e2e
 
 ---
 
-### 4.5 Moduł: Ekonomia (Economy)
+### 4.3 Moduł: Ekonomia (Economy)
 
 | ID     | Typ testu    | Co testujemy                       | Scenariusz / funkcja                              | Status     |
 |--------|--------------|-----------------------------------|---------------------------------------------------|------------|
@@ -202,7 +172,7 @@ pytest tests/e2e
 
 ---
 
-### 4.6 Moduł: Wiadomości (News)
+### 4.4 Moduł: Wiadomości (News)
 
 | ID     | Typ testu   | Co testujemy                          | Scenariusz / funkcja                                                                                                                                         | Status |
 |--------|-------------|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|

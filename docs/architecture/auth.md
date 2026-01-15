@@ -1,8 +1,6 @@
 # Architektura modułu: Moduł Logowania (Authentication)
 
 > **Cel dokumentu:**  
-> Ten dokument odpowiada na pytanie: **„Jak ten konkretny moduł działa i na jakich danych operuje?”**  
->
 > Ten plik opisuje architekturę **modułu logowania**, który odpowiada za rejestrację, logowanie, wylogowanie oraz zarządzanie kontem użytkownika.
 
 ---
